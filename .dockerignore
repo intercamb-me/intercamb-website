@@ -1,0 +1,15 @@
+/.dockerignore
+/.eslintignore
+/.eslintrc
+/.git
+/.gitignore
+/client
+/docker-compose.yml
+/Dockerfile
+/intercambio-argentina.log
+/newrelic_agent.log
+/node_modules
+/npm-debug.log
+/server/config.yml
+/tslint.json
+/tsconfig.json

@@ -1,0 +1,66 @@
+{
+  "rules": {
+    "align": [true, "elements", "members", "parameters", "statements"],
+    "interface-name" : [true, "never-prefix"],
+    "max-line-length": {"options": {"limit": 999}},
+    "no-console": false,
+    "no-inferrable-types": true,
+    "object-curly-spacing": [true, "never"],
+    "object-literal-sort-keys": false,
+    "ordered-imports": false,
+    "space-before-function-paren": false,
+    "trailing-comma": [true, {
+      "singleline": "never",
+      "multiline": {
+        "objects": "always",
+        "arrays": "always",
+        "functions": "never",
+        "typeLiterals": "ignore"
+      }
+    }],
+    "typedef": [true, "call-signature", "parameter"],
+    "variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore"],
+    // Angular rules
+    "angular-whitespace": [true, "check-interpolation", "check-semicolon"],
+    "banana-in-box": true,
+    "component-class-suffix": true,
+    "component-selector": [true, "element", "app", "kebab-case"],
+    "contextual-life-cycle": true,
+    "directive-class-suffix": true,
+    "directive-selector": [true, "attribute", "app", "camelCase"],
+    "i18n": false,
+    "no-attribute-parameter-decorator": true,
+    "no-forward-ref": true,
+    "no-input-rename": true,
+    "no-output-named-after-standard-event": true,
+    "no-output-on-prefix": true,
+    "no-output-rename": true,
+    "no-unused-css": true,
+    "pipe-impure": true,
+    "template-conditional-complexity": false,
+    "template-cyclomatic-complexity": false,
+    "templates-no-negated-async": true,
+    "trackBy-function": true,
+    "use-host-property-decorator": true,
+    "use-input-property-decorator": true,
+    "use-life-cycle-interface": true,
+    "use-output-property-decorator": true,
+    "use-pipe-transform-interface": true,
+    "use-view-encapsulation": true,
+    // Rxjs rules
+    "rxjs-collapse-imports": true,
+    "rxjs-no-static-observable-methods": true,
+    "rxjs-pipeable-operators-only": true,
+    "rxjs-proper-imports": true
+  },
+  "rulesDirectory": [
+    "./node_modules/codelyzer",
+    "./node_modules/rxjs-tslint"
+  ],
+  "extends": [
+    "tslint:recommended",
+    "tslint-eslint-rules",
+    "tslint-config-airbnb",
+    "tslint-angular"
+  ]
+}

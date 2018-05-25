@@ -1,0 +1,9 @@
+<div class="alerts">
+  <ngb-alert *ngFor="let alert of alerts; trackBy: trackByAlert" type="custom" [dismissible]="false">
+    <div class="card text-white bg-{{ alert.type }}">
+      <div class="card-body">
+        <p class="card-text">{{ alert.message }}</p>
+      </div>
+    </div>
+  </ngb-alert>
+</div>

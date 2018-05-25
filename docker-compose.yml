@@ -1,0 +1,9 @@
+version: "3.4"
+services:
+  intercambio-argentina:
+    image: "intercambio-argentina:latest"
+    container_name: "intercambio-argentina"
+    hostname: "intercambio-argentina"
+    network_mode: "host"
+    volumes:
+      - "./server/config.yml:/usr/src/intercambio-argentina/server/config.yml"

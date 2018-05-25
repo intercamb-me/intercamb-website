@@ -1,0 +1,10 @@
+{
+  "apps": [
+    {
+      "name": "Intercâmbio Argentina",
+      "script": "server/app.js",
+      "exec_mode": "cluster",
+      "instances": 0
+    }
+  ]
+}
