@@ -1,13 +1,14 @@
 {
-  "name": "intercambio-argentina",
-  "description": "Intercâmbio Argentina",
+  "name": "intercambio",
+  "description": "Intercambio Website",
   "version": "0.0.0",
   "private": true,
   "author": {
-    "name": "Sandro Simas",
-    "email": "sandro.csimas@gmail.com"
+    "name": "Intercambio team",
+    "email": "team@intercambio.io",
+    "url": "https://intercambio.io"
   },
-  "homepage": "https://intercambioargentina.com.br",
+  "homepage": "https://intercambio.io",
   "sideEffects": false,
   "scripts": {
     "lint": "eslint '**/*.js' && tslint 'client/src/**/*.ts'",

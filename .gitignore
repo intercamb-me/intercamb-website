@@ -1,7 +1,6 @@
+/intercambio-website.log
 /client/config.yml
 /dist
-/intercambio-argentina.log
-/newrelic_agent.log
 /node_modules
 /npm-debug.log
 /server/config.yml

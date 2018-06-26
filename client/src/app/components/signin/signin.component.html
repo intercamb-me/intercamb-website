@@ -1,0 +1,46 @@
+<div id="signin">
+  <div class="container">
+    <div *ngIf="!loading" class="row py-5">
+      <div class="col-12">
+        <div class="row justify-content-center">
+          <div class="col-md-8 col-lg-6">
+            <div class="card">
+              <div class="card-body px-5 py-5">
+                <form #form="ngForm" (ngSubmit)="signIn()" novalidate>
+                  <h2 class="mb-4 text-center">Entre com sua conta</h2>
+                  <div class="form-group">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text form-control">
+                          <i class="fas fa-envelope"></i>
+                        </span>
+                      </div>
+                      <input [(ngModel)]="email" id="email" class="form-control py-2" name="email" type="email" placeholder="Email" email required>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text form-control">
+                          <i class="fas fa-key"></i>
+                        </span>
+                      </div>
+                      <input [(ngModel)]="password" type="password" id="password" class="form-control py-2" name="password" placeholder="Senha" minlength="4" required>
+                    </div>
+                  </div>
+                  <button [disabled]="form.invalid" type="submit" class="btn btn-primary btn-lg btn-block mt-4">Entrar</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="note row mt-4">
+          <div class="col-12 text-white text-center">
+            Ainda não tem uma conta? <a [routerLink]="['/signup']" class="text-white">Junte-se a nós</a>.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-alerts></app-alerts>

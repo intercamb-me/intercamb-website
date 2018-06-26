@@ -1,17 +1,29 @@
 import {Routes} from '@angular/router';
 
-import {MainComponent} from 'app/components/main/main.component';
-import {NotFoundComponent} from 'app/components/main/not-found/not-found.component';
-import {HomeComponent} from 'app/components/main/home/home.component';
+import {NotFoundComponent} from 'app/components/not-found/not-found.component';
+import {SignUpComponent} from 'app/components/signup/signup.component';
+import {SignInComponent} from 'app/components/signin/signin.component';
+import {RegisterCompanyComponent} from 'app/components/register-company/register-company.component';
+import {CompanyComponent} from 'app/components/company/company.component';
+import {ClientsComponent} from 'app/components/company/clients/clients.component';
+import {RegisterClientComponent} from 'app/components/company/register-client/register-client.component';
+import {SchedulingComponent} from 'app/components/company/scheduling/scheduling.component';
+import {SettingsComponent} from 'app/components/company/settings/settings.component';
 
 export class AppRoutes {
 
   public static listRoutes(): Routes {
     return [
-      {path: '', component: MainComponent, children: [
-        {path: '', component: HomeComponent},
-        {path: '**', component: NotFoundComponent},
+      {path: 'signup', component: SignUpComponent},
+      {path: 'signin', component: SignInComponent},
+      {path: 'company/register', component: RegisterCompanyComponent},
+      {path: 'company', component: CompanyComponent, children: [
+        {path: 'clients', component: ClientsComponent},
+        {path: 'client/register', component: RegisterClientComponent},
+        {path: 'scheduling', component: SchedulingComponent},
+        {path: 'settings', component: SettingsComponent},
       ]},
+      {path: '**', component: NotFoundComponent},
     ];
   }
 }

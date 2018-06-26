@@ -1,0 +1,32 @@
+<div id="home">
+  <div class="menu">
+    <div class="menu-left">
+      <div class="menu-left-top">
+        <img class="company-logo" [src]="company.logo_url">
+      </div>
+      <div class="menu-left-bottom">
+        <img class="account-icon" [src]="account.icon_url">
+      </div>
+    </div>
+    <div class="menu-right">
+      <h1 class="company-name">{{ company.name }}</h1>
+      <div class="items">
+        <a [routerLink]="['/company', 'clients']" class="item">
+          <span class="icon"><i class="fas fa-users"></i></span>
+          <span class="text">Clientes</span>
+        </a>
+        <a [routerLink]="['/company', 'scheduling']" class="item">
+          <span class="icon"><i class="fas fa-calendar-alt"></i></span>
+          <span class="text">Agendamentos</span>
+        </a>
+        <a [routerLink]="['/company', 'settings']" class="item">
+          <span class="icon"><i class="fas fa-cog"></i></span>
+          <span class="text">Configurações</span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

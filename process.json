@@ -1,7 +1,7 @@
 {
   "apps": [
     {
-      "name": "Intercâmbio Argentina",
+      "name": "Intercâmbio Website",
       "script": "server/app.js",
       "exec_mode": "cluster",
       "instances": 0

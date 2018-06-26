@@ -4,6 +4,7 @@
     "object-curly-newline": ["off"],
     "object-curly-spacing": ["error", "never"],
     "max-len": ["error", {"code": 999, "tabWidth": 2}],
+    "no-lonely-if": ["off"],
     "no-param-reassign": ["error", {"props": false}],
     "no-underscore-dangle": ["off"],
   },
@@ -16,5 +17,15 @@
   "extends": [
     "eslint:recommended",
     "airbnb-base"
-  ]
+  ],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "moduleDirectory": [
+          "node_modules",
+          "."
+        ]
+      }
+    }
+  }
 }
