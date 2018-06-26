@@ -3,10 +3,10 @@
 /.eslintrc
 /.git
 /.gitignore
-/ayro-website.log
 /client
 /docker-compose.yml
 /Dockerfile
+/intercambio-website.log
 /newrelic_agent.log
 /node_modules
 /npm-debug.log
