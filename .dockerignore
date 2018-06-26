@@ -7,7 +7,6 @@
 /docker-compose.yml
 /Dockerfile
 /intercambio-website.log
-/newrelic_agent.log
 /node_modules
 /npm-debug.log
 /server/config.yml
