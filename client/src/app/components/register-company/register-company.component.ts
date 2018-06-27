@@ -32,6 +32,8 @@ export class RegisterCompanyComponent implements OnInit {
         return;
       }
       this.loading = false;
+    }, (err) => {
+      this.alertService.apiError(null, err);
     });
   }
 

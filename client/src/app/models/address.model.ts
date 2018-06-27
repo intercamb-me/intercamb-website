@@ -12,13 +12,13 @@ export class Address {
 
   constructor(data?: any) {
     if (data) {
-      this.public_place = data.this.public_place;
-      this.number = data.this.number;
-      this.complement = data.this.complement;
-      this.neighborhood = data.this.neighborhood;
-      this.city = data.this.city;
-      this.state = data.this.state;
-      this.zip_code = data.this.zip_code;
+      this.public_place = data.public_place;
+      this.number = data.number;
+      this.complement = data.complement;
+      this.neighborhood = data.neighborhood;
+      this.city = data.city;
+      this.state = data.state;
+      this.zip_code = data.zip_code;
     }
   }
 }

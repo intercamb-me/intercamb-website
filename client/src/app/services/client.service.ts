@@ -25,4 +25,32 @@ export class ClientService {
       })
     );
   }
+
+  public listClients(): Observable<Client[]> {
+    return this.http.get<Client[]>(RequestUtils.getApiUrl('/clients'), RequestUtils.getJsonOptions()).pipe(
+      map((data: any[]) => {
+        const clients: Client[] = [];
+        data.forEach((client: any) => {
+          clients.push(new Client(client));
+        });
+        return clients;
+      }),
+      catchError((err: HttpErrorResponse) => {
+        const apiError = ApiError.withResponse(err);
+        this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
+        return throwError(apiError);
+      })
+    );
+  }
+
+  public getClient(id: string): Observable<Client> {
+    return this.http.get<Client>(RequestUtils.getApiUrl(`/clients/${id}`), RequestUtils.getJsonOptions()).pipe(
+      map((client: Client) => new Client(client)),
+      catchError((err: HttpErrorResponse) => {
+        const apiError = ApiError.withResponse(err);
+        this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
+        return throwError(apiError);
+      })
+    );
+  }
 }

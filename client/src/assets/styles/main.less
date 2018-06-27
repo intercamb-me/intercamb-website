@@ -23,70 +23,6 @@
   }
 }
 
-// #home {
-//   .row();
-//   .mx-0();
-//   .my-0();
-//   min-height: 100%;
-//   > .menu {
-//     .col-3();
-//     .py-4();
-//     .text-white();
-//     background-color: @primary;
-//     > .company {
-//       .d-flex();
-//       .align-items-center();
-//       > .logo {
-//         .rounded-circle();
-//         width: 60px;
-//         height: 60px;
-//       }
-//       > .name {
-//         .mb-0();
-//         .ml-3();
-//         font-size: 30px;
-//       }
-//     }
-//     > hr {
-//       display: block;
-//       height: 1px;
-//       border: 0;
-//       border-top: 1px solid @white;
-//       margin: 2em 0;
-//       padding: 0;
-//     }
-//     > .items {
-//       > .item {
-//         .d-flex();
-//         .align-items-center();
-//         .px-3();
-//         .py-2();
-//         .text-white();
-//         border-radius: 6px;
-//         text-decoration: none;
-//         &:hover {
-//           background-color: #333;
-//         }
-//         > .icon {
-//           .mr-3();
-//           .text-center();
-//           width: 31px;
-//           font-size: 25px;
-//         }
-//         > .text {
-//           font-size: 16px;
-//         }
-//       }
-//     }
-//   }
-//   > .content {
-//     .col-9();
-//     .px-4();
-//     .py-4();
-//     background-color: @white;
-//   }
-// }
-
 #home {
   .row();
   .mx-0();
@@ -95,64 +31,58 @@
   > .menu {
     .col-3();
     .d-flex();
+    .flex-column();
     .py-4();
+    .text-center();
     .text-white();
     background-color: @primary;
-    > .menu-left {
-      .d-flex();
-      .flex-column();
-      > .menu-left-top {
-        .flex-grow-1();
-        .d-flex();
-        .justify-content-center();
-        > .company-logo {
-          .rounded-circle();
-          width: 50px;
-          height: 50px;
-          background-color: @white;
-        }
+    > .company {
+      > .logo {
+        .rounded-circle();
+        width: 100px;
+        height: 100px;
+        background-color: @white;
       }
-      > .menu-left-bottom {
-        .justify-content-center();
-        > .account-icon {
-          .rounded-circle();
-          width: 40px;
-          height: 40px;
-          background-color: @white;
-        }
-      }
-    }
-    > .menu-right {
-      .flex-grow-1();
-      .pl-4();
-      > .company-name {
-        .mt-1();
+      > .name {
+        .mt-3();
         .mb-0();
         font-size: 30px;
       }
-      > .items {
-        .mt-4();
-        > .item {
-          .d-flex();
-          .align-items-center();
-          .px-2();
-          .py-1();
-          .text-white();
-          border-radius: 4px;
-          text-decoration: none;
-          &:hover {
-            background-color: @primary-dark;
-          }
-          > .icon {
-            .mr-3();
-            .text-center();
-            width: 31px;
-            font-size: 22px;
-          }
-          > .text {
-            font-size: 14px;
-          }
+    }
+    > .items {
+      .mt-4();
+      > .item {
+        .d-flex();
+        .align-items-center();
+        .px-2();
+        .py-1();
+        .text-white();
+        border-radius: 4px;
+        text-decoration: none;
+        &:hover {
+          background-color: @primary-dark;
         }
+        > .icon {
+          .mr-3();
+          .text-center();
+          width: 31px;
+          font-size: 22px;
+        }
+        > .text {
+          font-size: 14px;
+        }
+      }
+    }
+    > .bottom {
+      .flex-grow-1();
+      .d-flex();
+      .align-items-end();
+      .px-1();
+      > .account-icon {
+        .rounded-circle();
+        width: 40px;
+        height: 40px;
+        background-color: @white;
       }
     }
   }
@@ -161,5 +91,45 @@
     .px-4();
     .py-4();
     background-color: @white;
+  }
+}
+
+#clients {
+  .client.card {
+    text-decoration: none;
+    color: inherit;
+    &:hover, &:link, &:visited {
+      text-decoration: none;
+      color: inherit;
+    }
+    > .card-body {
+      .d-flex();
+      > .photo {
+        .flex-shrink-0();
+        .rounded-circle();
+        width: 60px;
+        height: 60px;
+      }
+      > .info {
+        .flex-grow-1();
+        .ml-3();
+      }
+    }
+  }
+}
+
+#client {
+  .basic-info {
+    .d-flex();
+    > .photo {
+      .flex-shrink-0();
+      .rounded-circle();
+      width: 150;
+      height: 150;
+    }
+    > .info {
+      .flex-grow-1();
+      .ml-4();
+    }
   }
 }

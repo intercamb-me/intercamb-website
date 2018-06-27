@@ -14,7 +14,6 @@ export class SignInComponent implements OnInit {
 
   public email: string;
   public password: string;
-
   public loading = true;
 
   constructor(private accountService: AccountService, private alertService: AlertService, private eventService: EventService, private router: Router) {
@@ -28,10 +27,12 @@ export class SignInComponent implements OnInit {
         return;
       }
       if (account) {
-        this.router.navigate(['/company', 'register']);
+        this.router.navigate(['/companies', 'register']);
         return;
       }
       this.loading = false;
+    }, (err) => {
+      this.alertService.apiError(null, err);
     });
   }
 

@@ -1,15 +1,10 @@
 <div id="home">
   <div class="menu">
-    <div class="menu-left">
-      <div class="menu-left-top">
-        <img class="company-logo" [src]="company.logo_url">
+    <ng-container *ngIf="!loading">
+      <div class="company">
+        <img class="logo" [src]="company.logo_url">
+        <h1 class="name">{{ company.name }}</h1>
       </div>
-      <div class="menu-left-bottom">
-        <img class="account-icon" [src]="account.icon_url">
-      </div>
-    </div>
-    <div class="menu-right">
-      <h1 class="company-name">{{ company.name }}</h1>
       <div class="items">
         <a [routerLink]="['/company', 'clients']" class="item">
           <span class="icon"><i class="fas fa-users"></i></span>
@@ -24,9 +19,12 @@
           <span class="text">Configurações</span>
         </a>
       </div>
-    </div>
+      <div class="bottom">
+        <img class="account-icon" [src]="account.icon_url">
+      </div>
+    </ng-container>
   </div>
   <div class="content">
-    <router-outlet></router-outlet>
+    <router-outlet *ngIf="!loading"></router-outlet>
   </div>
 </div>

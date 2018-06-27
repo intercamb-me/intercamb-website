@@ -1,11 +1,42 @@
-<div class="d-flex align-items-center mb-4">
-  <div class="flex-grow-1">
-    <h1 class="mb-0">Clientes</h1>
+<div *ngIf="!loading" id="clients">
+  <div class="d-flex align-items-center mb-4">
+    <div class="flex-grow-1">
+      <h1 class="mb-0">Clientes</h1>
+    </div>
+    <div class="flex-grow-0">
+      <a [routerLink]="['/company', 'clients', 'register']" class="btn btn-primary btn-lg">Cadastrar cliente</a>
+    </div>
   </div>
-  <div class="flex-grow-0">
-    <a [routerLink]="['/company', 'client', 'register']" class="btn btn-primary btn-lg">Cadastrar cliente</a>
+  <div *ngIf="clients.length === 0" class="jumbotron">
+    <h3 class="text-center">Nenhum cliente cadastrado</h3>
   </div>
-</div>
-<div class="jumbotron">
-  <h3 class="text-center">Nenhum cliente cadastrado</h3>
+  <ng-container *ngIf="clients.length > 0" >
+    <div class="row mb-3">
+      <div class="col-6">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Busque pelo nome, email ou telefone.">
+          <div class="input-group-append">
+            <button class="btn btn-primary" type="button">Buscar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div *ngFor="let client of clients; trackBy: trackByClient" class="col-6 mb-3">
+        <a [routerLink]="['/company', 'clients', client.id]" class="client card">
+          <div class="card-body">
+            <img class="photo" [src]="client.photo_url">
+            <div class="info">
+              <h5>{{ client.forename }} {{ client.surname }}</h5>
+              <p class="mb-2 text-secondary">{{ client.email }}</p>
+              <p class="mb-0 text-secondary">{{ client.phone }}</p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center">
+      <button class="btn btn-info" type="button">Carregar mais</button>
+    </div>
+  </ng-container>
 </div>

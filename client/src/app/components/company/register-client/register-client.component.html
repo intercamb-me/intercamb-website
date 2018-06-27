@@ -1,367 +1,369 @@
-<form novalidate>
-  <div class="row">
-    <div class="col-12">
-      <h1 class="mb-0">Cadastro de cliente</h1>
-    </div>
-  </div>
-  <div class="row mt-4">
-    <div class="col-12">
-      <div class="card">
-        <div class="card-body">
-          <h2 class="mb-3">Informações básicas</h2>
-          <div class="row">
-            <div class="col">
-              <div class="form-group">
-                <label for="bi-name">Nome</label>
-                <input [(ngModel)]="data.forename" id="bi-forename" name="bi-forename" class="form-control" type="text">
-              </div>
-            </div>
-            <div class="col">
-              <div class="form-group">
-                <label for="bi-surname">Sobrenome</label>
-                <input [(ngModel)]="data.surname" id="bi-surname" name="bi-surname" class="form-control" type="text">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <div class="form-group">
-                <label for="bi-email">E-mail</label>
-                <input [(ngModel)]="data.email" id="bi-email" name="bi-email" class="form-control" type="email" email>
-              </div>
-            </div>
-            <div class="col">
-              <div class="form-group">
-                <label for="bi-phone">Telefone</label>
-                <input [(ngModel)]="data.phone" id="bi-phone" name="bi-phone" class="form-control" type="text">
-              </div>
-            </div>
-          </div>
-        </div>
+<div id="register-client">
+  <form #form="ngForm" (ngSubmit)="register()" novalidate>
+    <div class="row">
+      <div class="col-12">
+        <h1 class="mb-0">Cadastrar cliente</h1>
       </div>
     </div>
-  </div>
-  <div class="row mt-4">
-    <div class="col-12">
-      <div class="card">
-        <div class="card-body">
-          <h2 class="mb-3">Dados pessoais</h2>
-          <div class="row">
-            <div class="col">
-              <div class="form-group">
-                <label for="pd-nationality">Nacionalidade</label>
-                <input [(ngModel)]="data.personal_data.nationality" id="pd-nationality" name="pd-nationality" class="form-control" type="text">
+    <div class="row mt-4">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <h2 class="mb-3">Informações básicas</h2>
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="bi-forename">Nome</label>
+                  <input [(ngModel)]="data.forename" id="bi-forename" name="bi-forename" class="form-control" type="text" required>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="bi-surname">Sobrenome</label>
+                  <input [(ngModel)]="data.surname" id="bi-surname" name="bi-surname" class="form-control" type="text" required>
+                </div>
               </div>
             </div>
-            <div class="col">
-              <div class="form-group">
-                <label>Naturalidade</label>
-                <div class="row">
-                  <div class="col">
-                    <input [(ngModel)]="data.personal_data.place_of_birth.city" id="pd-pob-city" name="pd-pob-city" class="form-control" type="text" placeholder="Cidade">
-                  </div>
-                  <div class="col">
-                    <input [(ngModel)]="data.personal_data.place_of_birth.state" id="pd-pob-state" name="pd-pob-state" class="form-control" type="text" placeholder="Estado">
-                  </div>
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="bi-email">E-mail</label>
+                  <input [(ngModel)]="data.email" id="bi-email" name="bi-email" class="form-control" type="email" email required>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="bi-phone">Telefone</label>
+                  <input [(ngModel)]="data.phone" id="bi-phone" name="bi-phone" class="form-control" type="text" required>
                 </div>
               </div>
             </div>
           </div>
-          <div class="form-group">
-            <label>RG</label>
-            <div class="row">
-              <div class="col">
-                <input [(ngModel)]="data.personal_data.identity_card.number" id="pd-rg-number" name="pd-rg-number" class="form-control" type="text" placeholder="Número">
-              </div>
-              <div class="col">
-                <input [(ngModel)]="data.personal_data.identity_card.issuing_authority" id="pd-rg-issuing-authority" name="pd-rg-issuing-authority" class="form-control" type="text" placeholder="Órgão emissor">
-              </div>
-              <div class="col">
-                <input [(ngModel)]="data.personal_data.identity_card.state" id="pd-rg-state" name="pd-rg-state" class="form-control" type="text" placeholder="Estado">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <div class="form-group">
-                <label for="pd-cpf">CPF</label>
-                <input [(ngModel)]="data.personal_data.cpf_number" id="pd-cpf" name="pd-cpf" class="form-control" type="text">
-              </div>
-            </div>
-            <div class="col">
-              <div class="form-group">
-                <label for="pd-passport">Passaporte</label>
-                <input [(ngModel)]="data.personal_data.passport_number" id="pd-passport" name="pd-passport" class="form-control" type="text">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <div class="form-group">
-                <label for="pd-birthdate">Data de nascimento</label>
-                <input [(ngModel)]="data.personal_data.birthdate" id="pd-birthdate" name="pd-birthdate" class="form-control" type="text">
-              </div>
-            </div>
-            <div class="col">
-              <div class="form-group">
-                <label for="pd-gender">Sexo</label>
-                <input [(ngModel)]="data.personal_data.gender" id="pd-gender" name="pd-gender" class="form-control" type="text">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <div class="form-group">
-                <label for="pd-civil-status">Estado Civil</label>
-                <input [(ngModel)]="data.personal_data.civil_status" id="pd-civil-status" name="pd-civil-status" class="form-control" type="text">
-              </div>
-            </div>
-            <div class="col">
-              <div class="form-group">
-                <label for="pd-number-of-children">Quantidade de filhos</label>
-                <input [(ngModel)]="data.personal_data.number_of_children" id="pd-number-of-children" name="pd-number-of-children" class="form-control" type="text">
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="row mt-4">
-    <div class="col-12">
-      <div class="card">
-        <div class="card-body">
-          <div class="d-flex align-items-center">
-            <div class="flex-grow-1">
-              <h2 class="mb-3">Endereço</h2>
-            </div>
-            <div class="flex-grow-0">
-              <button class="btn btn-info">Buscar pelo CEP</button>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <div class="form-group">
-                <label for="addr-public-place">Logradouro</label>
-                <input [(ngModel)]="data.address.public_place" id="addr-public-place" name="addr-public-place" class="form-control" type="text">
+    <div class="row mt-4">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <h2 class="mb-3">Dados pessoais</h2>
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="pd-nationality">Nacionalidade</label>
+                  <input [(ngModel)]="data.personal_data.nationality" id="pd-nationality" name="pd-nationality" class="form-control" type="text">
+                </div>
               </div>
-            </div>
-            <div class="col">
-              <div class="form-group">
-                <label for="addr-number">Número</label>
-                <input [(ngModel)]="data.address.number" id="addr-number" name="addr-number" class="form-control" type="text">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <div class="form-group">
-                <label for="addr-complement">Complemento</label>
-                <input [(ngModel)]="data.address.complement" id="addr-complement" name="addr-complement" class="form-control" type="text">
-              </div>
-            </div>
-            <div class="col">
-              <div class="form-group">
-                <label for="addr-neighborhood">Bairro</label>
-                <input [(ngModel)]="data.address.neighborhood" id="addr-neighborhood" name="addr-neighborhood" class="form-control" type="text">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <div class="form-group">
-                <label for="addr-city">Cidade</label>
-                <input [(ngModel)]="data.address.city" id="addr-city" name="addr-city" class="form-control" type="text">
-              </div>
-            </div>
-            <div class="col">
-              <div class="form-group">
-                <label for="addr-state">Estado</label>
-                <input [(ngModel)]="data.address.state" id="addr-state" name="addr-state" class="form-control" type="text">
+              <div class="col">
+                <div class="form-group">
+                  <label>Naturalidade</label>
+                  <div class="form-row">
+                    <div class="col">
+                      <input [(ngModel)]="data.personal_data.place_of_birth.city" id="pd-pob-city" name="pd-pob-city" class="form-control" type="text" placeholder="Cidade">
+                    </div>
+                    <div class="col">
+                      <input [(ngModel)]="data.personal_data.place_of_birth.state" id="pd-pob-state" name="pd-pob-state" class="form-control" type="text" placeholder="Estado">
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="form-group">
-              <label for="addr-zip-code">CEP</label>
-              <input [(ngModel)]="data.address.zip_code" id="addr-zip-code" name="addr-zip-code" class="form-control" type="text">
+              <label>RG</label>
+              <div class="form-row">
+                <div class="col">
+                  <input [(ngModel)]="data.personal_data.identity_card.number" id="pd-rg-number" name="pd-rg-number" class="form-control" type="text" placeholder="Número">
+                </div>
+                <div class="col">
+                  <input [(ngModel)]="data.personal_data.identity_card.issuing_authority" id="pd-rg-issuing-authority" name="pd-rg-issuing-authority" class="form-control" type="text" placeholder="Órgão emissor">
+                </div>
+                <div class="col">
+                  <input [(ngModel)]="data.personal_data.identity_card.state" id="pd-rg-state" name="pd-rg-state" class="form-control" type="text" placeholder="Estado">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="pd-cpf">CPF</label>
+                  <input [(ngModel)]="data.personal_data.cpf_number" id="pd-cpf" name="pd-cpf" class="form-control" type="text">
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="pd-passport">Passaporte</label>
+                  <input [(ngModel)]="data.personal_data.passport_number" id="pd-passport" name="pd-passport" class="form-control" type="text">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="pd-birthdate">Data de nascimento</label>
+                  <input [(ngModel)]="data.personal_data.birthdate" id="pd-birthdate" name="pd-birthdate" class="form-control" type="text">
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="pd-gender">Sexo</label>
+                  <input [(ngModel)]="data.personal_data.gender" id="pd-gender" name="pd-gender" class="form-control" type="text">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="pd-civil-status">Estado Civil</label>
+                  <input [(ngModel)]="data.personal_data.civil_status" id="pd-civil-status" name="pd-civil-status" class="form-control" type="text">
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="pd-number-of-children">Quantidade de filhos</label>
+                  <input [(ngModel)]="data.personal_data.number_of_children" id="pd-number-of-children" name="pd-number-of-children" class="form-control" type="text">
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="row mt-4">
-    <div class="col-12">
-      <div class="card">
-        <div class="card-body">
-          <h2 class="mb-3">Dados familiares</h2>
-          <div class="row">
-            <div class="col">
-              <h3 class="mb-3">Sobre o pai</h3>
-              <div class="form-group">
-                <label for="fd-father-name">Nome</label>
-                <input [(ngModel)]="data.family_data.father.name" id="fd-father-name" name="fd-father-name" class="form-control" type="text">
+    <div class="row mt-4">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex align-items-center">
+              <div class="flex-grow-1">
+                <h2 class="mb-3">Endereço</h2>
               </div>
-              <div class="form-group">
-                <label for="fd-father-education-level">Escolaridade</label>
-                <input [(ngModel)]="data.family_data.father.education_level" id="fd-father-education-level" name="fd-father-education-level" class="form-control" type="text">
-              </div>
-              <div class="form-group">
-                <label for="fd-father-occupation">Profissão</label>
-                <input [(ngModel)]="data.family_data.father.occupation" id="fd-father-occupation" name="fd-father-occupation" class="form-control" type="text">
-              </div>
-              <div class="form-group">
-                <label for="fd-father-employment-situation">Situação laboral</label>
-                <input [(ngModel)]="data.family_data.father.employment_situation" id="fd-father-employment-situation" name="fd-father-employment-situation" class="form-control" type="text">
+              <div class="flex-grow-0">
+                <button class="btn btn-info">Buscar pelo CEP</button>
               </div>
             </div>
-            <div class="vr"></div>
-            <div class="col">
-              <h3 class="mb-3">Sobre a mãe</h3>
-              <div class="form-group">
-                <label for="fd-mother-name">Nome</label>
-                <input [(ngModel)]="data.family_data.mother.name" id="fd-mother-name" name="fd-mother-name" class="form-control" type="text">
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="addr-public-place">Logradouro</label>
+                  <input [(ngModel)]="data.address.public_place" id="addr-public-place" name="addr-public-place" class="form-control" type="text">
+                </div>
               </div>
-              <div class="form-group">
-                <label for="fd-mother-education-level">Escolaridade</label>
-                <input [(ngModel)]="data.family_data.mother.education_level" id="fd-mother-education-level" name="fd-mother-education-level" class="form-control" type="text">
-              </div>
-              <div class="form-group">
-                <label for="fd-mother-occupation">Profissão</label>
-                <input [(ngModel)]="data.family_data.mother.occupation" id="fd-mother-occupation" name="fd-mother-occupation" class="form-control" type="text">
-              </div>
-              <div class="form-group">
-                <label for="fd-father-employment-situation">Situação laboral</label>
-                <input [(ngModel)]="data.family_data.mother.employment_situation" id="fd-father-employment-situation" name="fd-father-employment-situation" class="form-control" type="text">
+              <div class="col">
+                <div class="form-group">
+                  <label for="addr-number">Número</label>
+                  <input [(ngModel)]="data.address.number" id="addr-number" name="addr-number" class="form-control" type="text">
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row mt-4">
-    <div class="col-12">
-      <div class="card">
-        <div class="card-body">
-          <h2 class="mb-3">Dados acadêmicos</h2>
-          <div class="row">
-            <div class="col">
-              <h3 class="mb-3">Ensino médio</h3>
-              <div class="form-group">
-                <label for="ad-high-school-school">Nome da escola</label>
-                <input [(ngModel)]="data.academic_data.high_school.school" id="ad-high-school-school" name="ad-high-school-school" class="form-control" type="text">
-              </div>
-              <div class="row">
-                <div class="col">
-                  <div class="form-group">
-                    <label for="ad-high-school-city">Cidade</label>
-                    <input [(ngModel)]="data.academic_data.high_school.city" id="ad-high-school-city" name="ad-high-school-city" class="form-control" type="text">
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="form-group">
-                    <label for="ad-high-school-state">Estado</label>
-                    <input [(ngModel)]="data.academic_data.high_school.state" id="ad-high-school-state" name="ad-high-school-state" class="form-control" type="text">
-                  </div>
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="addr-complement">Complemento</label>
+                  <input [(ngModel)]="data.address.complement" id="addr-complement" name="addr-complement" class="form-control" type="text">
                 </div>
               </div>
-              <div class="form-group">
-                <label for="ad-high-school-conclusion-year">Ano de conclusão</label>
-                <input [(ngModel)]="data.academic_data.high_school.conclusion_year" id="ad-high-school-conclusion-year" name="ad-high-school-conclusion-year" class="form-control" type="text">
+              <div class="col">
+                <div class="form-group">
+                  <label for="addr-neighborhood">Bairro</label>
+                  <input [(ngModel)]="data.address.neighborhood" id="addr-neighborhood" name="addr-neighborhood" class="form-control" type="text">
+                </div>
               </div>
             </div>
-            <div class="vr"></div>
-            <div class="col">
-              <h3 class="mb-3">Ensino superior</h3>
-              <div class="form-group">
-                <label for="ad-higher-education-institution">Nome da instituição</label>
-                <input [(ngModel)]="data.academic_data.higher_education.institution" id="ad-higher-education-institution" name="ad-higher-education-institution" class="form-control" type="text">
-              </div>
-              <div class="form-group">
-                <label for="ad-higher-education-course">Curso</label>
-                <input [(ngModel)]="data.academic_data.higher_education.course" id="ad-higher-education-course" name="ad-higher-education-course" class="form-control" type="text">
-              </div>
-              <div class="row">
-                <div class="col">
-                  <div class="form-group">
-                    <label for="ad-higher-education-city">Cidade</label>
-                    <input [(ngModel)]="data.academic_data.higher_education.city" id="ad-higher-education-city" name="ad-higher-education-city" class="form-control" type="text">
-                  </div>
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="addr-city">Cidade</label>
+                  <input [(ngModel)]="data.address.city" id="addr-city" name="addr-city" class="form-control" type="text">
                 </div>
-                <div class="col">
-                  <div class="form-group">
-                    <label for="ad-higher-education-state">Estado</label>
-                    <input [(ngModel)]="data.academic_data.higher_education.state" id="ad-higher-education-state" name="ad-higher-education-state" class="form-control" type="text">
-                  </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="addr-state">Estado</label>
+                  <input [(ngModel)]="data.address.state" id="addr-state" name="addr-state" class="form-control" type="text">
                 </div>
               </div>
               <div class="form-group">
-                <label for="ad-high-school-conclusion-year">Ano de conclusão</label>
-                <input [(ngModel)]="data.academic_data.higher_education.conclusion_year" id="ad-higher-education-conclusion-year" name="ad-higher-education-conclusion-year" class="form-control" type="text">
+                <label for="addr-zip-code">CEP</label>
+                <input [(ngModel)]="data.address.zip_code" id="addr-zip-code" name="addr-zip-code" class="form-control" type="text">
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="row mt-4">
-    <div class="col-12">
-      <div class="card">
-        <div class="card-body">
-          <h2 class="mb-3">Curso pretendido</h2>
-          <div class="row">
-            <div class="col">
-              <div class="form-group">
-                <label for="cd-course-name">Nome do curso</label>
-                <input [(ngModel)]="data.intended_course.name" id="cd-course-name" name="cd-course-name" class="form-control" type="text">
+    <div class="row mt-4">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <h2 class="mb-3">Dados familiares</h2>
+            <div class="row">
+              <div class="col">
+                <h3 class="mb-3">Sobre o pai</h3>
+                <div class="form-group">
+                  <label for="fd-father-name">Nome</label>
+                  <input [(ngModel)]="data.family_data.father.name" id="fd-father-name" name="fd-father-name" class="form-control" type="text">
+                </div>
+                <div class="form-group">
+                  <label for="fd-father-education-level">Escolaridade</label>
+                  <input [(ngModel)]="data.family_data.father.education_level" id="fd-father-education-level" name="fd-father-education-level" class="form-control" type="text">
+                </div>
+                <div class="form-group">
+                  <label for="fd-father-occupation">Profissão</label>
+                  <input [(ngModel)]="data.family_data.father.occupation" id="fd-father-occupation" name="fd-father-occupation" class="form-control" type="text">
+                </div>
+                <div class="form-group">
+                  <label for="fd-father-employment-situation">Situação laboral</label>
+                  <input [(ngModel)]="data.family_data.father.employment_situation" id="fd-father-employment-situation" name="fd-father-employment-situation" class="form-control" type="text">
+                </div>
               </div>
-            </div>
-            <div class="col">
-              <div class="form-group">
-                <label for="cd-institution">Faculdade</label>
-                <input [(ngModel)]="data.intended_course.institution" id="cd-institution" name="cd-institution" class="form-control" type="text">
+              <div class="vr"></div>
+              <div class="col">
+                <h3 class="mb-3">Sobre a mãe</h3>
+                <div class="form-group">
+                  <label for="fd-mother-name">Nome</label>
+                  <input [(ngModel)]="data.family_data.mother.name" id="fd-mother-name" name="fd-mother-name" class="form-control" type="text">
+                </div>
+                <div class="form-group">
+                  <label for="fd-mother-education-level">Escolaridade</label>
+                  <input [(ngModel)]="data.family_data.mother.education_level" id="fd-mother-education-level" name="fd-mother-education-level" class="form-control" type="text">
+                </div>
+                <div class="form-group">
+                  <label for="fd-mother-occupation">Profissão</label>
+                  <input [(ngModel)]="data.family_data.mother.occupation" id="fd-mother-occupation" name="fd-mother-occupation" class="form-control" type="text">
+                </div>
+                <div class="form-group">
+                  <label for="fd-father-employment-situation">Situação laboral</label>
+                  <input [(ngModel)]="data.family_data.mother.employment_situation" id="fd-father-employment-situation" name="fd-father-employment-situation" class="form-control" type="text">
+                </div>
               </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col">
-              <div class="form-group">
-                <label for="cd-preferred-shift">Turno preferido</label>
-                <input [(ngModel)]="data.intended_course.preferred_shift" id="cd-preferred-shift" name="cd-preferred-shift" class="form-control" type="text">
+        </div>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <h2 class="mb-3">Dados acadêmicos</h2>
+            <div class="row">
+              <div class="col">
+                <h3 class="mb-3">Ensino médio</h3>
+                <div class="form-group">
+                  <label for="ad-high-school-school">Nome da escola</label>
+                  <input [(ngModel)]="data.academic_data.high_school.school" id="ad-high-school-school" name="ad-high-school-school" class="form-control" type="text">
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="ad-high-school-city">Cidade</label>
+                      <input [(ngModel)]="data.academic_data.high_school.city" id="ad-high-school-city" name="ad-high-school-city" class="form-control" type="text">
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="ad-high-school-state">Estado</label>
+                      <input [(ngModel)]="data.academic_data.high_school.state" id="ad-high-school-state" name="ad-high-school-state" class="form-control" type="text">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="ad-high-school-conclusion-year">Ano de conclusão</label>
+                  <input [(ngModel)]="data.academic_data.high_school.conclusion_year" id="ad-high-school-conclusion-year" name="ad-high-school-conclusion-year" class="form-control" type="text">
+                </div>
               </div>
-            </div>
-            <div class="col">
-              <div class="form-group">
-                <label for="cd-alternative-shift">Segunda opção de turno</label>
-                <input [(ngModel)]="data.intended_course.alternative_shift" id="cd-alternative-shift" name="cd-alternative-shift" class="form-control" type="text">
+              <div class="vr"></div>
+              <div class="col">
+                <h3 class="mb-3">Ensino superior</h3>
+                <div class="form-group">
+                  <label for="ad-higher-education-institution">Nome da instituição</label>
+                  <input [(ngModel)]="data.academic_data.higher_education.institution" id="ad-higher-education-institution" name="ad-higher-education-institution" class="form-control" type="text">
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="ad-higher-education-city">Cidade</label>
+                      <input [(ngModel)]="data.academic_data.higher_education.city" id="ad-higher-education-city" name="ad-higher-education-city" class="form-control" type="text">
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="ad-higher-education-state">Estado</label>
+                      <input [(ngModel)]="data.academic_data.higher_education.state" id="ad-higher-education-state" name="ad-higher-education-state" class="form-control" type="text">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="ad-higher-education-course">Curso</label>
+                  <input [(ngModel)]="data.academic_data.higher_education.course" id="ad-higher-education-course" name="ad-higher-education-course" class="form-control" type="text">
+                </div>
+                <div class="form-group">
+                  <label for="ad-high-school-conclusion-year">Ano de conclusão</label>
+                  <input [(ngModel)]="data.academic_data.higher_education.conclusion_year" id="ad-higher-education-conclusion-year" name="ad-higher-education-conclusion-year" class="form-control" type="text">
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="row mt-4">
-    <div class="col-12">
-      <div class="card">
-        <div class="card-body">
-          <h2 class="mb-3">Informações dicionais</h2>
-          <div class="form-group">
-            <label for="ai-disabilities">É portador de deficiência? Se sim, qual?</label>
-            <input [(ngModel)]="data.additional_information.disabilities" id="ai-disabilities" name="ai-disabilities" class="form-control" type="text">
-          </div>
-          <div class="form-group">
-            <label for="ai-arrival-date">Quando deseja chegar à Argentina?</label>
-            <input [(ngModel)]="data.additional_information.arrival_date" id="ai-arrival-date" name="ai-arrival-date" class="form-control" type="text">
+    <div class="row mt-4">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <h2 class="mb-3">Curso pretendido</h2>
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="cd-course-name">Nome do curso</label>
+                  <input [(ngModel)]="data.intended_course.name" id="cd-course-name" name="cd-course-name" class="form-control" type="text">
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="cd-institution">Faculdade</label>
+                  <input [(ngModel)]="data.intended_course.institution" id="cd-institution" name="cd-institution" class="form-control" type="text">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="cd-preferred-shift">Turno preferido</label>
+                  <input [(ngModel)]="data.intended_course.preferred_shift" id="cd-preferred-shift" name="cd-preferred-shift" class="form-control" type="text">
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="cd-alternative-shift">Segunda opção de turno</label>
+                  <input [(ngModel)]="data.intended_course.alternative_shift" id="cd-alternative-shift" name="cd-alternative-shift" class="form-control" type="text">
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="row mt-4">
-    <div class="col-12 float-right">
-      <button (click)="register()" class="btn btn-primary btn-lg">Cadastrar cliente</button>
+    <div class="row mt-4">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <h2 class="mb-3">Informações dicionais</h2>
+            <div class="form-group">
+              <label for="ai-disabilities">É portador de deficiência? Se sim, qual?</label>
+              <input [(ngModel)]="data.additional_information.disabilities" id="ai-disabilities" name="ai-disabilities" class="form-control" type="text">
+            </div>
+            <div class="form-group">
+              <label for="ai-arrival-date">Quando deseja chegar à Argentina?</label>
+              <input [(ngModel)]="data.additional_information.arrival_date" id="ai-arrival-date" name="ai-arrival-date" class="form-control" type="text">
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-</form>
+    <div class="row mt-4">
+      <div class="col-12 float-right">
+        <button [disabled]="form.invalid" type="submit" class="btn btn-primary btn-lg">Cadastrar</button>
+      </div>
+    </div>
+  </form>
+</div>

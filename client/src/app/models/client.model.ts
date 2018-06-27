@@ -9,6 +9,7 @@ import {AdditionalInformation} from 'app/models/additional-information.model';
 
 export class Client {
 
+  public id: string;
   public company: string;
   public forename: string;
   public surname: string;
@@ -25,6 +26,7 @@ export class Client {
 
   constructor(data?: any) {
     if (data) {
+      this.id = data.id;
       this.company = data.company;
       this.forename = data.forename;
       this.surname = data.surname;

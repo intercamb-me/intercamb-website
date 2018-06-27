@@ -6,6 +6,7 @@ import {SignInComponent} from 'app/components/signin/signin.component';
 import {RegisterCompanyComponent} from 'app/components/register-company/register-company.component';
 import {CompanyComponent} from 'app/components/company/company.component';
 import {ClientsComponent} from 'app/components/company/clients/clients.component';
+import {ClientComponent} from 'app/components/company/client/client.component';
 import {RegisterClientComponent} from 'app/components/company/register-client/register-client.component';
 import {SchedulingComponent} from 'app/components/company/scheduling/scheduling.component';
 import {SettingsComponent} from 'app/components/company/settings/settings.component';
@@ -16,10 +17,11 @@ export class AppRoutes {
     return [
       {path: 'signup', component: SignUpComponent},
       {path: 'signin', component: SignInComponent},
-      {path: 'company/register', component: RegisterCompanyComponent},
+      {path: 'companies/register', component: RegisterCompanyComponent},
       {path: 'company', component: CompanyComponent, children: [
         {path: 'clients', component: ClientsComponent},
-        {path: 'client/register', component: RegisterClientComponent},
+        {path: 'clients/register', component: RegisterClientComponent},
+        {path: 'clients/:client', component: ClientComponent},
         {path: 'scheduling', component: SchedulingComponent},
         {path: 'settings', component: SettingsComponent},
       ]},

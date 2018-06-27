@@ -5,8 +5,6 @@ import {RouterModule} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import {NgbAlertModule} from '@ng-bootstrap/ng-bootstrap/alert/alert.module';
 import {NgbModalModule} from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
-import {NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap/dropdown/dropdown.module';
-import {NgbCollapseModule} from '@ng-bootstrap/ng-bootstrap/collapse/collapse.module';
 
 import {AppRoutes} from 'app/app.routes';
 import {AppComponent} from 'app/app.component';
@@ -18,6 +16,7 @@ import {SignInComponent} from 'app/components/signin/signin.component';
 import {RegisterCompanyComponent} from 'app/components/register-company/register-company.component';
 import {CompanyComponent} from 'app/components/company/company.component';
 import {ClientsComponent} from 'app/components/company/clients/clients.component';
+import {ClientComponent} from 'app/components/company/client/client.component';
 import {RegisterClientComponent} from 'app/components/company/register-client/register-client.component';
 import {SchedulingComponent} from 'app/components/company/scheduling/scheduling.component';
 import {SettingsComponent} from 'app/components/company/settings/settings.component';
@@ -37,8 +36,6 @@ import {EventService} from 'app/services/event.service';
     FormsModule,
     NgbAlertModule.forRoot(),
     NgbModalModule.forRoot(),
-    NgbDropdownModule.forRoot(),
-    NgbCollapseModule.forRoot(),
   ],
   declarations: [
     AppComponent,
@@ -49,6 +46,7 @@ import {EventService} from 'app/services/event.service';
     RegisterCompanyComponent,
     CompanyComponent,
     ClientsComponent,
+    ClientComponent,
     RegisterClientComponent,
     SchedulingComponent,
     SettingsComponent,
