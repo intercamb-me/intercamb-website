@@ -1,5 +1,5 @@
 FROM node:carbon-alpine
-WORKDIR /usr/src/intercambio-argentina
+WORKDIR /usr/src/intercambio-website
 COPY ./package*.json ./
 COPY ./.npmrc .npmrc
 RUN \

@@ -1,0 +1,3 @@
+<div *ngIf="!loading" id="update-client">
+  <app-save-client [client]="client" (saved)="onUpdated($event)"></app-save-client>
+</div>

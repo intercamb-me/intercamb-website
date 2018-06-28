@@ -27,7 +27,7 @@ export class SignInComponent implements OnInit {
         return;
       }
       if (account) {
-        this.router.navigate(['/companies', 'register']);
+        this.router.navigate(['/companies', 'new']);
         return;
       }
       this.loading = false;

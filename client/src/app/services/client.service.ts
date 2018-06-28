@@ -15,23 +15,12 @@ export class ClientService {
 
   }
 
-  public createClient(data: any): Observable<Client> {
-    return this.http.post<Client>(RequestUtils.getApiUrl('/clients'), data, RequestUtils.getJsonOptions()).pipe(
-      map((client: Client) => new Client(client)),
-      catchError((err: HttpErrorResponse) => {
-        const apiError = ApiError.withResponse(err);
-        this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
-        return throwError(apiError);
-      })
-    );
-  }
-
   public listClients(): Observable<Client[]> {
     return this.http.get<Client[]>(RequestUtils.getApiUrl('/clients'), RequestUtils.getJsonOptions()).pipe(
-      map((data: any[]) => {
+      map((clientsData: any[]) => {
         const clients: Client[] = [];
-        data.forEach((client: any) => {
-          clients.push(new Client(client));
+        clientsData.forEach((clientData: any) => {
+          clients.push(new Client(clientData));
         });
         return clients;
       }),
@@ -45,7 +34,29 @@ export class ClientService {
 
   public getClient(id: string): Observable<Client> {
     return this.http.get<Client>(RequestUtils.getApiUrl(`/clients/${id}`), RequestUtils.getJsonOptions()).pipe(
-      map((client: Client) => new Client(client)),
+      map((clientData: Client) => new Client(clientData)),
+      catchError((err: HttpErrorResponse) => {
+        const apiError = ApiError.withResponse(err);
+        this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
+        return throwError(apiError);
+      })
+    );
+  }
+
+  public createClient(data: any): Observable<Client> {
+    return this.http.post<Client>(RequestUtils.getApiUrl('/clients'), data, RequestUtils.getJsonOptions()).pipe(
+      map((clientData: Client) => new Client(clientData)),
+      catchError((err: HttpErrorResponse) => {
+        const apiError = ApiError.withResponse(err);
+        this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
+        return throwError(apiError);
+      })
+    );
+  }
+
+  public updateClient(client: Client): Observable<Client> {
+    return this.http.put<Client>(RequestUtils.getApiUrl(`/clients/${client.id}`), client, RequestUtils.getJsonOptions()).pipe(
+      map((clientData: Client) => new Client(clientData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
         this.eventService.publish(EventService.EVENT_API_ERROR, apiError);

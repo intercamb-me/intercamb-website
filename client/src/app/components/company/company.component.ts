@@ -28,7 +28,7 @@ export class CompanyComponent implements OnInit {
         return;
       }
       if (!account.company) {
-        this.router.navigate(['/companies', 'register']);
+        this.router.navigate(['/companies', 'new']);
         return;
       }
       this.account = account;

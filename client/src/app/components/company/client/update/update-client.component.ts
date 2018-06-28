@@ -1,21 +1,20 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
 
 import {ClientService} from 'app/services/client.service';
 import {AlertService} from 'app/services/alert.service';
 import {Client} from 'app/models/client.model';
 
 @Component({
-  selector: 'app-client',
-  templateUrl: './client.component.html',
+  selector: 'app-update-client',
+  templateUrl: './update-client.component.html',
 })
-export class ClientComponent implements OnInit {
+export class UpdateClientComponent implements OnInit {
 
   public client: Client;
   public loading = true;
-  public clientInfoIndex = 0;
 
-  constructor(private clientService: ClientService, private alertService: AlertService, private activatedRoute: ActivatedRoute) {
+  constructor(private clientService: ClientService, private alertService: AlertService, private router: Router, private activatedRoute: ActivatedRoute) {
 
   }
 
@@ -29,11 +28,7 @@ export class ClientComponent implements OnInit {
     });
   }
 
-  public nextClientInfo(): void {
-    this.clientInfoIndex = this.clientInfoIndex + 1;
-  }
-
-  public previousClientInfo(): void {
-    this.clientInfoIndex = this.clientInfoIndex - 1;
+  public onUpdated(client: Client): void {
+    this.router.navigate(['/company', 'clients', client.id]);
   }
 }

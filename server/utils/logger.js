@@ -21,7 +21,7 @@ fileLogger.add(winston.transports.Console, {
 });
 fileLogger.add(winston.transports.File, {
   level,
-  filename: path.resolve('intercambio-argentina.log'),
+  filename: path.resolve('intercambio-website.log'),
 });
 
 exports.file = fileLogger;

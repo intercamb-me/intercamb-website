@@ -7,10 +7,10 @@ import {AlertService} from 'app/services/alert.service';
 import {Company} from 'app/models/company.model';
 
 @Component({
-  selector: 'app-register-company',
-  templateUrl: './register-company.component.html',
+  selector: 'app-create-company',
+  templateUrl: './create-company.component.html',
 })
-export class RegisterCompanyComponent implements OnInit {
+export class CreateCompanyComponent implements OnInit {
 
   public name: string;
   public company: Company;
@@ -37,7 +37,7 @@ export class RegisterCompanyComponent implements OnInit {
     });
   }
 
-  public register(): void {
+  public create(): void {
     this.companyService.createCompany(this.name).subscribe((company) => {
       this.company = company;
       this.router.navigate(['/company']);

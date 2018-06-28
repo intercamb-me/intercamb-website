@@ -23,7 +23,7 @@ export class AccountService {
 
   public createAccount(name: string, email: string, password: string): Observable<Account> {
     return this.http.post<Account>(RequestUtils.getApiUrl('/accounts'), {name, email, password}, RequestUtils.getJsonOptions()).pipe(
-      map((account: Account) => new Account(account)),
+      map((accountData: Account) => new Account(accountData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
         this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
@@ -34,7 +34,7 @@ export class AccountService {
 
   public getCurrentAccount(): Observable<Account> {
     return this.http.get<Account>(RequestUtils.getApiUrl('/accounts/current'), RequestUtils.getJsonOptions()).pipe(
-      map((account: Account) => account ? new Account(account) : null),
+      map((accountData: Account) => accountData ? new Account(accountData) : null),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
         this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
@@ -45,9 +45,9 @@ export class AccountService {
 
   public login(email: string, password: string): Observable<Account> {
     return this.http.post<LoginResult>(RequestUtils.getApiUrl('/accounts/login'), {email, password}, RequestUtils.getJsonOptions()).pipe(
-      map((data: LoginResult) => {
-        StorageUtils.setApiToken(data.token);
-        return new Account(data.account);
+      map((loginData: LoginResult) => {
+        StorageUtils.setApiToken(loginData.token);
+        return new Account(loginData.account);
       }),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
