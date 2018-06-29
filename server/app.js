@@ -1,10 +1,12 @@
 'use strict';
 
-const settings = require('./configs/settings');
-const engine = require('./configs/engine');
-const middlewares = require('./configs/middlewares');
-const routes = require('./configs/routes');
-const logger = require('./utils/logger');
+require('app-module-path/register');
+
+const settings = require('configs/settings');
+const engine = require('configs/engine');
+const middlewares = require('configs/middlewares');
+const routes = require('configs/routes');
+const logger = require('utils/logger');
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
@@ -30,10 +32,13 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
 app.use(compression());
 
+logger.info(`Using ${settings.env} environment settings`);
+logger.info(`Debug mode is ${settings.debug ? 'ON' : 'OFF'}`);
+
 engine.configure(app);
 middlewares.configure(app);
 routes.configure(express, app);
 
 app.listen(app.get('port'), () => {
-  logger.info('Intercâmbio Argentina server is listening on port %s', app.get('port'));
+  logger.info(`Intercambio Website server is listening on port ${app.get('port')}`);
 });

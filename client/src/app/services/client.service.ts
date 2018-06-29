@@ -4,6 +4,7 @@ import {Observable, throwError} from 'rxjs';
 import {map, catchError} from 'rxjs/operators';
 
 import {Client} from 'app/models/client.model';
+import {Document} from 'app/models/document.model';
 import {EventService} from 'app/services/event.service';
 import {ApiError} from 'app/services/commons/api.error';
 import {RequestUtils} from 'app/utils/request.utils';
@@ -57,6 +58,23 @@ export class ClientService {
   public updateClient(client: Client): Observable<Client> {
     return this.http.put<Client>(RequestUtils.getApiUrl(`/clients/${client.id}`), client, RequestUtils.getJsonOptions()).pipe(
       map((clientData: Client) => new Client(clientData)),
+      catchError((err: HttpErrorResponse) => {
+        const apiError = ApiError.withResponse(err);
+        this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
+        return throwError(apiError);
+      })
+    );
+  }
+
+  public listDocuments(client: Client): Observable<Document[]> {
+    return this.http.get<Document[]>(RequestUtils.getApiUrl(`/clients/${client.id}/documents`), RequestUtils.getJsonOptions()).pipe(
+      map((documentsData: any[]) => {
+        const documents: Document[] = [];
+        documentsData.forEach((documentData: any) => {
+          documents.push(new Document(documentData));
+        });
+        return documents;
+      }),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
         this.eventService.publish(EventService.EVENT_API_ERROR, apiError);

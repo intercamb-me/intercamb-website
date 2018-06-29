@@ -1,6 +1,6 @@
 /* tslint:disable:variable-name */
 
-export class IdentityCard {
+export class IdentityDocument {
 
   public number: string;
   public issuing_authority: string;

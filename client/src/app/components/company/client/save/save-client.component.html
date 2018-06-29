@@ -72,13 +72,13 @@
               <label>RG</label>
               <div class="form-row">
                 <div class="col">
-                  <input [(ngModel)]="client.personal_data.identity_card.number" mask="0*" id="pd-rg-number" name="pd-rg-number" class="form-control" type="text" placeholder="Número">
+                  <input [(ngModel)]="client.personal_data.identity_document.number" mask="0*" id="pd-identity-document-number" name="pd-identity-document-number" class="form-control" type="text" placeholder="Número">
                 </div>
                 <div class="col">
-                  <input [(ngModel)]="client.personal_data.identity_card.issuing_authority" id="pd-rg-issuing-authority" name="pd-rg-issuing-authority" class="form-control" type="text" placeholder="Órgão emissor">
+                  <input [(ngModel)]="client.personal_data.identity_document.issuing_authority" id="pd-identity-document-issuing-authority" name="pd-identity-document-issuing-authority" class="form-control" type="text" placeholder="Órgão emissor">
                 </div>
                 <div class="col">
-                  <input [(ngModel)]="client.personal_data.identity_card.state" id="pd-rg-state" name="pd-rg-state" class="form-control" type="text" placeholder="Estado">
+                  <input [(ngModel)]="client.personal_data.identity_document.state" id="pd-identity-document-state" name="pd-identity-document-state" class="form-control" type="text" placeholder="Estado">
                 </div>
               </div>
             </div>
@@ -101,7 +101,7 @@
                 <div class="form-group">
                   <label for="pd-birthdate">Data de nascimento</label>
                   <div class="input-group">
-                    <input [(ngModel)]="birthdate" (keypress)="onlyDateChars($event)" ngbDatepicker #birthdatePicker="ngbDatepicker" [minDate]="minDateStruct" id="pd-birthdate" name="pd-birthdate" class="form-control" placeholder="dd/mm/yyyy">
+                    <input [(ngModel)]="birthdateStruct" (keypress)="onlyDateChars($event)" ngbDatepicker #birthdatePicker="ngbDatepicker" [minDate]="minDateStruct" id="pd-birthdate" name="pd-birthdate" class="form-control" placeholder="dd/mm/yyyy">
                     <div class="input-group-append">
                       <button class="btn btn-info" (click)="birthdatePicker.toggle()" type="button">
                         <i class="fas fa-calendar-alt"></i>
@@ -121,7 +121,7 @@
               <div class="col">
                 <div class="form-group">
                   <label for="pd-civil-status">Estado Civil</label>
-                  <input [(ngModel)]="client.personal_data.civil_status" id="pd-civil-status" name="pd-civil-status" class="form-control" type="text">
+                  <input [(ngModel)]="client.personal_data.marital_status" id="pd-marital-status" name="pd-marital-status" class="form-control" type="text">
                 </div>
               </div>
               <div class="col">
@@ -361,12 +361,16 @@
             </div>
             <div class="form-group">
               <label for="ai-arrival-date">Quando pretende chegar ao país?</label>
-              <div class="input-group">
-                <input [(ngModel)]="arrivalDate" ngbDatepicker #arrivalDatePicker="ngbDatepicker" [minDate]="currentDateStruct" id="ai-arrival-date" name="ai-arrival-date" class="form-control" placeholder="dd/mm/yyyy">
-                <div class="input-group-append">
-                  <button class="btn btn-info" (click)="arrivalDatePicker.toggle()" type="button">
-                    <i class="fas fa-calendar-alt"></i>
-                  </button>
+              <div class="form-row">
+                <div class="col-6">
+                  <div class="input-group">
+                    <input [(ngModel)]="arrivalDateStruct" (keypress)="onlyDateChars($event)" ngbDatepicker #arrivalDatePicker="ngbDatepicker" [minDate]="currentDateStruct" id="ai-arrival-date" name="ai-arrival-date" class="form-control" placeholder="dd/mm/yyyy">
+                    <div class="input-group-append">
+                      <button class="btn btn-info" (click)="arrivalDatePicker.toggle()" type="button">
+                        <i class="fas fa-calendar-alt"></i>
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

@@ -9,8 +9,8 @@ export class FamilyData {
 
   constructor(data?: any) {
     if (data) {
-      this.father = data.father ? new FamilyMemberData(data.father) : null;
-      this.mother = data.mother ? new FamilyMemberData(data.mother) : null;
+      this.father = new FamilyMemberData(data.father || {});
+      this.mother = new FamilyMemberData(data.mother || {});
     }
   }
 }

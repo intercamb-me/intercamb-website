@@ -18,6 +18,9 @@ export class AdditionalInformation {
   public toJSON(): any {
     const json = cloneDeep(this) as any;
     json.arrival_date = DateUtils.toDateOnly(json.arrival_date);
+    if (!json.arrival_date) {
+      delete json.arrival_date;
+    }
     return json;
   }
 }

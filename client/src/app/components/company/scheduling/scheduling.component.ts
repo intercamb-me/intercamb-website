@@ -6,8 +6,6 @@ import {Component, OnInit} from '@angular/core';
 })
 export class SchedulingComponent implements OnInit {
 
-  public loading = true;
-
   constructor() {
 
   }

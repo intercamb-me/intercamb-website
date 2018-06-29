@@ -1,6 +1,6 @@
 'use strict';
 
-const logger = require('../utils/logger');
+const logger = require('utils/logger');
 const nunjucks = require('nunjucks');
 
 exports.configure = (app) => {

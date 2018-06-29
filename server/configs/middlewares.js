@@ -1,7 +1,7 @@
 'use strict';
 
-const logger = require('../utils/logger');
-const settings = require('./settings');
+const logger = require('utils/logger');
+const settings = require('configs/settings');
 const prerender = require('prerender-node');
 
 exports.configure = (app) => {

@@ -1,27 +1,40 @@
 'use strict';
 
-const settings = require('../configs/settings');
+const settings = require('configs/settings');
 const path = require('path');
 const winston = require('winston');
 
 const level = settings.debug ? 'debug' : 'info';
+const printFormat = winston.format.printf(info => `${info.timestamp} - ${info.level}: ${info.message}`);
 
-const consoleLogger = new (winston.Logger)();
-consoleLogger.add(winston.transports.Console, {
+const consoleLogger = winston.createLogger({
   level,
-  timestamp: true,
-  colorize: true,
+  format: winston.format.timestamp(),
+  transports: [
+    new winston.transports.Console({
+      format: winston.format.combine(
+        winston.format.colorize(),
+        printFormat,
+      ),
+    }),
+  ],
 });
 
-const fileLogger = new (winston.Logger)();
-fileLogger.add(winston.transports.Console, {
+const fileLogger = winston.createLogger({
   level,
-  timestamp: true,
-  colorize: true,
-});
-fileLogger.add(winston.transports.File, {
-  level,
-  filename: path.resolve('intercambio-website.log'),
+  format: winston.format.timestamp(),
+  transports: [
+    new winston.transports.Console({
+      format: winston.format.combine(
+        winston.format.colorize(),
+        printFormat,
+      ),
+    }),
+    new winston.transports.File({
+      filename: path.resolve('intercambio-website.log'),
+      format: printFormat,
+    }),
+  ],
 });
 
 exports.file = fileLogger;

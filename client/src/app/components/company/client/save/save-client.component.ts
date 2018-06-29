@@ -22,8 +22,8 @@ export class SaveClientComponent implements OnInit {
   @Output()
   public saved = new EventEmitter<Client>();
 
-  public birthdate: NgbDateStruct;
-  public arrivalDate: NgbDateStruct;
+  public birthdateStruct: NgbDateStruct;
+  public arrivalDateStruct: NgbDateStruct;
   public minDateStruct: NgbDateStruct;
   public currentDateStruct: NgbDateStruct;
 
@@ -34,18 +34,18 @@ export class SaveClientComponent implements OnInit {
   public ngOnInit(): void {
     if (this.client.personal_data.birthdate) {
       const birthdate = this.client.personal_data.birthdate;
-      this.birthdate = {
+      this.birthdateStruct = {
         year: getYear(birthdate),
-        month: getYear(birthdate),
-        day: getYear(birthdate),
+        month: getMonth(birthdate) + 1,
+        day: getDate(birthdate),
       };
     }
     if (this.client.additional_information.arrival_date) {
       const arrivalDate = this.client.additional_information.arrival_date;
-      this.arrivalDate = {
+      this.arrivalDateStruct = {
         year: getYear(arrivalDate),
-        month: getYear(arrivalDate),
-        day: getYear(arrivalDate),
+        month: getMonth(arrivalDate) + 1,
+        day: getDate(arrivalDate),
       };
     }
     const now = new Date();
@@ -87,18 +87,18 @@ export class SaveClientComponent implements OnInit {
   }
 
   private fixDates(): void {
-    if (this.birthdate) {
+    if (this.birthdateStruct) {
       let birthdate = new Date();
-      birthdate = setYear(birthdate, this.birthdate.year);
-      birthdate = setMonth(birthdate, this.birthdate.month - 1);
-      birthdate = setDate(birthdate, this.birthdate.day);
+      birthdate = setYear(birthdate, this.birthdateStruct.year);
+      birthdate = setMonth(birthdate, this.birthdateStruct.month - 1);
+      birthdate = setDate(birthdate, this.birthdateStruct.day);
       this.client.personal_data.birthdate = birthdate;
     }
-    if (this.arrivalDate) {
+    if (this.arrivalDateStruct) {
       let arrivalDate = new Date();
-      arrivalDate = setYear(arrivalDate, this.arrivalDate.year);
-      arrivalDate = setMonth(arrivalDate, this.arrivalDate.month - 1);
-      arrivalDate = setDate(arrivalDate, this.arrivalDate.day);
+      arrivalDate = setYear(arrivalDate, this.arrivalDateStruct.year);
+      arrivalDate = setMonth(arrivalDate, this.arrivalDateStruct.month - 1);
+      arrivalDate = setDate(arrivalDate, this.arrivalDateStruct.day);
       this.client.additional_information.arrival_date = arrivalDate;
     }
   }

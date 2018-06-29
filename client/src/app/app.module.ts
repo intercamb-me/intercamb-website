@@ -23,6 +23,7 @@ import {SaveClientComponent} from 'app/components/company/client/save/save-clien
 import {CreateClientComponent} from 'app/components/company/client/create/create-client.component';
 import {UpdateClientComponent} from 'app/components/company/client/update/update-client.component';
 import {SchedulingComponent} from 'app/components/company/scheduling/scheduling.component';
+import {ReportsComponent} from 'app/components/company/reports/reports.component';
 import {SettingsComponent} from 'app/components/company/settings/settings.component';
 
 // Services
@@ -60,6 +61,7 @@ import {BrazilianNgbDateParserFormatter, BrazilianNgbDatepickerI18n} from 'app/u
     CreateClientComponent,
     UpdateClientComponent,
     SchedulingComponent,
+    ReportsComponent,
     SettingsComponent,
   ],
   entryComponents: [],

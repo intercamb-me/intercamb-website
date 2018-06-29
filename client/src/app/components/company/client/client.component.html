@@ -3,8 +3,8 @@
     <img class="photo" [src]="client.photo_url">
     <div class="info">
       <h1>{{ client.forename }} {{ client.surname }}</h1>
-      <h3 class="mb-2 text-secondary">{{ client.email }}</h3>
-      <h3 class="mb-0 text-secondary">{{ client.phone }}</h3>
+      <h4 class="mb-2 text-secondary">{{ client.email }}</h4>
+      <h4 class="mb-0 text-secondary">{{ client.phone }}</h4>
     </div>
   </div>
   <div class="row">
@@ -12,7 +12,7 @@
       <a [routerLink]="['edit']" class="btn btn-primary">Editar cliente</a>
     </div>
   </div>
-  <div class="row mt-3">
+  <div class="row mt-4">
     <div class="col-12">
       <div *ngIf="clientInfoIndex === 0" class="card">
         <div class="card-body">
@@ -34,13 +34,13 @@
             <div class="col">
               <div class="form-group">
                 <label>Naturalidade</label>
-                <p>{{ client.personal_data.place_of_birth.city }}, {{ client.personal_data.place_of_birth.state }}.</p>
+                <p><span *ngIf="hasPlaceOfBirth()">{{ client.personal_data.place_of_birth.city }}, {{ client.personal_data.place_of_birth.state }}.</span></p>
               </div>
             </div>
             <div class="col">
               <div class="form-group">
                 <label>RG</label>
-                <p>{{ client.personal_data.identity_card.number }} - {{ client.personal_data.identity_card.issuing_authority }} {{ client.personal_data.identity_card.state }}</p>
+                <p><span *ngIf="hasIdentityDocument()">{{ client.personal_data.identity_document.number }} - {{ client.personal_data.identity_document.issuing_authority }} {{ client.personal_data.identity_document.state }}</span></p>
               </div>
             </div>
           </div>
@@ -60,7 +60,7 @@
             <div class="col">
               <div class="form-group">
                 <label>Data de nascimento</label>
-                <p>{{ client.personal_data.birthdate }}</p>
+                <p>{{ (client.personal_data.birthdate | date: "dd/MM/yyyy") || "" }}</p>
               </div>
             </div>
           </div>
@@ -74,7 +74,7 @@
             <div class="col">
               <div class="form-group">
                 <label>Estado Civil</label>
-                <p>{{ client.personal_data.civil_status }}</p>
+                <p>{{ client.personal_data.marital_status }}</p>
               </div>
             </div>
             <div class="col">
@@ -327,8 +327,35 @@
             <p>{{ client.additional_information.disabilities }}</p>
           </div>
           <div class="form-group">
-            <label>Quando deseja chegar à Argentina?</label>
-            <p>{{ client.additional_information.arrival_date }}</p>
+            <label>Quando pretende chegar ao país?</label>
+            <p>{{ (client.additional_information.arrival_date | date: "dd/MM/yyyy") || "" }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-12">
+      <h2>Documentos</h2>
+      <div class="row">
+        <div *ngFor="let document of documents; trackBy: trackByDocument" class="col-6 mb-3">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex">
+                <h5 class="flex-grow-1 mb-0">{{ typesNames[document.type] }}</h5>
+                <div class="ml-3">
+                  <button class="btn btn-secondary btn-sm" type="button">{{ statusNames[document.status] }}</button>
+                </div>
+              </div>
+              <div class="jumbotron mt-3 mb-0 px-3 py-3">
+                Nenhum anexo
+              </div>
+              <div class="d-flex justify-content-end mt-3">
+                <button class="btn btn-primary btn-sm" type="button">
+                  <i class="fas fa-paperclip"></i> Anexar documento
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

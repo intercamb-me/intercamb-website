@@ -34,12 +34,12 @@ export class Client {
       this.phone = data.phone;
       this.photo_url = data.photo_url;
       this.registration_date = data.registration_date;
-      this.address = data.address ? new Address(data.address) : null;
-      this.personal_data = data.personal_data ? new PersonalData(data.personal_data) : null;
-      this.family_data = data.family_data ? new FamilyData(data.family_data) : null;
-      this.academic_data = data.academic_data ? new AcademicData(data.academic_data) : null;
-      this.intended_course = data.intended_course ? new IntendedCourse(data.intended_course) : null;
-      this.additional_information = data.additional_information ? new AdditionalInformation(data.additional_information) : null;
+      this.address = new Address(data.address || {});
+      this.personal_data = new PersonalData(data.personal_data || {});
+      this.family_data = new FamilyData(data.family_data || {});
+      this.academic_data = new AcademicData(data.academic_data || {});
+      this.intended_course = new IntendedCourse(data.intended_course || {});
+      this.additional_information = new AdditionalInformation(data.additional_information || {});
     }
   }
 }

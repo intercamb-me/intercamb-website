@@ -9,23 +9,7 @@ import {Client} from 'app/models/client.model';
 })
 export class CreateClientComponent {
 
-  public client = new Client({
-    address: {},
-    personal_data: {
-      place_of_birth: {},
-      identity_card: {},
-    },
-    family_data: {
-      father: {},
-      mother: {},
-    },
-    academic_data: {
-      high_school: {},
-      higher_education: {},
-    },
-    intended_course: {},
-    additional_information: {},
-  });
+  public client = new Client({});
 
   constructor(private router: Router) {
 

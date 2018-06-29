@@ -10,8 +10,8 @@ export class AcademicData {
 
   constructor(data?: any) {
     if (data) {
-      this.high_school = data.high_school ? new HighSchoolData(data.high_school) : null;
-      this.higher_education = data.higher_education ? new HigherEducationData(data.higher_education) : null;
+      this.high_school = new HighSchoolData(data.high_school || {});
+      this.higher_education = new HigherEducationData(data.higher_education || {});
     }
   }
 }
