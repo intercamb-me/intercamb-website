@@ -82,4 +82,15 @@ export class ClientService {
       })
     );
   }
+
+  public updateDocument(client: Client, document: Document, data: any): Observable<Document> {
+    return this.http.put<Document>(RequestUtils.getApiUrl(`/clients/${client.id}/documents/${document.id}`), data, RequestUtils.getJsonOptions()).pipe(
+      map((documentData: Document) => new Document(documentData)),
+      catchError((err: HttpErrorResponse) => {
+        const apiError = ApiError.withResponse(err);
+        this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
+        return throwError(apiError);
+      })
+    );
+  }
 }

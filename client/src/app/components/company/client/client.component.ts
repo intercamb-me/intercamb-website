@@ -1,9 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
 import {mergeMap} from 'rxjs/operators';
+
+import {ChangeDocumentStatusComponent} from 'app/components/company/document/change-status/change-document-status.component';
 
 import {ClientService} from 'app/services/client.service';
 import {AlertService} from 'app/services/alert.service';
+import {Constants} from 'app/utils/constants';
 import {Client} from 'app/models/client.model';
 import {Document} from 'app/models/document.model';
 
@@ -18,23 +22,10 @@ export class ClientComponent implements OnInit {
   public loading = true;
   public clientInfoIndex = 0;
 
-  public typesNames = {
-    contract: 'Contrato',
-    identity: 'Identidade',
-    passport: 'Passaporte',
-    birth_certificate: 'Certidão de nascimento',
-    high_school_certificate: 'Certificado de ensino médio',
-    high_school_historic: 'Histórico do ensino médio',
-    native_criminal_records: 'Antecedentes criminais (Brasil)',
-    foreign_criminal_records: 'Antecedentes criminais (Argentina)',
-    foreign_itentity: 'DNI (Argentina)',
-  };
+  public documentTypes = Constants.DOCUMENT_TYPES;
+  public documentStatus = Constants.DOCUMENT_STATUS;
 
-  public statusNames = {
-    pending: 'Pendente',
-  };
-
-  constructor(private clientService: ClientService, private alertService: AlertService, private activatedRoute: ActivatedRoute) {
+  constructor(private clientService: ClientService, private alertService: AlertService, private activatedRoute: ActivatedRoute, private ngbModal: NgbModal) {
 
   }
 
@@ -79,5 +70,19 @@ export class ClientComponent implements OnInit {
 
   public previousClientInfo(): void {
     this.clientInfoIndex = this.clientInfoIndex - 1;
+  }
+
+  public changeDocumentStatus(document: Document): void {
+    const modalRef = this.ngbModal.open(ChangeDocumentStatusComponent);
+    modalRef.componentInstance.client = this.client;
+    modalRef.componentInstance.document = document;
+    modalRef.result.then((updatedDocument) => {
+      const index = this.documents.findIndex((currentDocument) => {
+        return currentDocument.id === updatedDocument.id;
+      });
+      this.documents[index] = updatedDocument;
+    }).catch(() => {
+      // Nothing to do...
+    });
   }
 }

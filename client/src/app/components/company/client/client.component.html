@@ -342,9 +342,9 @@
           <div class="card">
             <div class="card-body">
               <div class="d-flex">
-                <h5 class="flex-grow-1 mb-0">{{ typesNames[document.type] }}</h5>
+                <h5 class="flex-grow-1 mb-0">{{ documentTypes[document.type].name }}</h5>
                 <div class="ml-3">
-                  <button class="btn btn-secondary btn-sm" type="button">{{ statusNames[document.status] }}</button>
+                  <button (click)="changeDocumentStatus(document)" class="btn btn-{{ documentStatus[document.status].selector }} btn-sm" type="button">{{ documentStatus[document.status].name }}</button>
                 </div>
               </div>
               <div class="jumbotron mt-3 mb-0 px-3 py-3">

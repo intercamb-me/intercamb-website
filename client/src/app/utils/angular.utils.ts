@@ -69,3 +69,12 @@ export class BrazilianNgbDatepickerI18n extends NgbDatepickerI18n {
     return `${dateStruct.day}-${dateStruct.month}-${dateStruct.year}`;
   }
 }
+
+export function onlyDateChars(event: KeyboardEvent): boolean {
+  const charCode = event.which || event.keyCode;
+  // Accepts character '/' or numbers 0-9.
+  if (charCode >= 47 && charCode <= 57) {
+    return true;
+  }
+  return false;
+}

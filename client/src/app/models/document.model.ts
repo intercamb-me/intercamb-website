@@ -1,5 +1,6 @@
 /* tslint:disable:variable-name */
 
+import {DocumentProperties} from 'app/models/document-properties.model';
 import {Attachment} from 'app/models/attachment.model';
 
 export class Document {
@@ -9,6 +10,7 @@ export class Document {
   public client: string;
   public type: string;
   public status: string;
+  public properties: DocumentProperties;
   public attachments: Attachment[];
   public registration_date: Date;
 
@@ -19,6 +21,7 @@ export class Document {
       this.client = data.client;
       this.type = data.type;
       this.status = data.status;
+      this.properties = new DocumentProperties(data.properties || {});
       this.attachments = [];
       this.registration_date = data.registration_date;
       if (data.attachments) {

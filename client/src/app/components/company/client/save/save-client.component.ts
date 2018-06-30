@@ -9,6 +9,7 @@ import * as setDate from 'date-fns/setDate';
 
 import {ClientService} from 'app/services/client.service';
 import {AlertService} from 'app/services/alert.service';
+import {onlyDateChars} from 'app/utils/angular.utils';
 import {Client} from 'app/models/client.model';
 
 @Component({
@@ -24,8 +25,9 @@ export class SaveClientComponent implements OnInit {
 
   public birthdateStruct: NgbDateStruct;
   public arrivalDateStruct: NgbDateStruct;
-  public minDateStruct: NgbDateStruct;
-  public currentDateStruct: NgbDateStruct;
+  public pastDateStruct: NgbDateStruct;
+  public todayDateStruct: NgbDateStruct;
+  public onlyDateChars = onlyDateChars;
 
   constructor(private clientService: ClientService, private alertService: AlertService) {
 
@@ -49,21 +51,12 @@ export class SaveClientComponent implements OnInit {
       };
     }
     const now = new Date();
-    this.minDateStruct = {year: 1950, month: 1, day: 1};
-    this.currentDateStruct = {
+    this.pastDateStruct = {year: 1950, month: 1, day: 1};
+    this.todayDateStruct = {
       year: getYear(now),
       month: getMonth(now) + 1,
       day: getDate(now),
     };
-  }
-
-  public onlyDateChars(event: KeyboardEvent): boolean {
-    const charCode = event.which || event.keyCode;
-    // Accepts character '/' or numbers 0-9.
-    if (charCode >= 47 && charCode <= 57) {
-      return true;
-    }
-    return false;
   }
 
   public create(): void {

@@ -101,7 +101,7 @@
                 <div class="form-group">
                   <label for="pd-birthdate">Data de nascimento</label>
                   <div class="input-group">
-                    <input [(ngModel)]="birthdateStruct" (keypress)="onlyDateChars($event)" ngbDatepicker #birthdatePicker="ngbDatepicker" [minDate]="minDateStruct" id="pd-birthdate" name="pd-birthdate" class="form-control" placeholder="dd/mm/yyyy">
+                    <input [(ngModel)]="birthdateStruct" (keypress)="onlyDateChars($event)" ngbDatepicker #birthdatePicker="ngbDatepicker" [minDate]="pastDateStruct" id="pd-birthdate" name="pd-birthdate" class="form-control" placeholder="dd/mm/yyyy">
                     <div class="input-group-append">
                       <button class="btn btn-info" (click)="birthdatePicker.toggle()" type="button">
                         <i class="fas fa-calendar-alt"></i>
@@ -364,7 +364,7 @@
               <div class="form-row">
                 <div class="col-6">
                   <div class="input-group">
-                    <input [(ngModel)]="arrivalDateStruct" (keypress)="onlyDateChars($event)" ngbDatepicker #arrivalDatePicker="ngbDatepicker" [minDate]="currentDateStruct" id="ai-arrival-date" name="ai-arrival-date" class="form-control" placeholder="dd/mm/yyyy">
+                    <input [(ngModel)]="arrivalDateStruct" (keypress)="onlyDateChars($event)" ngbDatepicker #arrivalDatePicker="ngbDatepicker" [minDate]="todayDateStruct" id="ai-arrival-date" name="ai-arrival-date" class="form-control" placeholder="dd/mm/yyyy">
                     <div class="input-group-append">
                       <button class="btn btn-info" (click)="arrivalDatePicker.toggle()" type="button">
                         <i class="fas fa-calendar-alt"></i>
