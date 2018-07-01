@@ -25,6 +25,10 @@ export class Constants {
       id: 'high_school_historic',
       name: 'Histórico do ensino médio',
     },
+    course_enrolment: {
+      id: 'course_enrolment',
+      name: 'Inscrição no curso',
+    },
     native_criminal_records: {
       id: 'native_criminal_records',
       name: 'Antecedentes criminais (Brasil)',
@@ -40,6 +44,10 @@ export class Constants {
     reception: {
       id: 'reception',
       name: 'Recepção',
+    },
+    other_documents: {
+      id: 'other_documents',
+      name: 'Outros documentos',
     },
   };
 
