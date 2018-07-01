@@ -14,351 +14,378 @@
   </div>
   <div class="row mt-4">
     <div class="col-12">
-      <div *ngIf="clientInfoIndex === 0" class="card">
-        <div class="card-body">
-          <div class="d-flex align-items-center mb-3">
-            <div class="flex-grow-1">
-              <h2 class="mb-0">Dados pessoais</h2>
-            </div>
-            <div class="flex-grow-0">
-              <button (click)="nextClientInfo()" type="button" class="btn btn-primary">Próximo</button>
-            </div>
+      <ng-container *ngIf="clientInfoIndex === 0">
+        <div class="d-flex">
+          <div class="flex-grow-1">
+            <h2>Dados pessoais</h2>
           </div>
-          <div class="row">
-            <div class="col">
-              <div class="form-group">
-                <label>Nacionalidade</label>
-                <p>{{ client.personal_data.nationality }}</p>
-              </div>
-            </div>
-            <div class="col">
-              <div class="form-group">
-                <label>Naturalidade</label>
-                <p><span *ngIf="hasPlaceOfBirth()">{{ client.personal_data.place_of_birth.city }}, {{ client.personal_data.place_of_birth.state }}.</span></p>
-              </div>
-            </div>
-            <div class="col">
-              <div class="form-group">
-                <label>RG</label>
-                <p><span *ngIf="hasIdentityDocument()">{{ client.personal_data.identity_document.number }} - {{ client.personal_data.identity_document.issuing_authority }} {{ client.personal_data.identity_document.state }}</span></p>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <div class="form-group">
-                <label>CPF</label>
-                <p>{{ client.personal_data.cpf_number }}</p>
-              </div>
-            </div>
-            <div class="col">
-              <div class="form-group">
-                <label>Passaporte</label>
-                <p>{{ client.personal_data.passport_number }}</p>
-              </div>
-            </div>
-            <div class="col">
-              <div class="form-group">
-                <label>Data de nascimento</label>
-                <p>{{ (client.personal_data.birthdate | date: "dd/MM/yyyy") || "" }}</p>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <div class="form-group">
-                <label>Sexo</label>
-                <p>{{ client.personal_data.gender }}</p>
-              </div>
-            </div>
-            <div class="col">
-              <div class="form-group">
-                <label>Estado Civil</label>
-                <p>{{ client.personal_data.marital_status }}</p>
-              </div>
-            </div>
-            <div class="col">
-              <div class="form-group">
-                <label>Quantidade de filhos</label>
-                <p>{{ client.personal_data.number_of_children }}</p>
-              </div>
-            </div>
+          <div class="flex-grow-0">
+            <button type="button" class="btn btn-primary mr-2" disabled>Anterior</button>
+            <button (click)="nextClientInfo()" type="button" class="btn btn-primary">Próximo</button>
           </div>
         </div>
-      </div>
-      <div *ngIf="clientInfoIndex === 1" class="card">
-        <div class="card-body">
-          <div class="d-flex align-items-center mb-3">
-            <div class="flex-grow-1">
-              <h2 class="mb-0">Endereço</h2>
-            </div>
-            <div class="flex-grow-0">
-              <button (click)="previousClientInfo()" type="button" class="btn btn-primary mr-2">Anterior</button>
-              <button (click)="nextClientInfo()" type="button" class="btn btn-primary">Próximo</button>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <div class="form-group">
-                <label>Logradouro</label>
-                <p>{{ client.address.public_place }}</p>
-              </div>
-            </div>
-            <div class="col">
-              <div class="form-group">
-                <label>Número</label>
-                <p>{{ client.address.number }}</p>
-              </div>
-            </div>
-            <div class="col">
-              <div class="form-group">
-                <label>Complemento</label>
-                <p>{{ client.address.complement }}</p>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <div class="form-group">
-                <label>Bairro</label>
-                <p>{{ client.address.neighborhood }}</p>
-              </div>
-            </div>
-            <div class="col">
-              <div class="form-group">
-                <label>Cidade</label>
-                <p>{{ client.address.city }}</p>
-              </div>
-            </div>
-            <div class="col">
-              <div class="form-group">
-                <label>Estado</label>
-                <p>{{ client.address.state }}</p>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <div class="form-group">
-                <label>CEP</label>
-                <p>{{ client.address.zip_code }}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div *ngIf="clientInfoIndex === 2" class="card">
-        <div class="card-body">
-          <div class="d-flex align-items-center mb-3">
-            <div class="flex-grow-1">
-              <h2 class="mb-0">Dados familiares</h2>
-            </div>
-            <div class="flex-grow-0">
-              <button (click)="previousClientInfo()" type="button" class="btn btn-primary mr-2">Anterior</button>
-              <button (click)="nextClientInfo()" type="button" class="btn btn-primary">Próximo</button>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <h3 class="mb-3">Sobre o pai</h3>
-              <div class="form-group">
-                <label>Nome</label>
-                <p>{{ client.family_data.father.name }}</p>
-              </div>
-              <div class="form-group">
-                <label>Escolaridade</label>
-                <p>{{ client.family_data.father.education_level }}</p>
-              </div>
-              <div class="form-group">
-                <label>Profissão</label>
-                <p>{{ client.family_data.father.occupation }}</p>
-              </div>
-              <div class="form-group">
-                <label>Situação laboral</label>
-                <p>{{ client.family_data.father.employment_situation }}</p>
-              </div>
-            </div>
-            <div class="vr"></div>
-            <div class="col">
-              <h3 class="mb-3">Sobre a mãe</h3>
-              <div class="form-group">
-                <label>Nome</label>
-                <p>{{ client.family_data.mother.name }}</p>
-              </div>
-              <div class="form-group">
-                <label>Escolaridade</label>
-                <p>{{ client.family_data.mother.education_level }}</p>
-              </div>
-              <div class="form-group">
-                <label>Profissão</label>
-                <p>{{ client.family_data.mother.occupation }}</p>
-              </div>
-              <div class="form-group">
-                <label>Situação laboral</label>
-                <p>{{ client.family_data.mother.employment_situation }}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div *ngIf="clientInfoIndex === 3" class="card">
-        <div class="card-body">
-          <div class="d-flex align-items-center mb-3">
-            <div class="flex-grow-1">
-              <h2 class="mb-0">Dados acadêmicos</h2>
-            </div>
-            <div class="flex-grow-0">
-              <button (click)="previousClientInfo()" type="button" class="btn btn-primary mr-2">Anterior</button>
-              <button (click)="nextClientInfo()" type="button" class="btn btn-primary">Próximo</button>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <h3 class="mb-3">Ensino médio</h3>
-              <div class="form-group">
-                <label>Nome da escola</label>
-                <p>{{ client.academic_data.high_school.school }}</p>
-              </div>
-              <div class="row">
-                <div class="col">
-                  <div class="form-group">
-                    <label>Cidade</label>
-                    <p>{{ client.academic_data.high_school.city }}</p>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="form-group">
-                    <label>Estado</label>
-                    <p>{{ client.academic_data.high_school.state }}</p>
-                  </div>
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label>Nacionalidade</label>
+                  <p>{{ client.personal_data.nationality }}</p>
                 </div>
               </div>
-              <div class="form-group">
-                <label>Ano de conclusão</label>
-                <p>{{ client.academic_data.high_school.conclusion_year }}</p>
-              </div>
-            </div>
-            <div class="vr"></div>
-            <div class="col">
-              <h3 class="mb-3">Ensino superior</h3>
-              <div class="form-group">
-                <label>Nome da instituição</label>
-                <p>{{ client.academic_data.higher_education.institution }}</p>
-              </div>
-              <div class="row">
-                <div class="col">
-                  <div class="form-group">
-                    <label>Cidade</label>
-                    <p>{{ client.academic_data.higher_education.city }}</p>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="form-group">
-                    <label>Estado</label>
-                    <p>{{ client.academic_data.higher_education.state }}</p>
-                  </div>
+              <div class="col">
+                <div class="form-group">
+                  <label>Naturalidade</label>
+                  <p><span *ngIf="hasPlaceOfBirth()">{{ client.personal_data.place_of_birth.city }}, {{ client.personal_data.place_of_birth.state }}.</span></p>
                 </div>
               </div>
-              <div class="form-group">
-                <label>Curso</label>
-                <p>{{ client.academic_data.higher_education.course }}</p>
-              </div>
-              <div class="form-group">
-                <label>Ano de conclusão</label>
-                <p>{{ client.academic_data.higher_education.conclusion_year }}</p>
+              <div class="col">
+                <div class="form-group">
+                  <label>RG</label>
+                  <p><span *ngIf="hasIdentityDocument()">{{ client.personal_data.identity_document.number }} - {{ client.personal_data.identity_document.issuing_authority }} {{ client.personal_data.identity_document.state }}</span></p>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <div *ngIf="clientInfoIndex === 4" class="card">
-        <div class="card-body">
-          <div class="d-flex align-items-center mb-3">
-            <div class="flex-grow-1">
-              <h2 class="mb-0">Curso pretendido</h2>
-            </div>
-            <div class="flex-grow-0">
-              <button (click)="previousClientInfo()" type="button" class="btn btn-primary mr-2">Anterior</button>
-              <button (click)="nextClientInfo()" type="button" class="btn btn-primary">Próximo</button>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <div class="form-group">
-                <label>Nome do curso</label>
-                <p>{{ client.intended_course.name }}</p>
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label>CPF</label>
+                  <p>{{ client.personal_data.cpf_number }}</p>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label>Passaporte</label>
+                  <p>{{ client.personal_data.passport_number }}</p>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label>Data de nascimento</label>
+                  <p>{{ (client.personal_data.birthdate | date: "dd/MM/yyyy") || "" }}</p>
+                </div>
               </div>
             </div>
-            <div class="col">
-              <div class="form-group">
-                <label>Faculdade</label>
-                <p>{{ client.intended_course.institution }}</p>
+            <div class="row">
+              <div class="col">
+                <div class="form-group mb-0">
+                  <label>Sexo</label>
+                  <p class="mb-0">{{ client.personal_data.gender }}</p>
+                </div>
               </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <div class="form-group">
-                <label>Turno preferido</label>
-                <p>{{ client.intended_course.preferred_shift }}</p>
+              <div class="col">
+                <div class="form-group mb-0">
+                  <label>Estado Civil</label>
+                  <p class="mb-0">{{ client.personal_data.marital_status }}</p>
+                </div>
               </div>
-            </div>
-            <div class="col">
-              <div class="form-group">
-                <label>Segunda opção de turno</label>
-                <p>{{ client.intended_course.alternative_shift }}</p>
+              <div class="col">
+                <div class="form-group mb-0">
+                  <label>Quantidade de filhos</label>
+                  <p class="mb-0">{{ client.personal_data.number_of_children }}</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div *ngIf="clientInfoIndex === 5" class="card">
-        <div class="card-body">
-          <div class="d-flex align-items-center mb-3">
-            <div class="flex-grow-1">
-              <h2 class="mb-0">Informações adicionais</h2>
-            </div>
-            <div class="flex-grow-0">
-              <button (click)="previousClientInfo()" type="button" class="btn btn-primary mr-2">Anterior</button>
-            </div>
+      </ng-container>
+      <ng-container *ngIf="clientInfoIndex === 1">
+        <div class="d-flex">
+          <div class="flex-grow-1">
+            <h2>Endereço</h2>
           </div>
-          <div class="form-group">
-            <label>É portador de deficiência? Se sim, qual?</label>
-            <p>{{ client.additional_information.disabilities }}</p>
-          </div>
-          <div class="form-group">
-            <label>Quando pretende chegar ao país?</label>
-            <p>{{ (client.additional_information.arrival_date | date: "dd/MM/yyyy") || "" }}</p>
+          <div class="flex-grow-0">
+            <button (click)="previousClientInfo()" type="button" class="btn btn-primary mr-2">Anterior</button>
+            <button (click)="nextClientInfo()" type="button" class="btn btn-primary">Próximo</button>
           </div>
         </div>
-      </div>
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label>Logradouro</label>
+                  <p>{{ client.address.public_place }}</p>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label>Número</label>
+                  <p>{{ client.address.number }}</p>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label>Complemento</label>
+                  <p>{{ client.address.complement }}</p>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label>Bairro</label>
+                  <p>{{ client.address.neighborhood }}</p>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label>Cidade</label>
+                  <p>{{ client.address.city }}</p>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label>Estado</label>
+                  <p>{{ client.address.state }}</p>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="form-group mb-0">
+                  <label>CEP</label>
+                  <p class="mb-0">{{ client.address.zip_code }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="clientInfoIndex === 2">
+        <div class="d-flex">
+          <div class="flex-grow-1">
+            <h2>Dados familiares</h2>
+          </div>
+          <div class="flex-grow-0">
+            <button (click)="previousClientInfo()" type="button" class="btn btn-primary mr-2">Anterior</button>
+            <button (click)="nextClientInfo()" type="button" class="btn btn-primary">Próximo</button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col">
+                <h3 class="mb-3">Sobre o pai</h3>
+                <div class="form-group">
+                  <label>Nome</label>
+                  <p>{{ client.family_data.father.name }}</p>
+                </div>
+                <div class="form-group">
+                  <label>Escolaridade</label>
+                  <p>{{ client.family_data.father.education_level }}</p>
+                </div>
+                <div class="form-group">
+                  <label>Profissão</label>
+                  <p>{{ client.family_data.father.occupation }}</p>
+                </div>
+                <div class="form-group">
+                  <label>Situação laboral</label>
+                  <p>{{ client.family_data.father.employment_situation }}</p>
+                </div>
+                <div class="form-group mb-0">
+                  <label>Telefone</label>
+                  <p class="mb-0">{{ client.family_data.father.phone }}</p>
+                </div>
+              </div>
+              <div class="vr"></div>
+              <div class="col">
+                <h3 class="mb-3">Sobre a mãe</h3>
+                <div class="form-group">
+                  <label>Nome</label>
+                  <p>{{ client.family_data.mother.name }}</p>
+                </div>
+                <div class="form-group">
+                  <label>Escolaridade</label>
+                  <p>{{ client.family_data.mother.education_level }}</p>
+                </div>
+                <div class="form-group">
+                  <label>Profissão</label>
+                  <p>{{ client.family_data.mother.occupation }}</p>
+                </div>
+                <div class="form-group">
+                  <label>Situação laboral</label>
+                  <p>{{ client.family_data.mother.employment_situation }}</p>
+                </div>
+                <div class="form-group mb-0">
+                  <label>Telefone</label>
+                  <p class="mb-0">{{ client.family_data.mother.phone }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="clientInfoIndex === 3">
+        <div class="d-flex">
+          <div class="flex-grow-1">
+            <h2>Dados acadêmicos</h2>
+          </div>
+          <div class="flex-grow-0">
+            <button (click)="previousClientInfo()" type="button" class="btn btn-primary mr-2">Anterior</button>
+            <button (click)="nextClientInfo()" type="button" class="btn btn-primary">Próximo</button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col">
+                <h3 class="mb-3">Ensino médio</h3>
+                <div class="form-group">
+                  <label>Nome da escola</label>
+                  <p>{{ client.academic_data.high_school.school }}</p>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <div class="form-group">
+                      <label>Cidade</label>
+                      <p>{{ client.academic_data.high_school.city }}</p>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="form-group">
+                      <label>Estado</label>
+                      <p>{{ client.academic_data.high_school.state }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group mb-0">
+                  <label>Ano de conclusão</label>
+                  <p class="mb-0">{{ client.academic_data.high_school.conclusion_year }}</p>
+                </div>
+              </div>
+              <div class="vr"></div>
+              <div class="col">
+                <h3 class="mb-3">Ensino superior</h3>
+                <div class="form-group">
+                  <label>Nome da instituição</label>
+                  <p>{{ client.academic_data.higher_education.institution }}</p>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <div class="form-group">
+                      <label>Cidade</label>
+                      <p>{{ client.academic_data.higher_education.city }}</p>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="form-group">
+                      <label>Estado</label>
+                      <p>{{ client.academic_data.higher_education.state }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Curso</label>
+                  <p>{{ client.academic_data.higher_education.course }}</p>
+                </div>
+                <div class="form-group mb-0">
+                  <label>Ano de conclusão</label>
+                  <p class="mb-0">{{ client.academic_data.higher_education.conclusion_year }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="clientInfoIndex === 4">
+        <div class="d-flex">
+          <div class="flex-grow-1">
+            <h2>Curso pretendido</h2>
+          </div>
+          <div class="flex-grow-0">
+            <button (click)="previousClientInfo()" type="button" class="btn btn-primary mr-2">Anterior</button>
+            <button (click)="nextClientInfo()" type="button" class="btn btn-primary">Próximo</button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label>Nome do curso</label>
+                  <p>{{ client.intended_course.name }}</p>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label>Faculdade</label>
+                  <p>{{ client.intended_course.institution }}</p>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="form-group mb-0">
+                  <label>Turno preferido</label>
+                  <p class="mb-0">{{ client.intended_course.preferred_shift }}</p>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group mb-0">
+                  <label>Segunda opção de turno</label>
+                  <p class="mb-0">{{ client.intended_course.alternative_shift }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="clientInfoIndex === 5">
+        <div class="d-flex">
+          <div class="flex-grow-1">
+            <h2>Informações adicionais</h2>
+          </div>
+          <div class="flex-grow-0">
+            <button (click)="previousClientInfo()" type="button" class="btn btn-primary mr-2">Anterior</button>
+            <button type="button" class="btn btn-primary" disabled>Próximo</button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <div class="form-group">
+              <label>É portador de deficiência? Se sim, qual?</label>
+              <p>{{ client.additional_information.disabilities }}</p>
+            </div>
+            <div class="form-group">
+              <label>Quando pretende chegar ao país?</label>
+              <p>{{ (client.additional_information.arrival_date | date: "dd/MM/yyyy") || "" }}</p>
+            </div>
+            <div class="form-group mb-0">
+              <label>Como conheceu a empresa?</label>
+              <p class="mb-0">{{ client.additional_information.how_did_you_know_the_company }}</p>
+            </div>
+          </div>
+        </div>
+      </ng-container>
     </div>
   </div>
   <div class="row mt-4">
     <div class="col-12">
-      <h2>Documentos</h2>
-      <div class="row">
-        <div *ngFor="let document of documents; trackBy: trackByDocument" class="col-6 mb-3">
+      <h2>Atividades</h2>
+      <ngx-masonry [options]="masonryOptions" class="row">
+        <ngxMasonryItem *ngFor="let task of tasks; trackBy: trackByTask" class="col-6" style="margin-bottom: 20px">
           <div class="card">
             <div class="card-body">
               <div class="d-flex">
-                <h5 class="flex-grow-1 mb-0">{{ documentTypes[document.type].name }}</h5>
+                <h5 class="flex-grow-1 mb-0">{{ taskTypes[task.type].name }}</h5>
                 <div class="ml-3">
-                  <button (click)="changeDocumentStatus(document)" class="btn btn-{{ documentStatus[document.status].selector }} btn-sm" type="button">{{ documentStatus[document.status].name }}</button>
+                  <button (click)="changeTaskStatus(task)" class="btn btn-{{ taskStatus[task.status].selector }} btn-sm" type="button">{{ taskStatus[task.status].name }}</button>
                 </div>
               </div>
+              <p *ngIf="task.status === 'scheduled'" class="mb-0 mt-2 text-secondary">Agendado para {{ task.properties.schedule_date | date: "dd/MM/yyyy" }} às {{ task.properties.schedule_date | date: "HH:mm" }}.</p>
               <div class="jumbotron mt-3 mb-0 px-3 py-3">
                 Nenhum anexo
               </div>
               <div class="d-flex justify-content-end mt-3">
                 <button class="btn btn-primary btn-sm" type="button">
-                  <i class="fas fa-paperclip"></i> Anexar documento
+                  <i class="fas fa-paperclip"></i> Anexar arquivo
                 </button>
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        </ngxMasonryItem>
+      </ngx-masonry>
     </div>
   </div>
 </div>

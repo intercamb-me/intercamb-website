@@ -78,3 +78,13 @@ export function onlyDateChars(event: KeyboardEvent): boolean {
   }
   return false;
 }
+
+export function onlyPhoneChars(event: KeyboardEvent): boolean {
+  const pattern = /[0-9\+\-\s]/;
+  const charCode = event.which || event.keyCode;
+  const charStr = String.fromCharCode(charCode);
+  if (!pattern.test(charStr)) {
+    return true;
+  }
+  return false;
+}

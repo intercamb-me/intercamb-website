@@ -1,6 +1,6 @@
 /* tslint:disable:variable-name */
 
-export class DocumentProperties {
+export class TaskProperties {
 
   public schedulable: boolean;
   public schedule_date: Date;

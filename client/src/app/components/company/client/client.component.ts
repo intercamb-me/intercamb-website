@@ -2,14 +2,15 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
 import {mergeMap} from 'rxjs/operators';
+import {NgxMasonryOptions} from 'ngx-masonry';
 
-import {ChangeDocumentStatusComponent} from 'app/components/company/document/change-status/change-document-status.component';
+import {ChangeTaskStatusComponent} from 'app/components/company/task/change-status/change-task-status.component';
 
 import {ClientService} from 'app/services/client.service';
 import {AlertService} from 'app/services/alert.service';
 import {Constants} from 'app/utils/constants';
 import {Client} from 'app/models/client.model';
-import {Document} from 'app/models/document.model';
+import {Task} from 'app/models/task.model';
 
 @Component({
   selector: 'app-client',
@@ -18,12 +19,18 @@ import {Document} from 'app/models/document.model';
 export class ClientComponent implements OnInit {
 
   public client: Client;
-  public documents: Document[];
+  public tasks: Task[];
   public loading = true;
   public clientInfoIndex = 0;
 
-  public documentTypes = Constants.DOCUMENT_TYPES;
-  public documentStatus = Constants.DOCUMENT_STATUS;
+  public taskTypes = Constants.TASK_TYPES;
+  public taskStatus = Constants.TASK_STATUS;
+
+  public masonryOptions: NgxMasonryOptions = {
+    itemSelector: '.col-6',
+    horizontalOrder: true,
+    transitionDuration: '0',
+  };
 
   constructor(private clientService: ClientService, private alertService: AlertService, private activatedRoute: ActivatedRoute, private ngbModal: NgbModal) {
 
@@ -34,18 +41,18 @@ export class ClientComponent implements OnInit {
     this.clientService.getClient(clientId).pipe(
       mergeMap((client) => {
         this.client = client;
-        return this.clientService.listDocuments(client);
+        return this.clientService.listTasks(client);
       })
-    ).subscribe((documents) => {
-      this.documents = documents;
+    ).subscribe((tasks) => {
+      this.tasks = tasks;
       this.loading = false;
     }, (err) => {
       this.alertService.apiError(null, err);
     });
   }
 
-  public trackByDocument(_index: number, document: Document): string {
-    return document.id;
+  public trackByTask(_index: number, task: Task): string {
+    return task.id;
   }
 
   public hasIdentityDocument(): boolean {
@@ -72,15 +79,15 @@ export class ClientComponent implements OnInit {
     this.clientInfoIndex = this.clientInfoIndex - 1;
   }
 
-  public changeDocumentStatus(document: Document): void {
-    const modalRef = this.ngbModal.open(ChangeDocumentStatusComponent);
+  public changeTaskStatus(task: Task): void {
+    const modalRef = this.ngbModal.open(ChangeTaskStatusComponent);
     modalRef.componentInstance.client = this.client;
-    modalRef.componentInstance.document = document;
-    modalRef.result.then((updatedDocument) => {
-      const index = this.documents.findIndex((currentDocument) => {
-        return currentDocument.id === updatedDocument.id;
+    modalRef.componentInstance.task = task;
+    modalRef.result.then((updatedTask) => {
+      const index = this.tasks.findIndex((currentTask) => {
+        return currentTask.id === updatedTask.id;
       });
-      this.documents[index] = updatedDocument;
+      this.tasks[index] = updatedTask;
     }).catch(() => {
       // Nothing to do...
     });

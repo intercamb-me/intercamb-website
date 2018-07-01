@@ -1,6 +1,6 @@
 export class Constants {
 
-  public static readonly DOCUMENT_TYPES = {
+  public static readonly TASK_TYPES = {
     contract: {
       id: 'contract',
       name: 'Contrato',
@@ -37,9 +37,13 @@ export class Constants {
       id: 'foreign_identity',
       name: 'DNI (Argentina)',
     },
+    reception: {
+      id: 'reception',
+      name: 'Recepção',
+    },
   };
 
-  public static readonly DOCUMENT_STATUS = {
+  public static readonly TASK_STATUS = {
     pending: {
       id: 'pending',
       name: 'Pendente',
