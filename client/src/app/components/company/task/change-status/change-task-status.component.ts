@@ -61,28 +61,32 @@ export class ChangeTaskStatusComponent implements OnInit {
     this.ngbActiveModal.dismiss();
   }
 
-  public selectStatus(status: string): void {
+  public changeStatus(status: string): void {
     this.selectedStatus = status;
     if (status === Constants.TASK_STATUS.scheduled.id) {
       this.selectingDate = true;
+      return;
     }
+    const data: any = {status};
+    data['properties.schedule_date'] = undefined;
+    this.updateTask(data);
   }
 
-  public changeStatus(): void {
+  public confirmScheduleDate(): void {
+    let scheduleDate = new Date();
+    scheduleDate = setYear(scheduleDate, this.selectedDateStruct.year);
+    scheduleDate = setMonth(scheduleDate, this.selectedDateStruct.month - 1);
+    scheduleDate = setDate(scheduleDate, this.selectedDateStruct.day);
+    scheduleDate = setHours(scheduleDate, this.selectedTimeStruct.hour);
+    scheduleDate = setMinutes(scheduleDate, this.selectedTimeStruct.minute);
+    scheduleDate = setSeconds(scheduleDate, 0);
+    scheduleDate = setMilliseconds(scheduleDate, 0);
     const data: any = {status: this.selectedStatus};
-    if (this.selectedStatus === Constants.TASK_STATUS.scheduled.id) {
-      let scheduleDate = new Date();
-      scheduleDate = setYear(scheduleDate, this.selectedDateStruct.year);
-      scheduleDate = setMonth(scheduleDate, this.selectedDateStruct.month);
-      scheduleDate = setDate(scheduleDate, this.selectedDateStruct.day);
-      scheduleDate = setHours(scheduleDate, this.selectedTimeStruct.hour);
-      scheduleDate = setMinutes(scheduleDate, this.selectedTimeStruct.minute);
-      scheduleDate = setSeconds(scheduleDate, 0);
-      scheduleDate = setMilliseconds(scheduleDate, 0);
-      data['properties.schedule_date'] = scheduleDate;
-    } else {
-      data['properties.schedule_date'] = undefined;
-    }
+    data['properties.schedule_date'] = scheduleDate;
+    this.updateTask(data);
+  }
+
+  private updateTask(data: any): void {
     this.clientService.updateTask(this.client, this.task, data).subscribe((task) => {
       this.ngbActiveModal.close(task);
       this.alertService.success('Status da atividade atualizado com sucesso!');

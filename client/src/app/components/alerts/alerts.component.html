@@ -1,5 +1,5 @@
 <div class="alerts">
-  <ngb-alert *ngFor="let alert of alerts; trackBy: trackByAlert" type="custom" [dismissible]="false">
+  <ngb-alert *ngFor="let alert of alerts; trackBy: trackByAlert" [dismissible]="false" type="custom">
     <div class="card text-white bg-{{ alert.type }}">
       <div class="card-body">
         <p class="card-text">{{ alert.message }}</p>

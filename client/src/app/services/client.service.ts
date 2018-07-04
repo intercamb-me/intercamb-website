@@ -5,6 +5,7 @@ import {map, catchError} from 'rxjs/operators';
 
 import {Client} from 'app/models/client.model';
 import {Task} from 'app/models/task.model';
+import {TaskComment} from 'app/models/task-comment.model';
 import {EventService} from 'app/services/event.service';
 import {ApiError} from 'app/services/commons/api.error';
 import {RequestUtils} from 'app/utils/request.utils';
@@ -18,7 +19,7 @@ export class ClientService {
 
   public listClients(): Observable<Client[]> {
     return this.http.get<Client[]>(RequestUtils.getApiUrl('/clients'), RequestUtils.getJsonOptions()).pipe(
-      map((clientsData: any[]) => {
+      map((clientsData: Client[]) => {
         const clients: Client[] = [];
         clientsData.forEach((clientData: any) => {
           clients.push(new Client(clientData));
@@ -68,9 +69,9 @@ export class ClientService {
 
   public listTasks(client: Client): Observable<Task[]> {
     return this.http.get<Task[]>(RequestUtils.getApiUrl(`/clients/${client.id}/tasks`), RequestUtils.getJsonOptions()).pipe(
-      map((tasksData: any[]) => {
+      map((tasksData: Task[]) => {
         const tasks: Task[] = [];
-        tasksData.forEach((taskData: any) => {
+        tasksData.forEach((taskData) => {
           tasks.push(new Task(taskData));
         });
         return tasks;
@@ -83,9 +84,31 @@ export class ClientService {
     );
   }
 
+  public getTask(client: Client, id: string): Observable<Task> {
+    return this.http.get<Task>(RequestUtils.getApiUrl(`/clients/${client.id}/tasks/${id}`), RequestUtils.getJsonOptions()).pipe(
+      map((taskData: Task) => new Task(taskData)),
+      catchError((err: HttpErrorResponse) => {
+        const apiError = ApiError.withResponse(err);
+        this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
+        return throwError(apiError);
+      })
+    );
+  }
+
   public updateTask(client: Client, task: Task, data: any): Observable<Task> {
     return this.http.put<Task>(RequestUtils.getApiUrl(`/clients/${client.id}/tasks/${task.id}`), data, RequestUtils.getJsonOptions()).pipe(
       map((taskData: Task) => new Task(taskData)),
+      catchError((err: HttpErrorResponse) => {
+        const apiError = ApiError.withResponse(err);
+        this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
+        return throwError(apiError);
+      })
+    );
+  }
+
+  public addTaskComment(client: Client, task: Task, text: string): Observable<TaskComment> {
+    return this.http.post<any>(RequestUtils.getApiUrl(`/clients/${client.id}/tasks/${task.id}/comments`), {text}, RequestUtils.getJsonOptions()).pipe(
+      map((commentData: TaskComment) => new TaskComment(commentData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
         this.eventService.publish(EventService.EVENT_API_ERROR, apiError);

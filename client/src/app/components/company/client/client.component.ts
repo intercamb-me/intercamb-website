@@ -4,7 +4,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
 import {mergeMap} from 'rxjs/operators';
 import {NgxMasonryOptions} from 'ngx-masonry';
 
-import {ChangeTaskStatusComponent} from 'app/components/company/task/change-status/change-task-status.component';
+import {TaskComponent} from 'app/components/company/task/task.component';
 
 import {ClientService} from 'app/services/client.service';
 import {AlertService} from 'app/services/alert.service';
@@ -23,7 +23,6 @@ export class ClientComponent implements OnInit {
   public loading = true;
   public clientInfoIndex = 0;
 
-  public taskTypes = Constants.TASK_TYPES;
   public taskStatus = Constants.TASK_STATUS;
 
   public masonryOptions: NgxMasonryOptions = {
@@ -79,8 +78,12 @@ export class ClientComponent implements OnInit {
     this.clientInfoIndex = this.clientInfoIndex - 1;
   }
 
-  public changeTaskStatus(task: Task): void {
-    const modalRef = this.ngbModal.open(ChangeTaskStatusComponent);
+  public openTask(task: Task): void {
+    const modalRef = this.ngbModal.open(TaskComponent, {
+      size: 'lg',
+      backdrop: 'static',
+      keyboard: false,
+    });
     modalRef.componentInstance.client = this.client;
     modalRef.componentInstance.task = task;
     modalRef.result.then((updatedTask) => {

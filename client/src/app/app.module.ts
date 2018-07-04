@@ -1,10 +1,13 @@
-import {NgModule} from '@angular/core';
+import {NgModule, LOCALE_ID} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
+import {registerLocaleData} from '@angular/common';
+import pt from '@angular/common/locales/pt';
 import {HttpClientModule} from '@angular/common/http';
 import {RouterModule} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import {NgbAlertModule} from '@ng-bootstrap/ng-bootstrap/alert/alert.module';
 import {NgbModalModule} from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
+import {NgbPopoverModule} from '@ng-bootstrap/ng-bootstrap/popover/popover.module';
 import {NgbDatepickerModule, NgbDateParserFormatter, NgbDatepickerI18n} from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
 import {NgbTimepickerModule} from '@ng-bootstrap/ng-bootstrap/timepicker/timepicker.module';
 import {NgxMaskModule} from 'ngx-mask';
@@ -24,6 +27,7 @@ import {ClientComponent} from 'app/components/company/client/client.component';
 import {SaveClientComponent} from 'app/components/company/client/save/save-client.component';
 import {CreateClientComponent} from 'app/components/company/client/create/create-client.component';
 import {UpdateClientComponent} from 'app/components/company/client/update/update-client.component';
+import {TaskComponent} from 'app/components/company/task/task.component';
 import {ChangeTaskStatusComponent} from 'app/components/company/task/change-status/change-task-status.component';
 import {SchedulingComponent} from 'app/components/company/scheduling/scheduling.component';
 import {ReportsComponent} from 'app/components/company/reports/reports.component';
@@ -39,6 +43,8 @@ import {EventService} from 'app/services/event.service';
 // Other
 import {BrazilianNgbDateParserFormatter, BrazilianNgbDatepickerI18n} from 'app/utils/angular.utils';
 
+registerLocaleData(pt);
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -47,6 +53,7 @@ import {BrazilianNgbDateParserFormatter, BrazilianNgbDatepickerI18n} from 'app/u
     FormsModule,
     NgbAlertModule.forRoot(),
     NgbModalModule.forRoot(),
+    NgbPopoverModule.forRoot(),
     NgbDatepickerModule.forRoot(),
     NgbTimepickerModule.forRoot(),
     NgxMaskModule.forRoot(),
@@ -65,12 +72,14 @@ import {BrazilianNgbDateParserFormatter, BrazilianNgbDatepickerI18n} from 'app/u
     SaveClientComponent,
     CreateClientComponent,
     UpdateClientComponent,
+    TaskComponent,
     ChangeTaskStatusComponent,
     SchedulingComponent,
     ReportsComponent,
     SettingsComponent,
   ],
   entryComponents: [
+    TaskComponent,
     ChangeTaskStatusComponent,
   ],
   providers: [
@@ -79,6 +88,7 @@ import {BrazilianNgbDateParserFormatter, BrazilianNgbDatepickerI18n} from 'app/u
     ClientService,
     AlertService,
     EventService,
+    {provide: LOCALE_ID, useValue: 'pt'},
     {provide: NgbDatepickerI18n, useClass: BrazilianNgbDatepickerI18n},
     {provide: NgbDateParserFormatter, useClass: BrazilianNgbDateParserFormatter},
   ],

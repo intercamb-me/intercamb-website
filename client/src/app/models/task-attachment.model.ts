@@ -1,6 +1,6 @@
 /* tslint:disable:variable-name */
 
-export class Attachment {
+export class TaskAttachment {
 
   public name: string;
   public type: string;
