@@ -23,8 +23,8 @@
     </div>
     <div class="row">
       <div *ngFor="let client of clients; trackBy: trackByClient" class="col-6 mb-3">
-        <a [routerLink]="['/company', 'clients', client.id]" class="client card">
-          <div class="card-body">
+        <a [routerLink]="['/company', 'clients', client.id]" class="client">
+          <div class="content">
             <img class="photo" [src]="client.photo_url">
             <div class="info">
               <h5>{{ client.forename }} {{ client.surname }}</h5>

@@ -3,19 +3,12 @@
 @import "header";
 @import "footer";
 
-@import (less, reference) "~bootstrap/dist/css/bootstrap.min.css";
+@import (less, reference) "~bootstrap/dist/css/bootstrap.css";
 
 #signup, #signin, #create-company, #not-found {
   min-height: 100%;
   background-color: @primary;
-  label, input, .input-group-text {
-    font-size: 20px;
-  }
-  button {
-    font-size: 22px;
-  }
   .note {
-    font-size: 20px;
     a {
       text-decoration: underline;
     }
@@ -76,8 +69,9 @@
       .flex-grow-1();
       .d-flex();
       .align-items-end();
+      .mt-4();
       .px-1();
-      > .account-icon {
+      .account-icon {
         .rounded-circle();
         width: 40px;
         height: 40px;
@@ -94,14 +88,16 @@
 }
 
 #clients {
-  .client.card {
+  .client {
+    .card();
     text-decoration: none;
     color: inherit;
     &:hover, &:link, &:visited {
       text-decoration: none;
       color: inherit;
     }
-    > .card-body {
+    > .content {
+      .card-body();
       .d-flex();
       > .photo {
         .flex-shrink-0();
@@ -162,30 +158,12 @@
       font-size: 16px;
       font-weight: 400;
     }
-    .comment {
-      .d-flex();
-      .mt-2();
-      > .icon {
-        .mr-3();
-        > img {
-          .rounded-circle();
-          width: 40px;
-          height: 40px;
-        }
-      }
-      > .balloon {
-        .jumbotron();
-        .px-3();
-        .py-2();
-        .mb-0();
-        > .author {
-          .mb-1();
-          font-weight: 600;
-        }
-        > .text {
-          .mb-0();
-          white-space: pre-line;
-        }
+    .attachments {
+      .mb-3();
+    }
+    .comments {
+      > textarea {
+        resize: none;
       }
     }
   }
@@ -198,5 +176,74 @@
         font-size: 36px;
       }
     }
+  }
+}
+
+.comment {
+  .d-flex();
+  .mt-3();
+  > .icon {
+    .mr-3();
+    > img {
+      .rounded-circle();
+      width: 40px;
+      height: 40px;
+    }
+  }
+  > .content {
+    > .account {
+      .mb-1();
+      font-weight: 600;
+      font-size: 14px;
+      > .time {
+        .text-secondary();
+        font-size: 14px;
+        &:before {
+          content: "\00b7\0020\0020";
+        }
+      }
+    }
+    > .balloon {
+      .jumbotron();
+      .px-3();
+      .py-2();
+      .mb-0();
+      display: inline-block;
+      > .text {
+        .mb-0();
+        white-space: pre-line;
+      }
+    }
+  }
+}
+
+.attachment {
+  .card();
+  cursor: pointer;
+  > .account {
+    .px-3();
+    .py-2();
+    font-weight: 600;
+    font-size: 13px;
+    > .time {
+      .text-secondary();
+      font-size: 13px;
+      &:before {
+        content: "\00b7\0020\0020";
+      }
+    }
+  }
+  > .type {
+    .py-3();
+    .px-3();
+    .bg-secondary();
+    .text-center();
+    .text-white();
+  }
+  > .content {
+    .card-body();
+    .px-3();
+    .py-2();
+    .text-center();
   }
 }

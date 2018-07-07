@@ -13,7 +13,8 @@ import {ErrorUtils} from 'app/utils/error.utils';
 })
 export class SignUpComponent {
 
-  public name: string;
+  public firstName: string;
+  public lastName: string;
   public email: string;
   public password: string;
 
@@ -22,7 +23,7 @@ export class SignUpComponent {
   }
 
   public signUp(): void {
-    this.accountService.createAccount(this.name, this.email, this.password).pipe(
+    this.accountService.createAccount(this.firstName, this.lastName, this.email, this.password).pipe(
       mergeMap(() => {
         return this.accountService.login(this.email, this.password);
       })

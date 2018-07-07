@@ -1,5 +1,6 @@
 import {NgModule, LOCALE_ID} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {registerLocaleData} from '@angular/common';
 import pt from '@angular/common/locales/pt';
 import {HttpClientModule} from '@angular/common/http';
@@ -7,11 +8,12 @@ import {RouterModule} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import {NgbAlertModule} from '@ng-bootstrap/ng-bootstrap/alert/alert.module';
 import {NgbModalModule} from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
-import {NgbPopoverModule} from '@ng-bootstrap/ng-bootstrap/popover/popover.module';
+import {NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap/dropdown/dropdown.module';
 import {NgbDatepickerModule, NgbDateParserFormatter, NgbDatepickerI18n} from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
 import {NgbTimepickerModule} from '@ng-bootstrap/ng-bootstrap/timepicker/timepicker.module';
 import {NgxMaskModule} from 'ngx-mask';
 import {NgxMasonryModule} from 'ngx-masonry';
+import {CalendarModule} from 'angular-calendar';
 
 import {AppRoutes} from 'app/app.routes';
 import {AppComponent} from 'app/app.component';
@@ -37,6 +39,7 @@ import {SettingsComponent} from 'app/components/company/settings/settings.compon
 import {CompanyService} from 'app/services/company.service';
 import {AccountService} from 'app/services/account.service';
 import {ClientService} from 'app/services/client.service';
+import {TaskService} from 'app/services/task.service';
 import {AlertService} from 'app/services/alert.service';
 import {EventService} from 'app/services/event.service';
 
@@ -48,16 +51,18 @@ registerLocaleData(pt);
 @NgModule({
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
-    RouterModule.forRoot(AppRoutes.listRoutes()),
     FormsModule,
+    RouterModule.forRoot(AppRoutes.listRoutes()),
     NgbAlertModule.forRoot(),
     NgbModalModule.forRoot(),
-    NgbPopoverModule.forRoot(),
+    NgbDropdownModule.forRoot(),
     NgbDatepickerModule.forRoot(),
     NgbTimepickerModule.forRoot(),
     NgxMaskModule.forRoot(),
     NgxMasonryModule,
+    CalendarModule.forRoot(),
   ],
   declarations: [
     AppComponent,
@@ -86,6 +91,7 @@ registerLocaleData(pt);
     CompanyService,
     AccountService,
     ClientService,
+    TaskService,
     AlertService,
     EventService,
     {provide: LOCALE_ID, useValue: 'pt'},

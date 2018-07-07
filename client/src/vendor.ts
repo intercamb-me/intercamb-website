@@ -19,4 +19,5 @@ import 'assets/fonts/fontawesome/fa-brands-400.ttf';
 import 'assets/fonts/fontawesome/fa-brands-400.woff';
 import 'assets/fonts/fontawesome/fa-brands-400.woff2';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'angular-calendar/css/angular-calendar.css';

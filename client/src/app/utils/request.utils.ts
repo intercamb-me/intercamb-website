@@ -8,26 +8,26 @@ interface HttpOptions {
 
 export class RequestUtils {
 
+  private static readonly HEADER_AUTHORIZATION = 'Authorization';
+
   public static getApiUrl(url: string): string {
     return process.env.API_URL + url;
   }
 
-  public static getJsonOptions(): HttpOptions {
-    const headers: any = {'Content-Type': 'application/json'};
-    const apiToken = StorageUtils.getApiToken();
-    if (apiToken) {
-      headers.authorization = `Bearer ${apiToken}`;
-    }
-    return {headers: new HttpHeaders(headers)};
+  public static getJsonOptions(customHeaders?: any): HttpOptions {
+    return RequestUtils.getOptions({
+      ...customHeaders,
+      'Content-Type': 'application/json',
+    });
   }
 
-  public static getOptions(): HttpOptions {
-    const headers = new HttpHeaders({});
+  public static getOptions(customHeaders?: any): HttpOptions {
+    const headers: any = {...customHeaders};
     const apiToken = StorageUtils.getApiToken();
     if (apiToken) {
-      headers.set('Authorization', `Bearer ${apiToken}`);
+      headers[RequestUtils.HEADER_AUTHORIZATION] = `Bearer ${apiToken}`;
     }
-    return {headers};
+    return {headers: new HttpHeaders(headers)};
   }
 
   private constructor() {

@@ -22,7 +22,7 @@ export class CreateCompanyComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.accountService.getCurrentAccount().subscribe((account) => {
+    this.accountService.getAccount().subscribe((account) => {
       if (!account) {
         this.router.navigate(['/signup']);
         return;

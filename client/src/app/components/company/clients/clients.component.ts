@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 
-import {ClientService} from 'app/services/client.service';
+import {CompanyService} from 'app/services/company.service';
 import {AlertService} from 'app/services/alert.service';
 import {Client} from 'app/models/client.model';
 
@@ -13,12 +13,12 @@ export class ClientsComponent implements OnInit {
   public clients: Client[];
   public loading = true;
 
-  constructor(private clientService: ClientService, private alertService: AlertService) {
+  constructor(private companyService: CompanyService, private alertService: AlertService) {
 
   }
 
   public ngOnInit(): void {
-    this.clientService.listClients().subscribe((clients) => {
+    this.companyService.listClients().subscribe((clients) => {
       this.clients = clients;
       this.loading = false;
     }, (err) => {

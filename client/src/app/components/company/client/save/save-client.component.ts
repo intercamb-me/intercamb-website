@@ -1,11 +1,11 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
-import * as getYear from 'date-fns/getYear';
-import * as setYear from 'date-fns/setYear';
-import * as getMonth from 'date-fns/getMonth';
-import * as setMonth from 'date-fns/setMonth';
-import * as getDate from 'date-fns/getDate';
-import * as setDate from 'date-fns/setDate';
+import * as getYear from 'date-fns/get_year';
+import * as setYear from 'date-fns/set_year';
+import * as getMonth from 'date-fns/get_month';
+import * as setMonth from 'date-fns/set_month';
+import * as getDate from 'date-fns/get_date';
+import * as setDate from 'date-fns/set_date';
 
 import {ClientService} from 'app/services/client.service';
 import {AlertService} from 'app/services/alert.service';

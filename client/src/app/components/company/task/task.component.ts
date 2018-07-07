@@ -1,17 +1,20 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
 import {mergeMap} from 'rxjs/operators';
+import * as distanceInWordsStrict from 'date-fns/distance_in_words_strict';
 
 import {ChangeTaskStatusComponent} from 'app/components/company/task/change-status/change-task-status.component';
 
 import {CompanyService} from 'app/services/company.service';
-import {ClientService} from 'app/services/client.service';
+import {TaskService} from 'app/services/task.service';
 import {AlertService} from 'app/services/alert.service';
 import {Constants} from 'app/utils/constants';
+import {StorageUtils} from 'app/utils/storage.utils';
 import {Account} from 'app/models/account.model';
 import {Client} from 'app/models/client.model';
 import {Task} from 'app/models/task.model';
 import {TaskComment} from 'app/models/task-comment.model';
+import {TaskAttachment} from 'app/models/task-attachment.model';
 
 @Component({
   selector: 'app-task',
@@ -29,17 +32,17 @@ export class TaskComponent implements OnInit {
   public comment = '';
   public commentRows = 1;
 
-  constructor(private companyService: CompanyService, private clientService: ClientService, private alertService: AlertService, private ngbModal: NgbModal, private ngbActiveModal: NgbActiveModal) {
+  constructor(private companyService: CompanyService, private taskService: TaskService, private alertService: AlertService, private ngbModal: NgbModal, private ngbActiveModal: NgbActiveModal) {
 
   }
 
   public ngOnInit(): void {
-    this.companyService.listCurrentCompanyAccounts().pipe(
+    this.companyService.listAccounts().pipe(
       mergeMap((accounts) => {
         accounts.forEach((account) => {
           this.accounts.set(account.id, account);
         });
-        return this.clientService.getTask(this.client, this.task.id);
+        return this.taskService.getTask(this.task.id);
       })
     ).subscribe((task) => {
       this.task = task;
@@ -52,12 +55,37 @@ export class TaskComponent implements OnInit {
     return comment.id;
   }
 
+  public trackByAttachment(_index: number, attachment: TaskAttachment): string {
+    return attachment.id;
+  }
+
   public close(): void {
     this.ngbActiveModal.close(this.task);
   }
 
+  public isImageAttachment(attachment: TaskAttachment): boolean {
+    return attachment.type.startsWith('image');
+  }
+
+  public getAttachmentType(attachment: TaskAttachment): string {
+    const typeSplit = attachment.type.split('/');
+    if (typeSplit.length > 1) {
+      return typeSplit[1];
+    }
+    return typeSplit[0];
+  }
+
+  public getAttachmentSize(attachment: TaskAttachment): string {
+    const sizeInMB = attachment.size / 1000000;
+    return `${Math.round(sizeInMB * 100) / 100} MB`;
+  }
+
+  public formatDate(date: Date): string {
+    return distanceInWordsStrict(date, new Date());
+  }
+
   public openChangeStatus(): void {
-    const modalRef = this.ngbModal.open(ChangeTaskStatusComponent);
+    const modalRef = this.ngbModal.open(ChangeTaskStatusComponent, {centered: true});
     modalRef.componentInstance.client = this.client;
     modalRef.componentInstance.task = this.task;
     modalRef.result.then((updatedTask) => {
@@ -70,7 +98,7 @@ export class TaskComponent implements OnInit {
   public onCommentKeyPress(event: KeyboardEvent): void {
     const keyCode = event.which || event.keyCode;
     if (!event.shiftKey && keyCode === 13) {
-      this.clientService.addTaskComment(this.client, this.task, this.comment).subscribe((comment) => {
+      this.taskService.addTaskComment(this.task, this.comment).subscribe((comment) => {
         this.task.comments.push(comment);
       }, (err) => {
         this.alertService.apiError(null, err);
@@ -88,5 +116,19 @@ export class TaskComponent implements OnInit {
   public onCommentKeyUp(): void {
     const breakLinesCount = (this.comment.match(/\n/g) || []).length + 1;
     this.commentRows = breakLinesCount;
+  }
+
+  public addTaskAttachment(event: any): void {
+    const file = event.target.files[0];
+    this.taskService.addTaskAttachment(this.task, file).subscribe((attachment) => {
+      this.task.attachments.push(attachment);
+    }, (err) => {
+      this.alertService.apiError(null, err, 'Não foi possível enviar o arquivo, por favor tente novamente mais tarde!');
+    });
+  }
+
+  public openTaskAttachment(attachment: TaskAttachment): void {
+    const win = window.open();
+    win.location.href = `${process.env.API_URL}/tasks/${this.task.id}/attachments/${attachment.id}/file?access_token=${StorageUtils.getApiToken()}`;
   }
 }

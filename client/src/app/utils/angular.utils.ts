@@ -1,28 +1,19 @@
 import {Injectable} from '@angular/core';
 import {NgbDateParserFormatter, NgbDateStruct, NgbDatepickerI18n} from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
-import * as parseDate from 'date-fns/parse';
-import * as formatDate from 'date-fns/format';
-import * as getYear from 'date-fns/getYear';
-import * as setYear from 'date-fns/setYear';
-import * as getMonth from 'date-fns/getMonth';
-import * as setMonth from 'date-fns/setMonth';
-import * as getDate from 'date-fns/getDate';
-import * as setDate from 'date-fns/setDate';
+import padStart from 'lodash-es/padStart';
 
 @Injectable()
 export class BrazilianNgbDateParserFormatter extends NgbDateParserFormatter {
-
-  private static readonly DATE_FORMAT = 'dd/MM/yyyy';
 
   public parse(dateStr: string): NgbDateStruct {
     if (!dateStr) {
       return {year: null, month: null, day: null};
     }
-    const date = parseDate(dateStr, BrazilianNgbDateParserFormatter.DATE_FORMAT, new Date());
+    const dateSplit = dateStr.split('/');
     return {
-      year: getYear(date),
-      month: getMonth(date) + 1,
-      day: getDate(date),
+      day: Number(dateSplit[0]),
+      month: Number(dateSplit[1]) - 1,
+      year: Number(dateSplit[2]),
     };
   }
 
@@ -30,11 +21,10 @@ export class BrazilianNgbDateParserFormatter extends NgbDateParserFormatter {
     if (!dateStruct) {
       return '';
     }
-    let date = new Date();
-    date = setYear(date, dateStruct.year);
-    date = setMonth(date, dateStruct.month - 1);
-    date = setDate(date, dateStruct.day);
-    return formatDate(date, BrazilianNgbDateParserFormatter.DATE_FORMAT);
+    const day = padStart(String(dateStruct.day), 2, '0');
+    const month = padStart(String(dateStruct.month), 2, '0');
+    const year = padStart(String(dateStruct.year), 4, '0');
+    return `${day}/${month}/${year}`;
   }
 }
 

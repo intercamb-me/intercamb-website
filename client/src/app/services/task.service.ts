@@ -3,27 +3,23 @@ import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {map, catchError} from 'rxjs/operators';
 
-import {Account} from 'app/models/account.model';
+import {Task} from 'app/models/task.model';
+import {TaskComment} from 'app/models/task-comment.model';
+import {TaskAttachment} from 'app/models/task-attachment.model';
 import {EventService} from 'app/services/event.service';
 import {ApiError} from 'app/services/commons/api.error';
 import {RequestUtils} from 'app/utils/request.utils';
-import {StorageUtils} from 'app/utils/storage.utils';
-
-interface LoginResult {
-  token: string;
-  account: Account;
-}
 
 @Injectable()
-export class AccountService {
+export class TaskService {
 
   constructor(private eventService: EventService, private http: HttpClient) {
 
   }
 
-  public createAccount(firstName: string, lastName: string, email: string, password: string): Observable<Account> {
-    return this.http.post<Account>(RequestUtils.getApiUrl('/accounts'), {email, password, first_name: firstName, last_name: lastName}, RequestUtils.getJsonOptions()).pipe(
-      map((accountData: Account) => new Account(accountData)),
+  public getTask(id: string): Observable<Task> {
+    return this.http.get<Task>(RequestUtils.getApiUrl(`/tasks/${id}`), RequestUtils.getJsonOptions()).pipe(
+      map((taskData: Task) => new Task(taskData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
         this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
@@ -32,9 +28,9 @@ export class AccountService {
     );
   }
 
-  public getAccount(): Observable<Account> {
-    return this.http.get<Account>(RequestUtils.getApiUrl('/accounts/current'), RequestUtils.getJsonOptions()).pipe(
-      map((accountData: Account) => accountData ? new Account(accountData) : null),
+  public updateTask(task: Task, data: any): Observable<Task> {
+    return this.http.put<Task>(RequestUtils.getApiUrl(`/tasks/${task.id}`), data, RequestUtils.getJsonOptions()).pipe(
+      map((taskData: Task) => new Task(taskData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
         this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
@@ -43,12 +39,9 @@ export class AccountService {
     );
   }
 
-  public login(email: string, password: string): Observable<Account> {
-    return this.http.post<LoginResult>(RequestUtils.getApiUrl('/accounts/login'), {email, password}, RequestUtils.getJsonOptions()).pipe(
-      map((loginData: LoginResult) => {
-        StorageUtils.setApiToken(loginData.token);
-        return new Account(loginData.account);
-      }),
+  public addTaskComment(task: Task, text: string): Observable<TaskComment> {
+    return this.http.post<TaskComment>(RequestUtils.getApiUrl(`/tasks/${task.id}/comments`), {text}, RequestUtils.getJsonOptions()).pipe(
+      map((commentData: TaskComment) => new TaskComment(commentData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
         this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
@@ -57,12 +50,11 @@ export class AccountService {
     );
   }
 
-  public logout(): Observable<void> {
-    return this.http.post<void>(RequestUtils.getApiUrl('/accounts/logout'), null, RequestUtils.getJsonOptions()).pipe(
-      map(() => {
-        StorageUtils.removeApiToken();
-        return null;
-      }),
+  public addTaskAttachment(task: Task, file: File): Observable<TaskAttachment> {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.post<TaskAttachment>(RequestUtils.getApiUrl(`/tasks/${task.id}/attachments`), formData, RequestUtils.getOptions()).pipe(
+      map((attachmentData: TaskAttachment) => new TaskAttachment(attachmentData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
         this.eventService.publish(EventService.EVENT_API_ERROR, apiError);

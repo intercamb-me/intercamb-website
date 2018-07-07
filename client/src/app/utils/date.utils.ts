@@ -1,25 +1,33 @@
-import * as parseDate from 'date-fns/parse';
-import * as formatDate from 'date-fns/format';
-import * as addMonths from 'date-fns/addMonths';
+import padStart from 'lodash-es/padStart';
+import * as getYear from 'date-fns/get_year';
+import * as getMonth from 'date-fns/get_month';
+import * as getDate from 'date-fns/get_date';
 
 export class DateUtils {
-
-  private static readonly DATE_ONLY_FORMAT = 'yyyyMMdd';
 
   public static fromDateOnly(dateOnly: number): Date {
     if (!dateOnly) {
       return null;
     }
-    const date = parseDate(String(dateOnly), DateUtils.DATE_ONLY_FORMAT, new Date());
-    return addMonths(date, 1);
+    const dateOnlyStr = String(dateOnly);
+    const year = dateOnlyStr.substring(0, 4);
+    const month = dateOnlyStr.substring(4, 6);
+    const day = dateOnlyStr.substring(6, 8);
+    const date = new Date(Number(year), Number(month), Number(day));
+    console.log(date);
+    return date;
   }
 
   public static toDateOnly(date: Date): number {
     if (!date) {
       return null;
     }
-    const finalDate = addMonths(date, -1);
-    return Number(formatDate(finalDate, DateUtils.DATE_ONLY_FORMAT));
+    const year = padStart(String(getYear(date)), 4, '0');
+    const month = padStart(String(getMonth(date)), 2, '0');
+    const day = padStart(String(getDate(date)), 2, '0');
+    const dateOnly = year + month + day;
+    console.log(dateOnly);
+    return Number(dateOnly);
   }
 
   private constructor() {

@@ -21,7 +21,7 @@ export class SignInComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.accountService.getCurrentAccount().subscribe((account) => {
+    this.accountService.getAccount().subscribe((account) => {
       if (account && account.company) {
         this.router.navigate(['/company']);
         return;

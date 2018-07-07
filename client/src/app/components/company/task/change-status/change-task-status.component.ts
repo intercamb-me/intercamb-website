@@ -2,19 +2,19 @@ import {Component, OnInit, Input} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
 import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
 import {NgbTimeStruct} from '@ng-bootstrap/ng-bootstrap/timepicker/timepicker.module';
-import * as getYear from 'date-fns/getYear';
-import * as setYear from 'date-fns/setYear';
-import * as getMonth from 'date-fns/getMonth';
-import * as setMonth from 'date-fns/setMonth';
-import * as getDate from 'date-fns/getDate';
-import * as setDate from 'date-fns/setDate';
-import * as setHours from 'date-fns/setHours';
-import * as setMinutes from 'date-fns/setMinutes';
-import * as setSeconds from 'date-fns/setSeconds';
-import * as setMilliseconds from 'date-fns/setMilliseconds';
+import * as getYear from 'date-fns/get_year';
+import * as setYear from 'date-fns/set_year';
+import * as getMonth from 'date-fns/get_month';
+import * as setMonth from 'date-fns/set_month';
+import * as getDate from 'date-fns/get_date';
+import * as setDate from 'date-fns/set_date';
+import * as setHours from 'date-fns/set_hours';
+import * as setMinutes from 'date-fns/set_minutes';
+import * as setSeconds from 'date-fns/set_seconds';
+import * as setMilliseconds from 'date-fns/set_milliseconds';
 import values from 'lodash-es/values';
 
-import {ClientService} from 'app/services/client.service';
+import {TaskService} from 'app/services/task.service';
 import {AlertService} from 'app/services/alert.service';
 import {Constants} from 'app/utils/constants';
 import {onlyDateChars} from 'app/utils/angular.utils';
@@ -39,7 +39,7 @@ export class ChangeTaskStatusComponent implements OnInit {
   public todayDateStruct: NgbDateStruct;
   public onlyDateChars = onlyDateChars;
 
-  constructor(private clientService: ClientService, private alertService: AlertService, private ngbActiveModal: NgbActiveModal) {
+  constructor(private taskService: TaskService, private alertService: AlertService, private ngbActiveModal: NgbActiveModal) {
 
   }
 
@@ -87,7 +87,7 @@ export class ChangeTaskStatusComponent implements OnInit {
   }
 
   private updateTask(data: any): void {
-    this.clientService.updateTask(this.client, this.task, data).subscribe((task) => {
+    this.taskService.updateTask(this.task, data).subscribe((task) => {
       this.ngbActiveModal.close(task);
       this.alertService.success('Status da atividade atualizado com sucesso!');
     }, (err) => {

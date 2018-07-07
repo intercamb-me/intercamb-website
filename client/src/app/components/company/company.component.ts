@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
+import {finalize} from 'rxjs/operators';
 
 import {AccountService} from 'app/services/account.service';
 import {CompanyService} from 'app/services/company.service';
@@ -22,7 +23,7 @@ export class CompanyComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.accountService.getCurrentAccount().subscribe((account) => {
+    this.accountService.getAccount().subscribe((account) => {
       if (!account) {
         this.router.navigate(['/signin']);
         return;
@@ -32,7 +33,7 @@ export class CompanyComponent implements OnInit {
         return;
       }
       this.account = account;
-      this.companyService.getCurrentCompany().subscribe((company) => {
+      this.companyService.getCompany().subscribe((company) => {
         this.company = company;
         this.loading = false;
       }, (err) => {
@@ -41,5 +42,14 @@ export class CompanyComponent implements OnInit {
     }, (err) => {
       this.alertService.apiError(null, err);
     });
+  }
+
+  public logout(): void {
+    this.accountService.logout().pipe(
+      finalize(() => {
+        this.account = null;
+        this.router.navigate(['/']);
+      })
+    ).subscribe(null, null);
   }
 }
