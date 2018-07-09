@@ -2,7 +2,7 @@
   <form #form="ngForm" novalidate>
     <div class="row">
       <div class="col-12">
-        <h1 class="mb-0">Cadastrar cliente</h1>
+        <h1 class="mb-0">Cadastrar assessorado</h1>
       </div>
     </div>
     <div class="row mt-4">
@@ -234,7 +234,7 @@
                 </div>
                 <div class="form-group">
                   <label for="fd-father-phone">Telefone</label>
-                  <input #fatherPhone="ngModel" [(ngModel)]="client.family_data.father.phone" [ngClass]="{'is-invalid': fatherPhone.invalid && (fatherPhone.dirty || fatherPhone.touched)}" [dropSpecialCharacters]="false" mask="+0* 0* 0*" id="fd-father-phone" name="fd-father-phone" type="text" class="form-control" placeholder="Exemplo: +55 71 99999999" maxlength="17" required>
+                  <input #fatherPhone="ngModel" [(ngModel)]="client.family_data.father.phone" [ngClass]="{'is-invalid': fatherPhone.invalid && (fatherPhone.dirty || fatherPhone.touched)}" [dropSpecialCharacters]="false" mask="+0* 0* 0*" id="fd-father-phone" name="fd-father-phone" type="text" class="form-control" placeholder="Exemplo: +55 71 99999999" maxlength="17">
                 </div>
               </div>
               <div class="vr"></div>
@@ -258,7 +258,7 @@
                 </div>
                 <div class="form-group">
                   <label for="fd-father-phone">Telefone</label>
-                  <input #motherPhone="ngModel" [(ngModel)]="client.family_data.mother.phone" [ngClass]="{'is-invalid': motherPhone.invalid && (motherPhone.dirty || motherPhone.touched)}" [dropSpecialCharacters]="false" mask="+0* 0* 0*" id="fd-mother-phone" name="fd-mother-phone" type="text" class="form-control" placeholder="Exemplo: +55 71 99999999" maxlength="17" required>
+                  <input #motherPhone="ngModel" [(ngModel)]="client.family_data.mother.phone" [ngClass]="{'is-invalid': motherPhone.invalid && (motherPhone.dirty || motherPhone.touched)}" [dropSpecialCharacters]="false" mask="+0* 0* 0*" id="fd-mother-phone" name="fd-mother-phone" type="text" class="form-control" placeholder="Exemplo: +55 71 99999999" maxlength="17">
                 </div>
               </div>
             </div>

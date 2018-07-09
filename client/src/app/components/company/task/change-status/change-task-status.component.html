@@ -7,41 +7,16 @@
       </button>
     </div>
     <div class="modal-body">
-      <div *ngIf="!selectingDate" class="row justify-content-center">
+      <div class="row justify-content-center">
         <div class="col-4">
           <ng-container *ngFor="let status of taskStatus; trackBy: trackByIndex">
-            <div *ngIf="status.manual && (status.id !== 'scheduled' || task.schedulable)" class="mb-2">
-              <button (click)="changeStatus(status.id)" class="btn btn-{{ status.selector }} btn-block" type="button">
-                <i *ngIf="selectedStatus === status.id" class="fas fa-check mr-2"></i>
-                {{ status.name }}
-              </button>
-            </div>
+            <button (click)="changeStatus(status.id)" class="btn btn-{{ status.colorSelector }} btn-block mb-2" type="button">
+              <i *ngIf="task.status === status.id" class="fas fa-check mr-2"></i>
+              {{ status.name }}
+            </button>
           </ng-container>
         </div>
       </div>
-      <div *ngIf="selectingDate" class="row">
-        <div class="col-12">
-          <h5 class="mb-3">Esta atividade foi agendada para que data?</h5>
-          <div class="form-row align-items-center justify-content-center">
-            <div class="col-5">
-              <div class="input-group">
-                <input #selectedDate="ngModel" #selectedDatePicker="ngbDatepicker" ngbDatepicker [(ngModel)]="selectedDateStruct" [ngClass]="{'is-invalid': selectedDate.invalid && (selectedDate.dirty || selectedDate.touched)}" [minDate]="todayDateStruct" (keypress)="onlyDateChars($event)" name="selected-date" class="form-control" placeholder="dd/mm/yyyy" required>
-                <div class="input-group-append">
-                  <button (click)="selectedDatePicker.toggle()" type="button" class="btn btn-info">
-                    <i class="fas fa-calendar-alt"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="col-auto">
-              <ngb-timepicker [(ngModel)]="selectedTimeStruct" [spinners]="false" name="selected-time" required></ngb-timepicker>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div *ngIf="selectingDate" class="modal-footer">
-      <button (click)="confirmScheduleDate()" [disabled]="form.invalid" type="submit" class="btn btn-primary">Confirmar</button>
     </div>
   </form>
 </div>

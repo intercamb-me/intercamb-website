@@ -9,6 +9,7 @@ import {FormsModule} from '@angular/forms';
 import {NgbAlertModule} from '@ng-bootstrap/ng-bootstrap/alert/alert.module';
 import {NgbModalModule} from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
 import {NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap/dropdown/dropdown.module';
+import {NgbPopoverModule} from '@ng-bootstrap/ng-bootstrap/popover/popover.module';
 import {NgbDatepickerModule, NgbDateParserFormatter, NgbDatepickerI18n} from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
 import {NgbTimepickerModule} from '@ng-bootstrap/ng-bootstrap/timepicker/timepicker.module';
 import {NgxMaskModule} from 'ngx-mask';
@@ -31,6 +32,7 @@ import {CreateClientComponent} from 'app/components/company/client/create/create
 import {UpdateClientComponent} from 'app/components/company/client/update/update-client.component';
 import {TaskComponent} from 'app/components/company/task/task.component';
 import {ChangeTaskStatusComponent} from 'app/components/company/task/change-status/change-task-status.component';
+import {SetTaskScheduleDateComponent} from 'app/components/company/task/set-schedule-date/set-task-schedule-date.component';
 import {SchedulingComponent} from 'app/components/company/scheduling/scheduling.component';
 import {ReportsComponent} from 'app/components/company/reports/reports.component';
 import {SettingsComponent} from 'app/components/company/settings/settings.component';
@@ -44,7 +46,7 @@ import {AlertService} from 'app/services/alert.service';
 import {EventService} from 'app/services/event.service';
 
 // Other
-import {BrazilianNgbDateParserFormatter, BrazilianNgbDatepickerI18n} from 'app/utils/angular.utils';
+import {CapitalizeFirstPipe, BrazilianNgbDateParserFormatter, BrazilianNgbDatepickerI18n} from 'app/utils/angular.utils';
 
 registerLocaleData(pt);
 
@@ -58,6 +60,7 @@ registerLocaleData(pt);
     NgbAlertModule.forRoot(),
     NgbModalModule.forRoot(),
     NgbDropdownModule.forRoot(),
+    NgbPopoverModule.forRoot(),
     NgbDatepickerModule.forRoot(),
     NgbTimepickerModule.forRoot(),
     NgxMaskModule.forRoot(),
@@ -65,6 +68,7 @@ registerLocaleData(pt);
     CalendarModule.forRoot(),
   ],
   declarations: [
+    CapitalizeFirstPipe,
     AppComponent,
     AlertsComponent,
     NotFoundComponent,
@@ -79,6 +83,7 @@ registerLocaleData(pt);
     UpdateClientComponent,
     TaskComponent,
     ChangeTaskStatusComponent,
+    SetTaskScheduleDateComponent,
     SchedulingComponent,
     ReportsComponent,
     SettingsComponent,
@@ -86,6 +91,7 @@ registerLocaleData(pt);
   entryComponents: [
     TaskComponent,
     ChangeTaskStatusComponent,
+    SetTaskScheduleDateComponent,
   ],
   providers: [
     CompanyService,

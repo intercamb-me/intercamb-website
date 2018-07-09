@@ -4,6 +4,7 @@ import {mergeMap} from 'rxjs/operators';
 import * as distanceInWordsStrict from 'date-fns/distance_in_words_strict';
 
 import {ChangeTaskStatusComponent} from 'app/components/company/task/change-status/change-task-status.component';
+import {SetTaskScheduleDateComponent} from 'app/components/company/task/set-schedule-date/set-task-schedule-date.component';
 
 import {CompanyService} from 'app/services/company.service';
 import {TaskService} from 'app/services/task.service';
@@ -86,6 +87,17 @@ export class TaskComponent implements OnInit {
 
   public openChangeStatus(): void {
     const modalRef = this.ngbModal.open(ChangeTaskStatusComponent, {centered: true});
+    modalRef.componentInstance.client = this.client;
+    modalRef.componentInstance.task = this.task;
+    modalRef.result.then((updatedTask) => {
+      this.task = updatedTask;
+    }).catch(() => {
+      // Nothing to do...
+    });
+  }
+
+  public openSetScheduleDate(): void {
+    const modalRef = this.ngbModal.open(SetTaskScheduleDateComponent, {centered: true});
     modalRef.componentInstance.client = this.client;
     modalRef.componentInstance.task = this.task;
     modalRef.result.then((updatedTask) => {

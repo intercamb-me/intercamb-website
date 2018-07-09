@@ -3,4 +3,4 @@ declare module '*.json' {
   export default value;
 }
 
-declare module 'ayro';
+declare module 'string-to-color';

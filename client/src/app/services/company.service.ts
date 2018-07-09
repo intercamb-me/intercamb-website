@@ -70,8 +70,16 @@ export class CompanyService {
     );
   }
 
-  public listClients(): Observable<Client[]> {
-    return this.http.get<Client[]>(RequestUtils.getApiUrl('/companies/current/clients'), RequestUtils.getJsonOptions()).pipe(
+  public listClients(ids?: string[]): Observable<Client[]> {
+    let url = '/companies/current/clients';
+    if (ids) {
+      const idsQuery: string[] = [];
+      ids.forEach((id) => {
+        idsQuery.push(`id=${id}`);
+      });
+      url += `?${idsQuery.join('&')}`;
+    }
+    return this.http.get<Client[]>(RequestUtils.getApiUrl(url), RequestUtils.getJsonOptions()).pipe(
       map((clientsData: Client[]) => {
         const clients: Client[] = [];
         clientsData.forEach((clientData: any) => {
@@ -87,8 +95,9 @@ export class CompanyService {
     );
   }
 
-  public listScheduledTasks(): Observable<Task[]> {
-    return this.http.get<Task[]>(RequestUtils.getApiUrl('/companies/current/tasks/scheduled'), RequestUtils.getJsonOptions()).pipe(
+  public listScheduledTasks(startDate: Date, endDate: Date): Observable<Task[]> {
+    const url = `/companies/current/tasks/scheduled?start_time=${startDate.getTime()}&end_time=${endDate.getTime()}`;
+    return this.http.get<Task[]>(RequestUtils.getApiUrl(url), RequestUtils.getJsonOptions()).pipe(
       map((tasksData: Task[]) => {
         const tasks: Task[] = [];
         tasksData.forEach((taskData: any) => {

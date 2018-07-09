@@ -18,7 +18,7 @@ export class Account {
       this.email = data.email;
       this.icon_url = data.icon_url;
       this.company = data.company;
-      this.registration_date = data.registration_date;
+      this.registration_date = new Date(data.registration_date);
     }
   }
 

@@ -14,6 +14,10 @@ h1, h2, h3, h4, h5, p, small {
   line-height: 1.5;
 }
 
+.font-small {
+  font-size: 14px !important;
+}
+
 .vr {
   .ml-3();
   .mr-3();
@@ -74,6 +78,44 @@ h1, h2, h3, h4, h5, p, small {
   background-color: #eb5a46;
 }
 
-.font-small {
-  font-size: 14px;
+.modal-header {
+  button {
+    &.close {
+      font-size: 36px;
+    }
+  }
+}
+
+.popover {
+  font-family: "Montserrat";
+  max-width: 400px;
+}
+
+.popover-header {
+  .text-dark();
+  .text-center();
+}
+
+.cal-week-view {
+  .cal-event-container {
+    position: relative;
+  }
+  .cal-events-row {
+    height: auto;
+  }
+  .cal-event {
+    .mb-1();
+    .py-1();
+    height: auto;
+    line-height: unset;
+    overflow: unset;
+    -o-text-overflow: unset;
+    text-overflow: unset;
+    white-space: unset;
+    text-align: center;
+  }
+  .cal-event-title:link {
+    color: @white;
+    text-decoration: none;
+  }
 }

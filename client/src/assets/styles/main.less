@@ -119,8 +119,8 @@
     > .photo {
       .flex-shrink-0();
       .rounded-circle();
-      width: 150;
-      height: 150;
+      width: 150px;
+      height: 150px;
     }
     > .info {
       .flex-grow-1();
@@ -145,19 +145,16 @@
 
 #task {
   > .modal-header {
-    > button {
-      &.close {
-        font-size: 36px;
-      }
-    }
-  }
-  > .modal-body {
+    .flex-column();
+    align-items: unset;
     .badge {
       .mr-2();
       padding: 6px;
       font-size: 16px;
       font-weight: 400;
     }
+  }
+  > .modal-body {
     .attachments {
       .mb-3();
     }
@@ -169,13 +166,9 @@
   }
 }
 
-#change-task-status {
-  .modal-header {
-    > button {
-      &.close {
-        font-size: 36px;
-      }
-    }
+#scheduling {
+  .popover-body {
+    .text-center();
   }
 }
 
@@ -236,7 +229,7 @@
   > .type {
     .py-3();
     .px-3();
-    .bg-secondary();
+    .bg-info();
     .text-center();
     .text-white();
   }

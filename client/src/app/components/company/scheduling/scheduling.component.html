@@ -1,15 +1,119 @@
-<div *ngIf="!loading" id="scheduling">
-  <div class="d-flex align-items-center mb-4">
+<ng-template #monthCellTemplate let-day="day" let-locale="locale">
+  <div class="cal-cell-top">
+    <span class="cal-day-badge" *ngIf="day.badgeTotal > 0">
+      {{ day.badgeTotal }}
+    </span>
+    <span class="cal-day-number">
+      {{ day.date | calendarDate:"monthViewDayNumber":locale }}
+    </span>
+  </div>
+  <div class="my-1 text-center text-white">
+    <span
+      *ngFor="let event of day.events; trackBy: trackByIndex"
+      #eventGroupPopover="ngbPopover"
+      [ngbPopover]="monthEventGroupTemplate"
+      [style.background-color]="event.color.primary"
+      (mouseenter)="openEventGroupPopover(eventGroupPopover, event)"
+      (mouseleave)="closeEventGroupPopover(eventGroupPopover)"
+      triggers="manual"
+      class="badge mx-1 my-1 px-2 py-1">
+      {{ event.meta.views.length }}
+    </span>
+  </div>
+</ng-template>
+
+<ng-template #monthEventGroupTemplate let-event="event">
+  <span
+    *ngFor="let view of event.meta.views; trackBy: trackByIndex"
+    class="badge badge-secondary mb-1 ml-1 mr-1 px-2 py-2">
+    {{ view.client.forename }} {{ view.client.surname }}
+  </span>
+</ng-template>
+
+<div id="scheduling">
+  <div class="d-flex align-items-center">
     <div class="flex-grow-1">
       <h1 class="mb-0">Agendamentos</h1>
     </div>
   </div>
-  <div *ngIf="tasks.length === 0" class="jumbotron">
-    <h3 class="text-center">Nenhum agendamento cadastrado</h3>
-  </div>
-  <div *ngIf="tasks.length > 0" class="row">
-    <div class="col-12">
-
+  <div class="d-flex align-items-center mt-4">
+    <div class="flex-grow-1">
+      <div class="btn-group">
+        <div
+          mwlCalendarPreviousView
+          [(viewDate)]="calendarDate"
+          [view]="calendarView"
+          (viewDateChange)="fetchEvents()"
+          class="btn btn-primary">
+          Anterior
+        </div>
+        <div
+          mwlCalendarToday
+          [(viewDate)]="calendarDate"
+          (viewDateChange)="fetchEvents()"
+          class="btn btn-primary">
+          Atual
+        </div>
+        <div
+          mwlCalendarNextView
+          [(viewDate)]="calendarDate"
+          [view]="calendarView"
+          (viewDateChange)="fetchEvents()"
+          class="btn btn-primary" >
+          Próximo
+        </div>
+      </div>
     </div>
+    <div class="flex-shrink-0">
+      <div class="btn-group">
+        <div
+          (click)="setCalendarView('month')"
+          [class.active]="calendarView === 'month'"
+          class="btn btn-primary">
+          Mês
+        </div>
+        <div
+          (click)="setCalendarView('week')"
+          [class.active]="calendarView === 'week'"
+          class="btn btn-primary">
+          Semana
+        </div>
+        <div
+          (click)="setCalendarView('day')"
+          [class.active]="calendarView === 'day'"
+          class="btn btn-primary">
+          Dia
+        </div>
+      </div>
+    </div>
+  </div>
+  <h3 class="mt-3 mb-0 text-center">
+    <span *ngIf="calendarView === 'month'">
+      {{ calendarDate | date:"MMMM 'de' yyyy" | capitalizeFirst }}
+    </span>
+    <span *ngIf="calendarView === 'week'">
+      {{ calendarDate | date:"W'º semana de' MMMM 'de' yyyy" | capitalizeFirst }}
+    </span>
+    <span *ngIf="calendarView === 'day'">
+      {{ calendarDate | date:"fullDate" | capitalizeFirst }}
+    </span>
+  </h3>
+  <div [ngSwitch]="calendarView" class="mt-3">
+    <mwl-calendar-month-view
+      *ngSwitchCase="'month'"
+      [viewDate]="calendarDate"
+      [events]="calendarEvents"
+      [cellTemplate]="monthCellTemplate">
+    </mwl-calendar-month-view>
+    <mwl-calendar-week-view
+      *ngSwitchCase="'week'"
+      [viewDate]="calendarDate"
+      [events]="calendarEvents">
+    </mwl-calendar-week-view>
+    <mwl-calendar-day-view
+      *ngSwitchCase="'day'"
+      [viewDate]="calendarDate"
+      [events]="calendarEvents">
+    </mwl-calendar-day-view>
   </div>
 </div>

@@ -12,7 +12,7 @@ export class TaskComment {
       this.id = data.id;
       this.account = data.account;
       this.text = data.text;
-      this.registration_date = data.registration_date;
+      this.registration_date = new Date(data.registration_date);
     }
   }
 }

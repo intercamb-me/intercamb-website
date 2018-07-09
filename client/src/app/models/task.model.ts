@@ -1,6 +1,5 @@
 /* tslint:disable:variable-name */
 
-import {TaskProperties} from 'app/models/task-properties.model';
 import {TaskAttachment} from 'app/models/task-attachment.model';
 import {TaskComment} from 'app/models/task-comment.model';
 
@@ -11,8 +10,7 @@ export class Task {
   public client: string;
   public name: string;
   public status: string;
-  public schedulable: boolean;
-  public properties: TaskProperties;
+  public schedule_date: Date;
   public attachments: TaskAttachment[];
   public comments: TaskComment[];
   public registration_date: Date;
@@ -24,16 +22,15 @@ export class Task {
       this.client = data.client;
       this.name = data.name;
       this.status = data.status;
-      this.schedulable = data.schedulable;
-      this.properties = new TaskProperties(data.properties || {});
+      this.schedule_date = data.schedule_date ? new Date(data.schedule_date) : undefined;
+      this.registration_date = new Date(data.registration_date);
       this.attachments = [];
-      this.comments = [];
-      this.registration_date = data.registration_date;
       if (data.attachments) {
         (data.attachments as any[]).forEach((attachment) => {
           this.attachments.push(new TaskAttachment(attachment));
         });
       }
+      this.comments = [];
       if (data.comments) {
         (data.comments as any[]).forEach((comment) => {
           this.comments.push(new TaskComment(comment));

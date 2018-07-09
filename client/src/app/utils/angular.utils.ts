@@ -1,6 +1,17 @@
-import {Injectable} from '@angular/core';
+import {Injectable, Pipe, PipeTransform} from '@angular/core';
 import {NgbDateParserFormatter, NgbDateStruct, NgbDatepickerI18n} from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
 import padStart from 'lodash-es/padStart';
+
+@Pipe({name: 'capitalizeFirst'})
+export class CapitalizeFirstPipe implements PipeTransform {
+
+  public transform(value: string): string {
+    if (!value) {
+      return 'Not assigned';
+    }
+    return value.charAt(0).toUpperCase() + value.slice(1);
+  }
+}
 
 @Injectable()
 export class BrazilianNgbDateParserFormatter extends NgbDateParserFormatter {

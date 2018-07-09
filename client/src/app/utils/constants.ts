@@ -4,32 +4,23 @@ export class Constants {
     pending: {
       id: 'pending',
       name: 'Pendente',
-      selector: 'secondary',
-      manual: true,
-    },
-    validation_pending: {
-      id: 'validation_pending',
-      name: 'Validar',
-      selector: 'warning',
-      manual: false,
-    },
-    scheduled: {
-      id: 'scheduled',
-      name: 'Agendado',
-      selector: 'info',
-      manual: true,
+      colorSelector: 'secondary',
+      primaryColor: '#8f979e',
+      secondaryColor: '#6c757d',
     },
     finished: {
       id: 'finished',
       name: 'Finalizado',
-      selector: 'success',
-      manual: true,
+      colorSelector: 'success',
+      primaryColor: '#41d262',
+      secondaryColor: '#28a745',
     },
     canceled: {
       id: 'canceled',
       name: 'Cancelado',
-      selector: 'danger',
-      manual: true,
+      colorSelector: 'danger',
+      primaryColor: '#e66f7a',
+      secondaryColor: '#dc3545',
     },
   };
 

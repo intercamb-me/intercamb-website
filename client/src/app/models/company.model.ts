@@ -14,7 +14,7 @@ export class Company {
       this.name = data.name;
       this.logo_url = data.logo_url;
       this.owner = data.owner;
-      this.registration_date = data.registration_date;
+      this.registration_date = new Date(data.registration_date);
     }
   }
 }

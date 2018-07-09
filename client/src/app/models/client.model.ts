@@ -33,7 +33,7 @@ export class Client {
       this.email = data.email;
       this.phone = data.phone;
       this.photo_url = data.photo_url;
-      this.registration_date = data.registration_date;
+      this.registration_date = new Date(data.registration_date);
       this.address = new Address(data.address || {});
       this.personal_data = new PersonalData(data.personal_data || {});
       this.family_data = new FamilyData(data.family_data || {});

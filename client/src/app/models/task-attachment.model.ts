@@ -18,7 +18,7 @@ export class TaskAttachment {
       this.type = data.type;
       this.size = data.size;
       this.url = data.url;
-      this.registration_date = data.registration_date;
+      this.registration_date = new Date(data.registration_date);
     }
   }
 }

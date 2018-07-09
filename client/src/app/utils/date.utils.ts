@@ -14,7 +14,6 @@ export class DateUtils {
     const month = dateOnlyStr.substring(4, 6);
     const day = dateOnlyStr.substring(6, 8);
     const date = new Date(Number(year), Number(month), Number(day));
-    console.log(date);
     return date;
   }
 
@@ -26,7 +25,6 @@ export class DateUtils {
     const month = padStart(String(getMonth(date)), 2, '0');
     const day = padStart(String(getDate(date)), 2, '0');
     const dateOnly = year + month + day;
-    console.log(dateOnly);
     return Number(dateOnly);
   }
 
