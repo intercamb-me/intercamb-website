@@ -1,4 +1,7 @@
 import {Component, OnInit} from '@angular/core';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
+
+import {CreateClientFormComponent} from 'app/components/company/clients/create-form/create-client-form.component';
 
 import {CompanyService} from 'app/services/company.service';
 import {AlertService} from 'app/services/alert.service';
@@ -13,7 +16,7 @@ export class ClientsComponent implements OnInit {
   public clients: Client[];
   public loading = true;
 
-  constructor(private companyService: CompanyService, private alertService: AlertService) {
+  constructor(private companyService: CompanyService, private alertService: AlertService, private ngbModal: NgbModal) {
 
   }
 
@@ -28,5 +31,9 @@ export class ClientsComponent implements OnInit {
 
   public trackByClient(_index: number, client: Client): string {
     return client.id;
+  }
+
+  public openSendForm(): void {
+    this.ngbModal.open(CreateClientFormComponent);
   }
 }

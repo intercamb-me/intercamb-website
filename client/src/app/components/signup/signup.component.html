@@ -9,28 +9,24 @@
                 <form #form="ngForm" (ngSubmit)="signUp()" novalidate>
                   <h2 class="mb-4 text-center">Crie sua conta</h2>
                   <div class="form-row">
-                    <div class="col-6">
-                      <div class="form-group">
-                        <div class="input-group">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text form-control">
-                              <i class="fas fa-user"></i>
-                            </span>
-                          </div>
-                          <input [(ngModel)]="firstName" id="first-name" class="form-control py-2" name="first-name" type="text" placeholder="Primeiro nome" minlength="4" required>
+                    <div class="col-6 form-group">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text form-control">
+                            <i class="fas fa-user"></i>
+                          </span>
                         </div>
+                        <input [(ngModel)]="firstName" id="first-name" class="form-control py-2" name="first-name" type="text" placeholder="Primeiro nome" minlength="4" required>
                       </div>
                     </div>
-                    <div class="col-6">
-                      <div class="form-group">
-                        <div class="input-group">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text form-control">
-                              <i class="fas fa-user"></i>
-                            </span>
-                          </div>
-                          <input [(ngModel)]="lastName" id="last-name" class="form-control py-2" name="last-name" type="text" placeholder="Último nome" minlength="4" required>
+                    <div class="col-6 form-group">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text form-control">
+                            <i class="fas fa-user"></i>
+                          </span>
                         </div>
+                        <input [(ngModel)]="lastName" id="last-name" class="form-control py-2" name="last-name" type="text" placeholder="Último nome" minlength="4" required>
                       </div>
                     </div>
                   </div>

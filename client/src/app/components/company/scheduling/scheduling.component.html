@@ -73,12 +73,6 @@
           Mês
         </div>
         <div
-          (click)="setCalendarView('week')"
-          [class.active]="calendarView === 'week'"
-          class="btn btn-primary">
-          Semana
-        </div>
-        <div
           (click)="setCalendarView('day')"
           [class.active]="calendarView === 'day'"
           class="btn btn-primary">
@@ -102,18 +96,30 @@
     <mwl-calendar-month-view
       *ngSwitchCase="'month'"
       [viewDate]="calendarDate"
-      [events]="calendarEvents"
-      [cellTemplate]="monthCellTemplate">
+      [events]="calendarMonthEvents"
+      [cellTemplate]="monthCellTemplate"
+      (dayClicked)="onDayClicked($event.day.date)">
     </mwl-calendar-month-view>
-    <mwl-calendar-week-view
-      *ngSwitchCase="'week'"
-      [viewDate]="calendarDate"
-      [events]="calendarEvents">
-    </mwl-calendar-week-view>
-    <mwl-calendar-day-view
-      *ngSwitchCase="'day'"
-      [viewDate]="calendarDate"
-      [events]="calendarEvents">
-    </mwl-calendar-day-view>
+    <ng-container *ngSwitchCase="'day'">
+      <div *ngIf="(calendarDayEvents | size) === 0" class="jumbotron">
+        <h4 class="text-center">Nenhum atividade para este dia</h4>
+      </div>
+      <ng-container *ngIf="(calendarDayEvents | size) > 0">
+        <div *ngFor="let eventsByHour of calendarDayEvents | mapValues; trackBy: trackByIndex" class="mb-4">
+          <h4 class="jumbotron px-4 py-2 mb-2">{{ eventsByHour.key }}</h4>
+          <div *ngFor="let viewByEvent of eventsByHour.value | mapValues; trackBy: trackByIndex" class="card mb-2">
+            <div class="card-body">
+              <h5>{{ viewByEvent.key }}</h5>
+              <a
+                *ngFor="let view of viewByEvent.value; trackBy: trackByIndex"
+                [routerLink]="['/company', 'clients', view.client.id]"
+                class="badge badge-secondary mb-1 ml-1 mr-1 px-2 py-2">
+                {{ view.client.forename }} {{ view.client.surname }}
+              </a>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
   </div>
 </div>

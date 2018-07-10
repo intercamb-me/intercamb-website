@@ -1,5 +1,5 @@
 <div id="task">
-  <div class="modal-header">
+  <div class="modal-header px-4">
     <div class="d-flex">
       <h4 class="modal-title flex-grow-1 mr-4">{{ task.name }}</h4>
       <button (click)="close()" type="button" class="close flex-shrink-0" aria-label="Close">
@@ -13,7 +13,7 @@
       <span *ngIf="task.schedule_date" class="badge badge-orange"><i class="far fa-clock"></i> {{ task.schedule_date | date:"dd 'de' MMMM 'de' yyyy 'às' HH:mm" }}</span>
     </div>
   </div>
-  <div class="modal-body">
+  <div class="modal-body px-4">
     <div class="d-flex">
       <div class="flex-grow-1 mr-4">
         <div class="attachments">

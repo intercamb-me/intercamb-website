@@ -27,63 +27,45 @@
         <div class="card">
           <div class="card-body">
             <div class="row">
-              <div class="col">
-                <div class="form-group">
-                  <label>Nacionalidade</label>
-                  <p>{{ client.personal_data.nationality }}</p>
-                </div>
+              <div class="col form-group">
+                <label>Nacionalidade</label>
+                <p>{{ client.personal_data.nationality }}</p>
               </div>
-              <div class="col">
-                <div class="form-group">
-                  <label>Naturalidade</label>
-                  <p><span *ngIf="hasPlaceOfBirth()">{{ client.personal_data.place_of_birth.city }} - {{ client.personal_data.place_of_birth.state }}</span></p>
-                </div>
+              <div class="col form-group">
+                <label>Naturalidade</label>
+                <p><span *ngIf="hasPlaceOfBirth()">{{ client.personal_data.place_of_birth.city }} - {{ client.personal_data.place_of_birth.state }}</span></p>
               </div>
-              <div class="col">
-                <div class="form-group">
-                  <label>RG</label>
-                  <p><span *ngIf="hasIdentityDocument()">{{ client.personal_data.identity_document.number }} - {{ client.personal_data.identity_document.issuing_authority }} {{ client.personal_data.identity_document.state }}</span></p>
-                </div>
+              <div class="col form-group">
+                <label>RG</label>
+                <p><span *ngIf="hasIdentityDocument()">{{ client.personal_data.identity_document.number }} - {{ client.personal_data.identity_document.issuing_authority }} {{ client.personal_data.identity_document.state }}</span></p>
               </div>
             </div>
             <div class="row">
-              <div class="col">
-                <div class="form-group">
-                  <label>CPF</label>
-                  <p>{{ client.personal_data.cpf_number }}</p>
-                </div>
+              <div class="col form-group">
+                <label>CPF</label>
+                <p>{{ client.personal_data.cpf_number }}</p>
               </div>
-              <div class="col">
-                <div class="form-group">
-                  <label>Passaporte</label>
-                  <p>{{ client.personal_data.passport_number }}</p>
-                </div>
+              <div class="col form-group">
+                <label>Passaporte</label>
+                <p>{{ client.personal_data.passport_number }}</p>
               </div>
-              <div class="col">
-                <div class="form-group">
-                  <label>Data de nascimento</label>
-                  <p>{{ (client.personal_data.birthdate | date:"dd/MM/yyyy") || "" }}</p>
-                </div>
+              <div class="col form-group">
+                <label>Data de nascimento</label>
+                <p>{{ (client.personal_data.birthdate | date:"dd/MM/yyyy") || "" }}</p>
               </div>
             </div>
             <div class="row">
-              <div class="col">
-                <div class="form-group mb-0">
-                  <label>Sexo</label>
-                  <p class="mb-0">{{ client.personal_data.gender }}</p>
-                </div>
+              <div class="col form-group mb-0">
+                <label>Sexo</label>
+                <p class="mb-0">{{ client.personal_data.gender }}</p>
               </div>
-              <div class="col">
-                <div class="form-group mb-0">
-                  <label>Estado Civil</label>
-                  <p class="mb-0">{{ client.personal_data.marital_status }}</p>
-                </div>
+              <div class="col form-group mb-0">
+                <label>Estado Civil</label>
+                <p class="mb-0">{{ client.personal_data.marital_status }}</p>
               </div>
-              <div class="col">
-                <div class="form-group mb-0">
-                  <label>Quantidade de filhos</label>
-                  <p class="mb-0">{{ client.personal_data.number_of_children }}</p>
-                </div>
+              <div class="col form-group mb-0">
+                <label>Quantidade de filhos</label>
+                <p class="mb-0">{{ client.personal_data.number_of_children }}</p>
               </div>
             </div>
           </div>
@@ -102,51 +84,37 @@
         <div class="card">
           <div class="card-body">
             <div class="row">
-              <div class="col">
-                <div class="form-group">
-                  <label>Logradouro</label>
-                  <p>{{ client.address.public_place }}</p>
-                </div>
+              <div class="col form-group">
+                <label>Logradouro</label>
+                <p>{{ client.address.public_place }}</p>
               </div>
-              <div class="col">
-                <div class="form-group">
-                  <label>Número</label>
-                  <p>{{ client.address.number }}</p>
-                </div>
+              <div class="col form-group">
+                <label>Número</label>
+                <p>{{ client.address.number }}</p>
               </div>
-              <div class="col">
-                <div class="form-group">
-                  <label>Complemento</label>
-                  <p>{{ client.address.complement }}</p>
-                </div>
+              <div class="col form-group">
+                <label>Complemento</label>
+                <p>{{ client.address.complement }}</p>
               </div>
             </div>
             <div class="row">
-              <div class="col">
-                <div class="form-group">
-                  <label>Bairro</label>
-                  <p>{{ client.address.neighborhood }}</p>
-                </div>
+              <div class="col form-group">
+                <label>Bairro</label>
+                <p>{{ client.address.neighborhood }}</p>
               </div>
-              <div class="col">
-                <div class="form-group">
-                  <label>Cidade</label>
-                  <p>{{ client.address.city }}</p>
-                </div>
+              <div class="col form-group">
+                <label>Cidade</label>
+                <p>{{ client.address.city }}</p>
               </div>
-              <div class="col">
-                <div class="form-group">
-                  <label>Estado</label>
-                  <p>{{ client.address.state }}</p>
-                </div>
+              <div class="col form-group">
+                <label>Estado</label>
+                <p>{{ client.address.state }}</p>
               </div>
             </div>
             <div class="row">
-              <div class="col">
-                <div class="form-group mb-0">
-                  <label>CEP</label>
-                  <p class="mb-0">{{ client.address.zip_code }}</p>
-                </div>
+              <div class="col form-group mb-0">
+                <label>CEP</label>
+                <p class="mb-0">{{ client.address.zip_code }}</p>
               </div>
             </div>
           </div>
@@ -236,17 +204,13 @@
                   <p>{{ client.academic_data.high_school.school }}</p>
                 </div>
                 <div class="row">
-                  <div class="col">
-                    <div class="form-group">
-                      <label>Cidade</label>
-                      <p>{{ client.academic_data.high_school.city }}</p>
-                    </div>
+                  <div class="col form-group">
+                    <label>Cidade</label>
+                    <p>{{ client.academic_data.high_school.city }}</p>
                   </div>
-                  <div class="col">
-                    <div class="form-group">
-                      <label>Estado</label>
-                      <p>{{ client.academic_data.high_school.state }}</p>
-                    </div>
+                  <div class="col form-group">
+                    <label>Estado</label>
+                    <p>{{ client.academic_data.high_school.state }}</p>
                   </div>
                 </div>
                 <div class="form-group mb-0">
@@ -262,17 +226,13 @@
                   <p>{{ client.academic_data.higher_education.institution }}</p>
                 </div>
                 <div class="row">
-                  <div class="col">
-                    <div class="form-group">
-                      <label>Cidade</label>
-                      <p>{{ client.academic_data.higher_education.city }}</p>
-                    </div>
+                  <div class="col form-group">
+                    <label>Cidade</label>
+                    <p>{{ client.academic_data.higher_education.city }}</p>
                   </div>
-                  <div class="col">
-                    <div class="form-group">
-                      <label>Estado</label>
-                      <p>{{ client.academic_data.higher_education.state }}</p>
-                    </div>
+                  <div class="col form-group">
+                    <label>Estado</label>
+                    <p>{{ client.academic_data.higher_education.state }}</p>
                   </div>
                 </div>
                 <div class="form-group">
@@ -301,31 +261,23 @@
         <div class="card">
           <div class="card-body">
             <div class="row">
-              <div class="col">
-                <div class="form-group">
-                  <label>Nome do curso</label>
-                  <p>{{ client.intended_course.name }}</p>
-                </div>
+              <div class="col form-group">
+                <label>Nome do curso</label>
+                <p>{{ client.intended_course.name }}</p>
               </div>
-              <div class="col">
-                <div class="form-group">
-                  <label>Faculdade</label>
-                  <p>{{ client.intended_course.institution }}</p>
-                </div>
+              <div class="col form-group">
+                <label>Faculdade</label>
+                <p>{{ client.intended_course.institution }}</p>
               </div>
             </div>
             <div class="row">
-              <div class="col">
-                <div class="form-group mb-0">
-                  <label>Turno preferido</label>
-                  <p class="mb-0">{{ client.intended_course.preferred_shift }}</p>
-                </div>
+              <div class="col form-group mb-0">
+                <label>Turno preferido</label>
+                <p class="mb-0">{{ client.intended_course.preferred_shift }}</p>
               </div>
-              <div class="col">
-                <div class="form-group mb-0">
-                  <label>Segunda opção de turno</label>
-                  <p class="mb-0">{{ client.intended_course.alternative_shift }}</p>
-                </div>
+              <div class="col form-group mb-0">
+                <label>Segunda opção de turno</label>
+                <p class="mb-0">{{ client.intended_course.alternative_shift }}</p>
               </div>
             </div>
           </div>

@@ -1,6 +1,8 @@
 import {Injectable, Pipe, PipeTransform} from '@angular/core';
 import {NgbDateParserFormatter, NgbDateStruct, NgbDatepickerI18n} from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
 import padStart from 'lodash-es/padStart';
+import forEach from 'lodash-es/forEach';
+import size from 'lodash-es/size';
 
 @Pipe({name: 'capitalizeFirst'})
 export class CapitalizeFirstPipe implements PipeTransform {
@@ -10,6 +12,26 @@ export class CapitalizeFirstPipe implements PipeTransform {
       return 'Not assigned';
     }
     return value.charAt(0).toUpperCase() + value.slice(1);
+  }
+}
+
+@Pipe({name: 'mapValues'})
+export class MapValuesPipe implements PipeTransform {
+
+  public transform(object: any): any[] {
+    const values: any[] = [];
+    forEach(object, (value, key) => {
+      values.push({key, value});
+    });
+    return values;
+  }
+}
+
+@Pipe({name: 'size'})
+export class SizePipe implements PipeTransform {
+
+  public transform(object: any): number {
+    return size(object);
   }
 }
 

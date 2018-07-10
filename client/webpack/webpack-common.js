@@ -113,6 +113,7 @@ module.exports = (settings) => {
       new webpack.DefinePlugin({
         'process.env': {
           API_URL: JSON.stringify(settings.apiUrl),
+          WEB_URL: JSON.stringify(settings.webUrl),
         },
       }),
       new CssExtractPlugin({filename: 'assets/styles/[name].css'}),

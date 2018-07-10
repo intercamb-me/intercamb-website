@@ -4,7 +4,12 @@
       <h1 class="mb-0">Assessorados</h1>
     </div>
     <div class="flex-grow-0">
-      <a [routerLink]="['/company', 'clients', 'new']" class="btn btn-primary btn-lg">Cadastrar assessorado</a>
+      <button (click)="openSendForm()" type="button" class="btn btn-primary">
+        Gerar formulário
+      </button>
+      <a [routerLink]="['/company', 'clients', 'new']" class="btn btn-primary ml-2">
+        Cadastrar
+      </a>
     </div>
   </div>
   <div *ngIf="clients.length === 0" class="jumbotron">
@@ -16,7 +21,9 @@
         <div class="input-group">
           <input type="text" class="form-control" placeholder="Busque pelo nome, email ou telefone.">
           <div class="input-group-append">
-            <button class="btn btn-primary" type="button">Buscar</button>
+            <button class="btn btn-primary" type="button">
+              Buscar
+            </button>
           </div>
         </div>
       </div>

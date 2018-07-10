@@ -11,31 +11,23 @@
           <div class="card-body">
             <h2 class="mb-3">Informações básicas</h2>
             <div class="row">
-              <div class="col">
-                <div class="form-group">
-                  <label for="bi-forename">Nome</label>
-                  <input #forename="ngModel" [(ngModel)]="client.forename" [ngClass]="{'is-invalid': forename.invalid && (forename.dirty || forename.touched)}" id="bi-forename" name="bi-forename" type="text" class="form-control" minlength="4" required>
-                </div>
+              <div class="col form-group">
+                <label for="bi-forename">Nome</label>
+                <input #forename="ngModel" [(ngModel)]="client.forename" [ngClass]="{'is-invalid': forename.invalid && (forename.dirty || forename.touched)}" id="bi-forename" name="bi-forename" type="text" class="form-control" minlength="4" required>
               </div>
-              <div class="col">
-                <div class="form-group">
-                  <label for="bi-surname">Sobrenome</label>
-                  <input #surname="ngModel" [(ngModel)]="client.surname" [ngClass]="{'is-invalid': surname.invalid && (surname.dirty || surname.touched)}" id="bi-surname" name="bi-surname" type="text" class="form-control" minlength="4" required>
-                </div>
+              <div class="col form-group">
+                <label for="bi-surname">Sobrenome</label>
+                <input #surname="ngModel" [(ngModel)]="client.surname" [ngClass]="{'is-invalid': surname.invalid && (surname.dirty || surname.touched)}" id="bi-surname" name="bi-surname" type="text" class="form-control" minlength="4" required>
               </div>
             </div>
             <div class="row">
-              <div class="col">
-                <div class="form-group">
-                  <label for="bi-email">E-mail</label>
-                  <input #email="ngModel" [(ngModel)]="client.email" [ngClass]="{'is-invalid': email.invalid && (email.dirty || email.touched)}" id="bi-email" name="bi-email" type="email" class="form-control" email required>
-                </div>
+              <div class="col form-group">
+                <label for="bi-email">E-mail</label>
+                <input #email="ngModel" [(ngModel)]="client.email" [ngClass]="{'is-invalid': email.invalid && (email.dirty || email.touched)}" id="bi-email" name="bi-email" type="email" class="form-control" email required>
               </div>
-              <div class="col">
-                <div class="form-group">
-                  <label for="bi-phone">Telefone</label>
-                  <input #phone="ngModel" [(ngModel)]="client.phone" [ngClass]="{'is-invalid': phone.invalid && (phone.dirty || phone.touched)}" [dropSpecialCharacters]="false" mask="+0* 0* 0*" id="bi-phone" name="bi-phone" type="text" class="form-control" placeholder="Exemplo: +55 71 99999999" maxlength="17" required>
-                </div>
+              <div class="col form-group">
+                <label for="bi-phone">Telefone</label>
+                <input #phone="ngModel" [(ngModel)]="client.phone" [ngClass]="{'is-invalid': phone.invalid && (phone.dirty || phone.touched)}" [dropSpecialCharacters]="false" mask="+0* 0* 0*" id="bi-phone" name="bi-phone" type="text" class="form-control" placeholder="Exemplo: +55 71 99999999" maxlength="17" required>
               </div>
             </div>
           </div>
@@ -48,22 +40,18 @@
           <div class="card-body">
             <h2 class="mb-3">Dados pessoais</h2>
             <div class="row">
-              <div class="col">
-                <div class="form-group">
-                  <label for="pd-nationality">Nacionalidade</label>
-                  <input [(ngModel)]="client.personal_data.nationality" id="pd-nationality" name="pd-nationality" type="text" class="form-control">
-                </div>
+              <div class="col form-group">
+                <label for="pd-nationality">Nacionalidade</label>
+                <input [(ngModel)]="client.personal_data.nationality" id="pd-nationality" name="pd-nationality" type="text" class="form-control">
               </div>
-              <div class="col">
-                <div class="form-group">
-                  <label>Naturalidade</label>
-                  <div class="form-row">
-                    <div class="col">
-                      <input [(ngModel)]="client.personal_data.place_of_birth.city" id="pd-pob-city" name="pd-pob-city" type="text" class="form-control" placeholder="Cidade">
-                    </div>
-                    <div class="col">
-                      <input [(ngModel)]="client.personal_data.place_of_birth.state" id="pd-pob-state" name="pd-pob-state" type="text" class="form-control" placeholder="Estado">
-                    </div>
+              <div class="col form-group">
+                <label>Naturalidade</label>
+                <div class="form-row">
+                  <div class="col">
+                    <input [(ngModel)]="client.personal_data.place_of_birth.city" id="pd-pob-city" name="pd-pob-city" type="text" class="form-control" placeholder="Cidade">
+                  </div>
+                  <div class="col">
+                    <input [(ngModel)]="client.personal_data.place_of_birth.state" id="pd-pob-state" name="pd-pob-state" type="text" class="form-control" placeholder="Estado">
                   </div>
                 </div>
               </div>
@@ -83,63 +71,51 @@
               </div>
             </div>
             <div class="row">
-              <div class="col">
-                <div class="form-group">
-                  <label for="pd-cpf">CPF</label>
-                  <input [(ngModel)]="client.personal_data.cpf_number" mask="000.000.000-00" id="pd-cpf" name="pd-cpf" type="text" class="form-control">
-                </div>
+              <div class="col form-group">
+                <label for="pd-cpf">CPF</label>
+                <input [(ngModel)]="client.personal_data.cpf_number" mask="000.000.000-00" id="pd-cpf" name="pd-cpf" type="text" class="form-control">
               </div>
-              <div class="col">
-                <div class="form-group">
-                  <label for="pd-passport">Passaporte</label>
-                  <input [(ngModel)]="client.personal_data.passport_number" mask="0*" id="pd-passport" name="pd-passport" type="text" class="form-control">
-                </div>
+              <div class="col form-group">
+                <label for="pd-passport">Passaporte</label>
+                <input [(ngModel)]="client.personal_data.passport_number" mask="0*" id="pd-passport" name="pd-passport" type="text" class="form-control">
               </div>
             </div>
             <div class="row">
-              <div class="col">
-                <div class="form-group">
-                  <label for="pd-birthdate">Data de nascimento</label>
-                  <div class="input-group">
-                    <input #birthdate="ngModel" #birthdatePicker="ngbDatepicker" ngbDatepicker [ngClass]="{'is-invalid': birthdate.invalid && (birthdate.dirty || birthdate.touched)}" [(ngModel)]="birthdateStruct" (keypress)="onlyDateChars($event)" [minDate]="pastDateStruct" id="pd-birthdate" name="pd-birthdate" class="form-control" placeholder="dd/mm/yyyy">
-                    <div class="input-group-append">
-                      <button class="btn btn-info" (click)="birthdatePicker.toggle()" type="button">
-                        <i class="fas fa-calendar-alt"></i>
-                      </button>
-                    </div>
+              <div class="col form-group">
+                <label for="pd-birthdate">Data de nascimento</label>
+                <div class="input-group">
+                  <input #birthdate="ngModel" #birthdatePicker="ngbDatepicker" ngbDatepicker [ngClass]="{'is-invalid': birthdate.invalid && (birthdate.dirty || birthdate.touched)}" [(ngModel)]="birthdateStruct" (keypress)="onlyDateChars($event)" [minDate]="pastDateStruct" id="pd-birthdate" name="pd-birthdate" class="form-control" placeholder="dd/mm/yyyy">
+                  <div class="input-group-append">
+                    <button class="btn btn-info" (click)="birthdatePicker.toggle()" type="button">
+                      <i class="fas fa-calendar-alt"></i>
+                    </button>
                   </div>
                 </div>
               </div>
-              <div class="col">
-                <div class="form-group">
-                  <label for="pd-gender">Sexo</label>
-                  <select [(ngModel)]="client.personal_data.gender" id="pd-gender" name="pd-gender" class="form-control">
-                    <option [ngValue]="undefined"></option>
-                    <option value="Masculino">Masculino</option>
-                    <option value="Feminino">Feminino</option>
-                  </select>
-                </div>
+              <div class="col form-group">
+                <label for="pd-gender">Sexo</label>
+                <select [(ngModel)]="client.personal_data.gender" id="pd-gender" name="pd-gender" class="form-control">
+                  <option [ngValue]="undefined"></option>
+                  <option value="Masculino">Masculino</option>
+                  <option value="Feminino">Feminino</option>
+                </select>
               </div>
             </div>
             <div class="row">
-              <div class="col">
-                <div class="form-group">
-                  <label for="pd-civil-status">Estado Civil</label>
-                  <select [(ngModel)]="client.personal_data.marital_status" id="pd-marital-status" name="pd-marital-status" class="form-control">
-                    <option [ngValue]="undefined"></option>
-                    <option value="Solteiro">Solteiro</option>
-                    <option value="Casado">Casado</option>
-                    <option value="Divorciado">Divorciado</option>
-                    <option value="Viúvo">Viúvo</option>
-                    <option value="Separado">Separado</option>
-                  </select>
-                </div>
+              <div class="col form-group">
+                <label for="pd-civil-status">Estado Civil</label>
+                <select [(ngModel)]="client.personal_data.marital_status" id="pd-marital-status" name="pd-marital-status" class="form-control">
+                  <option [ngValue]="undefined"></option>
+                  <option value="Solteiro">Solteiro</option>
+                  <option value="Casado">Casado</option>
+                  <option value="Divorciado">Divorciado</option>
+                  <option value="Viúvo">Viúvo</option>
+                  <option value="Separado">Separado</option>
+                </select>
               </div>
-              <div class="col">
-                <div class="form-group">
-                  <label for="pd-number-of-children">Quantidade de filhos</label>
-                  <input [(ngModel)]="client.personal_data.number_of_children" mask="0*" id="pd-number-of-children" name="pd-number-of-children" type="text" class="form-control">
-                </div>
+              <div class="col form-group">
+                <label for="pd-number-of-children">Quantidade de filhos</label>
+                <input [(ngModel)]="client.personal_data.number_of_children" mask="0*" id="pd-number-of-children" name="pd-number-of-children" type="text" class="form-control">
               </div>
             </div>
           </div>
@@ -159,45 +135,33 @@
               </div>
             </div>
             <div class="row">
-              <div class="col">
-                <div class="form-group">
-                  <label for="addr-public-place">Logradouro</label>
-                  <input [(ngModel)]="client.address.public_place" id="addr-public-place" name="addr-public-place" type="text" class="form-control">
-                </div>
+              <div class="col form-group">
+                <label for="addr-public-place">Logradouro</label>
+                <input [(ngModel)]="client.address.public_place" id="addr-public-place" name="addr-public-place" type="text" class="form-control">
               </div>
-              <div class="col">
-                <div class="form-group">
-                  <label for="addr-number">Número</label>
-                  <input [(ngModel)]="client.address.number" mask="0*" id="addr-number" name="addr-number" type="text" class="form-control">
-                </div>
+              <div class="col form-group">
+                <label for="addr-number">Número</label>
+                <input [(ngModel)]="client.address.number" mask="0*" id="addr-number" name="addr-number" type="text" class="form-control">
               </div>
             </div>
             <div class="row">
-              <div class="col">
-                <div class="form-group">
-                  <label for="addr-complement">Complemento</label>
-                  <input [(ngModel)]="client.address.complement" id="addr-complement" name="addr-complement" type="text" class="form-control">
-                </div>
+              <div class="col form-group">
+                <label for="addr-complement">Complemento</label>
+                <input [(ngModel)]="client.address.complement" id="addr-complement" name="addr-complement" type="text" class="form-control">
               </div>
-              <div class="col">
-                <div class="form-group">
-                  <label for="addr-neighborhood">Bairro</label>
-                  <input [(ngModel)]="client.address.neighborhood" id="addr-neighborhood" name="addr-neighborhood" type="text" class="form-control">
-                </div>
+              <div class="col form-group">
+                <label for="addr-neighborhood">Bairro</label>
+                <input [(ngModel)]="client.address.neighborhood" id="addr-neighborhood" name="addr-neighborhood" type="text" class="form-control">
               </div>
             </div>
             <div class="row">
-              <div class="col">
-                <div class="form-group">
-                  <label for="addr-city">Cidade</label>
-                  <input [(ngModel)]="client.address.city" id="addr-city" name="addr-city" type="text" class="form-control">
-                </div>
+              <div class="col form-group">
+                <label for="addr-city">Cidade</label>
+                <input [(ngModel)]="client.address.city" id="addr-city" name="addr-city" type="text" class="form-control">
               </div>
-              <div class="col">
-                <div class="form-group">
-                  <label for="addr-state">Estado</label>
-                  <input [(ngModel)]="client.address.state" id="addr-state" name="addr-state" type="text" class="form-control">
-                </div>
+              <div class="col form-group">
+                <label for="addr-state">Estado</label>
+                <input [(ngModel)]="client.address.state" id="addr-state" name="addr-state" type="text" class="form-control">
               </div>
               <div class="form-group">
                 <label for="addr-zip-code">CEP</label>
@@ -279,17 +243,13 @@
                   <input [(ngModel)]="client.academic_data.high_school.school" id="ad-high-school-school" name="ad-high-school-school" type="text" class="form-control">
                 </div>
                 <div class="row">
-                  <div class="col">
-                    <div class="form-group">
-                      <label for="ad-high-school-city">Cidade</label>
-                      <input [(ngModel)]="client.academic_data.high_school.city" id="ad-high-school-city" name="ad-high-school-city" type="text" class="form-control">
-                    </div>
+                  <div class="col form-group">
+                    <label for="ad-high-school-city">Cidade</label>
+                    <input [(ngModel)]="client.academic_data.high_school.city" id="ad-high-school-city" name="ad-high-school-city" type="text" class="form-control">
                   </div>
-                  <div class="col">
-                    <div class="form-group">
-                      <label for="ad-high-school-state">Estado</label>
-                      <input [(ngModel)]="client.academic_data.high_school.state" id="ad-high-school-state" name="ad-high-school-state" type="text" class="form-control">
-                    </div>
+                  <div class="col form-group">
+                    <label for="ad-high-school-state">Estado</label>
+                    <input [(ngModel)]="client.academic_data.high_school.state" id="ad-high-school-state" name="ad-high-school-state" type="text" class="form-control">
                   </div>
                 </div>
                 <div class="form-group">
@@ -305,17 +265,13 @@
                   <input [(ngModel)]="client.academic_data.higher_education.institution" id="ad-higher-education-institution" name="ad-higher-education-institution" type="text" class="form-control">
                 </div>
                 <div class="row">
-                  <div class="col">
-                    <div class="form-group">
-                      <label for="ad-higher-education-city">Cidade</label>
-                      <input [(ngModel)]="client.academic_data.higher_education.city" id="ad-higher-education-city" name="ad-higher-education-city" type="text" class="form-control">
-                    </div>
+                  <div class="col form-group">
+                    <label for="ad-higher-education-city">Cidade</label>
+                    <input [(ngModel)]="client.academic_data.higher_education.city" id="ad-higher-education-city" name="ad-higher-education-city" type="text" class="form-control">
                   </div>
-                  <div class="col">
-                    <div class="form-group">
-                      <label for="ad-higher-education-state">Estado</label>
-                      <input [(ngModel)]="client.academic_data.higher_education.state" id="ad-higher-education-state" name="ad-higher-education-state" type="text" class="form-control">
-                    </div>
+                  <div class="col form-group">
+                    <label for="ad-higher-education-state">Estado</label>
+                    <input [(ngModel)]="client.academic_data.higher_education.state" id="ad-higher-education-state" name="ad-higher-education-state" type="text" class="form-control">
                   </div>
                 </div>
                 <div class="form-group">
@@ -338,41 +294,33 @@
           <div class="card-body">
             <h2 class="mb-3">Curso pretendido</h2>
             <div class="row">
-              <div class="col">
-                <div class="form-group">
-                  <label for="cd-course-name">Nome do curso</label>
-                  <input [(ngModel)]="client.intended_course.name" id="cd-course-name" name="cd-course-name" type="text" class="form-control">
-                </div>
+              <div class="col form-group">
+                <label for="cd-course-name">Nome do curso</label>
+                <input [(ngModel)]="client.intended_course.name" id="cd-course-name" name="cd-course-name" type="text" class="form-control">
               </div>
-              <div class="col">
-                <div class="form-group">
-                  <label for="cd-institution">Faculdade</label>
-                  <input [(ngModel)]="client.intended_course.institution" id="cd-institution" name="cd-institution" type="text" class="form-control">
-                </div>
+              <div class="col form-group">
+                <label for="cd-institution">Faculdade</label>
+                <input [(ngModel)]="client.intended_course.institution" id="cd-institution" name="cd-institution" type="text" class="form-control">
               </div>
             </div>
             <div class="row">
-              <div class="col">
-                <div class="form-group">
-                  <label for="cd-preferred-shift">Turno preferido</label>
-                  <select [(ngModel)]="client.intended_course.preferred_shift" id="cd-preferred-shift" name="cd-preferred-shift" class="form-control">
-                    <option [ngValue]="undefined"></option>
-                    <option value="Matutino">Matutino</option>
-                    <option value="Vespertino">Vespertino</option>
-                    <option value="Noturno">Noturno</option>
-                  </select>
-                </div>
+              <div class="col form-group">
+                <label for="cd-preferred-shift">Turno preferido</label>
+                <select [(ngModel)]="client.intended_course.preferred_shift" id="cd-preferred-shift" name="cd-preferred-shift" class="form-control">
+                  <option [ngValue]="undefined"></option>
+                  <option value="Matutino">Matutino</option>
+                  <option value="Vespertino">Vespertino</option>
+                  <option value="Noturno">Noturno</option>
+                </select>
               </div>
-              <div class="col">
-                <div class="form-group">
-                  <label for="cd-alternative-shift">Segunda opção de turno</label>
-                  <select [(ngModel)]="client.intended_course.alternative_shift" id="cd-alternative-shift" name="cd-alternative-shift" class="form-control">
-                    <option [ngValue]="undefined"></option>
-                    <option value="Matutino">Matutino</option>
-                    <option value="Vespertino">Vespertino</option>
-                    <option value="Noturno">Noturno</option>
-                  </select>
-                </div>
+              <div class="col form-group">
+                <label for="cd-alternative-shift">Segunda opção de turno</label>
+                <select [(ngModel)]="client.intended_course.alternative_shift" id="cd-alternative-shift" name="cd-alternative-shift" class="form-control">
+                  <option [ngValue]="undefined"></option>
+                  <option value="Matutino">Matutino</option>
+                  <option value="Vespertino">Vespertino</option>
+                  <option value="Noturno">Noturno</option>
+                </select>
               </div>
             </div>
           </div>

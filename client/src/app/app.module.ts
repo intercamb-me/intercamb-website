@@ -14,6 +14,7 @@ import {NgbDatepickerModule, NgbDateParserFormatter, NgbDatepickerI18n} from '@n
 import {NgbTimepickerModule} from '@ng-bootstrap/ng-bootstrap/timepicker/timepicker.module';
 import {NgxMaskModule} from 'ngx-mask';
 import {NgxMasonryModule} from 'ngx-masonry';
+import {ClipboardModule} from 'ngx-clipboard';
 import {CalendarModule} from 'angular-calendar';
 
 import {AppRoutes} from 'app/app.routes';
@@ -26,6 +27,7 @@ import {SignInComponent} from 'app/components/signin/signin.component';
 import {CreateCompanyComponent} from 'app/components/create-company/create-company.component';
 import {CompanyComponent} from 'app/components/company/company.component';
 import {ClientsComponent} from 'app/components/company/clients/clients.component';
+import {CreateClientFormComponent} from 'app/components/company/clients/create-form/create-client-form.component';
 import {ClientComponent} from 'app/components/company/client/client.component';
 import {SaveClientComponent} from 'app/components/company/client/save/save-client.component';
 import {CreateClientComponent} from 'app/components/company/client/create/create-client.component';
@@ -42,11 +44,12 @@ import {CompanyService} from 'app/services/company.service';
 import {AccountService} from 'app/services/account.service';
 import {ClientService} from 'app/services/client.service';
 import {TaskService} from 'app/services/task.service';
+import {TokenService} from 'app/services/token.service';
 import {AlertService} from 'app/services/alert.service';
 import {EventService} from 'app/services/event.service';
 
 // Other
-import {CapitalizeFirstPipe, BrazilianNgbDateParserFormatter, BrazilianNgbDatepickerI18n} from 'app/utils/angular.utils';
+import {CapitalizeFirstPipe, MapValuesPipe, SizePipe, BrazilianNgbDateParserFormatter, BrazilianNgbDatepickerI18n} from 'app/utils/angular.utils';
 
 registerLocaleData(pt);
 
@@ -65,10 +68,13 @@ registerLocaleData(pt);
     NgbTimepickerModule.forRoot(),
     NgxMaskModule.forRoot(),
     NgxMasonryModule,
+    ClipboardModule,
     CalendarModule.forRoot(),
   ],
   declarations: [
     CapitalizeFirstPipe,
+    MapValuesPipe,
+    SizePipe,
     AppComponent,
     AlertsComponent,
     NotFoundComponent,
@@ -77,6 +83,7 @@ registerLocaleData(pt);
     CreateCompanyComponent,
     CompanyComponent,
     ClientsComponent,
+    CreateClientFormComponent,
     ClientComponent,
     SaveClientComponent,
     CreateClientComponent,
@@ -89,6 +96,7 @@ registerLocaleData(pt);
     SettingsComponent,
   ],
   entryComponents: [
+    CreateClientFormComponent,
     TaskComponent,
     ChangeTaskStatusComponent,
     SetTaskScheduleDateComponent,
@@ -98,6 +106,7 @@ registerLocaleData(pt);
     AccountService,
     ClientService,
     TaskService,
+    TokenService,
     AlertService,
     EventService,
     {provide: LOCALE_ID, useValue: 'pt'},

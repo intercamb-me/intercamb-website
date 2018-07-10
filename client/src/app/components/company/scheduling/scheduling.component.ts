@@ -10,6 +10,7 @@ import * as startOfWeek from 'date-fns/start_of_week';
 import * as endOfWeek from 'date-fns/end_of_week';
 import * as startOfDay from 'date-fns/start_of_day';
 import * as endOfDay from 'date-fns/end_of_day';
+import * as formatDate from 'date-fns/format';
 
 import {CompanyService} from 'app/services/company.service';
 import {AlertService} from 'app/services/alert.service';
@@ -33,10 +34,15 @@ interface CalendarEventMeta {
 })
 export class SchedulingComponent implements OnInit {
 
-  public calendarView = 'month';
+  private static readonly VIEW_MONTH = 'month';
+  private static readonly VIEW_DAY = 'day';
+
+  public calendarView = SchedulingComponent.VIEW_MONTH;
   public calendarDate = new Date();
-  public calendarEvents: CalendarEvent[] = [];
+  public calendarMonthEvents: CalendarEvent[] = [];
+  public calendarDayEvents: any = {};
   public taskStatus = Constants.TASK_STATUS;
+  public dayEvents: any = {};
 
   constructor(private companyService: CompanyService, private alertService: AlertService) {
 
@@ -62,10 +68,10 @@ export class SchedulingComponent implements OnInit {
         return this.companyService.listClients(clientIds);
       })
     ).subscribe((clients) => {
-      if (['month', 'week'].includes(this.calendarView)) {
-        this.setCalendarEvents(currentTasks, clients);
+      if (this.calendarView === SchedulingComponent.VIEW_MONTH) {
+        this.setCalendarMonthEvents(currentTasks, clients);
       } else {
-        this.setDailyCalendarEvents(currentTasks, clients);
+        this.setCalendarDayEvents(currentTasks, clients);
       }
     }, (err) => {
       this.alertService.apiError(null, err);
@@ -86,6 +92,12 @@ export class SchedulingComponent implements OnInit {
     this.fetchEvents();
   }
 
+  public onDayClicked(date: Date): void {
+    this.calendarView = SchedulingComponent.VIEW_DAY;
+    this.calendarDate = date;
+    this.fetchEvents();
+  }
+
   private getStartDate(): Date {
     const startFunctions = {month: startOfMonth, week: startOfWeek, day: startOfDay};
     return startFunctions[this.calendarView](this.calendarDate);
@@ -96,17 +108,17 @@ export class SchedulingComponent implements OnInit {
     return endFunctions[this.calendarView](this.calendarDate);
   }
 
-  private setCalendarEvents(tasks: Task[], clients: Client[]): void {
+  private setCalendarMonthEvents(tasks: Task[], clients: Client[]): void {
     const clientById = keyBy(clients, 'id');
-    const calendarEventsByDate: any = {};
-    const calendarEvents: CalendarEvent[] = [];
+    const eventsByDate: any = {};
+    const events: CalendarEvent[] = [];
     tasks.forEach((task) => {
       const client = clientById[task.client];
       const dateIndex = String(DateUtils.toDateOnly(task.schedule_date));
-      if (!calendarEventsByDate[dateIndex]) {
-        calendarEventsByDate[dateIndex] = {};
+      if (!eventsByDate[dateIndex]) {
+        eventsByDate[dateIndex] = {};
       }
-      let event: CalendarEvent<CalendarEventMeta> = calendarEventsByDate[dateIndex][task.name];
+      let event: CalendarEvent<CalendarEventMeta> = eventsByDate[dateIndex][task.name];
       if (!event) {
         const color = stringToColor(task.name);
         event = {
@@ -117,28 +129,30 @@ export class SchedulingComponent implements OnInit {
             views: [],
           },
         };
-        calendarEventsByDate[dateIndex][task.name] = event;
-        calendarEvents.push(event);
+        eventsByDate[dateIndex][task.name] = event;
+        events.push(event);
       }
       event.meta.views.push({task, client});
     });
-    this.calendarEvents = calendarEvents;
+    this.calendarMonthEvents = events;
   }
 
-  private setDailyCalendarEvents(tasks: Task[], clients: Client[]): void {
+  private setCalendarDayEvents(tasks: Task[], clients: Client[]): void {
     const clientById = keyBy(clients, 'id');
-    const calendarEvents: CalendarEvent[] = [];
+    const calendarDayEvents: any = {};
     tasks.forEach((task) => {
+      const hourKey = formatDate(task.schedule_date, 'HH:mm');
+      const eventKey = task.name;
+      if (!calendarDayEvents[hourKey]) {
+        calendarDayEvents[hourKey] = {};
+      }
+      if (!calendarDayEvents[hourKey][eventKey]) {
+        calendarDayEvents[hourKey][eventKey] = [];
+      }
       const client = clientById[task.client];
-      const color = stringToColor(task.name);
-      const event = {
-        title: `${client.forename} - ${task.name}`,
-        color: {primary: color, secondary: color},
-        start: task.schedule_date,
-        meta: {task, client},
-      };
-      calendarEvents.push(event);
+      const event = {task, client};
+      calendarDayEvents[hourKey][eventKey].push(event);
     });
-    this.calendarEvents = calendarEvents;
+    this.calendarDayEvents = calendarDayEvents;
   }
 }
