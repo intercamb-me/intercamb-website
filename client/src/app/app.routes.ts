@@ -7,6 +7,7 @@ import {CreateCompanyComponent} from 'app/components/create-company/create-compa
 import {CompanyComponent} from 'app/components/company/company.component';
 import {ClientsComponent} from 'app/components/company/clients/clients.component';
 import {ClientComponent} from 'app/components/company/client/client.component';
+import {ClientFormComponent} from 'app/components/company/client/form/client-form.component';
 import {CreateClientComponent} from 'app/components/company/client/create/create-client.component';
 import {UpdateClientComponent} from 'app/components/company/client/update/update-client.component';
 import {SchedulingComponent} from 'app/components/company/scheduling/scheduling.component';
@@ -29,6 +30,7 @@ export class AppRoutes {
         {path: 'reports', component: ReportsComponent},
         {path: 'settings', component: SettingsComponent},
       ]},
+      {path: 'clients/form/:token', component: ClientFormComponent},
       {path: '**', component: NotFoundComponent},
     ];
   }

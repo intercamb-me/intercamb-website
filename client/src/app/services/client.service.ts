@@ -5,6 +5,7 @@ import {map, catchError} from 'rxjs/operators';
 
 import {Client} from 'app/models/client.model';
 import {Task} from 'app/models/task.model';
+import {Token} from 'app/models/token.model';
 import {EventService} from 'app/services/event.service';
 import {ApiError} from 'app/services/commons/api.error';
 import {RequestUtils} from 'app/utils/request.utils';
@@ -27,8 +28,12 @@ export class ClientService {
     );
   }
 
-  public createClient(data: any): Observable<Client> {
-    return this.http.post<Client>(RequestUtils.getApiUrl('/clients'), data, RequestUtils.getJsonOptions()).pipe(
+  public createClient(data: any, token?: Token): Observable<Client> {
+    let url = '/clients';
+    if (token) {
+      url += `?token=${token.id}`;
+    }
+    return this.http.post<Client>(RequestUtils.getApiUrl(url), data, RequestUtils.getJsonOptions()).pipe(
       map((clientData: Client) => new Client(clientData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);

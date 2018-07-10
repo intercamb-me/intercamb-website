@@ -11,8 +11,6 @@ import {Token} from 'app/models/token.model';
 })
 export class CreateClientFormComponent {
 
-  private static readonly TYPE_CLIENT_FORM = 'client_form';
-
   public identifier: string;
   public token: Token;
 
@@ -25,7 +23,7 @@ export class CreateClientFormComponent {
   }
 
   public createToken(): void {
-    this.tokenService.createToken(this.identifier, CreateClientFormComponent.TYPE_CLIENT_FORM).subscribe((token) => {
+    this.tokenService.createToken(this.identifier, Token.TYPE_CLIENT_FORM).subscribe((token) => {
       this.token = token;
       this.alertService.success('URL gerada com sucesso!');
     }, (err) => {
@@ -34,7 +32,7 @@ export class CreateClientFormComponent {
   }
 
   public getFormUrl(): string {
-    return `${process.env.WEB_URL}/forms/clients/${this.token.code}`;
+    return `${process.env.WEB_URL}/clients/form/${this.token.id}`;
   }
 
   public copyFormUrl(): void {

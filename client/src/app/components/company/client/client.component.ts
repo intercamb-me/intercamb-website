@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
 import {mergeMap} from 'rxjs/operators';
 import {NgxMasonryOptions} from 'ngx-masonry';
@@ -8,6 +8,7 @@ import {TaskComponent} from 'app/components/company/task/task.component';
 
 import {ClientService} from 'app/services/client.service';
 import {AlertService} from 'app/services/alert.service';
+import {ErrorUtils} from 'app/utils/error.utils';
 import {Constants} from 'app/utils/constants';
 import {Client} from 'app/models/client.model';
 import {Task} from 'app/models/task.model';
@@ -31,7 +32,7 @@ export class ClientComponent implements OnInit {
     transitionDuration: '0',
   };
 
-  constructor(private clientService: ClientService, private alertService: AlertService, private activatedRoute: ActivatedRoute, private ngbModal: NgbModal) {
+  constructor(private clientService: ClientService, private alertService: AlertService, private activatedRoute: ActivatedRoute, private router: Router, private ngbModal: NgbModal) {
 
   }
 
@@ -46,6 +47,12 @@ export class ClientComponent implements OnInit {
       this.tasks = tasks;
       this.loading = false;
     }, (err) => {
+      if (err.code === ErrorUtils.CLIENT_NOT_FOUND) {
+        this.router.navigate(['/404'], {
+          replaceUrl: false,
+          skipLocationChange: true,
+        });
+      }
       this.alertService.apiError(null, err);
     });
   }

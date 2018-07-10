@@ -76,7 +76,7 @@ module.exports = (settings) => {
           include: [
             path.resolve('node_modules', 'bootstrap', 'dist', 'css', 'bootstrap.css'),
             path.resolve('node_modules', 'angular-calendar', 'css', 'angular-calendar.css'),
-          ]
+          ],
         },
         {
           test: /\.less$/,

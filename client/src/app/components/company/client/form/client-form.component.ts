@@ -1,4 +1,5 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
 import * as getYear from 'date-fns/get_year';
 import * as setYear from 'date-fns/set_year';
@@ -8,20 +9,24 @@ import * as getDate from 'date-fns/get_date';
 import * as setDate from 'date-fns/set_date';
 
 import {ClientService} from 'app/services/client.service';
+import {TokenService} from 'app/services/token.service';
 import {AlertService} from 'app/services/alert.service';
+import {ErrorUtils} from 'app/utils/error.utils';
 import {onlyDateChars} from 'app/utils/angular.utils';
 import {Client} from 'app/models/client.model';
+import {Token} from 'app/models/token.model';
 
 @Component({
-  selector: 'app-save-client',
-  templateUrl: './save-client.component.html',
+  selector: 'app-client-form',
+  templateUrl: './client-form.component.html',
 })
-export class SaveClientComponent implements OnInit {
+export class ClientFormComponent implements OnInit {
 
-  @Input()
-  public client: Client;
-  @Output()
-  public saved = new EventEmitter<Client>();
+  public token: Token;
+  public client = new Client({});
+  public clientCreated = false;
+  public loading = true;
+  public clientInfoIndex = 0;
 
   public birthdateStruct: NgbDateStruct;
   public arrivalDateStruct: NgbDateStruct;
@@ -29,27 +34,11 @@ export class SaveClientComponent implements OnInit {
   public todayDateStruct: NgbDateStruct;
   public onlyDateChars = onlyDateChars;
 
-  constructor(private clientService: ClientService, private alertService: AlertService) {
+  constructor(private clientService: ClientService, private tokenService: TokenService, private alertService: AlertService, private activatedRoute: ActivatedRoute, private router: Router) {
 
   }
 
   public ngOnInit(): void {
-    if (this.client.personal_data.birthdate) {
-      const birthdate = this.client.personal_data.birthdate;
-      this.birthdateStruct = {
-        year: getYear(birthdate),
-        month: getMonth(birthdate) + 1,
-        day: getDate(birthdate),
-      };
-    }
-    if (this.client.additional_information.arrival_date) {
-      const arrivalDate = this.client.additional_information.arrival_date;
-      this.arrivalDateStruct = {
-        year: getYear(arrivalDate),
-        month: getMonth(arrivalDate) + 1,
-        day: getDate(arrivalDate),
-      };
-    }
     const now = new Date();
     this.pastDateStruct = {year: 1950, month: 1, day: 1};
     this.todayDateStruct = {
@@ -57,25 +46,45 @@ export class SaveClientComponent implements OnInit {
       month: getMonth(now) + 1,
       day: getDate(now),
     };
+
+    const tokenId = this.activatedRoute.snapshot.paramMap.get('token');
+    this.tokenService.getToken(tokenId).subscribe((token) => {
+      if (token.type !== Token.TYPE_CLIENT_FORM) {
+        this.navigateToPageNotFound();
+        return;
+      }
+      this.token = token;
+      this.loading = false;
+    }, (err) => {
+      if (err.code === ErrorUtils.TOKEN_NOT_FOUND) {
+        this.navigateToPageNotFound();
+      }
+      this.alertService.apiError(null, err);
+    });
+  }
+
+  public nextClientInfo(): void {
+    this.clientInfoIndex = this.clientInfoIndex + 1;
+  }
+
+  public previousClientInfo(): void {
+    this.clientInfoIndex = this.clientInfoIndex - 1;
   }
 
   public createClient(): void {
     this.fixDates();
-    this.clientService.createClient(this.client).subscribe((client) => {
+    this.clientService.createClient(this.client, this.token).subscribe((client) => {
       this.client = client;
-      this.saved.emit(client);
+      this.clientCreated = true;
     }, (err) => {
       this.alertService.apiError(null, err);
     });
   }
 
-  public updateClient(): void {
-    this.fixDates();
-    this.clientService.updateClient(this.client).subscribe((client) => {
-      this.client = client;
-      this.saved.emit(client);
-    }, (err) => {
-      this.alertService.apiError(null, err);
+  private navigateToPageNotFound(): void {
+    this.router.navigate(['/404'], {
+      replaceUrl: false,
+      skipLocationChange: true,
     });
   }
 

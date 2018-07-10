@@ -29,6 +29,7 @@ import {CompanyComponent} from 'app/components/company/company.component';
 import {ClientsComponent} from 'app/components/company/clients/clients.component';
 import {CreateClientFormComponent} from 'app/components/company/clients/create-form/create-client-form.component';
 import {ClientComponent} from 'app/components/company/client/client.component';
+import {ClientFormComponent} from 'app/components/company/client/form/client-form.component';
 import {SaveClientComponent} from 'app/components/company/client/save/save-client.component';
 import {CreateClientComponent} from 'app/components/company/client/create/create-client.component';
 import {UpdateClientComponent} from 'app/components/company/client/update/update-client.component';
@@ -85,6 +86,7 @@ registerLocaleData(pt);
     ClientsComponent,
     CreateClientFormComponent,
     ClientComponent,
+    ClientFormComponent,
     SaveClientComponent,
     CreateClientComponent,
     UpdateClientComponent,
