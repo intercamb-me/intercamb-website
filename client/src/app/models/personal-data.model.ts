@@ -15,7 +15,6 @@ export class PersonalData {
   public birthdate: Date;
   public gender: string;
   public marital_status: string;
-  public number_of_children: number;
 
   constructor(data?: any) {
     if (data) {
@@ -27,7 +26,6 @@ export class PersonalData {
       this.birthdate = DateUtils.fromDateOnly(data.birthdate);
       this.gender = data.gender;
       this.marital_status = data.marital_status;
-      this.number_of_children = data.number_of_children;
     }
   }
 

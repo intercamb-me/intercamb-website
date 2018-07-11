@@ -29,43 +29,53 @@
             <div class="row">
               <div class="col form-group">
                 <label>Nacionalidade</label>
-                <p>{{ client.personal_data.nationality }}</p>
+                <p class="mb-0">{{ client.personal_data.nationality | hyphensIfEmpty }}</p>
               </div>
               <div class="col form-group">
                 <label>Naturalidade</label>
-                <p><span *ngIf="hasPlaceOfBirth()">{{ client.personal_data.place_of_birth.city }} - {{ client.personal_data.place_of_birth.state }}</span></p>
+                <p class="mb-0">
+                  <span *ngIf="hasPlaceOfBirth()">
+                    {{ client.personal_data.place_of_birth.city }} - {{ client.personal_data.place_of_birth.state }}
+                  </span>
+                  <span *ngIf="!hasPlaceOfBirth()">
+                    {{ "" | hyphensIfEmpty }}
+                  </span>
+                </p>
               </div>
               <div class="col form-group">
                 <label>RG</label>
-                <p><span *ngIf="hasIdentityDocument()">{{ client.personal_data.identity_document.number }} - {{ client.personal_data.identity_document.issuing_authority }} {{ client.personal_data.identity_document.state }}</span></p>
+                <p class="mb-0">
+                  <span *ngIf="hasIdentityDocument()">
+                    {{ client.personal_data.identity_document.number }} - {{ client.personal_data.identity_document.issuing_authority }} {{ client.personal_data.identity_document.state }}
+                  </span>
+                  <span *ngIf="!hasIdentityDocument()">
+                    {{ "" | hyphensIfEmpty }}
+                  </span>
+                </p>
               </div>
             </div>
             <div class="row">
               <div class="col form-group">
                 <label>CPF</label>
-                <p>{{ client.personal_data.cpf_number }}</p>
+                <p class="mb-0">{{ client.personal_data.cpf_number | hyphensIfEmpty }}</p>
               </div>
               <div class="col form-group">
                 <label>Passaporte</label>
-                <p>{{ client.personal_data.passport_number }}</p>
+                <p class="mb-0">{{ client.personal_data.passport_number | hyphensIfEmpty }}</p>
               </div>
               <div class="col form-group">
                 <label>Data de nascimento</label>
-                <p>{{ (client.personal_data.birthdate | date:"dd/MM/yyyy") || "" }}</p>
+                <p class="mb-0">{{ (client.personal_data.birthdate | date:"dd/MM/yyyy") || "" | hyphensIfEmpty }}</p>
               </div>
             </div>
             <div class="row">
-              <div class="col form-group mb-0">
+              <div class="col-4 form-group mb-0">
                 <label>Sexo</label>
-                <p class="mb-0">{{ client.personal_data.gender }}</p>
+                <p class="mb-0">{{ client.personal_data.gender | hyphensIfEmpty }}</p>
               </div>
-              <div class="col form-group mb-0">
+              <div class="col-4 form-group mb-0">
                 <label>Estado Civil</label>
-                <p class="mb-0">{{ client.personal_data.marital_status }}</p>
-              </div>
-              <div class="col form-group mb-0">
-                <label>Quantidade de filhos</label>
-                <p class="mb-0">{{ client.personal_data.number_of_children }}</p>
+                <p class="mb-0">{{ client.personal_data.marital_status | hyphensIfEmpty }}</p>
               </div>
             </div>
           </div>
@@ -86,35 +96,35 @@
             <div class="row">
               <div class="col form-group">
                 <label>Logradouro</label>
-                <p>{{ client.address.public_place }}</p>
+                <p class="mb-0">{{ client.address.public_place | hyphensIfEmpty }}</p>
               </div>
               <div class="col form-group">
                 <label>Número</label>
-                <p>{{ client.address.number }}</p>
+                <p class="mb-0">{{ client.address.number | hyphensIfEmpty }}</p>
               </div>
               <div class="col form-group">
                 <label>Complemento</label>
-                <p>{{ client.address.complement }}</p>
+                <p class="mb-0">{{ client.address.complement | hyphensIfEmpty }}</p>
               </div>
             </div>
             <div class="row">
               <div class="col form-group">
                 <label>Bairro</label>
-                <p>{{ client.address.neighborhood }}</p>
+                <p class="mb-0">{{ client.address.neighborhood | hyphensIfEmpty }}</p>
               </div>
               <div class="col form-group">
                 <label>Cidade</label>
-                <p>{{ client.address.city }}</p>
+                <p class="mb-0">{{ client.address.city | hyphensIfEmpty }}</p>
               </div>
               <div class="col form-group">
                 <label>Estado</label>
-                <p>{{ client.address.state }}</p>
+                <p class="mb-0">{{ client.address.state | hyphensIfEmpty }}</p>
               </div>
             </div>
             <div class="row">
               <div class="col form-group mb-0">
                 <label>CEP</label>
-                <p class="mb-0">{{ client.address.zip_code }}</p>
+                <p class="mb-0">{{ client.address.zip_code | hyphensIfEmpty }}</p>
               </div>
             </div>
           </div>
@@ -134,50 +144,34 @@
           <div class="card-body">
             <div class="row">
               <div class="col">
-                <h3 class="mb-3">Sobre o pai</h3>
+                <h3 class="mb-3">Sobre a mãe</h3>
                 <div class="form-group">
-                  <label>Nome</label>
-                  <p>{{ client.family_data.father.name }}</p>
+                  <label>Nome completo</label>
+                  <p class="mb-0">{{ client.family_data.mother.name | hyphensIfEmpty }}</p>
                 </div>
                 <div class="form-group">
-                  <label>Escolaridade</label>
-                  <p>{{ client.family_data.father.education_level }}</p>
-                </div>
-                <div class="form-group">
-                  <label>Profissão</label>
-                  <p>{{ client.family_data.father.occupation }}</p>
-                </div>
-                <div class="form-group">
-                  <label>Situação laboral</label>
-                  <p>{{ client.family_data.father.employment_situation }}</p>
+                  <label>E-mail</label>
+                  <p class="mb-0">{{ client.family_data.mother.email | hyphensIfEmpty }}</p>
                 </div>
                 <div class="form-group mb-0">
                   <label>Telefone</label>
-                  <p class="mb-0">{{ client.family_data.father.phone }}</p>
+                  <p class="mb-0">{{ client.family_data.mother.phone | hyphensIfEmpty }}</p>
                 </div>
               </div>
               <div class="vr"></div>
               <div class="col">
-                <h3 class="mb-3">Sobre a mãe</h3>
+                <h3 class="mb-3">Sobre o pai</h3>
                 <div class="form-group">
-                  <label>Nome</label>
-                  <p>{{ client.family_data.mother.name }}</p>
+                  <label>Nome completo</label>
+                  <p class="mb-0">{{ client.family_data.father.name | hyphensIfEmpty }}</p>
                 </div>
                 <div class="form-group">
-                  <label>Escolaridade</label>
-                  <p>{{ client.family_data.mother.education_level }}</p>
-                </div>
-                <div class="form-group">
-                  <label>Profissão</label>
-                  <p>{{ client.family_data.mother.occupation }}</p>
-                </div>
-                <div class="form-group">
-                  <label>Situação laboral</label>
-                  <p>{{ client.family_data.mother.employment_situation }}</p>
+                  <label>E-mail</label>
+                  <p class="mb-0">{{ client.family_data.father.email | hyphensIfEmpty }}</p>
                 </div>
                 <div class="form-group mb-0">
                   <label>Telefone</label>
-                  <p class="mb-0">{{ client.family_data.mother.phone }}</p>
+                  <p class="mb-0">{{ client.family_data.father.phone | hyphensIfEmpty }}</p>
                 </div>
               </div>
             </div>
@@ -201,21 +195,21 @@
                 <h3 class="mb-3">Ensino médio</h3>
                 <div class="form-group">
                   <label>Nome da escola</label>
-                  <p>{{ client.academic_data.high_school.school }}</p>
+                  <p class="mb-0">{{ client.academic_data.high_school.school | hyphensIfEmpty }}</p>
                 </div>
                 <div class="row">
                   <div class="col form-group">
                     <label>Cidade</label>
-                    <p>{{ client.academic_data.high_school.city }}</p>
+                    <p class="mb-0">{{ client.academic_data.high_school.city | hyphensIfEmpty }}</p>
                   </div>
                   <div class="col form-group">
                     <label>Estado</label>
-                    <p>{{ client.academic_data.high_school.state }}</p>
+                    <p class="mb-0">{{ client.academic_data.high_school.state | hyphensIfEmpty }}</p>
                   </div>
                 </div>
                 <div class="form-group mb-0">
                   <label>Ano de conclusão</label>
-                  <p class="mb-0">{{ client.academic_data.high_school.conclusion_year }}</p>
+                  <p class="mb-0">{{ client.academic_data.high_school.conclusion_year | hyphensIfEmpty }}</p>
                 </div>
               </div>
               <div class="vr"></div>
@@ -223,25 +217,25 @@
                 <h3 class="mb-3">Ensino superior</h3>
                 <div class="form-group">
                   <label>Nome da instituição</label>
-                  <p>{{ client.academic_data.higher_education.institution }}</p>
+                  <p class="mb-0">{{ client.academic_data.higher_education.institution | hyphensIfEmpty }}</p>
                 </div>
                 <div class="row">
                   <div class="col form-group">
                     <label>Cidade</label>
-                    <p>{{ client.academic_data.higher_education.city }}</p>
+                    <p class="mb-0">{{ client.academic_data.higher_education.city | hyphensIfEmpty }}</p>
                   </div>
                   <div class="col form-group">
                     <label>Estado</label>
-                    <p>{{ client.academic_data.higher_education.state }}</p>
+                    <p class="mb-0">{{ client.academic_data.higher_education.state | hyphensIfEmpty }}</p>
                   </div>
                 </div>
                 <div class="form-group">
                   <label>Curso</label>
-                  <p>{{ client.academic_data.higher_education.course }}</p>
+                  <p class="mb-0">{{ client.academic_data.higher_education.course | hyphensIfEmpty }}</p>
                 </div>
                 <div class="form-group mb-0">
                   <label>Ano de conclusão</label>
-                  <p class="mb-0">{{ client.academic_data.higher_education.conclusion_year }}</p>
+                  <p class="mb-0">{{ client.academic_data.higher_education.conclusion_year | hyphensIfEmpty }}</p>
                 </div>
               </div>
             </div>
@@ -263,21 +257,21 @@
             <div class="row">
               <div class="col form-group">
                 <label>Nome do curso</label>
-                <p>{{ client.intended_course.name }}</p>
+                <p class="mb-0">{{ client.intended_course.name | hyphensIfEmpty }}</p>
               </div>
               <div class="col form-group">
                 <label>Faculdade</label>
-                <p>{{ client.intended_course.institution }}</p>
+                <p class="mb-0">{{ client.intended_course.institution | hyphensIfEmpty }}</p>
               </div>
             </div>
             <div class="row">
               <div class="col form-group mb-0">
                 <label>Turno preferido</label>
-                <p class="mb-0">{{ client.intended_course.preferred_shift }}</p>
+                <p class="mb-0">{{ client.intended_course.preferred_shift | hyphensIfEmpty }}</p>
               </div>
               <div class="col form-group mb-0">
                 <label>Segunda opção de turno</label>
-                <p class="mb-0">{{ client.intended_course.alternative_shift }}</p>
+                <p class="mb-0">{{ client.intended_course.alternative_shift | hyphensIfEmpty }}</p>
               </div>
             </div>
           </div>
@@ -297,15 +291,15 @@
           <div class="card-body">
             <div class="form-group">
               <label>É portador de deficiência? Se sim, qual?</label>
-              <p>{{ client.additional_information.disabilities }}</p>
+              <p class="mb-0">{{ client.additional_information.disabilities | hyphensIfEmpty }}</p>
             </div>
             <div class="form-group">
               <label>Quando pretende chegar ao país?</label>
-              <p>{{ (client.additional_information.arrival_date | date:"dd/MM/yyyy") || "" }}</p>
+              <p class="mb-0">{{ (client.additional_information.arrival_date | date:"dd/MM/yyyy") || "" | hyphensIfEmpty }}</p>
             </div>
             <div class="form-group mb-0">
               <label>Como conheceu a empresa?</label>
-              <p class="mb-0">{{ client.additional_information.how_did_you_know_the_company }}</p>
+              <p class="mb-0">{{ client.additional_information.how_did_you_know_the_company | hyphensIfEmpty }}</p>
             </div>
           </div>
         </div>

@@ -3,6 +3,7 @@ import {NgbDateParserFormatter, NgbDateStruct, NgbDatepickerI18n} from '@ng-boot
 import padStart from 'lodash-es/padStart';
 import forEach from 'lodash-es/forEach';
 import size from 'lodash-es/size';
+import isEmpty from 'lodash-es/isEmpty';
 
 @Pipe({name: 'capitalizeFirst'})
 export class CapitalizeFirstPipe implements PipeTransform {
@@ -32,6 +33,17 @@ export class SizePipe implements PipeTransform {
 
   public transform(object: any): number {
     return size(object);
+  }
+}
+
+@Pipe({name: 'hyphensIfEmpty'})
+export class HyphensIfEmpty implements PipeTransform {
+
+  public transform(object: any): any {
+    if (!object || isEmpty(String(object))) {
+      return '----';
+    }
+    return object;
   }
 }
 

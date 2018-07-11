@@ -50,7 +50,7 @@ import {AlertService} from 'app/services/alert.service';
 import {EventService} from 'app/services/event.service';
 
 // Other
-import {CapitalizeFirstPipe, MapValuesPipe, SizePipe, BrazilianNgbDateParserFormatter, BrazilianNgbDatepickerI18n} from 'app/utils/angular.utils';
+import {CapitalizeFirstPipe, MapValuesPipe, SizePipe, HyphensIfEmpty, BrazilianNgbDateParserFormatter, BrazilianNgbDatepickerI18n} from 'app/utils/angular.utils';
 
 registerLocaleData(pt);
 
@@ -76,6 +76,7 @@ registerLocaleData(pt);
     CapitalizeFirstPipe,
     MapValuesPipe,
     SizePipe,
+    HyphensIfEmpty,
     AppComponent,
     AlertsComponent,
     NotFoundComponent,
