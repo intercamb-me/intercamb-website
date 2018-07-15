@@ -11,19 +11,40 @@
         <p>Ao clicar no botão abaixo, será gerado uma URL que deve ser enviada ao cliente. Esta URL leva ao formulário de cadastro e terá validade de 1 mês.</p>
         <div class="form-row">
           <div class="col form-group">
-            <input [(ngModel)]="identifier" type="text" name="identifier" class="form-control" placeholder="Nome do cliente" required>
+            <input
+              [(ngModel)]="identifier"
+              type="text"
+              name="identifier"
+              class="form-control"
+              placeholder="Nome do cliente"
+              required>
           </div>
           <div class="col-auto form-group">
-            <button [disabled]="form.invalid" class="btn btn-primary" type="submit">Gerar URL</button>
+            <button
+              [disabled]="form.invalid"
+              class="btn btn-primary"
+              type="submit">
+              Gerar URL
+            </button>
           </div>
         </div>
       </ng-container>
       <ng-container *ngIf="token">
         <p>Agora basta enviar a URL abaixo para o cliente. Quando o formulário for preenchido e submetido, o cliente entrará automaticamente no sistema e será marcado para revisão.</p>
         <div class="input-group">
-          <input [value]="getFormUrl()" type="text" name="form-url" class="form-control" readonly>
+          <input
+            [value]="getFormUrl()"
+            type="text"
+            name="form-url"
+            class="form-control"
+            readonly>
           <div class="input-group-append">
-            <button ngxClipboard [cbContent]="getFormUrl()" (click)="copyFormUrl()" type="button" class="btn btn-secondary">
+            <button
+              ngxClipboard
+              [cbContent]="getFormUrl()"
+              (click)="copyFormUrl()"
+              type="button"
+              class="btn btn-secondary">
               Copiar
             </button>
           </div>

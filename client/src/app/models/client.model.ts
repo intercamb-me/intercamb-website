@@ -11,6 +11,7 @@ export class Client {
 
   public id: string;
   public company: string;
+  public plan: string;
   public forename: string;
   public surname: string;
   public email: string;
@@ -28,6 +29,7 @@ export class Client {
     if (data) {
       this.id = data.id;
       this.company = data.company;
+      this.plan = data.plan;
       this.forename = data.forename;
       this.surname = data.surname;
       this.email = data.email;

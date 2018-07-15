@@ -3,7 +3,7 @@ import {Routes} from '@angular/router';
 import {NotFoundComponent} from 'app/components/not-found/not-found.component';
 import {SignUpComponent} from 'app/components/signup/signup.component';
 import {SignInComponent} from 'app/components/signin/signin.component';
-import {CreateCompanyComponent} from 'app/components/create-company/create-company.component';
+import {SetupCompanyComponent} from 'app/components/company/setup/setup-company.component';
 import {CompanyComponent} from 'app/components/company/company.component';
 import {ClientsComponent} from 'app/components/company/clients/clients.component';
 import {ClientComponent} from 'app/components/company/client/client.component';
@@ -12,7 +12,7 @@ import {CreateClientComponent} from 'app/components/company/client/create/create
 import {UpdateClientComponent} from 'app/components/company/client/update/update-client.component';
 import {SchedulingComponent} from 'app/components/company/scheduling/scheduling.component';
 import {ReportsComponent} from 'app/components/company/reports/reports.component';
-import {SettingsComponent} from 'app/components/company/settings/settings.component';
+import {CompanySettingsComponent} from 'app/components/company/settings/company-settings.component';
 
 export class AppRoutes {
 
@@ -20,7 +20,7 @@ export class AppRoutes {
     return [
       {path: 'signup', component: SignUpComponent},
       {path: 'signin', component: SignInComponent},
-      {path: 'companies/new', component: CreateCompanyComponent},
+      {path: 'company/setup', component: SetupCompanyComponent},
       {path: 'company', component: CompanyComponent, children: [
         {path: 'clients', component: ClientsComponent},
         {path: 'clients/new', component: CreateClientComponent},
@@ -28,7 +28,7 @@ export class AppRoutes {
         {path: 'clients/:client', component: ClientComponent},
         {path: 'scheduling', component: SchedulingComponent},
         {path: 'reports', component: ReportsComponent},
-        {path: 'settings', component: SettingsComponent},
+        {path: 'settings', component: CompanySettingsComponent},
       ]},
       {path: 'clients/form/:token', component: ClientFormComponent},
       {path: '**', component: NotFoundComponent},

@@ -14,14 +14,55 @@ h1, h2, h3, h4, h5, p, small {
   line-height: 1.5;
 }
 
+a, a:hover {
+  color: inherit;
+}
+
 .font-small {
   font-size: 14px !important;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.bg-black {
+  background-color: #212529 !important;
+}
+
+.text-black {
+  color: #212529;
 }
 
 .vr {
   .ml-3();
   .mr-3();
   border-left: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.btn-warning {
+  color: @white !important;
+  &:hover {
+    color: @white !important;
+  }
+  &:active {
+    color: @white !important;
+  }
+}
+
+.btn-file  {
+  input[type=file] {
+    display: none;
+  }
+}
+
+.badge-orange {
+  color: #fff;
+  background-color: #eb5a46;
+}
+
+.dropdown-toggle::after {
+  display: none;
 }
 
 .alerts {
@@ -47,37 +88,6 @@ h1, h2, h3, h4, h5, p, small {
   box-shadow: 0px 1px 5px rgba(0,0,0,.15);
 }
 
-.ngb-dp-day, .ngb-dp-weekday, .ngb-dp-week-number {
-  width: 2.2rem !important;
-}
-
-.ngb-dp-day {
-  > .btn-light {
-    width: 2.2rem !important;
-  }
-}
-
-.btn-warning {
-  color: @white !important;
-  &:hover {
-    color: @white !important;
-  }
-  &:active {
-    color: @white !important;
-  }
-}
-
-.btn-file  {
-  input[type=file] {
-    display: none;
-  }
-}
-
-.badge-orange {
-  color: #fff;
-  background-color: #eb5a46;
-}
-
 .modal-header {
   button {
     &.close {
@@ -94,6 +104,16 @@ h1, h2, h3, h4, h5, p, small {
 .popover-header {
   .text-dark();
   .text-center();
+}
+
+.ngb-dp-day, .ngb-dp-weekday, .ngb-dp-week-number {
+  width: 2.2rem !important;
+}
+
+.ngb-dp-day {
+  > .btn-light {
+    width: 2.2rem !important;
+  }
 }
 
 .cal-week-view {

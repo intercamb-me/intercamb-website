@@ -23,8 +23,4 @@ export class Constants {
       secondaryColor: '#dc3545',
     },
   };
-
-  private constructor() {
-
-  }
 }

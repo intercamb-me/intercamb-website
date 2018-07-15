@@ -3,30 +3,20 @@ import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {map, catchError} from 'rxjs/operators';
 
-import {Account} from 'app/models/account.model';
-import {Company} from 'app/models/company.model';
-import {Client} from 'app/models/client.model';
-import {Task} from 'app/models/task.model';
 import {EventService} from 'app/services/event.service';
 import {ApiError} from 'app/services/commons/api.error';
 import {RequestUtils} from 'app/utils/request.utils';
+import {Account} from 'app/models/account.model';
+import {Company} from 'app/models/company.model';
+import {Plan} from 'app/models/plan.model';
+import {Client} from 'app/models/client.model';
+import {Task} from 'app/models/task.model';
 
 @Injectable()
 export class CompanyService {
 
   constructor(private eventService: EventService, private http: HttpClient) {
 
-  }
-
-  public createCompany(name: string): Observable<Company> {
-    return this.http.post<Company>(RequestUtils.getApiUrl('/companies'), {name}, RequestUtils.getJsonOptions()).pipe(
-      map((companyData: Company) => new Company(companyData)),
-      catchError((err: HttpErrorResponse) => {
-        const apiError = ApiError.withResponse(err);
-        this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
-        return throwError(apiError);
-      })
-    );
   }
 
   public getCompany(): Observable<Company> {
@@ -40,10 +30,32 @@ export class CompanyService {
     );
   }
 
+  public createCompany(name: string): Observable<Company> {
+    return this.http.post<Company>(RequestUtils.getApiUrl('/companies'), {name}, RequestUtils.getJsonOptions()).pipe(
+      map((companyData: Company) => new Company(companyData)),
+      catchError((err: HttpErrorResponse) => {
+        const apiError = ApiError.withResponse(err);
+        this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
+        return throwError(apiError);
+      })
+    );
+  }
+
+  public updateCompany(data: any): Observable<Company> {
+    return this.http.put<Company>(RequestUtils.getApiUrl(`/companies/current`), data, RequestUtils.getJsonOptions()).pipe(
+      map((companyData: Company) => new Company(companyData)),
+      catchError((err: HttpErrorResponse) => {
+        const apiError = ApiError.withResponse(err);
+        this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
+        return throwError(apiError);
+      })
+    );
+  }
+
   public updateCompanyLogo(logo: File): Observable<Company> {
     const formData = new FormData();
     formData.append('logo', logo);
-    return this.http.put<Company>(RequestUtils.getApiUrl('/companies/current'), formData, RequestUtils.getOptions()).pipe(
+    return this.http.put<Company>(RequestUtils.getApiUrl('/companies/current/logo'), formData, RequestUtils.getOptions()).pipe(
       map((companyData: Company) => new Company(companyData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
@@ -61,6 +73,23 @@ export class CompanyService {
           accounts.push(new Account(accountData));
         });
         return accounts;
+      }),
+      catchError((err: HttpErrorResponse) => {
+        const apiError = ApiError.withResponse(err);
+        this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
+        return throwError(apiError);
+      })
+    );
+  }
+
+  public listPlans(): Observable<Plan[]> {
+    return this.http.get<Plan[]>(RequestUtils.getApiUrl('/companies/current/plans'), RequestUtils.getJsonOptions()).pipe(
+      map((plansData: Plan[]) => {
+        const plans: Plan[] = [];
+        plansData.forEach((planData) => {
+          plans.push(new Plan(planData));
+        });
+        return plans;
       }),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);

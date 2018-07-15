@@ -5,6 +5,7 @@ import {finalize} from 'rxjs/operators';
 import {AccountService} from 'app/services/account.service';
 import {CompanyService} from 'app/services/company.service';
 import {AlertService} from 'app/services/alert.service';
+import {EventService} from 'app/services/event.service';
 import {Account} from 'app/models/account.model';
 import {Company} from 'app/models/company.model';
 
@@ -18,7 +19,7 @@ export class CompanyComponent implements OnInit {
   public company: Company;
   public loading = true;
 
-  constructor(private accountService: AccountService, private companyService: CompanyService, private alertService: AlertService, private router: Router) {
+  constructor(private accountService: AccountService, private companyService: CompanyService, private alertService: AlertService, private eventService: EventService, private router: Router) {
 
   }
 
@@ -29,12 +30,13 @@ export class CompanyComponent implements OnInit {
         return;
       }
       if (!account.company) {
-        this.router.navigate(['/companies', 'new']);
+        this.router.navigate(['/company', 'setup']);
         return;
       }
       this.account = account;
       this.companyService.getCompany().subscribe((company) => {
         this.company = company;
+        this.subscribeEvents();
         this.loading = false;
       }, (err) => {
         this.alertService.apiError(null, err);
@@ -51,5 +53,11 @@ export class CompanyComponent implements OnInit {
         this.router.navigate(['/']);
       })
     ).subscribe(null, null);
+  }
+
+  private subscribeEvents(): void {
+    this.eventService.subscribe(EventService.EVENT_COMPANY_CHANGED, (event) => {
+      this.company = event.value;
+    });
   }
 }

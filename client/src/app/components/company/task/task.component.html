@@ -13,7 +13,7 @@
       <span *ngIf="task.schedule_date" class="badge badge-orange"><i class="far fa-clock"></i> {{ task.schedule_date | date:"dd 'de' MMMM 'de' yyyy 'às' HH:mm" }}</span>
     </div>
   </div>
-  <div class="modal-body px-4">
+  <div class="modal-body px-4 py-4">
     <div class="d-flex">
       <div class="flex-grow-1 mr-4">
         <div class="attachments">
@@ -64,7 +64,7 @@
       <div class="flex-shrink-0 d-flex flex-column justify-content-start">
         <button (click)="openChangeStatus(task)" type="button" class="btn btn-primary d-flex align-items-center">
           <i class="fas fa-tasks flex-shrink-0"></i>
-          <span *ngIf="task.schedule_date" class="ml-2">Alterar estado</span>
+          <span class="ml-2">Alterar estado</span>
         </button>
         <button (click)="openSetScheduleDate(task)" type="button" class="btn btn-primary d-flex align-items-center mt-2">
           <i class="far fa-clock flex-shrink-0"></i>

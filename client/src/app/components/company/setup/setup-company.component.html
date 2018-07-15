@@ -1,0 +1,111 @@
+<div id="setup-company" [ngStyle]="{'background-color': selectedPaletteVariant ? selectedPaletteVariant.color : undefined}">
+  <div class="container">
+    <div *ngIf="!loading" class="row py-5">
+      <div *ngIf="step === 0" class="col-12">
+        <h2 class="mb-4 text-center text-white">
+          Para começar, primeiro cadastre a sua empresa.
+        </h2>
+        <div class="row justify-content-center">
+          <div class="col-md-8 col-lg-6">
+            <div class="card">
+              <div class="card-body">
+                <form #form="ngForm" (submit)="createCompany()" novalidate>
+                  <div class="form-row">
+                    <div class="col form-group mb-0">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text form-control">
+                            <i class="fas fa-briefcase"></i>
+                          </span>
+                        </div>
+                        <input
+                          [(ngModel)]="name"
+                          id="name"
+                          name="name"
+                          type="text"
+                          class="form-control py-2"
+                          placeholder="Nome da empresa"
+                          minlength="4"
+                          required>
+                      </div>
+                    </div>
+                    <div class="col-auto form-group mb-0">
+                      <button
+                        [disabled]="form.invalid"
+                        type="submit"
+                        class="btn btn-primary btn-block h-100">
+                        Cadastrar
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="step === 1" class="col-12">
+        <h2
+          [ngStyle]="{'color': selectedTextColor || undefined}"
+          class="mb-4 text-center">
+          Personalize o sistema para ficar com a cara da sua empresa.
+        </h2>
+        <div class="row justify-content-center">
+          <div class="col-10 col-lg-8">
+            <div class="card">
+              <div class="card-body">
+                <form novalidate>
+                  <div class="row">
+                    <div class="col-auto">
+                      <div class="form-group">
+                        <img [src]="company.logo_url" class="logo"/>
+                        <label class="btn btn-primary btn-block btn-file mt-3">
+                          Alterar logo
+                          <input
+                            (change)="updateCompanyLogo($event)"
+                            id="logo"
+                            name="logo"
+                            type="file"
+                            accept="image/*">
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-group">
+                        <label>
+                          <h5 class="mb-0">Cor principal</h5>
+                        </label>
+                        <app-material-palette-picker (colorSelected)="onColorSelected($event)"></app-material-palette-picker>
+                      </div>
+                      <div class="form-group">
+                        <label>
+                          <h5 class="mb-0">Cor do texto</h5>
+                        </label>
+                        <div class="palette">
+                          <span (click)="selectTextColor('#000000')" class="color bg-black">
+                            <i *ngIf="selectedTextColor === '#000000'" class="fas fa-check text-white"></i>
+                          </span>
+                          <span (click)="selectTextColor('#212529')" class="color bg-white">
+                            <i *ngIf="selectedTextColor === '#212529'" class="fas fa-check text-black"></i>
+                          </span>
+                        </div>
+                      </div>
+                      <button
+                        [disabled]="!selectedPaletteVariant || !selectedTextColor"
+                        (click)="updateCompany()"
+                        type="button"
+                        class="btn btn-primary float-right">
+                        Confirmar
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-alerts></app-alerts>

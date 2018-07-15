@@ -5,7 +5,7 @@
 
 @import (less, reference) "~bootstrap/dist/css/bootstrap.css";
 
-#signup, #signin, #create-company, #not-found {
+#signup, #signin, #setup-company, #not-found {
   min-height: 100%;
   background-color: @primary;
   .note {
@@ -15,7 +15,20 @@
   }
 }
 
-#home {
+#setup-company {
+  background-color: @primary;
+  h2 {
+    color: @white;
+  }
+  .logo {
+    .d-block();
+    .rounded();
+    width: 160px;
+    height: 160px;
+  }
+}
+
+#company {
   .row();
   .mx-0();
   .my-0();
@@ -26,14 +39,14 @@
     .flex-column();
     .py-4();
     .text-center();
-    .text-white();
     background-color: @primary;
+    color: @white;
     > .company {
       > .logo {
-        .rounded-circle();
+        .mt-3();
+        .rounded();
         width: 100px;
         height: 100px;
-        background-color: @white;
       }
       > .name {
         .mt-3();
@@ -48,11 +61,10 @@
         .align-items-center();
         .px-2();
         .py-1();
-        .text-white();
         border-radius: 4px;
         text-decoration: none;
         &:hover {
-          background-color: @primary-dark;
+          background-color: rgba(0,0,0, 0.2);
         }
         > .icon {
           .mr-3();
@@ -75,7 +87,9 @@
         .rounded-circle();
         width: 40px;
         height: 40px;
-        background-color: @white;
+      }
+      .dropdown-menu {
+        .ml-2();
       }
     }
   }
@@ -84,6 +98,26 @@
     .px-4();
     .py-4();
     background-color: @white;
+  }
+}
+
+#company-settings {
+  .logo {
+    .d-block();
+    .rounded();
+    width: 160px;
+    height: 160px;
+  }
+  .plan {
+    .card();
+    .actions {
+      .d-flex();
+      .justify-content-end();
+      .px-3();
+      .py-3();
+      font-size: 20px;
+      cursor: pointer;
+    }
   }
 }
 
@@ -127,6 +161,10 @@
       .ml-4();
     }
   }
+  .plan {
+    .row();
+    .mt-4();
+  }
   .tasks {
     .row();
     .mt-4();
@@ -144,10 +182,12 @@
 }
 
 #client-form {
+  min-height: 100%;
   h1 {
     font-size: 34px;
   }
   .company-logo {
+    .rounded();
     width: 100px;
     height: 100px;
   }
@@ -166,6 +206,9 @@
     > .fa-check {
       font-size: 70px;
     }
+  }
+  .card {
+    .text-black();
   }
 }
 
@@ -188,6 +231,15 @@
       > textarea {
         resize: none;
       }
+    }
+  }
+}
+
+#associate-plan {
+  .plan {
+    .card();
+    &.selected {
+      background-color: rgba(0,0,0,0.1);
     }
   }
 }
@@ -264,5 +316,31 @@
     .px-3();
     .py-2();
     .text-center();
+  }
+}
+
+.palette {
+  .d-flex();
+  .flex-row();
+  .flex-wrap();
+  > .color {
+    .d-flex();
+    .align-items-center();
+    .justify-content-center();
+    .rounded-circle();
+    .mx-1();
+    .my-1();
+    .cursor-pointer();
+    width: 40px;
+    height: 40px;
+    &.bg-white {
+      border: 1px solid #777777;
+    }
+    > .fa-arrow-left {
+      font-size: 25px;
+    }
+    > .fa-check {
+      font-size: 18px;
+    }
   }
 }

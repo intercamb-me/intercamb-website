@@ -37,7 +37,7 @@ export class SizePipe implements PipeTransform {
 }
 
 @Pipe({name: 'hyphensIfEmpty'})
-export class HyphensIfEmpty implements PipeTransform {
+export class HyphensIfEmptyPipe implements PipeTransform {
 
   public transform(object: any): any {
     if (!object || isEmpty(String(object))) {

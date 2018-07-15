@@ -29,7 +29,7 @@ export class SignUpComponent {
       })
     ).subscribe((account) => {
       this.eventService.publish(EventService.EVENT_ACCOUNT_CHANGED, account);
-      this.router.navigate(['/companies', 'new']);
+      this.router.navigate(['/company', 'setup']);
     }, (err) => {
       this.alertService.apiError(ErrorUtils.CONTEXT_AUTHENTICATION, err);
     });

@@ -29,7 +29,7 @@ export class AlertsComponent implements OnInit {
     });
   }
 
-  public trackByAlert(index: number): number {
+  public trackByIndex(index: number): number {
     return index;
   }
 

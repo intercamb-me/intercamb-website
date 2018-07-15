@@ -19,7 +19,7 @@ export class CreateClientFormComponent {
   }
 
   public close(): void {
-    this.ngbActiveModal.close();
+    this.ngbActiveModal.dismiss();
   }
 
   public createToken(): void {

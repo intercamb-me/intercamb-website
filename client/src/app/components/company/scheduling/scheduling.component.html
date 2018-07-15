@@ -31,13 +31,13 @@
 </ng-template>
 
 <div id="scheduling">
-  <div class="d-flex align-items-center">
-    <div class="flex-grow-1">
+  <div class="row">
+    <div class="col-12">
       <h1 class="mb-0">Agendamentos</h1>
     </div>
   </div>
-  <div class="d-flex align-items-center mt-4">
-    <div class="flex-grow-1">
+  <div class="row align-items-center mt-4">
+    <div class="col">
       <div class="btn-group">
         <div
           mwlCalendarPreviousView
@@ -64,7 +64,7 @@
         </div>
       </div>
     </div>
-    <div class="flex-shrink-0">
+    <div class="col-auto">
       <div class="btn-group">
         <div
           (click)="setCalendarView('month')"
@@ -102,7 +102,7 @@
     </mwl-calendar-month-view>
     <ng-container *ngSwitchCase="'day'">
       <div *ngIf="(calendarDayEvents | size) === 0" class="jumbotron">
-        <h4 class="text-center">Nenhum atividade para este dia</h4>
+        <h4 class="text-center">Nenhuma atividade neste dia</h4>
       </div>
       <ng-container *ngIf="(calendarDayEvents | size) > 0">
         <div *ngFor="let eventsByHour of calendarDayEvents | mapValues; trackBy: trackByIndex" class="mb-4">

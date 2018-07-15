@@ -5,13 +5,18 @@ export class ErrorUtils {
 
   public static readonly INTERNAL_ERROR = 'internal_error';
   public static readonly AUTHENTICATION_REQUIRED = 'authentication_required';
+
   public static readonly ACCOUNT_ALREADY_EXISTS = 'account_already_exists';
   public static readonly ACCOUNT_NOT_FOUND = 'account_not_found';
   public static readonly CLIENT_NOT_FOUND = 'client_not_found';
   public static readonly TOKEN_NOT_FOUND = 'token_not_found';
+
   public static readonly WRONG_PASSWORD = 'wrong_password';
+
   public static readonly TOKEN_REVOKED = 'token_revoked';
   public static readonly TOKEN_EXPIRED = 'token_expired';
+
+  public static readonly ADDRESS_NOT_FOUND = 'address_not_found';
 
   private static readonly MESSAGES = {};
 
@@ -26,6 +31,7 @@ export class ErrorUtils {
     defaultContext[ErrorUtils.TOKEN_REVOKED] = 'Seu acesso foi revogado, por favor conecte-se novamente.';
     defaultContext[ErrorUtils.TOKEN_EXPIRED] = 'Sua sessão expirou, por favor atualize a página.';
     defaultContext[ErrorUtils.AUTHENTICATION_REQUIRED] = 'Por favor acesse sua conta para continuar';
+    defaultContext[ErrorUtils.ADDRESS_NOT_FOUND] = 'Endereço não foi encontrado!';
     ErrorUtils.MESSAGES[ErrorUtils.CONTEXT_DEFAULT] = defaultContext;
   }
 

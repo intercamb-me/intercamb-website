@@ -8,20 +8,20 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-12 text-right">
+    <div class="col text-right">
       <a [routerLink]="['edit']" class="btn btn-primary">Editar dados</a>
     </div>
   </div>
   <div class="row mt-4">
-    <div class="col-12">
-      <ng-container *ngIf="clientInfoIndex === 0">
+    <div class="col">
+      <ng-container *ngIf="infoStep === 0">
         <div class="d-flex">
           <div class="flex-grow-1">
             <h2>Dados pessoais</h2>
           </div>
           <div class="flex-grow-0">
             <button type="button" class="btn btn-primary mr-2" disabled>Anterior</button>
-            <button (click)="nextClientInfo()" type="button" class="btn btn-primary">Próximo</button>
+            <button (click)="nextInfoStep()" type="button" class="btn btn-primary">Próximo</button>
           </div>
         </div>
         <div class="card">
@@ -81,14 +81,14 @@
           </div>
         </div>
       </ng-container>
-      <ng-container *ngIf="clientInfoIndex === 1">
+      <ng-container *ngIf="infoStep === 1">
         <div class="d-flex">
           <div class="flex-grow-1">
             <h2>Endereço</h2>
           </div>
           <div class="flex-grow-0">
-            <button (click)="previousClientInfo()" type="button" class="btn btn-primary mr-2">Anterior</button>
-            <button (click)="nextClientInfo()" type="button" class="btn btn-primary">Próximo</button>
+            <button (click)="previousInfoStep()" type="button" class="btn btn-primary mr-2">Anterior</button>
+            <button (click)="nextInfoStep()" type="button" class="btn btn-primary">Próximo</button>
           </div>
         </div>
         <div class="card">
@@ -130,14 +130,14 @@
           </div>
         </div>
       </ng-container>
-      <ng-container *ngIf="clientInfoIndex === 2">
+      <ng-container *ngIf="infoStep === 2">
         <div class="d-flex">
           <div class="flex-grow-1">
             <h2>Dados familiares</h2>
           </div>
           <div class="flex-grow-0">
-            <button (click)="previousClientInfo()" type="button" class="btn btn-primary mr-2">Anterior</button>
-            <button (click)="nextClientInfo()" type="button" class="btn btn-primary">Próximo</button>
+            <button (click)="previousInfoStep()" type="button" class="btn btn-primary mr-2">Anterior</button>
+            <button (click)="nextInfoStep()" type="button" class="btn btn-primary">Próximo</button>
           </div>
         </div>
         <div class="card">
@@ -178,14 +178,14 @@
           </div>
         </div>
       </ng-container>
-      <ng-container *ngIf="clientInfoIndex === 3">
+      <ng-container *ngIf="infoStep === 3">
         <div class="d-flex">
           <div class="flex-grow-1">
             <h2>Dados acadêmicos</h2>
           </div>
           <div class="flex-grow-0">
-            <button (click)="previousClientInfo()" type="button" class="btn btn-primary mr-2">Anterior</button>
-            <button (click)="nextClientInfo()" type="button" class="btn btn-primary">Próximo</button>
+            <button (click)="previousInfoStep()" type="button" class="btn btn-primary mr-2">Anterior</button>
+            <button (click)="nextInfoStep()" type="button" class="btn btn-primary">Próximo</button>
           </div>
         </div>
         <div class="card">
@@ -242,14 +242,14 @@
           </div>
         </div>
       </ng-container>
-      <ng-container *ngIf="clientInfoIndex === 4">
+      <ng-container *ngIf="infoStep === 4">
         <div class="d-flex">
           <div class="flex-grow-1">
             <h2>Curso pretendido</h2>
           </div>
           <div class="flex-shrink-0">
-            <button (click)="previousClientInfo()" type="button" class="btn btn-primary mr-2">Anterior</button>
-            <button (click)="nextClientInfo()" type="button" class="btn btn-primary">Próximo</button>
+            <button (click)="previousInfoStep()" type="button" class="btn btn-primary mr-2">Anterior</button>
+            <button (click)="nextInfoStep()" type="button" class="btn btn-primary">Próximo</button>
           </div>
         </div>
         <div class="card">
@@ -277,13 +277,13 @@
           </div>
         </div>
       </ng-container>
-      <ng-container *ngIf="clientInfoIndex === 5">
+      <ng-container *ngIf="infoStep === 5">
         <div class="d-flex">
           <div class="flex-grow-1">
             <h2>Informações adicionais</h2>
           </div>
           <div class="flex-grow-0">
-            <button (click)="previousClientInfo()" type="button" class="btn btn-primary mr-2">Anterior</button>
+            <button (click)="previousInfoStep()" type="button" class="btn btn-primary mr-2">Anterior</button>
             <button type="button" class="btn btn-primary" disabled>Próximo</button>
           </div>
         </div>
@@ -306,14 +306,37 @@
       </ng-container>
     </div>
   </div>
+  <div class="plan">
+    <div class="col">
+      <div class="row align-items-center">
+        <div class="col">
+          <h2 class="mb-0">Plano</h2>
+        </div>
+        <div class="col-auto">
+          <button (click)="openAssociatePlan()" type="button" class="btn btn-primary">
+            Associar plano
+          </button>
+        </div>
+      </div>
+      <div *ngIf="!plan" class="jumbotron mt-3 mb-0">
+        <h4 class="text-center">Nenhum plano associado</h4>
+      </div>
+      <div *ngIf="plan" class="card">
+        <div class="card-body px-0 py-0">
+          <h5 class="mb-0 px-3 py-2">{{ plan.name }}</h5>
+          <h4 class="mb-0 px-3 py-4 bg-info text-center text-white">{{ plan.price | currency:plan.currency }}</h4>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="tasks">
-    <div class="col-12">
+    <div class="col">
       <h2>Atividades</h2>
       <ngx-masonry [options]="masonryOptions" class="row">
         <ngxMasonryItem *ngFor="let task of tasks; trackBy: trackByTask" class="col-6" style="margin-bottom: 20px">
           <div (click)="openTask(task)" class="task">
             <div class="card-body">
-              <h5 class="flex-grow-1 mb-0">{{ task.name }}</h5>
+              <h5 class="mb-0">{{ task.name }}</h5>
               <div class="mt-3">
                 <span class="badge badge-{{ taskStatus[task.status].colorSelector }}">{{ taskStatus[task.status].name }}</span>
                 <span *ngIf="task.comments.length > 0" class="badge badge-secondary"><i class="far fa-comment"></i> {{ task.comments.length }}</span>

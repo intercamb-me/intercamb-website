@@ -6,24 +6,18 @@ import {map, catchError} from 'rxjs/operators';
 import {EventService} from 'app/services/event.service';
 import {ApiError} from 'app/services/commons/api.error';
 import {RequestUtils} from 'app/utils/request.utils';
-import {StorageUtils} from 'app/utils/storage.utils';
-import {Account} from 'app/models/account.model';
-
-interface LoginResult {
-  token: string;
-  account: Account;
-}
+import {Plan} from 'app/models/plan.model';
 
 @Injectable()
-export class AccountService {
+export class PlanService {
 
   constructor(private eventService: EventService, private http: HttpClient) {
 
   }
 
-  public createAccount(firstName: string, lastName: string, email: string, password: string): Observable<Account> {
-    return this.http.post<Account>(RequestUtils.getApiUrl('/accounts'), {email, password, first_name: firstName, last_name: lastName}, RequestUtils.getJsonOptions()).pipe(
-      map((accountData: Account) => new Account(accountData)),
+  public getPlan(id: string): Observable<Plan> {
+    return this.http.get<Plan>(RequestUtils.getApiUrl(`/plans/${id}`), RequestUtils.getJsonOptions()).pipe(
+      map((planData: Plan) => new Plan(planData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
         this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
@@ -32,9 +26,9 @@ export class AccountService {
     );
   }
 
-  public getAccount(): Observable<Account> {
-    return this.http.get<Account>(RequestUtils.getApiUrl('/accounts/current'), RequestUtils.getJsonOptions()).pipe(
-      map((accountData: Account) => accountData ? new Account(accountData) : null),
+  public createPlan(name: string, price: number, currency: string): Observable<Plan> {
+    return this.http.post<Plan>(RequestUtils.getApiUrl('/plans'), {name, price, currency}, RequestUtils.getJsonOptions()).pipe(
+      map((planData: Plan) => new Plan(planData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
         this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
@@ -43,12 +37,9 @@ export class AccountService {
     );
   }
 
-  public login(email: string, password: string): Observable<Account> {
-    return this.http.post<LoginResult>(RequestUtils.getApiUrl('/accounts/login'), {email, password}, RequestUtils.getJsonOptions()).pipe(
-      map((loginData: LoginResult) => {
-        StorageUtils.setApiToken(loginData.token);
-        return new Account(loginData.account);
-      }),
+  public updatePlan(plan: Plan): Observable<Plan> {
+    return this.http.put<Plan>(RequestUtils.getApiUrl(`/plans/${plan.id}`), plan, RequestUtils.getJsonOptions()).pipe(
+      map((planData: Plan) => new Plan(planData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
         this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
@@ -57,12 +48,9 @@ export class AccountService {
     );
   }
 
-  public logout(): Observable<void> {
-    return this.http.post<void>(RequestUtils.getApiUrl('/accounts/logout'), null, RequestUtils.getJsonOptions()).pipe(
-      map(() => {
-        StorageUtils.removeApiToken();
-        return null;
-      }),
+  public deletePlan(plan: Plan): Observable<void> {
+    return this.http.delete<void>(RequestUtils.getApiUrl(`/plans/${plan.id}`), RequestUtils.getJsonOptions()).pipe(
+      map(() => null),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
         this.eventService.publish(EventService.EVENT_API_ERROR, apiError);

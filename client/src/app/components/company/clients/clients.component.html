@@ -1,9 +1,9 @@
 <div *ngIf="!loading" id="clients">
-  <div class="d-flex align-items-center mb-4">
-    <div class="flex-grow-1">
+  <div class="row align-items-center">
+    <div class="col">
       <h1 class="mb-0">Assessorados</h1>
     </div>
-    <div class="flex-grow-0">
+    <div class="col-auto">
       <button (click)="openSendForm()" type="button" class="btn btn-primary">
         Gerar formulário
       </button>
@@ -12,11 +12,11 @@
       </a>
     </div>
   </div>
-  <div *ngIf="clients.length === 0" class="jumbotron">
+  <div *ngIf="clients.length === 0" class="jumbotron mt-4">
     <h3 class="text-center">Nenhum assessorado cadastrado</h3>
   </div>
   <ng-container *ngIf="clients.length > 0" >
-    <div class="row mb-3">
+    <div class="row mt-4">
       <div class="col-6">
         <div class="input-group">
           <input type="text" class="form-control" placeholder="Busque pelo nome, email ou telefone.">
@@ -28,7 +28,7 @@
         </div>
       </div>
     </div>
-    <div class="row">
+    <div class="row mt-3">
       <div *ngFor="let client of clients; trackBy: trackByClient" class="col-6 mb-3">
         <a [routerLink]="['/company', 'clients', client.id]" class="client">
           <div class="content">

@@ -1,6 +1,9 @@
-<div id="home">
-  <div class="menu">
-    <ng-container *ngIf="!loading">
+<ng-container *ngIf="!loading">
+  <div id="company">
+    <div class="menu" [ngStyle]="{
+      'background-color': company.primary_color || undefined,
+      'color': company.text_color || undefined
+    }">
       <div class="company">
         <img class="logo" [src]="company.logo_url">
         <h1 class="name">{{ company.name }}</h1>
@@ -34,10 +37,10 @@
           </div>
         </div>
       </div>
-    </ng-container>
+    </div>
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
   </div>
-  <div class="content">
-    <router-outlet *ngIf="!loading"></router-outlet>
-  </div>
-</div>
+</ng-container>
 <app-alerts></app-alerts>

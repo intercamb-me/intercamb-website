@@ -30,8 +30,20 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button *ngIf="task.schedule_date" (click)="removeScheduleDate()" type="submit" class="btn btn-danger">Remover</button>
-      <button [disabled]="form.invalid" (click)="confirmScheduleDate()" type="submit" class="btn btn-primary">Salvar</button>
+      <button
+        *ngIf="task.schedule_date"
+        (click)="removeScheduleDate()"
+        type="submit"
+        class="btn btn-danger">
+        Remover
+      </button>
+      <button
+        [disabled]="form.invalid"
+        (click)="confirmScheduleDate()"
+        type="submit"
+        class="btn btn-primary">
+        Salvar
+      </button>
     </div>
   </form>
 </div>

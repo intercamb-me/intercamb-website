@@ -1,0 +1,31 @@
+<div id="associate-plan">
+  <form novalidate>
+    <div class="modal-header">
+      <h4 class="modal-title">Associar plano</h4>
+      <button (click)="close()" type="button" class="close" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div *ngFor="let plan of plans; trackBy: trackByPlan" (click)="selectPlan(plan)" class="col-6 col-lg-4 cursor-pointer">
+          <div [ngClass]="{'selected': selectedPlan && plan.id === selectedPlan.id}" class="plan">
+            <div class="card-body px-0 py-0">
+              <h5 class="mb-0 px-3 py-2">{{ plan.name }}</h5>
+              <h4 class="mb-0 px-3 py-4 bg-info text-center text-white">{{ plan.price | currency:plan.currency }}</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button
+        [disabled]="!selectedPlan"
+        (click)="associatePlan()"
+        class="btn btn-primary"
+        type="submit">
+        Associar
+      </button>
+    </div>
+  </form>
+</div>

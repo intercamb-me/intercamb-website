@@ -1,12 +1,11 @@
 {
   "compilerOptions": {
-    "allowSyntheticDefaultImports": false,
     "baseUrl": "./client/src",
     "emitDecoratorMetadata": true,
-    "esModuleInterop": false,
     "experimentalDecorators": true,
     "lib": ["es7", "dom"],
-    "module": "commonjs",
+    "module": "es6",
+    "moduleResolution": "node",
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,

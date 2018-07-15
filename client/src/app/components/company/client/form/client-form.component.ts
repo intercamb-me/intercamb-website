@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
 import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
 import * as getYear from 'date-fns/get_year';
 import * as setYear from 'date-fns/set_year';
@@ -8,6 +9,8 @@ import * as setMonth from 'date-fns/set_month';
 import * as getDate from 'date-fns/get_date';
 import * as setDate from 'date-fns/set_date';
 
+import {SearchAddressComponent} from 'app/components/company/client/search-address/search-address.component';
+
 import {ClientService} from 'app/services/client.service';
 import {TokenService} from 'app/services/token.service';
 import {AlertService} from 'app/services/alert.service';
@@ -15,6 +18,7 @@ import {ErrorUtils} from 'app/utils/error.utils';
 import {onlyDateChars} from 'app/utils/angular.utils';
 import {Client} from 'app/models/client.model';
 import {Token} from 'app/models/token.model';
+import {Address} from 'app/models/address.model';
 
 @Component({
   selector: 'app-client-form',
@@ -25,8 +29,8 @@ export class ClientFormComponent implements OnInit {
   public token: Token;
   public client = new Client({});
   public clientCreated = false;
+  public infoStep = 0;
   public loading = true;
-  public clientInfoIndex = 0;
 
   public birthdateStruct: NgbDateStruct;
   public arrivalDateStruct: NgbDateStruct;
@@ -34,7 +38,7 @@ export class ClientFormComponent implements OnInit {
   public todayDateStruct: NgbDateStruct;
   public onlyDateChars = onlyDateChars;
 
-  constructor(private clientService: ClientService, private tokenService: TokenService, private alertService: AlertService, private activatedRoute: ActivatedRoute, private router: Router) {
+  constructor(private clientService: ClientService, private tokenService: TokenService, private alertService: AlertService, private activatedRoute: ActivatedRoute, private router: Router, private ngbModal: NgbModal) {
 
   }
 
@@ -63,12 +67,25 @@ export class ClientFormComponent implements OnInit {
     });
   }
 
-  public nextClientInfo(): void {
-    this.clientInfoIndex = this.clientInfoIndex + 1;
+  public nextInfoStep(): void {
+    this.infoStep = this.infoStep + 1;
   }
 
-  public previousClientInfo(): void {
-    this.clientInfoIndex = this.clientInfoIndex - 1;
+  public previousInfoStep(): void {
+    this.infoStep = this.infoStep - 1;
+  }
+
+  public searchAddress(): void {
+    const modalRef = this.ngbModal.open(SearchAddressComponent);
+    modalRef.result.then((address: Address) => {
+      this.client.address.zip_code = address.zip_code;
+      this.client.address.state = address.state;
+      this.client.address.city = address.city;
+      this.client.address.neighborhood = address.neighborhood;
+      this.client.address.public_place = address.public_place;
+    }).catch(() => {
+      // Nothing to do...
+    });
   }
 
   public createClient(): void {
