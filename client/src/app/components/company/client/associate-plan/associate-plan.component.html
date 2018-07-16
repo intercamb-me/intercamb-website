@@ -1,7 +1,8 @@
-<div id="associate-plan">
+<div *ngIf="!loading" id="associate-plan">
   <form novalidate>
     <div class="modal-header">
-      <h4 class="modal-title">Associar plano</h4>
+      <h4 *ngIf="!client.plan" class="modal-title">Associar plano</h4>
+      <h4 *ngIf="client.plan" class="modal-title">Alterar plano</h4>
       <button (click)="close()" type="button" class="close" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -20,11 +21,27 @@
     </div>
     <div class="modal-footer">
       <button
+        *ngIf="!client.plan"
         [disabled]="!selectedPlan"
         (click)="associatePlan()"
-        class="btn btn-primary"
-        type="submit">
+        type="button"
+        class="btn btn-primary">
         Associar
+      </button>
+      <button
+        *ngIf="client.plan && client.plan === selectedPlan.id"
+        [disabled]=""
+        (click)="dissociatePlan()"
+        type="button"
+        class="btn btn-danger">
+        Desassociar
+      </button>
+      <button
+        *ngIf="client.plan && client.plan !== selectedPlan.id"
+        (click)="associatePlan()"
+        type="button"
+        class="btn btn-primary">
+        Alterar
       </button>
     </div>
   </form>

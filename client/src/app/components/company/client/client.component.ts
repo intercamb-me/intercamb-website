@@ -99,6 +99,7 @@ export class ClientComponent implements OnInit {
     modalRef.componentInstance.client = this.client;
     modalRef.result.then((plan) => {
       this.plan = plan;
+      this.client.plan = plan ? plan.id : null;
     }).catch(() => {
       // Nothing to do...
     });

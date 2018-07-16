@@ -56,17 +56,6 @@ export class ClientService {
     );
   }
 
-  public associatePlan(client: Client, plan: Plan): Observable<void> {
-    return this.http.post<void>(RequestUtils.getApiUrl(`/clients/${client.id}/plans/${plan.id}`), RequestUtils.getJsonOptions()).pipe(
-      map(() => null),
-      catchError((err: HttpErrorResponse) => {
-        const apiError = ApiError.withResponse(err);
-        this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
-        return throwError(apiError);
-      })
-    );
-  }
-
   public listTasks(client: Client): Observable<Task[]> {
     return this.http.get<Task[]>(RequestUtils.getApiUrl(`/clients/${client.id}/tasks`), RequestUtils.getJsonOptions()).pipe(
       map((tasksData: Task[]) => {
@@ -76,6 +65,28 @@ export class ClientService {
         });
         return tasks;
       }),
+      catchError((err: HttpErrorResponse) => {
+        const apiError = ApiError.withResponse(err);
+        this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
+        return throwError(apiError);
+      })
+    );
+  }
+
+  public associatePlan(client: Client, plan: Plan): Observable<void> {
+    return this.http.post<void>(RequestUtils.getApiUrl(`/clients/${client.id}/plans/${plan.id}`), {}, RequestUtils.getJsonOptions()).pipe(
+      map(() => null),
+      catchError((err: HttpErrorResponse) => {
+        const apiError = ApiError.withResponse(err);
+        this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
+        return throwError(apiError);
+      })
+    );
+  }
+
+  public dissociatePlan(client: Client): Observable<void> {
+    return this.http.delete<void>(RequestUtils.getApiUrl(`/clients/${client.id}/plans`), RequestUtils.getJsonOptions()).pipe(
+      map(() => null),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
         this.eventService.publish(EventService.EVENT_API_ERROR, apiError);

@@ -321,10 +321,17 @@
       <div *ngIf="!plan" class="jumbotron mt-3 mb-0">
         <h4 class="text-center">Nenhum plano associado</h4>
       </div>
-      <div *ngIf="plan" class="card">
-        <div class="card-body px-0 py-0">
-          <h5 class="mb-0 px-3 py-2">{{ plan.name }}</h5>
-          <h4 class="mb-0 px-3 py-4 bg-info text-center text-white">{{ plan.price | currency:plan.currency }}</h4>
+      <div *ngIf="plan" class="row mt-3">
+        <div class="col-4">
+          <div class="card">
+            <div class="card-body px-0 py-0">
+              <h5 class="mb-0 px-3 py-2">{{ plan.name }}</h5>
+              <h4 class="mb-0 px-3 py-4 bg-info text-center text-white">{{ plan.price | currency:plan.currency }}</h4>
+            </div>
+          </div>
+        </div>
+        <div class="col-8">
+
         </div>
       </div>
     </div>

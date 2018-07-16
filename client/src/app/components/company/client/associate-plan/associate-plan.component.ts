@@ -1,5 +1,6 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
+import find from 'lodash-es/find';
 
 import {CompanyService} from 'app/services/company.service';
 import {ClientService} from 'app/services/client.service';
@@ -17,6 +18,7 @@ export class AssociatePlanComponent implements OnInit {
   public client: Client;
   public plans: Plan[];
   public selectedPlan: Plan;
+  public loading = true;
 
   constructor(private companyService: CompanyService, private clientService: ClientService, private alertService: AlertService, private ngbActiveModal: NgbActiveModal) {
 
@@ -25,6 +27,12 @@ export class AssociatePlanComponent implements OnInit {
   public ngOnInit(): void {
     this.companyService.listPlans().subscribe((plans) => {
       this.plans = plans;
+      if (this.client.plan) {
+        this.selectedPlan = find(plans, (plan) => {
+          return plan.id === this.client.plan;
+        });
+      }
+      this.loading = false;
     }, (err) => {
       this.alertService.apiError(null, err);
     });
@@ -48,6 +56,15 @@ export class AssociatePlanComponent implements OnInit {
       this.alertService.success('Plano associado com sucesso!');
     }, (err) => {
       this.alertService.apiError(null, err, 'Não foi possível associar o plano, por favor tente novamente mais tarde!');
+    });
+  }
+
+  public dissociatePlan(): void {
+    this.clientService.dissociatePlan(this.client).subscribe(() => {
+      this.ngbActiveModal.close();
+      this.alertService.success('Plano desassociado com sucesso!');
+    }, (err) => {
+      this.alertService.apiError(null, err, 'Não foi possível desassociar o plano, por favor tente novamente mais tarde!');
     });
   }
 }
