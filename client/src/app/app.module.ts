@@ -1,17 +1,20 @@
 import {NgModule, LOCALE_ID} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {registerLocaleData} from '@angular/common';
-import pt from '@angular/common/locales/pt';
 import {HttpClientModule} from '@angular/common/http';
 import {RouterModule} from '@angular/router';
 import {FormsModule} from '@angular/forms';
+import {registerLocaleData} from '@angular/common';
+import pt from '@angular/common/locales/pt';
+
 import {NgbAlertModule} from '@ng-bootstrap/ng-bootstrap/alert/alert.module';
 import {NgbModalModule} from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
 import {NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap/dropdown/dropdown.module';
 import {NgbPopoverModule} from '@ng-bootstrap/ng-bootstrap/popover/popover.module';
 import {NgbDatepickerModule, NgbDateParserFormatter, NgbDatepickerI18n} from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
 import {NgbTimepickerModule} from '@ng-bootstrap/ng-bootstrap/timepicker/timepicker.module';
+
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {NgxMaskModule} from 'ngx-mask';
 import {NgxMasonryModule} from 'ngx-masonry';
 import {ClipboardModule} from 'ngx-clipboard';
@@ -48,6 +51,7 @@ import {SearchAddressComponent} from 'app/components/company/client/search-addre
 import {SavePlanComponent} from 'app/components/company/settings/save-plan/save-plan.component';
 import {DeletePlanComponent} from 'app/components/company/settings/delete-plan/delete-plan.component';
 import {AssociatePlanComponent} from 'app/components/company/client/associate-plan/associate-plan.component';
+import {RegisterPaymentOrderComponent} from 'app/components/company/client/register-payment-order/register-payment-order.component';
 
 // Services
 import {CompanyService} from 'app/services/company.service';
@@ -84,6 +88,7 @@ registerLocaleData(pt);
     NgbPopoverModule.forRoot(),
     NgbDatepickerModule.forRoot(),
     NgbTimepickerModule.forRoot(),
+    FontAwesomeModule,
     NgxMaskModule.forRoot(),
     NgxMasonryModule,
     ClipboardModule,
@@ -123,6 +128,7 @@ registerLocaleData(pt);
     SavePlanComponent,
     DeletePlanComponent,
     AssociatePlanComponent,
+    RegisterPaymentOrderComponent,
   ],
   entryComponents: [
     CreateClientFormComponent,
@@ -133,6 +139,7 @@ registerLocaleData(pt);
     SavePlanComponent,
     DeletePlanComponent,
     AssociatePlanComponent,
+    RegisterPaymentOrderComponent,
   ],
   providers: [
     CompanyService,

@@ -26,8 +26,8 @@ export class PlanService {
     );
   }
 
-  public createPlan(name: string, price: number, currency: string): Observable<Plan> {
-    return this.http.post<Plan>(RequestUtils.getApiUrl('/plans'), {name, price, currency}, RequestUtils.getJsonOptions()).pipe(
+  public createPlan(name: string, price: number): Observable<Plan> {
+    return this.http.post<Plan>(RequestUtils.getApiUrl('/plans'), {name, price}, RequestUtils.getJsonOptions()).pipe(
       map((planData: Plan) => new Plan(planData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);

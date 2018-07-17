@@ -1,6 +1,7 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
 import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
+import {faCalendarAlt} from '@fortawesome/free-solid-svg-icons/faCalendarAlt';
 import * as getYear from 'date-fns/get_year';
 import * as setYear from 'date-fns/set_year';
 import * as getMonth from 'date-fns/get_month';
@@ -12,7 +13,7 @@ import {SearchAddressComponent} from 'app/components/company/client/search-addre
 
 import {ClientService} from 'app/services/client.service';
 import {AlertService} from 'app/services/alert.service';
-import {onlyDateChars} from 'app/utils/angular.utils';
+import {onlyDateChars} from 'app/utils/helpers';
 import {Client} from 'app/models/client.model';
 import {Address} from 'app/models/address.model';
 
@@ -32,6 +33,9 @@ export class SaveClientComponent implements OnInit {
   public pastDateStruct: NgbDateStruct;
   public todayDateStruct: NgbDateStruct;
   public onlyDateChars = onlyDateChars;
+  public icons = {
+    calendarAlt: faCalendarAlt,
+  };
 
   constructor(private clientService: ClientService, private alertService: AlertService, private ngbModal: NgbModal) {
 

@@ -159,9 +159,20 @@
     > .info {
       .flex-grow-1();
       .ml-4();
+      > h1 {
+        font-size: 30px;
+      }
+      .badge {
+        .py-2();
+        .px-2();
+        .text-white();
+        .mb-0();
+        font-size: 16px;
+        font-weight: 400;
+      }
     }
   }
-  .plan {
+  .payments {
     .row();
     .mt-4();
   }
@@ -198,13 +209,12 @@
     .text-center();
     .text-success();
     > h3 {
-      .mt-3();
       .mb-0();
       .text-center();
       font-weight: 400;
     }
-    > .fa-check {
-      font-size: 70px;
+    > .ng-fa-icon {
+      font-size: 60px;
     }
   }
   .card {
@@ -240,6 +250,17 @@
     .card();
     &.selected {
       background-color: rgba(0,0,0,0.1);
+    }
+  }
+}
+
+#register-payment-order {
+  .method {
+    .card();
+    .mb-3();
+    .ng-fa-icon {
+      width: 35px;
+      height: 35px;
     }
   }
 }
@@ -336,10 +357,10 @@
     &.bg-white {
       border: 1px solid #777777;
     }
-    > .fa-arrow-left {
+    .fa-arrow-left {
       font-size: 25px;
     }
-    > .fa-check {
+    .fa-check {
       font-size: 18px;
     }
   }

@@ -2,6 +2,7 @@ import {Component, OnInit, Input} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
 import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
 import {NgbTimeStruct} from '@ng-bootstrap/ng-bootstrap/timepicker/timepicker.module';
+import {faCalendarAlt} from '@fortawesome/free-solid-svg-icons/faCalendarAlt';
 import * as getYear from 'date-fns/get_year';
 import * as setYear from 'date-fns/set_year';
 import * as getMonth from 'date-fns/get_month';
@@ -17,7 +18,7 @@ import * as setMilliseconds from 'date-fns/set_milliseconds';
 
 import {TaskService} from 'app/services/task.service';
 import {AlertService} from 'app/services/alert.service';
-import {onlyDateChars} from 'app/utils/angular.utils';
+import {onlyDateChars} from 'app/utils/helpers';
 import {Client} from 'app/models/client.model';
 import {Task} from 'app/models/task.model';
 
@@ -31,10 +32,14 @@ export class SetTaskScheduleDateComponent implements OnInit {
   public client: Client;
   @Input()
   public task: Task;
+
   public selectedDateStruct: NgbDateStruct;
   public selectedTimeStruct: NgbTimeStruct;
   public todayDateStruct: NgbDateStruct;
   public onlyDateChars = onlyDateChars;
+  public icons = {
+    calendarAlt: faCalendarAlt,
+  };
 
   constructor(private taskService: TaskService, private alertService: AlertService, private ngbActiveModal: NgbActiveModal) {
 

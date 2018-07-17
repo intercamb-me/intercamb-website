@@ -1,0 +1,49 @@
+<div id="register-payment-order">
+  <form #form="ngForm" novalidate>
+    <div class="modal-header">
+      <h4 class="modal-title">Nova ordem de pagamento</h4>
+      <button (click)="close()" type="button" class="close" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Forma de pagamento</label>
+        <div class="row">
+          <div *ngFor="let method of methods; trackBy: trackByIndex" (click)="selectMethod(method)" class="col-6 cursor-pointer">
+            <div [ngClass]="{'selected': selectedMethod && selectedMethod.name === method.name}" class="method">
+              <div class="card-body text-center">
+                <fa-icon [icon]="method.icon"></fa-icon>
+                <p class="mt-2 mb-0">{{ method.name }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="amount">Valor</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">R$</span>
+          </div>
+          <input
+            [(ngModel)]="amount"
+            id="amount"
+            name="amount"
+            type="text"
+            class="form-control"
+            mask="0*.00">
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button
+        [disabled]="form.invalid"
+        (click)="registerPaymentOrder()"
+        type="button"
+        class="btn btn-primary">
+        Registrar
+      </button>
+    </div>
+  </form>
+</div>

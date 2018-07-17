@@ -3,4 +3,4 @@ declare module '*.json' {
   export default value;
 }
 
-declare module 'string-to-color';
+declare module 'hash-code';

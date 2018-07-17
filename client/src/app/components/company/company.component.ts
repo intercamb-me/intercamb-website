@@ -1,5 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
+import {faUsers} from '@fortawesome/free-solid-svg-icons/faUsers';
+import {faCalendarAlt} from '@fortawesome/free-solid-svg-icons/faCalendarAlt';
+import {faChartLine} from '@fortawesome/free-solid-svg-icons/faChartLine';
+import {faCog} from '@fortawesome/free-solid-svg-icons/faCog';
 import {finalize} from 'rxjs/operators';
 
 import {AccountService} from 'app/services/account.service';
@@ -18,6 +22,12 @@ export class CompanyComponent implements OnInit {
   public account: Account;
   public company: Company;
   public loading = true;
+  public icons = {
+    users: faUsers,
+    calendarAlt: faCalendarAlt,
+    chartLine: faChartLine,
+    cog: faCog,
+  };
 
   constructor(private accountService: AccountService, private companyService: CompanyService, private alertService: AlertService, private eventService: EventService, private router: Router) {
 

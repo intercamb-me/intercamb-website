@@ -1,21 +1,27 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
+import {faComment} from '@fortawesome/free-regular-svg-icons/faComment';
+import {faPaperclip} from '@fortawesome/free-solid-svg-icons/faPaperclip';
+import {faClock} from '@fortawesome/free-regular-svg-icons/faClock';
 import {of} from 'rxjs';
 import {mergeMap} from 'rxjs/operators';
 import {NgxMasonryOptions} from 'ngx-masonry';
 
 import {AssociatePlanComponent} from 'app/components/company/client/associate-plan/associate-plan.component';
+import {RegisterPaymentOrderComponent} from 'app/components/company/client/register-payment-order/register-payment-order.component';
 import {TaskComponent} from 'app/components/company/task/task.component';
 
 import {ClientService} from 'app/services/client.service';
 import {PlanService} from 'app/services/plan.service';
 import {AlertService} from 'app/services/alert.service';
 import {ErrorUtils} from 'app/utils/error.utils';
+import {getColor} from 'app/utils/helpers';
 import {Constants} from 'app/utils/constants';
 import {Client} from 'app/models/client.model';
-import {Task} from 'app/models/task.model';
 import {Plan} from 'app/models/plan.model';
+import {PaymentOrder} from 'app/models/payment-order.model';
+import {Task} from 'app/models/task.model';
 
 @Component({
   selector: 'app-client',
@@ -25,12 +31,17 @@ export class ClientComponent implements OnInit {
 
   public client: Client;
   public plan: Plan;
+  public paymentOrders: PaymentOrder[];
   public tasks: Task[];
   public infoStep = 0;
   public loading = true;
-
   public taskStatus = Constants.TASK_STATUS;
-
+  public getColor = getColor;
+  public icons = {
+    comment: faComment,
+    paperclip: faPaperclip,
+    clock: faClock,
+  };
   public masonryOptions: NgxMasonryOptions = {
     itemSelector: '.col-6',
     horizontalOrder: true,
@@ -100,6 +111,16 @@ export class ClientComponent implements OnInit {
     modalRef.result.then((plan) => {
       this.plan = plan;
       this.client.plan = plan ? plan.id : null;
+    }).catch(() => {
+      // Nothing to do...
+    });
+  }
+
+  public openRegisterPaymentOrder(): void {
+    const modalRef = this.ngbModal.open(RegisterPaymentOrderComponent);
+    modalRef.componentInstance.client = this.client;
+    modalRef.result.then(() => {
+
     }).catch(() => {
       // Nothing to do...
     });

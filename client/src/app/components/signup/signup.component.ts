@@ -1,5 +1,8 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
+import {faUser} from '@fortawesome/free-solid-svg-icons/faUser';
+import {faEnvelope} from '@fortawesome/free-solid-svg-icons/faEnvelope';
+import {faKey} from '@fortawesome/free-solid-svg-icons/faKey';
 import {mergeMap} from 'rxjs/operators';
 
 import {AccountService} from 'app/services/account.service';
@@ -17,6 +20,11 @@ export class SignUpComponent {
   public lastName: string;
   public email: string;
   public password: string;
+  public icons = {
+    user: faUser,
+    envelope: faEnvelope,
+    key: faKey,
+  };
 
   constructor(private accountService: AccountService, private eventService: EventService, private alertService: AlertService, private router: Router) {
 

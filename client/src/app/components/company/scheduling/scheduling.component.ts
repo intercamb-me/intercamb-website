@@ -3,7 +3,6 @@ import {NgbPopover} from '@ng-bootstrap/ng-bootstrap/popover/popover.module';
 import {CalendarEvent} from 'angular-calendar';
 import {mergeMap} from 'rxjs/operators';
 import keyBy from 'lodash-es/keyBy';
-import * as stringToColor from 'string-to-color';
 import * as startOfMonth from 'date-fns/start_of_month';
 import * as endOfMonth from 'date-fns/end_of_month';
 import * as startOfWeek from 'date-fns/start_of_week';
@@ -16,6 +15,7 @@ import {CompanyService} from 'app/services/company.service';
 import {AlertService} from 'app/services/alert.service';
 import {Constants} from 'app/utils/constants';
 import {DateUtils} from 'app/utils/date.utils';
+import {getColor} from 'app/utils/helpers';
 import {Task} from 'app/models/task.model';
 import {Client} from 'app/models/client.model';
 
@@ -120,7 +120,7 @@ export class SchedulingComponent implements OnInit {
       }
       let event: CalendarEvent<CalendarEventMeta> = eventsByDate[dateIndex][task.name];
       if (!event) {
-        const color = stringToColor(task.name);
+        const color = getColor(task.name);
         event = {
           title: task.name,
           color: {primary: color, secondary: color},

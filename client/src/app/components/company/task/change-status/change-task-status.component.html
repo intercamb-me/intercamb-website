@@ -10,8 +10,15 @@
       <div class="row justify-content-center">
         <div class="col-4">
           <ng-container *ngFor="let status of taskStatus; trackBy: trackByIndex">
-            <button (click)="changeStatus(status.id)" class="btn btn-{{ status.colorSelector }} btn-block mb-2" type="button">
-              <i *ngIf="task.status === status.id" class="fas fa-check mr-2"></i>
+            <button
+              (click)="changeStatus(status.id)"
+              class="btn btn-{{ status.colorSelector }} btn-block mb-2"
+              type="button">
+              <fa-icon
+                *ngIf="task.status === status.id"
+                [icon]="icons.check"
+                class="mr-2">
+              </fa-icon>
               {{ status.name }}
             </button>
           </ng-container>

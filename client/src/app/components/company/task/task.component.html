@@ -7,10 +7,21 @@
       </button>
     </div>
     <div class="mt-3">
-      <span class="badge badge-{{ taskStatus[task.status].colorSelector }}">{{ taskStatus[task.status].name }}</span>
-      <span *ngIf="task.comments.length > 0" class="badge badge-secondary"><i class="far fa-comment"></i> {{ task.comments.length }}</span>
-      <span *ngIf="task.attachments.length > 0" class="badge badge-secondary"><i class="fas fa-paperclip"></i> {{ task.attachments.length }}</span>
-      <span *ngIf="task.schedule_date" class="badge badge-orange"><i class="far fa-clock"></i> {{ task.schedule_date | date:"dd 'de' MMMM 'de' yyyy 'às' HH:mm" }}</span>
+      <span class="badge badge-{{ taskStatus[task.status].colorSelector }}">
+        {{ taskStatus[task.status].name }}
+      </span>
+      <span *ngIf="task.comments.length > 0" class="badge badge-secondary">
+        <fa-icon [icon]="icons.comment"></fa-icon>
+        {{ task.comments.length }}
+      </span>
+      <span *ngIf="task.attachments.length > 0" class="badge badge-secondary">
+        <fa-icon [icon]="icons.paperclip"></fa-icon>
+        {{ task.attachments.length }}
+      </span>
+      <span *ngIf="task.schedule_date" class="badge badge-orange">
+        <fa-icon [icon]="icons.clock"></fa-icon>
+        {{ task.schedule_date | date:"dd 'de' MMMM 'de' yyyy 'às' HH:mm" }}
+      </span>
     </div>
   </div>
   <div class="modal-body px-4 py-4">
@@ -63,7 +74,7 @@
       </div>
       <div class="flex-shrink-0 d-flex flex-column justify-content-start">
         <button (click)="openChangeStatus(task)" type="button" class="btn btn-primary d-flex align-items-center">
-          <i class="fas fa-tasks flex-shrink-0"></i>
+          <fa-icon [icon]="icons.tasks" class="flex-shrink-0"></fa-icon>
           <span class="ml-2">Alterar estado</span>
         </button>
         <button (click)="openSetScheduleDate(task)" type="button" class="btn btn-primary d-flex align-items-center mt-2">

@@ -17,7 +17,7 @@
                 <input #selectedDate="ngModel" #selectedDatePicker="ngbDatepicker" ngbDatepicker [(ngModel)]="selectedDateStruct" [ngClass]="{'is-invalid': selectedDate.invalid && (selectedDate.dirty || selectedDate.touched)}" [minDate]="todayDateStruct" (keypress)="onlyDateChars($event)" name="selected-date" class="form-control" placeholder="dd/mm/yyyy" required>
                 <div class="input-group-append">
                   <button (click)="selectedDatePicker.toggle()" type="button" class="btn btn-info">
-                    <i class="fas fa-calendar-alt"></i>
+                    <fa-icon [icon]="calendarAlt"></fa-icon>
                   </button>
                 </div>
               </div>

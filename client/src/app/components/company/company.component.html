@@ -10,19 +10,27 @@
       </div>
       <div class="items">
         <a [routerLink]="['/company', 'clients']" class="item">
-          <span class="icon"><i class="fas fa-users"></i></span>
+          <span class="icon">
+            <fa-icon [icon]="icons.users"></fa-icon>
+          </span>
           <span class="text">Assessorados</span>
         </a>
         <a [routerLink]="['/company', 'scheduling']" class="item">
-          <span class="icon"><i class="fas fa-calendar-alt"></i></span>
+          <span class="icon">
+            <fa-icon [icon]="icons.calendarAlt"></fa-icon>
+          </span>
           <span class="text">Agendamentos</span>
         </a>
         <a [routerLink]="['/company', 'reports']" class="item">
-          <span class="icon"><i class="fas fa-chart-line"></i></span>
+          <span class="icon">
+            <fa-icon [icon]="icons.chartLine"></fa-icon>
+          </span>
           <span class="text">Relatórios</span>
         </a>
         <a [routerLink]="['/company', 'settings']" class="item">
-          <span class="icon"><i class="fas fa-cog"></i></span>
+          <span class="icon">
+            <fa-icon [icon]="icons.cog"></fa-icon>
+          </span>
           <span class="text">Configurações</span>
         </a>
       </div>

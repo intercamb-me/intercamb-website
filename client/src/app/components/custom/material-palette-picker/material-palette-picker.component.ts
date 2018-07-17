@@ -1,7 +1,10 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import palettesJson from 'app/components/custom/material-palette-picker/palettes.json';
+import {faCheck} from '@fortawesome/free-solid-svg-icons/faCheck';
+import {faArrowLeft} from '@fortawesome/free-solid-svg-icons/faArrowLeft';
 import find from 'lodash-es/find';
 import isNil from 'lodash-es/isNil';
+
+import palettesJson from 'app/components/custom/material-palette-picker/palettes.json';
 
 export interface Palette {
   name: string;
@@ -27,24 +30,30 @@ export interface ColorSelected {
       <ng-container *ngFor="let palette of palettes; trackBy: trackByIndex">
         <span
           *ngIf="!openedPalette"
-          [ngStyle]="{'background-color': palette.variants[palette.main].color}"
+          [ngStyle]="{
+            'background-color': palette.variants[palette.main].color,
+            'color': palette.variants[palette.main].textColor
+          }"
           (click)="displayVariants(palette)"
           class="color">
-          <i *ngIf="palette === selectedPalette" class="fas fa-check text-white"></i>
+          <fa-icon *ngIf="palette === selectedPalette" [icon]="icons.check"></fa-icon>
         </span>
       </ng-container>
       <ng-container *ngIf="openedPalette">
         <span
           (click)="backToPaletteSelection()"
           class="color">
-          <i class="fas fa-arrow-left"></i>
+          <fa-icon [icon]="icons.arrowLeft"></fa-icon>
         </span>
         <span
           *ngFor="let variant of openedPalette.variants; trackBy: trackByIndex"
-          [ngStyle]="{'background-color': variant.color}"
+          [ngStyle]="{
+            'background-color': variant.color,
+            'color': variant.textColor
+          }"
           (click)="selectPalette(openedPalette, variant)"
           class="color">
-          <i *ngIf="variant === selectedPaletteVariant" class="fas fa-check text-white"></i>
+          <fa-icon *ngIf="variant === selectedPaletteVariant" [icon]="icons.check"></fa-icon>
         </span>
       </ng-container>
     </div>
@@ -69,6 +78,10 @@ export class MaterialPalettePickerComponent implements OnInit {
   public selectedPalette: Palette;
   public selectedPaletteVariant: PaletteVariant;
   public selectedTextColor: string;
+  public icons = {
+    check: faCheck,
+    arrowLeft: faArrowLeft,
+  };
 
   constructor() {
 

@@ -49,11 +49,11 @@
           <h5 class="mb-0">Cor do texto</h5>
         </label>
         <div class="palette">
-          <span (click)="selectTextColor('#212529')" class="color bg-black">
-            <i *ngIf="selectedTextColor === '#212529'" class="fas fa-check text-white"></i>
+          <span (click)="selectTextColor('#212529')" class="color bg-black text-white">
+            <fa-icon *ngIf="selectedTextColor === '#212529'" [icon]="icons.check"></fa-icon>
           </span>
-          <span (click)="selectTextColor('#ffffff')" class="color bg-white">
-            <i *ngIf="selectedTextColor === '#ffffff'" class="fas fa-check text-black"></i>
+          <span (click)="selectTextColor('#ffffff')" class="color bg-white text-black">
+            <fa-icon *ngIf="selectedTextColor === '#ffffff'" [icon]="icons.check"></fa-icon>
           </span>
         </div>
       </div>
@@ -84,10 +84,10 @@
             <div class="plan">
               <div class="card-body px-0 py-0">
                 <h5 class="mb-0 px-3 py-2">{{ plan.name }}</h5>
-                <h4 class="mb-0 px-3 py-4 bg-info text-center text-white">{{ plan.price | currency:plan.currency }}</h4>
+                <h4 class="mb-0 px-3 py-4 bg-info text-center text-white">{{ plan.price | currency:company.currency }}</h4>
                 <div class="actions">
-                  <i (click)="openSavePlan(plan)" class="fas fa-pencil-alt"></i>
-                  <i (click)="openDeletePlan(plan)" class="fas fa-trash ml-2"></i>
+                  <fa-icon [icon]="icons.pen" (click)="openSavePlan(plan)"></fa-icon>
+                  <fa-icon [icon]="icons.trash" (click)="openDeletePlan(plan)" class="ml-2"></fa-icon>
                 </div>
               </div>
             </div>

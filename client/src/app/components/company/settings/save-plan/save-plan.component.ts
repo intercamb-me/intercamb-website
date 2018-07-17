@@ -13,7 +13,6 @@ export class SavePlanComponent implements OnInit {
 
   @Input()
   public plan: Plan;
-  public currency = 'BRL';
 
   constructor(private planService: PlanService, private alertService: AlertService, private ngbActiveModal: NgbActiveModal) {
 
@@ -30,7 +29,7 @@ export class SavePlanComponent implements OnInit {
   }
 
   public createPlan(): void {
-    this.planService.createPlan(this.plan.name, this.plan.price, this.currency).subscribe((plan) => {
+    this.planService.createPlan(this.plan.name, this.plan.price).subscribe((plan) => {
       this.ngbActiveModal.close(plan);
       this.alertService.success('Plano cadastrado com sucesso!');
     }, (err) => {

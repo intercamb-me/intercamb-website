@@ -6,7 +6,6 @@ export class Plan {
   public company: string;
   public name: string;
   public price: number;
-  public currency: string;
   public registration_date: string;
 
   constructor(data?: any) {
@@ -15,7 +14,6 @@ export class Plan {
       this.company = data.company;
       this.name = data.name;
       this.price = data.price;
-      this.currency = data.currency;
       this.registration_date = data.registration_date;
     }
   }

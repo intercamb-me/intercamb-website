@@ -1,10 +1,12 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
+import {mergeMap} from 'rxjs/operators';
 import find from 'lodash-es/find';
 
 import {CompanyService} from 'app/services/company.service';
 import {ClientService} from 'app/services/client.service';
 import {AlertService} from 'app/services/alert.service';
+import {Company} from 'app/models/company.model';
 import {Client} from 'app/models/client.model';
 import {Plan} from 'app/models/plan.model';
 
@@ -16,6 +18,7 @@ export class AssociatePlanComponent implements OnInit {
 
   @Input()
   public client: Client;
+  public company: Company;
   public plans: Plan[];
   public selectedPlan: Plan;
   public loading = true;
@@ -25,7 +28,12 @@ export class AssociatePlanComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.companyService.listPlans().subscribe((plans) => {
+    this.companyService.getCompany().pipe(
+      mergeMap((company) => {
+        this.company = company;
+        return this.companyService.listPlans();
+      })
+    ).subscribe((plans) => {
       this.plans = plans;
       if (this.client.plan) {
         this.selectedPlan = find(plans, (plan) => {
