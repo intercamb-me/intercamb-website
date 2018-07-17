@@ -1,4 +1,5 @@
 import {Injectable, Pipe, PipeTransform} from '@angular/core';
+import {CurrencyPipe} from '@angular/common';
 import {NgbDateParserFormatter, NgbDateStruct, NgbDatepickerI18n} from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
 import padStart from 'lodash-es/padStart';
 import forEach from 'lodash-es/forEach';
@@ -44,6 +45,15 @@ export class HyphensIfEmptyPipe implements PipeTransform {
       return '----';
     }
     return object;
+  }
+}
+
+@Pipe({name: 'currencySymbol'})
+export class CurrencySymbolPipe extends CurrencyPipe implements PipeTransform {
+
+  public transform(currencyCode: string): string {
+    const formattedCurrency = super.transform(0, currencyCode, 'symbol', '1.0-2');
+    return formattedCurrency.replace(/[0-9]/g, '');
   }
 }
 

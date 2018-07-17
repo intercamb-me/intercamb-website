@@ -257,10 +257,11 @@
 #register-payment-order {
   .method {
     .card();
-    .mb-3();
+    &.selected {
+      background-color: rgba(0,0,0,0.1);
+    }
     .ng-fa-icon {
-      width: 35px;
-      height: 35px;
+      font-size: 35px;
     }
   }
 }

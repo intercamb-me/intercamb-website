@@ -69,6 +69,7 @@ import {
   MapValuesPipe,
   SizePipe,
   HyphensIfEmptyPipe,
+  CurrencySymbolPipe,
   BrazilianNgbDateParserFormatter,
   BrazilianNgbDatepickerI18n,
 } from 'app/utils/angular.utils';
@@ -100,6 +101,7 @@ registerLocaleData(pt);
     MapValuesPipe,
     SizePipe,
     HyphensIfEmptyPipe,
+    CurrencySymbolPipe,
     // Components
     AppComponent,
     AlertsComponent,

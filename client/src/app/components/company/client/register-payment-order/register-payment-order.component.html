@@ -1,4 +1,4 @@
-<div id="register-payment-order">
+<div *ngIf="!loading" id="register-payment-order">
   <form #form="ngForm" novalidate>
     <div class="modal-header">
       <h4 class="modal-title">Nova ordem de pagamento</h4>
@@ -7,10 +7,10 @@
       </button>
     </div>
     <div class="modal-body">
-      <div class="form-group">
+      <div class="form-group mb-0">
         <label>Forma de pagamento</label>
         <div class="row">
-          <div *ngFor="let method of methods; trackBy: trackByIndex" (click)="selectMethod(method)" class="col-6 cursor-pointer">
+          <div *ngFor="let method of methods; trackBy: trackByIndex" (click)="selectMethod(method)" class="col-6 mb-3 cursor-pointer">
             <div [ngClass]="{'selected': selectedMethod && selectedMethod.name === method.name}" class="method">
               <div class="card-body text-center">
                 <fa-icon [icon]="method.icon"></fa-icon>
@@ -20,25 +20,66 @@
           </div>
         </div>
       </div>
-      <div class="form-group">
-        <label for="amount">Valor</label>
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text">R$</span>
+      <div class="form-row">
+        <div class="col">
+          <div class="form-group mb-0">
+            <label for="amount">Valor</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">{{ company.currency | currencySymbol }}</span>
+              </div>
+              <input
+                [(ngModel)]="amount"
+                [dropSpecialCharacters]="false"
+                (keyup)="onSplitChange()"
+                id="amount"
+                name="amount"
+                type="text"
+                class="form-control"
+                mask="0*.00"
+                required>
+            </div>
           </div>
-          <input
-            [(ngModel)]="amount"
-            id="amount"
-            name="amount"
-            type="text"
-            class="form-control"
-            mask="0*.00">
+        </div>
+        <div class="col">
+          <div class="form-group mb-0">
+            <label for="split">Parcelado em</label>
+            <input
+              [(ngModel)]="split"
+              (change)="onSplitChange()"
+              id="split"
+              name="split"
+              type="number"
+              class="form-control"
+              min="1"
+              required>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="split > 1" class="form-group mt-3 mb-0">
+        <label>Parcelas</label>
+        <div class="form-row">
+          <div *ngFor="let split of splitAmounts; let idx = index; trackBy: trackByIndex" class="col-6 mb-3">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">{{ idx + 1 }}º</span>
+              </div>
+              <input
+                [(ngModel)]="splitAmounts[idx]"
+                [dropSpecialCharacters]="false"
+                name="split-amount-{{ idx }}"
+                type="text"
+                class="form-control"
+                mask="0*.00"
+                required>
+            </div>
+          </div>
         </div>
       </div>
     </div>
     <div class="modal-footer">
       <button
-        [disabled]="form.invalid"
+        [disabled]="!selectedMethod || form.invalid"
         (click)="registerPaymentOrder()"
         type="button"
         class="btn btn-primary">

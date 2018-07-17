@@ -9,7 +9,7 @@
     </div>
     <div class="modal-body">
       <div class="row">
-        <div *ngFor="let plan of plans; trackBy: trackByPlan" (click)="selectPlan(plan)" class="col-6 col-lg-4 cursor-pointer">
+        <div *ngFor="let plan of plans; trackBy: trackByPlan" (click)="selectPlan(plan)" class="col-6 col-lg-4 mb-3 cursor-pointer">
           <div [ngClass]="{'selected': selectedPlan && selectedPlan.id === plan.id}" class="plan">
             <div class="card-body px-0 py-0">
               <h5 class="mb-0 px-3 py-2">{{ plan.name }}</h5>
