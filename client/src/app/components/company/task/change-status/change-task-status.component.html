@@ -16,10 +16,11 @@
               type="button">
               <fa-icon
                 *ngIf="task.status === status.id"
-                [icon]="icons.check"
-                class="mr-2">
+                [icon]="['fas', 'check']"
+                [fixedWidth]="true"
+                class="d-inline-block mr-2">
               </fa-icon>
-              {{ status.name }}
+              <span>{{ status.name }}</span>
             </button>
           </ng-container>
         </div>

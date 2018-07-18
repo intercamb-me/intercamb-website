@@ -1,8 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
-import {faCheck} from '@fortawesome/free-solid-svg-icons/faCheck';
-import {faPen} from '@fortawesome/free-solid-svg-icons/faPen';
-import {faTrash} from '@fortawesome/free-solid-svg-icons/faTrash';
 import {mergeMap} from 'rxjs/operators';
 import findIndex from 'lodash-es/findIndex';
 
@@ -27,11 +24,6 @@ export class CompanySettingsComponent implements OnInit {
   public loading = true;
   public selectedPaletteVariant: PaletteVariant;
   public selectedTextColor: string;
-  public icons = {
-    check: faCheck,
-    pen: faPen,
-    trash: faTrash,
-  };
 
   constructor(private companyService: CompanyService, private alertService: AlertService, private eventService: EventService, private ngbModal: NgbModal) {
 

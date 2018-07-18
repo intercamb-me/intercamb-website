@@ -1,3 +1,4 @@
+// Angular
 import {NgModule, LOCALE_ID} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -7,6 +8,7 @@ import {FormsModule} from '@angular/forms';
 import {registerLocaleData} from '@angular/common';
 import pt from '@angular/common/locales/pt';
 
+// Bootstrap
 import {NgbAlertModule} from '@ng-bootstrap/ng-bootstrap/alert/alert.module';
 import {NgbModalModule} from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
 import {NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap/dropdown/dropdown.module';
@@ -14,14 +16,40 @@ import {NgbPopoverModule} from '@ng-bootstrap/ng-bootstrap/popover/popover.modul
 import {NgbDatepickerModule, NgbDateParserFormatter, NgbDatepickerI18n} from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
 import {NgbTimepickerModule} from '@ng-bootstrap/ng-bootstrap/timepicker/timepicker.module';
 
+// Fontawesome
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {library} from '@fortawesome/fontawesome-svg-core';
+import {faArrowLeft} from '@fortawesome/free-solid-svg-icons/faArrowLeft';
+import {faBarcode} from '@fortawesome/free-solid-svg-icons/faBarcode';
+import {faBriefcase} from '@fortawesome/free-solid-svg-icons/faBriefcase';
+import {faCalendarAlt} from '@fortawesome/free-solid-svg-icons/faCalendarAlt';
+import {faChartLine} from '@fortawesome/free-solid-svg-icons/faChartLine';
+import {faCheck} from '@fortawesome/free-solid-svg-icons/faCheck';
+import {faClock} from '@fortawesome/free-regular-svg-icons/faClock';
+import {faCog} from '@fortawesome/free-solid-svg-icons/faCog';
+import {faComment} from '@fortawesome/free-regular-svg-icons/faComment';
+import {faCreditCard} from '@fortawesome/free-solid-svg-icons/faCreditCard';
+import {faDollarSign} from '@fortawesome/free-solid-svg-icons/faDollarSign';
+import {faEnvelope} from '@fortawesome/free-solid-svg-icons/faEnvelope';
+import {faEnvelopeOpen} from '@fortawesome/free-solid-svg-icons/faEnvelopeOpen';
+import {faKey} from '@fortawesome/free-solid-svg-icons/faKey';
+import {faPaperclip} from '@fortawesome/free-solid-svg-icons/faPaperclip';
+import {faPen} from '@fortawesome/free-solid-svg-icons/faPen';
+import {faTasks} from '@fortawesome/free-solid-svg-icons/faTasks';
+import {faTrash} from '@fortawesome/free-solid-svg-icons/faTrash';
+import {faUser} from '@fortawesome/free-solid-svg-icons/faUser';
+import {faUsers} from '@fortawesome/free-solid-svg-icons/faUsers';
+
+// Other 3rd libraries
 import {NgxMaskModule} from 'ngx-mask';
 import {NgxMasonryModule} from 'ngx-masonry';
 import {ClipboardModule} from 'ngx-clipboard';
 import {CalendarModule} from 'angular-calendar';
 
+// Routes
 import {AppRoutes} from 'app/app.routes';
 
+// Components
 import {AppComponent} from 'app/app.component';
 import {AlertsComponent} from 'app/components/alerts/alerts.component';
 import {NotFoundComponent} from 'app/components/not-found/not-found.component';
@@ -52,6 +80,7 @@ import {SavePlanComponent} from 'app/components/company/settings/save-plan/save-
 import {DeletePlanComponent} from 'app/components/company/settings/delete-plan/delete-plan.component';
 import {AssociatePlanComponent} from 'app/components/company/client/associate-plan/associate-plan.component';
 import {RegisterPaymentOrderComponent} from 'app/components/company/client/register-payment-order/register-payment-order.component';
+import {DeletePaymentOrderComponent} from 'app/components/company/client/delete-payment-order/delete-payment-order.component';
 
 // Services
 import {CompanyService} from 'app/services/company.service';
@@ -60,13 +89,15 @@ import {ClientService} from 'app/services/client.service';
 import {TaskService} from 'app/services/task.service';
 import {TokenService} from 'app/services/token.service';
 import {PlanService} from 'app/services/plan.service';
+import {PaymentService} from 'app/services/payment.service';
 import {AlertService} from 'app/services/alert.service';
 import {EventService} from 'app/services/event.service';
 
-// Other
+// Utilities
 import {
   CapitalizeFirstPipe,
   MapValuesPipe,
+  ValuesPipe,
   SizePipe,
   HyphensIfEmptyPipe,
   CurrencySymbolPipe,
@@ -75,6 +106,27 @@ import {
 } from 'app/utils/angular.utils';
 
 registerLocaleData(pt);
+
+library.add(faArrowLeft);
+library.add(faBarcode);
+library.add(faBriefcase);
+library.add(faCalendarAlt);
+library.add(faChartLine);
+library.add(faCheck);
+library.add(faClock);
+library.add(faCog);
+library.add(faComment);
+library.add(faCreditCard);
+library.add(faDollarSign);
+library.add(faEnvelope);
+library.add(faEnvelopeOpen);
+library.add(faKey);
+library.add(faPaperclip);
+library.add(faPen);
+library.add(faTasks);
+library.add(faTrash);
+library.add(faUser);
+library.add(faUsers);
 
 @NgModule({
   imports: [
@@ -99,6 +151,7 @@ registerLocaleData(pt);
     // Pipes
     CapitalizeFirstPipe,
     MapValuesPipe,
+    ValuesPipe,
     SizePipe,
     HyphensIfEmptyPipe,
     CurrencySymbolPipe,
@@ -131,6 +184,7 @@ registerLocaleData(pt);
     DeletePlanComponent,
     AssociatePlanComponent,
     RegisterPaymentOrderComponent,
+    DeletePaymentOrderComponent,
   ],
   entryComponents: [
     CreateClientFormComponent,
@@ -142,6 +196,7 @@ registerLocaleData(pt);
     DeletePlanComponent,
     AssociatePlanComponent,
     RegisterPaymentOrderComponent,
+    DeletePaymentOrderComponent,
   ],
   providers: [
     CompanyService,
@@ -150,6 +205,7 @@ registerLocaleData(pt);
     TaskService,
     TokenService,
     PlanService,
+    PaymentService,
     AlertService,
     EventService,
     {provide: LOCALE_ID, useValue: 'pt'},

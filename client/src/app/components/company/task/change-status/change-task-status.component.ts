@@ -1,6 +1,5 @@
 import {Component, Input} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
-import {faCheck} from '@fortawesome/free-solid-svg-icons/faCheck';
 import values from 'lodash-es/values';
 
 import {TaskService} from 'app/services/task.service';
@@ -21,9 +20,6 @@ export class ChangeTaskStatusComponent {
   public task: Task;
 
   public taskStatus = values(Constants.TASK_STATUS);
-  public icons = {
-    check: faCheck,
-  };
 
   constructor(private taskService: TaskService, private alertService: AlertService, private ngbActiveModal: NgbActiveModal) {
 

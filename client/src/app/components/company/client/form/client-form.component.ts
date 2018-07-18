@@ -2,8 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
 import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
-import {faCalendarAlt} from '@fortawesome/free-solid-svg-icons/faCalendarAlt';
-import {faCheck} from '@fortawesome/free-solid-svg-icons/faCheck';
 import * as getYear from 'date-fns/get_year';
 import * as setYear from 'date-fns/set_year';
 import * as getMonth from 'date-fns/get_month';
@@ -38,10 +36,6 @@ export class ClientFormComponent implements OnInit {
   public pastDateStruct: NgbDateStruct;
   public todayDateStruct: NgbDateStruct;
   public onlyDateChars = onlyDateChars;
-  public icons = {
-    calendarAlt: faCalendarAlt,
-    check: faCheck,
-  };
 
   constructor(private clientService: ClientService, private tokenService: TokenService, private alertService: AlertService, private activatedRoute: ActivatedRoute, private router: Router, private ngbModal: NgbModal) {
 

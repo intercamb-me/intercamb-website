@@ -10,10 +10,10 @@
       <div class="form-group mb-0">
         <label>Forma de pagamento</label>
         <div class="row">
-          <div *ngFor="let method of methods; trackBy: trackByIndex" (click)="selectMethod(method)" class="col-6 mb-3 cursor-pointer">
-            <div [ngClass]="{'selected': selectedMethod && selectedMethod.name === method.name}" class="method">
+          <div *ngFor="let method of methods | values; trackBy: trackByIndex" (click)="selectMethod(method.id)" class="col-6 col-lg-4 mb-3 cursor-pointer">
+            <div [ngClass]="{'selected': selectedMethod === method.id}" class="method">
               <div class="card-body text-center">
-                <fa-icon [icon]="method.icon"></fa-icon>
+                <fa-icon [icon]="method.icon" [fixedWidth]="true"></fa-icon>
                 <p class="mt-2 mb-0">{{ method.name }}</p>
               </div>
             </div>
@@ -59,7 +59,7 @@
       <div *ngIf="split > 1" class="form-group mt-3 mb-0">
         <label>Parcelas</label>
         <div class="form-row">
-          <div *ngFor="let split of splitAmounts; let idx = index; trackBy: trackByIndex" class="col-6 mb-3">
+          <div *ngFor="let split of splitAmounts; let idx = index; trackBy: trackByIndex" class="col-6 col-lg-4 mb-3">
             <div class="input-group">
               <div class="input-group-prepend">
                 <span class="input-group-text">{{ idx + 1 }}º</span>

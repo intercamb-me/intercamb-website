@@ -1,7 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {faEnvelope} from '@fortawesome/free-solid-svg-icons/faEnvelope';
-import {faKey} from '@fortawesome/free-solid-svg-icons/faKey';
 
 import {AccountService} from 'app/services/account.service';
 import {AlertService} from 'app/services/alert.service';
@@ -17,10 +15,6 @@ export class SignInComponent implements OnInit {
   public email: string;
   public password: string;
   public loading = true;
-  public icons = {
-    envelope: faEnvelope,
-    key: faKey,
-  };
 
   constructor(private accountService: AccountService, private alertService: AlertService, private eventService: EventService, private router: Router) {
 

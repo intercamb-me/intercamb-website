@@ -23,4 +23,27 @@ export class Constants {
       secondaryColor: '#dc3545',
     },
   };
+
+  public static readonly PAYMENT_METHODS = {
+    credit_card: {
+      id: 'credit_card',
+      name: 'Cartão de crédito',
+      icon: ['fas', 'credit-card'],
+    },
+    boleto: {
+      id: 'boleto',
+      name: 'Boleto',
+      icon: ['fas', 'barcode'],
+    },
+    bank_deposit: {
+      id: 'bank_deposit',
+      name: 'Depósito bancário',
+      icon: ['fas', 'envelope-open'],
+    },
+    others: {
+      id: 'others',
+      name: 'Outros',
+      icon: ['fas', 'dollar-sign'],
+    },
+  };
 }

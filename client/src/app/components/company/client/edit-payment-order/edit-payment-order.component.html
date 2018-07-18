@@ -1,0 +1,55 @@
+<div id="edit-payment-order">
+  <form #form="ngForm" novalidate>
+    <div class="modal-header">
+      <h4 class="modal-title">Atualizar ordem de pagamento</h4>
+      <button (click)="close()" type="button" class="close" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="name">Nome</label>
+        <input
+          [(ngModel)]="plan.name"
+          id="name"
+          name="name"
+          type="text"
+          class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="name">Preço</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">R$</span>
+          </div>
+          <input
+            [(ngModel)]="plan.price"
+            [dropSpecialCharacters]="false"
+            id="price"
+            name="price"
+            type="text"
+            class="form-control"
+            mask="0*.00">
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button
+        *ngIf="!plan.id"
+        [disabled]="form.invalid"
+        (click)="createPlan()"
+        class="btn btn-primary"
+        type="submit">
+        Cadastrar
+      </button>
+      <button
+        *ngIf="plan.id"
+        [disabled]="form.invalid"
+        (click)="updatePlan()"
+        class="btn btn-primary"
+        type="submit">
+        Atualizar
+      </button>
+    </div>
+  </form>
+</div>

@@ -15,7 +15,7 @@
                       <div class="input-group">
                         <div class="input-group-prepend">
                           <span class="input-group-text form-control">
-                            <fa-icon [icon]="icons.briefcase"></fa-icon>
+                            <fa-icon [icon]="['fas', 'briefcase']" [fixedWidth]="true"></fa-icon>
                           </span>
                         </div>
                         <input
@@ -83,10 +83,10 @@
                         </label>
                         <div class="palette">
                           <span (click)="selectTextColor('#000000')" class="color bg-black text-white">
-                            <fa-icon *ngIf="selectedTextColor === '#000000'" [icon]="icons.check"></fa-icon>
+                            <fa-icon *ngIf="selectedTextColor === '#000000'" [icon]="['fas', 'check']" [fixedWidth]="true"></fa-icon>
                           </span>
                           <span (click)="selectTextColor('#212529')" class="color bg-white text-black">
-                            <fa-icon *ngIf="selectedTextColor === '#212529'" [icon]="icons.check"></fa-icon>
+                            <fa-icon *ngIf="selectedTextColor === '#212529'" [icon]="['fas', 'check']" [fixedWidth]="true"></fa-icon>
                           </span>
                         </div>
                       </div>

@@ -1,20 +1,14 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
-import {faCreditCard} from '@fortawesome/free-solid-svg-icons/faCreditCard';
-import {faBarcode} from '@fortawesome/free-solid-svg-icons/faBarcode';
-import {faEnvelopeOpen} from '@fortawesome/free-solid-svg-icons/faEnvelopeOpen';
-import {faDollarSign} from '@fortawesome/free-solid-svg-icons/faDollarSign';
 import fill from 'lodash-es/fill';
 
 import {CompanyService} from 'app/services/company.service';
+import {ClientService} from 'app/services/client.service';
 import {AlertService} from 'app/services/alert.service';
+import {Constants} from 'app/utils/constants';
 import {Company} from 'app/models/company.model';
 import {Client} from 'app/models/client.model';
-
-interface Method {
-  name: string;
-  icon: string;
-}
+import {PaymentOrder} from 'app/models/payment-order.model';
 
 @Component({
   selector: 'app-register-payment-order',
@@ -26,19 +20,14 @@ export class RegisterPaymentOrderComponent implements OnInit {
   public client: Client;
 
   public company: Company;
-  public selectedMethod: Method;
+  public selectedMethod: string;
   public amount: number;
   public split = 1;
   public splitAmounts: number[] = [];
   public loading = true;
-  public methods = [
-    {name: 'Cartão de crédito', icon: faCreditCard},
-    {name: 'Boleto', icon: faBarcode},
-    {name: 'Deposito bancário', icon: faEnvelopeOpen},
-    {name: 'Outros', icon: faDollarSign},
-  ];
+  public methods = Constants.PAYMENT_METHODS;
 
-  constructor(private companyService: CompanyService, private alertService: AlertService, private ngbActiveModal: NgbActiveModal) {
+  constructor(private companyService: CompanyService, private clientService: ClientService, private alertService: AlertService, private ngbActiveModal: NgbActiveModal) {
 
   }
 
@@ -67,7 +56,20 @@ export class RegisterPaymentOrderComponent implements OnInit {
     this.ngbActiveModal.dismiss();
   }
 
-  public selectMethod(method: Method): void {
+  public selectMethod(method: string): void {
     this.selectedMethod = method;
+  }
+
+  public registerPaymentOrder(): void {
+    const data: PaymentOrder[] = [];
+    this.splitAmounts.forEach((amount) => {
+      data.push(new PaymentOrder({amount, method: this.selectedMethod}));
+    });
+    this.clientService.registerPaymentOrders(this.client, data).subscribe((paymentOrders) => {
+      this.ngbActiveModal.close(paymentOrders);
+      this.alertService.success('Ordens de pagamento adicionadas com sucesso!');
+    }, (err) => {
+      this.alertService.apiError(null, err, 'Não foi possível adicionar as ordens de pagament, por favor tente novamente mais tarde!');
+    });
   }
 }

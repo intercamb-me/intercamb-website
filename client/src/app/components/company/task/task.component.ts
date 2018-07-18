@@ -1,9 +1,5 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
-import {faComment} from '@fortawesome/free-regular-svg-icons/faComment';
-import {faPaperclip} from '@fortawesome/free-solid-svg-icons/faPaperclip';
-import {faClock} from '@fortawesome/free-regular-svg-icons/faClock';
-import {faTasks} from '@fortawesome/free-solid-svg-icons/faTasks';
 import {mergeMap} from 'rxjs/operators';
 import * as distanceInWordsStrict from 'date-fns/distance_in_words_strict';
 
@@ -36,12 +32,6 @@ export class TaskComponent implements OnInit {
   public taskStatus = Constants.TASK_STATUS;
   public comment = '';
   public commentRows = 1;
-  public icons = {
-    comment: faComment,
-    paperclip: faPaperclip,
-    clock: faClock,
-    tasks: faTasks,
-  };
 
   constructor(private companyService: CompanyService, private taskService: TaskService, private alertService: AlertService, private ngbModal: NgbModal, private ngbActiveModal: NgbActiveModal) {
 

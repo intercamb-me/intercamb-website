@@ -1,6 +1,4 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {faCheck} from '@fortawesome/free-solid-svg-icons/faCheck';
-import {faArrowLeft} from '@fortawesome/free-solid-svg-icons/faArrowLeft';
 import find from 'lodash-es/find';
 import isNil from 'lodash-es/isNil';
 
@@ -36,14 +34,14 @@ export interface ColorSelected {
           }"
           (click)="displayVariants(palette)"
           class="color">
-          <fa-icon *ngIf="palette === selectedPalette" [icon]="icons.check"></fa-icon>
+          <fa-icon *ngIf="palette === selectedPalette" [icon]="['fas', 'check']" [fixedWidth]="true"></fa-icon>
         </span>
       </ng-container>
       <ng-container *ngIf="openedPalette">
         <span
           (click)="backToPaletteSelection()"
           class="color">
-          <fa-icon [icon]="icons.arrowLeft"></fa-icon>
+          <fa-icon [icon]="['fas', 'arrow-left']" [fixedWidth]="true"></fa-icon>
         </span>
         <span
           *ngFor="let variant of openedPalette.variants; trackBy: trackByIndex"
@@ -53,7 +51,7 @@ export interface ColorSelected {
           }"
           (click)="selectPalette(openedPalette, variant)"
           class="color">
-          <fa-icon *ngIf="variant === selectedPaletteVariant" [icon]="icons.check"></fa-icon>
+          <fa-icon *ngIf="variant === selectedPaletteVariant" [icon]="['fas', 'check']" [fixedWidth]="true"></fa-icon>
         </span>
       </ng-container>
     </div>
@@ -78,10 +76,6 @@ export class MaterialPalettePickerComponent implements OnInit {
   public selectedPalette: Palette;
   public selectedPaletteVariant: PaletteVariant;
   public selectedTextColor: string;
-  public icons = {
-    check: faCheck,
-    arrowLeft: faArrowLeft,
-  };
 
   constructor() {
 

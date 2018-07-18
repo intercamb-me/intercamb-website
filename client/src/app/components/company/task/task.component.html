@@ -11,15 +11,15 @@
         {{ taskStatus[task.status].name }}
       </span>
       <span *ngIf="task.comments.length > 0" class="badge badge-secondary">
-        <fa-icon [icon]="icons.comment"></fa-icon>
+        <fa-icon [icon]="['far', 'comment']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
         {{ task.comments.length }}
       </span>
       <span *ngIf="task.attachments.length > 0" class="badge badge-secondary">
-        <fa-icon [icon]="icons.paperclip"></fa-icon>
+        <fa-icon [icon]="['fas', 'paperclip']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
         {{ task.attachments.length }}
       </span>
       <span *ngIf="task.schedule_date" class="badge badge-orange">
-        <fa-icon [icon]="icons.clock"></fa-icon>
+        <fa-icon [icon]="['far', 'clock']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
         {{ task.schedule_date | date:"dd 'de' MMMM 'de' yyyy 'às' HH:mm" }}
       </span>
     </div>
@@ -74,16 +74,16 @@
       </div>
       <div class="flex-shrink-0 d-flex flex-column justify-content-start">
         <button (click)="openChangeStatus(task)" type="button" class="btn btn-primary d-flex align-items-center">
-          <fa-icon [icon]="icons.tasks" class="flex-shrink-0"></fa-icon>
+          <fa-icon [icon]="['fas', 'tasks']" [fixedWidth]="true" class="flex-shrink-0"></fa-icon>
           <span class="ml-2">Alterar estado</span>
         </button>
         <button (click)="openSetScheduleDate(task)" type="button" class="btn btn-primary d-flex align-items-center mt-2">
-          <i class="far fa-clock flex-shrink-0"></i>
+          <fa-icon [icon]="['far', 'clock']" [fixedWidth]="true" class="flex-shrink-0"></fa-icon>
           <span *ngIf="!task.schedule_date" class="ml-2">Marcar data</span>
           <span *ngIf="task.schedule_date" class="ml-2">Alterar data</span>
         </button>
         <label class="btn btn-primary btn-file d-flex align-items-center mt-2">
-          <i class="fas fa-paperclip flex-shrink-0"></i>
+          <fa-icon [icon]="['fas', 'paperclip']" [fixedWidth]="true" class="flex-shrink-0"></fa-icon>
           <span class="ml-2">Anexar arquivo</span>
           <input (change)="addTaskAttachment($event)" type="file" name="file" accept="*/*">
         </label>

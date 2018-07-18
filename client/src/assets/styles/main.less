@@ -172,22 +172,35 @@
       }
     }
   }
-  .payments {
-    .row();
-    .mt-4();
-  }
-  .tasks {
-    .row();
-    .mt-4();
-    .task {
-      .card();
-      cursor: pointer;
-      .badge {
-        .mr-2();
-        padding: 6px;
-        font-size: 14px;
-        font-weight: 400;
+  .payment {
+    .card();
+    &:hover {
+      .actions {
+        visibility: visible;
       }
+    }
+    .card-title {
+      .ng-fa-icon {
+        .d-inline-block();
+        font-size: 25px;
+      }
+    }
+    .actions {
+      .d-flex();
+      .justify-content-end();
+      visibility: hidden;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  }
+  .task {
+    .card();
+    cursor: pointer;
+    .badge {
+      .mr-2();
+      padding: 6px;
+      font-size: 14px;
+      font-weight: 400;
     }
   }
 }

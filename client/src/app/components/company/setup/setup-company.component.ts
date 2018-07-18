@@ -1,7 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {faCheck} from '@fortawesome/free-solid-svg-icons/faCheck';
-import {faBriefcase} from '@fortawesome/free-solid-svg-icons/faBriefcase';
 
 import {ColorSelected, PaletteVariant} from 'app/components/custom/material-palette-picker/material-palette-picker.component';
 
@@ -22,10 +20,6 @@ export class SetupCompanyComponent implements OnInit {
   public loading = true;
   public selectedPaletteVariant: PaletteVariant;
   public selectedTextColor: string;
-  public icons = {
-    check: faCheck,
-    briefcase: faBriefcase,
-  };
 
   constructor(private accountService: AccountService, private companyService: CompanyService, private alertService: AlertService, private router: Router) {
 

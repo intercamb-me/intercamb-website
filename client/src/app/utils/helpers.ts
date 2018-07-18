@@ -26,7 +26,5 @@ export function getColor(text: string): string {
     hashCode = hashCode * -1;
   }
   const index = hashCode % colors.length;
-  console.log(hashCode);
-  console.log(index);
   return colors[index];
 }

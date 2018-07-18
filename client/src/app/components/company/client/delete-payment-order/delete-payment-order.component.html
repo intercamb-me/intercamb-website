@@ -1,0 +1,22 @@
+<div id="delete-payment-order">
+  <form #form="ngForm" novalidate>
+    <div class="modal-header">
+      <h4 class="modal-title">Remover ordem de pagamento</h4>
+      <button (click)="close()" type="button" class="close" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>Tem certeza que deseja remover esta ordem de pagamento?</p>
+    </div>
+    <div class="modal-footer">
+      <button
+        [disabled]="form.invalid"
+        (click)="deletePaymentOrder()"
+        class="btn btn-danger"
+        type="submit">
+        Remover
+      </button>
+    </div>
+  </form>
+</div>

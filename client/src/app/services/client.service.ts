@@ -10,6 +10,7 @@ import {Client} from 'app/models/client.model';
 import {Task} from 'app/models/task.model';
 import {Token} from 'app/models/token.model';
 import {Plan} from 'app/models/plan.model';
+import {PaymentOrder} from 'app/models/payment-order.model';
 import {Address} from 'app/models/address.model';
 
 @Injectable()
@@ -87,6 +88,40 @@ export class ClientService {
   public dissociatePlan(client: Client): Observable<void> {
     return this.http.delete<void>(RequestUtils.getApiUrl(`/clients/${client.id}/plans`), RequestUtils.getJsonOptions()).pipe(
       map(() => null),
+      catchError((err: HttpErrorResponse) => {
+        const apiError = ApiError.withResponse(err);
+        this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
+        return throwError(apiError);
+      })
+    );
+  }
+
+  public registerPaymentOrders(client: Client, paymentOrders: PaymentOrder[]): Observable<PaymentOrder> {
+    return this.http.post<PaymentOrder>(RequestUtils.getApiUrl(`/clients/${client.id}/payment_orders`), paymentOrders, RequestUtils.getJsonOptions()).pipe(
+      map((ordersData: PaymentOrder[]) => {
+        const orders: PaymentOrder[] = [];
+        ordersData.forEach((orderData) => {
+          orders.push(new PaymentOrder(orderData));
+        });
+        return orders;
+      }),
+      catchError((err: HttpErrorResponse) => {
+        const apiError = ApiError.withResponse(err);
+        this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
+        return throwError(apiError);
+      })
+    );
+  }
+
+  public listPaymentOrders(client: Client): Observable<PaymentOrder[]> {
+    return this.http.get<PaymentOrder[]>(RequestUtils.getApiUrl(`/clients/${client.id}/payment_orders`), RequestUtils.getJsonOptions()).pipe(
+      map((ordersData: PaymentOrder[]) => {
+        const orders: PaymentOrder[] = [];
+        ordersData.forEach((orderData) => {
+          orders.push(new PaymentOrder(orderData));
+        });
+        return orders;
+      }),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
         this.eventService.publish(EventService.EVENT_API_ERROR, apiError);

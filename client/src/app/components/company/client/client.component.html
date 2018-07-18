@@ -332,7 +332,7 @@
       </ng-container>
     </div>
   </div>
-  <div class="payments">
+  <div class="row mt-4">
     <div class="col">
       <div class="row align-items-center">
         <div class="col">
@@ -344,33 +344,65 @@
           </button>
         </div>
       </div>
-      <div *ngIf="!paymentOrders" class="jumbotron mt-3 mb-0">
+      <div *ngIf="paymentOrders.length === 0" class="jumbotron mt-3 mb-0">
         <h5 class="mb-0 text-center">Nenhuma ordem registrada</h5>
+      </div>
+      <div *ngIf="paymentOrders.length > 0" class="row">
+        <div *ngFor="let paymentOrder of paymentOrders; let idx = index; trackBy: trackByPaymentOrder" class="col-4 mt-3">
+          <div class="payment">
+            <div class="card-body">
+              <div class="card-title">
+                <h5 class="d-flex align-items-center">
+                  <fa-icon [icon]="paymentMethods[paymentOrder.method].icon" [fixedWidth]="true"></fa-icon>
+                  <span class="ml-2">{{ paymentMethods[paymentOrder.method].name }}</span>
+                </h5>
+              </div>
+              <div>
+                <span>{{ paymentOrder.amount | currency:company.currency }}</span>
+              </div>
+              <div class="actions">
+                <fa-icon
+                  [icon]="['fas', 'pen']"
+                  [fixedWidth]="true"
+                  (click)="openEditPaymentOrder(paymentOrder)"
+                  title="Editar">
+                </fa-icon>
+                <fa-icon
+                  [icon]="['fas', 'trash']"
+                  [fixedWidth]="true"
+                  (click)="openDeletePaymentOrder(paymentOrder)"
+                  title="Remover"
+                  class="ml-2">
+                </fa-icon>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  <div class="tasks">
+  <div class="row mt-4">
     <div class="col">
       <h2>Atividades</h2>
       <ngx-masonry [options]="masonryOptions" class="row">
         <ngxMasonryItem *ngFor="let task of tasks; trackBy: trackByTask" class="col-6" style="margin-bottom: 20px">
           <div (click)="openTask(task)" class="task">
             <div class="card-body">
-              <h5 class="mb-0">{{ task.name }}</h5>
-              <div class="mt-3">
+              <h5 class="card-title">{{ task.name }}</h5>
+              <div class="badges">
                 <span class="badge badge-{{ taskStatus[task.status].colorSelector }}">
                   {{ taskStatus[task.status].name }}
                 </span>
                 <span *ngIf="task.comments.length > 0" class="badge badge-secondary">
-                  <fa-icon [icon]="icons.comment"></fa-icon>
+                  <fa-icon [icon]="['far', 'comment']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
                   {{ task.comments.length }}
                 </span>
                 <span *ngIf="task.attachments.length > 0" class="badge badge-secondary">
-                  <fa-icon [icon]="icons.paperclip"></fa-icon>
+                  <fa-icon [icon]="['fas', 'paperclip']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
                   {{ task.attachments.length }}
                 </span>
                 <span *ngIf="task.schedule_date" class="badge badge-orange">
-                  <fa-icon [icon]="icons.clock"></fa-icon>
+                  <fa-icon [icon]="['far', 'clock']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
                   {{ task.schedule_date | date:"MMM d, y" | titlecase }}
                 </span>
               </div>

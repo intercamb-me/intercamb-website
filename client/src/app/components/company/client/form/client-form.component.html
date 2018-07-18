@@ -206,7 +206,7 @@
                         required>
                       <div class="input-group-append">
                         <button class="btn btn-info" (click)="birthdatePicker.toggle()" type="button">
-                          <fa-icon [icon]="icons.calendarAlt"></fa-icon>
+                          <fa-icon [icon]="['fas', 'calendar-alt']" [fixedWidth]="true"></fa-icon>
                         </button>
                       </div>
                     </div>
@@ -715,7 +715,7 @@
                           required>
                         <div class="input-group-append">
                           <button class="btn btn-info" (click)="arrivalDatePicker.toggle()" type="button">
-                            <fa-icon [icon]="icons.calendarAlt"></fa-icon>
+                            <fa-icon [icon]="['fas', 'calendar-alt']" [fixedWidth]="true"></fa-icon>
                           </button>
                         </div>
                       </div>
@@ -766,7 +766,7 @@
       <div class="col-8">
         <div class="card">
           <div class="client-created">
-            <fa-icon [icon]="icons.check"></fa-icon>
+            <fa-icon [icon]="['fas', 'check']" [fixedWidth]="true"></fa-icon>
             <h3>Informações enviadas com sucesso, obrigado!</h3>
           </div>
         </div>

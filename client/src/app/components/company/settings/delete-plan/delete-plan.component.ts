@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
 
 import {PlanService} from 'app/services/plan.service';
@@ -9,19 +9,13 @@ import {Plan} from 'app/models/plan.model';
   selector: 'app-delete-plan',
   templateUrl: './delete-plan.component.html',
 })
-export class DeletePlanComponent implements OnInit {
+export class DeletePlanComponent {
 
   @Input()
   public plan: Plan;
 
   constructor(private planService: PlanService, private alertService: AlertService, private ngbActiveModal: NgbActiveModal) {
 
-  }
-
-  public ngOnInit(): void {
-    if (!this.plan) {
-      this.plan = new Plan();
-    }
   }
 
   public close(): void {

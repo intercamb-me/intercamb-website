@@ -29,6 +29,18 @@ export class MapValuesPipe implements PipeTransform {
   }
 }
 
+@Pipe({name: 'values'})
+export class ValuesPipe implements PipeTransform {
+
+  public transform(object: any): any[] {
+    const values: any[] = [];
+    forEach(object, (value) => {
+      values.push(value);
+    });
+    return values;
+  }
+}
+
 @Pipe({name: 'size'})
 export class SizePipe implements PipeTransform {
 
