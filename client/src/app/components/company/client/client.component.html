@@ -207,6 +207,41 @@
       <ng-container *ngIf="infoStep === 3">
         <div class="row">
           <div class="col">
+            <h2>Em caso de emergência</h2>
+          </div>
+          <div class="col-auto">
+            <button (click)="previousInfoStep()" type="button" class="btn btn-primary mr-2">Anterior</button>
+            <button (click)="nextInfoStep()" type="button" class="btn btn-primary">Próximo</button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col form-group">
+                <label>Responsável</label>
+                <p class="mb-0">{{ client.in_case_of_emergency.responsible | hyphensIfEmpty }}</p>
+              </div>
+              <div class="col form-group">
+                <label>E-mail</label>
+                <p class="mb-0">{{ client.in_case_of_emergency.email | hyphensIfEmpty }}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col form-group mb-0">
+                <label>Telefone</label>
+                <p class="mb-0">{{ client.in_case_of_emergency.phone | hyphensIfEmpty }}</p>
+              </div>
+              <div class="col form-group mb-0">
+                <label>Telefone alternativo</label>
+                <p class="mb-0">{{ client.in_case_of_emergency.alternative_phone | hyphensIfEmpty }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="infoStep === 4">
+        <div class="row">
+          <div class="col">
             <h2>Dados acadêmicos</h2>
           </div>
           <div class="col-auto">
@@ -268,7 +303,7 @@
           </div>
         </div>
       </ng-container>
-      <ng-container *ngIf="infoStep === 4">
+      <ng-container *ngIf="infoStep === 5">
         <div class="row">
           <div class="col">
             <h2>Curso pretendido</h2>
@@ -303,7 +338,7 @@
           </div>
         </div>
       </ng-container>
-      <ng-container *ngIf="infoStep === 5">
+      <ng-container *ngIf="infoStep === 6">
         <div class="row">
           <div class="col">
             <h2>Informações adicionais</h2>

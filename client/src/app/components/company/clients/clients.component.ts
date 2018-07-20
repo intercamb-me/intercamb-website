@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
+import {NgxMasonryOptions} from 'ngx-masonry';
 
 import {CreateClientFormComponent} from 'app/components/company/clients/create-form/create-client-form.component';
 
@@ -15,6 +16,12 @@ export class ClientsComponent implements OnInit {
 
   public clients: Client[];
   public loading = true;
+
+  public masonryOptions: NgxMasonryOptions = {
+    itemSelector: '.col-6',
+    horizontalOrder: true,
+    transitionDuration: '0',
+  };
 
   constructor(private companyService: CompanyService, private alertService: AlertService, private ngbModal: NgbModal) {
 

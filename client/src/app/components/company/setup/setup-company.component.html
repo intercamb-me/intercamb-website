@@ -1,7 +1,7 @@
 <div id="setup-company" [ngStyle]="{'background-color': selectedPaletteVariant ? selectedPaletteVariant.color : undefined}">
   <div class="container">
     <div *ngIf="!loading" class="row py-5">
-      <div *ngIf="step === 0" class="col-12">
+      <div *ngIf="step === 0" class="col">
         <h2 class="mb-4 text-center text-white">
           Para começar, primeiro cadastre a sua empresa.
         </h2>
@@ -44,7 +44,7 @@
           </div>
         </div>
       </div>
-      <div *ngIf="step === 1" class="col-12">
+      <div *ngIf="step === 1" class="col">
         <h2
           [ngStyle]="{'color': selectedTextColor || undefined}"
           class="mb-4 text-center">

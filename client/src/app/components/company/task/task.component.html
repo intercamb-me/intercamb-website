@@ -1,10 +1,14 @@
 <div id="task">
   <div class="modal-header px-4">
-    <div class="d-flex">
-      <h4 class="modal-title flex-grow-1 mr-4">{{ task.name }}</h4>
-      <button (click)="close()" type="button" class="close flex-shrink-0" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
+    <div class="row">
+      <div class="col">
+        <h4 class="modal-title">{{ task.name }}</h4>
+      </div>
+      <div class="col-auto">
+        <button (click)="close()" type="button" class="close" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
     </div>
     <div class="mt-3">
       <span class="badge badge-{{ taskStatus[task.status].colorSelector }}">
@@ -25,15 +29,15 @@
     </div>
   </div>
   <div class="modal-body px-4 py-4">
-    <div class="d-flex">
-      <div class="flex-grow-1 mr-4">
+    <div class="row">
+      <div class="col">
         <div class="attachments">
           <h5>Arquivos</h5>
           <div *ngIf="task.attachments.length === 0" class="jumbotron py-5 mb-0 text-center">
             <p class="mb-0">Nenhum arquivo</p>
           </div>
           <div class="row">
-            <div *ngFor="let attachment of task.attachments; trackBy: trackByAttachment" class="col-12 col-md-6 mb-3">
+            <div *ngFor="let attachment of task.attachments; trackBy: trackByAttachment" class="col col-md-6 mb-3">
               <div (click)="openTaskAttachment(attachment)" class="attachment">
                 <div *ngIf="accounts.get(attachment.account)" class="account">
                   {{ accounts.get(attachment.account).getFullName() }}
@@ -72,7 +76,7 @@
           </div>
         </div>
       </div>
-      <div class="flex-shrink-0 d-flex flex-column justify-content-start">
+      <div class="col-auto d-flex flex-column justify-content-start">
         <button (click)="openChangeStatus(task)" type="button" class="btn btn-primary d-flex align-items-center">
           <fa-icon [icon]="['fas', 'tasks']" [fixedWidth]="true" class="flex-shrink-0"></fa-icon>
           <span class="ml-2">Alterar status</span>

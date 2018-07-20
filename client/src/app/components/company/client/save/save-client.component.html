@@ -1,13 +1,13 @@
 <div id="register-client">
   <form #form="ngForm" novalidate>
     <div class="row">
-      <div class="col-12">
+      <div class="col">
         <h1 class="mb-0">Cadastrar assessorado</h1>
       </div>
     </div>
     <div class="px-4">
       <div class="row mt-4">
-        <div class="col-12">
+        <div class="col">
           <h2 class="mb-3">Informações básicas</h2>
           <div class="row">
             <div class="col form-group">
@@ -73,7 +73,7 @@
       </div>
       <hr class="my-4"/>
       <div class="row mt-4">
-        <div class="col-12">
+        <div class="col">
           <h2 class="mb-3">Dados pessoais</h2>
           <div class="row">
             <div class="col form-group">
@@ -221,7 +221,7 @@
       </div>
       <hr class="my-4"/>
       <div class="row mt-4">
-        <div class="col-12">
+        <div class="col">
           <div class="row align-items-center">
             <div class="col">
               <h2 class="mb-3">Endereço</h2>
@@ -305,7 +305,7 @@
       </div>
       <hr class="my-4"/>
       <div class="row mt-4">
-        <div class="col-12">
+        <div class="col">
           <h2 class="mb-3">Dados familiares</h2>
           <div class="row">
             <div class="col">
@@ -394,7 +394,70 @@
       </div>
       <hr class="my-4"/>
       <div class="row mt-4">
-        <div class="col-12">
+        <div class="col">
+          <h2 class="mb-3">Em caso de emergência</h2>
+          <div class="row">
+            <div class="col form-group">
+              <label for="icoe-name">Responsável</label>
+              <input
+                [(ngModel)]="client.in_case_of_emergency.responsible"
+                id="icoe-responsible"
+                name="icoe-responsible"
+                type="text"
+                class="form-control">
+            </div>
+            <div class="col form-group">
+              <label for="icoe-email">E-mail</label>
+              <input
+                #contactEmail="ngModel"
+                [(ngModel)]="client.in_case_of_emergency.email"
+                [ngClass]="{'is-invalid': contactEmail.invalid && (contactEmail.dirty || contactEmail.touched)}"
+                id="icoe-email"
+                name="icoe-email"
+                type="email"
+                class="form-control"
+                email>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col form-group">
+              <label for="icoe-phone">Telefone</label>
+              <input
+                #contactPhone="ngModel"
+                [(ngModel)]="client.in_case_of_emergency.phone"
+                [ngClass]="{'is-invalid': contactPhone.invalid && (contactPhone.dirty || fatherPhone.touched)}"
+                [dropSpecialCharacters]="false"
+                id="icoe-phone"
+                name="icoe-phone"
+                type="text"
+                class="form-control"
+                mask="+0* 0* 0*"
+                placeholder="Exemplo: +55 71 99999999"
+                maxlength="17"
+                pattern="^\+\d{1,3} \d+ \d+$">
+            </div>
+            <div class="col form-group">
+              <label for="icoe-alternative-phone">Telefone alternativo</label>
+              <input
+                #contactAlternativePhone="ngModel"
+                [(ngModel)]="client.in_case_of_emergency.alternative_phone"
+                [ngClass]="{'is-invalid': contactAlternativePhone.invalid && (contactAlternativePhone.dirty || fatherPhone.touched)}"
+                [dropSpecialCharacters]="false"
+                id="icoe-alternative-phone"
+                name="icoe-alternative-phone"
+                type="text"
+                class="form-control"
+                mask="+0* 0* 0*"
+                placeholder="Exemplo: +55 71 99999999"
+                maxlength="17"
+                pattern="^\+\d{1,3} \d+ \d+$">
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr class="my-4"/>
+      <div class="row mt-4">
+        <div class="col">
           <h2 class="mb-3">Dados acadêmicos</h2>
           <div class="row">
             <div class="col">
@@ -496,7 +559,7 @@
       </div>
       <hr class="my-4"/>
       <div class="row mt-4">
-        <div class="col-12">
+        <div class="col">
           <h2 class="mb-3">Curso pretendido</h2>
           <div class="row">
             <div class="col form-group">
@@ -550,7 +613,7 @@
       </div>
       <hr class="my-4"/>
       <div class="row mt-4">
-        <div class="col-12">
+        <div class="col">
           <h2 class="mb-3">Informações adicionais</h2>
           <div class="form-group">
             <label for="ai-disabilities">É portador de deficiência? Se sim, qual?</label>
@@ -608,7 +671,7 @@
       </div>
       <hr class="my-4"/>
       <div class="row mt-4">
-        <div class="col-12 float-right">
+        <div class="col">
           <button
             *ngIf="!client.id"
             [disabled]="form.invalid"

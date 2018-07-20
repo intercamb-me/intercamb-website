@@ -4,7 +4,7 @@
 }">
   <div class="py-5">
     <div class="row">
-      <div class="col-12 text-center">
+      <div class="col text-center">
         <img class="company-logo" [src]="token.company.logo_url">
         <h1 class="mt-3 mb-0">{{ token.company.name }}</h1>
       </div>
@@ -69,7 +69,7 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-12 d-flex justify-content-end">
+                  <div class="col d-flex justify-content-end">
                     <button
                       [disabled]="form.invalid"
                       (click)="nextInfoStep()"
@@ -241,7 +241,7 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-12 d-flex justify-content-end">
+                  <div class="col d-flex justify-content-end">
                     <button
                       (click)="previousInfoStep()"
                       type="button"
@@ -352,7 +352,7 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-12 d-flex justify-content-end">
+                  <div class="col d-flex justify-content-end">
                     <button
                       (click)="previousInfoStep()"
                       type="button"
@@ -372,7 +372,7 @@
           <div class="card">
             <div class="card-body">
               <form #form="ngForm" class="was-validated" novalidate>
-                <h2 class="mb-3">Dados familiares</h2>
+                <h2 class="mb-0">Dados familiares</h2>
                 <p>Se seus pais ainda vivem, por favor informe o e-mail e telefone.</p>
                 <div class="row">
                   <div class="col">
@@ -454,7 +454,7 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-12 d-flex justify-content-end">
+                  <div class="col d-flex justify-content-end">
                     <button
                       (click)="previousInfoStep()"
                       type="button"
@@ -475,6 +475,91 @@
           </div>
         </ng-container>
         <ng-container *ngIf="infoStep === 4">
+          <div class="card">
+            <div class="card-body">
+              <form #form="ngForm" class="was-validated" novalidate>
+                <h2 class="mb-3">Em caso de emergência</h2>
+                <div class="row">
+                  <div class="col form-group">
+                    <label for="icoe-name">Responsável</label>
+                    <input
+                      [(ngModel)]="client.in_case_of_emergency.responsible"
+                      id="icoe-responsible"
+                      name="icoe-responsible"
+                      type="text"
+                      class="form-control"
+                      required>
+                  </div>
+                  <div class="col form-group">
+                    <label for="icoe-email">E-mail</label>
+                    <input
+                      #contactEmail="ngModel"
+                      [(ngModel)]="client.in_case_of_emergency.email"
+                      [ngClass]="{'is-invalid': contactEmail.invalid && (contactEmail.dirty || contactEmail.touched)}"
+                      id="icoe-email"
+                      name="icoe-email"
+                      type="email"
+                      class="form-control"
+                      email>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col form-group">
+                    <label for="icoe-phone">Telefone</label>
+                    <input
+                      #contactPhone="ngModel"
+                      [(ngModel)]="client.in_case_of_emergency.phone"
+                      [ngClass]="{'is-invalid': contactPhone.invalid && (contactPhone.dirty || fatherPhone.touched)}"
+                      [dropSpecialCharacters]="false"
+                      id="icoe-phone"
+                      name="icoe-phone"
+                      type="text"
+                      class="form-control"
+                      mask="+0* 0* 0*"
+                      placeholder="Exemplo: +55 71 99999999"
+                      maxlength="17"
+                      pattern="^\+\d{1,3} \d+ \d+$"
+                      required>
+                  </div>
+                  <div class="col form-group">
+                    <label for="icoe-alternative-phone">Telefone alternativo</label>
+                    <input
+                      #contactAlternativePhone="ngModel"
+                      [(ngModel)]="client.in_case_of_emergency.alternative_phone"
+                      [ngClass]="{'is-invalid': contactAlternativePhone.invalid && (contactAlternativePhone.dirty || fatherPhone.touched)}"
+                      [dropSpecialCharacters]="false"
+                      id="icoe-alternative-phone"
+                      name="icoe-alternative-phone"
+                      type="text"
+                      class="form-control"
+                      mask="+0* 0* 0*"
+                      placeholder="Exemplo: +55 71 99999999"
+                      maxlength="17"
+                      pattern="^\+\d{1,3} \d+ \d+$">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col d-flex justify-content-end">
+                    <button
+                      (click)="previousInfoStep()"
+                      type="button"
+                      class="btn btn-primary mr-2">
+                      Anterior
+                    </button>
+                    <button
+                      [disabled]="form.invalid"
+                      (click)="nextInfoStep()"
+                      type="button"
+                      class="btn btn-primary">
+                      Próximo
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="infoStep === 5">
           <div class="card">
             <div class="card-body">
               <form #form="ngForm" class="was-validated" novalidate>
@@ -584,7 +669,7 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-12 d-flex justify-content-end">
+                  <div class="col d-flex justify-content-end">
                     <button
                       (click)="previousInfoStep()"
                       type="button"
@@ -604,7 +689,7 @@
             </div>
           </div>
         </ng-container>
-        <ng-container *ngIf="infoStep === 5">
+        <ng-container *ngIf="infoStep === 6">
           <div class="card">
             <div class="card-body">
               <form #form="ngForm" class="was-validated" novalidate>
@@ -660,7 +745,7 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-12 d-flex justify-content-end">
+                  <div class="col d-flex justify-content-end">
                     <button
                       (click)="previousInfoStep()"
                       type="button"
@@ -680,7 +765,7 @@
             </div>
           </div>
         </ng-container>
-        <ng-container *ngIf="infoStep === 6">
+        <ng-container *ngIf="infoStep === 7">
           <div class="card">
             <div class="card-body">
               <form #form="ngForm" class="was-validated" novalidate>
@@ -739,7 +824,7 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-12 d-flex justify-content-end">
+                  <div class="col d-flex justify-content-end">
                     <button
                       (click)="previousInfoStep()"
                       type="button"

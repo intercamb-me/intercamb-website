@@ -1,11 +1,12 @@
 /* tslint:disable:variable-name */
 
-import {Address} from 'app/models/address.model';
-import {PersonalData} from 'app/models/personal-data.model';
-import {FamilyData} from 'app/models/family-data.model';
 import {AcademicData} from 'app/models/academic-data.model';
-import {IntendedCourse} from 'app/models/intended-course.model';
 import {AdditionalInformation} from 'app/models/additional-information.model';
+import {Address} from 'app/models/address.model';
+import {FamilyData} from 'app/models/family-data.model';
+import {InCaseOfEmergency} from 'app/models/in-case-of-emergency.model';
+import {IntendedCourse} from 'app/models/intended-course.model';
+import {PersonalData} from 'app/models/personal-data.model';
 
 export class Client {
 
@@ -21,6 +22,7 @@ export class Client {
   public address: Address;
   public personal_data: PersonalData;
   public family_data: FamilyData;
+  public in_case_of_emergency: InCaseOfEmergency;
   public academic_data: AcademicData;
   public intended_course: IntendedCourse;
   public additional_information: AdditionalInformation;
@@ -39,6 +41,7 @@ export class Client {
       this.address = new Address(data.address || {});
       this.personal_data = new PersonalData(data.personal_data || {});
       this.family_data = new FamilyData(data.family_data || {});
+      this.in_case_of_emergency = new InCaseOfEmergency(data.in_case_of_emergency || {});
       this.academic_data = new AcademicData(data.academic_data || {});
       this.intended_course = new IntendedCourse(data.intended_course || {});
       this.additional_information = new AdditionalInformation(data.additional_information || {});

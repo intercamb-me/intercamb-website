@@ -28,8 +28,8 @@
         </div>
       </div>
     </div>
-    <div class="row mt-3">
-      <div *ngFor="let client of clients; trackBy: trackByClient" class="col-6 mb-3">
+    <ngx-masonry [options]="masonryOptions" class="row mt-3">
+      <ngxMasonryItem *ngFor="let client of clients; trackBy: trackByClient" class="col-6" style="margin-bottom: 1rem;">
         <a [routerLink]="['/company', 'clients', client.id]" class="client">
           <div class="content">
             <img class="photo" [src]="client.photo_url">
@@ -40,8 +40,8 @@
             </div>
           </div>
         </a>
-      </div>
-    </div>
+      </ngxMasonryItem>
+    </ngx-masonry>
     <div class="d-flex justify-content-center">
       <button class="btn btn-info" type="button">Carregar mais</button>
     </div>
