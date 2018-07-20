@@ -7,7 +7,7 @@ import {Plan} from 'app/models/plan.model';
 
 @Component({
   selector: 'app-delete-plan',
-  templateUrl: './delete-plan.component.html',
+  templateUrl: './delete.component.html',
 })
 export class DeletePlanComponent {
 

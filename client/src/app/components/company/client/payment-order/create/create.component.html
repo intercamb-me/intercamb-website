@@ -1,0 +1,146 @@
+<ng-template #splitTemplate let-split="split" let-index="index">
+  <div class="form-row">
+    <div class="col-4 form-group">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">{{ index + 1 }}º</span>
+        </div>
+        <input
+          [(ngModel)]="split.amount"
+          [dropSpecialCharacters]="false"
+          name="split-amount-{{ index }}"
+          type="text"
+          class="form-control"
+          mask="0*.00"
+          placeholder="Valor"
+          required>
+      </div>
+    </div>
+    <div class="col-4 form-group">
+      <div class="input-group">
+        <input
+          #dueDate="ngModel"
+          #dueDatePicker="ngbDatepicker"
+          ngbDatepicker
+          [(ngModel)]="split.dueDateStruct"
+          [ngClass]="{'is-invalid': dueDate.invalid && (dueDate.dirty || dueDate.touched)}"
+          (keypress)="onlyDateChars($event)"
+          name="split-due-date-{{ index }}"
+          class="form-control"
+          placeholder="Vencimento">
+        <div class="input-group-append">
+          <button class="btn btn-info" (click)="dueDatePicker.toggle()" type="button">
+            <fa-icon [icon]="['fas', 'calendar-alt']" [fixedWidth]="true"></fa-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<div *ngIf="!loading" id="create-payment-order">
+  <form #form="ngForm" novalidate>
+    <div class="modal-header">
+      <h4 class="modal-title">Nova ordem de pagamento</h4>
+      <button (click)="close()" type="button" class="close" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group mb-0">
+        <label>Forma de pagamento</label>
+        <div class="row">
+          <div *ngFor="let availableMethod of availableMethods | values; trackBy: trackByIndex" (click)="selectMethod(availableMethod.id)" class="col-6 col-lg-4 mb-3 cursor-pointer">
+            <div [ngClass]="{'selected': method === availableMethod.id}" class="method">
+              <div class="card-body text-center">
+                <fa-icon [icon]="availableMethod.icon" [fixedWidth]="true"></fa-icon>
+                <p class="mt-2 mb-0">{{ availableMethod.name }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-row mb-2">
+          <div class="col">
+            <div class="form-group mb-0">
+              <label for="amount">Valor</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">{{ company.currency | currencySymbol }}</span>
+                </div>
+                <input
+                  [(ngModel)]="amount"
+                  [dropSpecialCharacters]="false"
+                  (ngModelChange)="onSplitChange()"
+                  id="amount"
+                  name="amount"
+                  type="text"
+                  class="form-control"
+                  mask="0*.00"
+                  required>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group mb-0">
+              <label for="due-date">Vencimento</label>
+              <div class="input-group">
+                <input
+                  #dueDate="ngModel"
+                  #dueDatePicker="ngbDatepicker"
+                  ngbDatepicker
+                  [(ngModel)]="dueDateStruct"
+                  [ngClass]="{'is-invalid': dueDate.invalid && (dueDate.dirty || dueDate.touched)}"
+                  (ngModelChange)="onSplitChange()"
+                  (keypress)="onlyDateChars($event)"
+                  id="due-date"
+                  name="due-date"
+                  class="form-control"
+                  placeholder="dd/mm/yyyy">
+                <div class="input-group-append">
+                  <button class="btn btn-info" (click)="dueDatePicker.toggle()" type="button">
+                    <fa-icon [icon]="['fas', 'calendar-alt']" [fixedWidth]="true"></fa-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group mb-0">
+              <label for="number-of-splits">Parcelado em</label>
+              <input
+                [(ngModel)]="numberOfSplits"
+                (ngModelChange)="onSplitChange()"
+                id="number-of-splits"
+                name="number-of-splits"
+                type="number"
+                class="form-control"
+                min="1"
+                required>
+            </div>
+          </div>
+        </div>
+        <small>Os campos acima são utilizados apenas para gerar os valores das parcelas e não são levados em consideração no momento de salvar os registros.</small>
+      </div>
+      <div class="form-group mb-0">
+        <label>Parcelas</label>
+        <div *ngIf="splits.length === 0" class="jumbotron mb-0">
+          <h5 class="mb-0 text-center">Preencha os campos acima para configurar as parcelas</h5>
+        </div>
+        <ng-container *ngFor="let split of splits; let idx = index; trackBy: trackByIndex">
+          <ng-container *ngTemplateOutlet="splitTemplate; context: {split: split, index: idx}"></ng-container>
+        </ng-container>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button
+        [disabled]="!method || form.invalid"
+        (click)="createPaymentOrder()"
+        type="button"
+        class="btn btn-primary">
+        Registrar
+      </button>
+    </div>
+  </form>
+</div>

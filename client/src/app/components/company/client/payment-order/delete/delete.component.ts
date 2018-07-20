@@ -7,7 +7,7 @@ import {PaymentOrder} from 'app/models/payment-order.model';
 
 @Component({
   selector: 'app-delete-payment-order',
-  templateUrl: './delete-payment-order.component.html',
+  templateUrl: './delete.component.html',
 })
 export class DeletePaymentOrderComponent {
 

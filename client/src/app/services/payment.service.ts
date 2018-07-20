@@ -26,8 +26,8 @@ export class PaymentService {
     );
   }
 
-  public updatePaymentOrder(paymentOrder: PaymentOrder): Observable<PaymentOrder> {
-    return this.http.put<PaymentOrder>(RequestUtils.getApiUrl(`/payment_orders/${paymentOrder.id}`), paymentOrder, RequestUtils.getJsonOptions()).pipe(
+  public updatePaymentOrder(paymentOrder: PaymentOrder, data: any): Observable<PaymentOrder> {
+    return this.http.put<PaymentOrder>(RequestUtils.getApiUrl(`/payment_orders/${paymentOrder.id}`), data, RequestUtils.getJsonOptions()).pipe(
       map((paymentOrderData: PaymentOrder) => new PaymentOrder(paymentOrderData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);

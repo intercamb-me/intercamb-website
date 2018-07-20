@@ -1,7 +1,5 @@
+import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
 import padStart from 'lodash-es/padStart';
-import * as getYear from 'date-fns/get_year';
-import * as getMonth from 'date-fns/get_month';
-import * as getDate from 'date-fns/get_date';
 
 export class DateUtils {
 
@@ -21,11 +19,29 @@ export class DateUtils {
     if (!date) {
       return null;
     }
-    const year = padStart(String(getYear(date)), 4, '0');
-    const month = padStart(String(getMonth(date)), 2, '0');
-    const day = padStart(String(getDate(date)), 2, '0');
+    const year = padStart(String(date.getFullYear()), 4, '0');
+    const month = padStart(String(date.getMonth()), 2, '0');
+    const day = padStart(String(date.getDate()), 2, '0');
     const dateOnly = year + month + day;
     return Number(dateOnly);
+  }
+
+  public static fromDateStruct(dateStruct: NgbDateStruct): Date {
+    if (!dateStruct) {
+      return null;
+    }
+    return new Date(dateStruct.year, dateStruct.month - 1, dateStruct.day);
+  }
+
+  public static toDateStruct(date: Date): NgbDateStruct {
+    if (!date) {
+      return null;
+    }
+    return {
+      year: date.getFullYear(),
+      month: date.getMonth() + 1,
+      day: date.getDate(),
+    };
   }
 
   private constructor() {

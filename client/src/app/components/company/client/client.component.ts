@@ -6,8 +6,10 @@ import {mergeMap} from 'rxjs/operators';
 import {NgxMasonryOptions} from 'ngx-masonry';
 
 import {AssociatePlanComponent} from 'app/components/company/client/associate-plan/associate-plan.component';
-import {RegisterPaymentOrderComponent} from 'app/components/company/client/register-payment-order/register-payment-order.component';
-import {DeletePaymentOrderComponent} from 'app/components/company/client/delete-payment-order/delete-payment-order.component';
+import {CreatePaymentOrderComponent} from 'app/components/company/client/payment-order/create/create.component';
+import {EditPaymentOrderComponent} from 'app/components/company/client/payment-order/edit/edit.component';
+import {DeletePaymentOrderComponent} from 'app/components/company/client/payment-order/delete/delete.component';
+import {ChangePaymentOrderStatusComponent} from 'app/components/company/client/payment-order/change-status/change-status.component';
 import {TaskComponent} from 'app/components/company/task/task.component';
 
 import {CompanyService} from 'app/services/company.service';
@@ -115,6 +117,12 @@ export class ClientComponent implements OnInit {
     this.infoStep = this.infoStep - 1;
   }
 
+  public isOverduePayment(paymentOrder: PaymentOrder): boolean {
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    return paymentOrder.due_date && today > paymentOrder.due_date;
+  }
+
   public openAssociatePlan(): void {
     const modalRef = this.ngbModal.open(AssociatePlanComponent, {size: 'lg'});
     modalRef.componentInstance.client = this.client;
@@ -126,11 +134,26 @@ export class ClientComponent implements OnInit {
     });
   }
 
-  public openRegisterPaymentOrder(): void {
-    const modalRef = this.ngbModal.open(RegisterPaymentOrderComponent, {size: 'lg'});
+  public openCreatePaymentOrder(): void {
+    const modalRef = this.ngbModal.open(CreatePaymentOrderComponent, {size: 'lg'});
     modalRef.componentInstance.client = this.client;
     modalRef.result.then((paymentOrders) => {
       this.paymentOrders = paymentOrders;
+    }).catch(() => {
+      // Nothing to do...
+    });
+  }
+
+  public openEditPaymentOrder(paymentOrder: PaymentOrder): void {
+    const modalRef = this.ngbModal.open(EditPaymentOrderComponent, {size: 'lg'});
+    modalRef.componentInstance.paymentOrder = paymentOrder;
+    modalRef.result.then((updatedPaymentOrder) => {
+      const index = this.paymentOrders.findIndex((currentPaymentOrder) => {
+        return currentPaymentOrder.id === updatedPaymentOrder.id;
+      });
+      if (index >= 0) {
+        this.paymentOrders[index] = updatedPaymentOrder;
+      }
     }).catch(() => {
       // Nothing to do...
     });
@@ -145,6 +168,21 @@ export class ClientComponent implements OnInit {
       });
       if (index >= 0) {
         this.paymentOrders.splice(index, 1);
+      }
+    }).catch(() => {
+      // Nothing to do...
+    });
+  }
+
+  public openChangePaymentOrderStatus(paymentOrder: PaymentOrder): void {
+    const modalRef = this.ngbModal.open(ChangePaymentOrderStatusComponent);
+    modalRef.componentInstance.paymentOrder = paymentOrder;
+    modalRef.result.then((updatedPaymentOrder) => {
+      const index = this.paymentOrders.findIndex((currentPaymentOrder) => {
+        return currentPaymentOrder.id === updatedPaymentOrder.id;
+      });
+      if (index >= 0) {
+        this.paymentOrders[index] = updatedPaymentOrder;
       }
     }).catch(() => {
       // Nothing to do...

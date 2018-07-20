@@ -33,7 +33,6 @@ export class ClientFormComponent implements OnInit {
   public infoStep = 0;
   public birthdateStruct: NgbDateStruct;
   public arrivalDateStruct: NgbDateStruct;
-  public pastDateStruct: NgbDateStruct;
   public todayDateStruct: NgbDateStruct;
   public onlyDateChars = onlyDateChars;
 
@@ -43,7 +42,6 @@ export class ClientFormComponent implements OnInit {
 
   public ngOnInit(): void {
     const now = new Date();
-    this.pastDateStruct = {year: 1950, month: 1, day: 1};
     this.todayDateStruct = {
       year: getYear(now),
       month: getMonth(now) + 1,

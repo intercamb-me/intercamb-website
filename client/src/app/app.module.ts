@@ -30,6 +30,7 @@ import {faCog} from '@fortawesome/free-solid-svg-icons/faCog';
 import {faComment} from '@fortawesome/free-regular-svg-icons/faComment';
 import {faCreditCard} from '@fortawesome/free-solid-svg-icons/faCreditCard';
 import {faDollarSign} from '@fortawesome/free-solid-svg-icons/faDollarSign';
+import {faEllipsisV} from '@fortawesome/free-solid-svg-icons/faEllipsisV';
 import {faEnvelope} from '@fortawesome/free-solid-svg-icons/faEnvelope';
 import {faEnvelopeOpen} from '@fortawesome/free-solid-svg-icons/faEnvelopeOpen';
 import {faKey} from '@fortawesome/free-solid-svg-icons/faKey';
@@ -62,7 +63,7 @@ import {ClientComponent} from 'app/components/company/client/client.component';
 import {ClientFormComponent} from 'app/components/company/client/form/client-form.component';
 import {SaveClientComponent} from 'app/components/company/client/save/save-client.component';
 import {CreateClientComponent} from 'app/components/company/client/create/create-client.component';
-import {UpdateClientComponent} from 'app/components/company/client/update/update-client.component';
+import {EditClientComponent} from 'app/components/company/client/edit/edit-client.component';
 import {SchedulingComponent} from 'app/components/company/scheduling/scheduling.component';
 import {ReportsComponent} from 'app/components/company/reports/reports.component';
 import {CompanySettingsComponent} from 'app/components/company/settings/company-settings.component';
@@ -73,14 +74,16 @@ import {MaterialPalettePickerComponent} from 'app/components/custom/material-pal
 // Modals
 import {CreateClientFormComponent} from 'app/components/company/clients/create-form/create-client-form.component';
 import {TaskComponent} from 'app/components/company/task/task.component';
-import {ChangeTaskStatusComponent} from 'app/components/company/task/change-status/change-task-status.component';
-import {SetTaskScheduleDateComponent} from 'app/components/company/task/set-schedule-date/set-task-schedule-date.component';
+import {ChangeTaskStatusComponent} from 'app/components/company/task/change-status/change-status.component';
+import {SetTaskScheduleDateComponent} from 'app/components/company/task/set-schedule-date/set-schedule-date.component';
 import {SearchAddressComponent} from 'app/components/company/client/search-address/search-address.component';
-import {SavePlanComponent} from 'app/components/company/settings/save-plan/save-plan.component';
-import {DeletePlanComponent} from 'app/components/company/settings/delete-plan/delete-plan.component';
+import {SavePlanComponent} from 'app/components/company/settings/plan/save/save.component';
+import {DeletePlanComponent} from 'app/components/company/settings/plan/delete/delete.component';
 import {AssociatePlanComponent} from 'app/components/company/client/associate-plan/associate-plan.component';
-import {RegisterPaymentOrderComponent} from 'app/components/company/client/register-payment-order/register-payment-order.component';
-import {DeletePaymentOrderComponent} from 'app/components/company/client/delete-payment-order/delete-payment-order.component';
+import {CreatePaymentOrderComponent} from 'app/components/company/client/payment-order/create/create.component';
+import {EditPaymentOrderComponent} from 'app/components/company/client/payment-order/edit/edit.component';
+import {DeletePaymentOrderComponent} from 'app/components/company/client/payment-order/delete/delete.component';
+import {ChangePaymentOrderStatusComponent} from 'app/components/company/client/payment-order/change-status/change-status.component';
 
 // Services
 import {CompanyService} from 'app/services/company.service';
@@ -118,6 +121,7 @@ library.add(faCog);
 library.add(faComment);
 library.add(faCreditCard);
 library.add(faDollarSign);
+library.add(faEllipsisV);
 library.add(faEnvelope);
 library.add(faEnvelopeOpen);
 library.add(faKey);
@@ -168,7 +172,7 @@ library.add(faUsers);
     ClientComponent,
     SaveClientComponent,
     CreateClientComponent,
-    UpdateClientComponent,
+    EditClientComponent,
     SchedulingComponent,
     ReportsComponent,
     CompanySettingsComponent,
@@ -183,8 +187,10 @@ library.add(faUsers);
     SavePlanComponent,
     DeletePlanComponent,
     AssociatePlanComponent,
-    RegisterPaymentOrderComponent,
+    CreatePaymentOrderComponent,
+    EditPaymentOrderComponent,
     DeletePaymentOrderComponent,
+    ChangePaymentOrderStatusComponent,
   ],
   entryComponents: [
     CreateClientFormComponent,
@@ -195,8 +201,10 @@ library.add(faUsers);
     SavePlanComponent,
     DeletePlanComponent,
     AssociatePlanComponent,
-    RegisterPaymentOrderComponent,
+    CreatePaymentOrderComponent,
+    EditPaymentOrderComponent,
     DeletePaymentOrderComponent,
+    ChangePaymentOrderStatusComponent,
   ],
   providers: [
     CompanyService,

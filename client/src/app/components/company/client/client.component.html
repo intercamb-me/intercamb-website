@@ -27,11 +27,11 @@
   <div class="row mt-4">
     <div class="col">
       <ng-container *ngIf="infoStep === 0">
-        <div class="d-flex">
-          <div class="flex-grow-1">
+        <div class="row">
+          <div class="col">
             <h2>Dados pessoais</h2>
           </div>
-          <div class="flex-grow-0">
+          <div class="col-auto">
             <button type="button" class="btn btn-primary mr-2" disabled>Anterior</button>
             <button (click)="nextInfoStep()" type="button" class="btn btn-primary">Próximo</button>
           </div>
@@ -101,11 +101,11 @@
         </div>
       </ng-container>
       <ng-container *ngIf="infoStep === 1">
-        <div class="d-flex">
-          <div class="flex-grow-1">
+        <div class="row">
+          <div class="col">
             <h2>Endereço</h2>
           </div>
-          <div class="flex-grow-0">
+          <div class="col-auto">
             <button (click)="previousInfoStep()" type="button" class="btn btn-primary mr-2">Anterior</button>
             <button (click)="nextInfoStep()" type="button" class="btn btn-primary">Próximo</button>
           </div>
@@ -157,11 +157,11 @@
         </div>
       </ng-container>
       <ng-container *ngIf="infoStep === 2">
-        <div class="d-flex">
-          <div class="flex-grow-1">
+        <div class="row">
+          <div class="col">
             <h2>Dados familiares</h2>
           </div>
-          <div class="flex-grow-0">
+          <div class="col-auto">
             <button (click)="previousInfoStep()" type="button" class="btn btn-primary mr-2">Anterior</button>
             <button (click)="nextInfoStep()" type="button" class="btn btn-primary">Próximo</button>
           </div>
@@ -205,11 +205,11 @@
         </div>
       </ng-container>
       <ng-container *ngIf="infoStep === 3">
-        <div class="d-flex">
-          <div class="flex-grow-1">
+        <div class="row">
+          <div class="col">
             <h2>Dados acadêmicos</h2>
           </div>
-          <div class="flex-grow-0">
+          <div class="col-auto">
             <button (click)="previousInfoStep()" type="button" class="btn btn-primary mr-2">Anterior</button>
             <button (click)="nextInfoStep()" type="button" class="btn btn-primary">Próximo</button>
           </div>
@@ -269,11 +269,11 @@
         </div>
       </ng-container>
       <ng-container *ngIf="infoStep === 4">
-        <div class="d-flex">
-          <div class="flex-grow-1">
+        <div class="row">
+          <div class="col">
             <h2>Curso pretendido</h2>
           </div>
-          <div class="flex-shrink-0">
+          <div class="col-auto">
             <button (click)="previousInfoStep()" type="button" class="btn btn-primary mr-2">Anterior</button>
             <button (click)="nextInfoStep()" type="button" class="btn btn-primary">Próximo</button>
           </div>
@@ -304,11 +304,11 @@
         </div>
       </ng-container>
       <ng-container *ngIf="infoStep === 5">
-        <div class="d-flex">
-          <div class="flex-grow-1">
+        <div class="row">
+          <div class="col">
             <h2>Informações adicionais</h2>
           </div>
-          <div class="flex-grow-0">
+          <div class="col-auto">
             <button (click)="previousInfoStep()" type="button" class="btn btn-primary mr-2">Anterior</button>
             <button type="button" class="btn btn-primary" disabled>Próximo</button>
           </div>
@@ -339,7 +339,7 @@
           <h2 class="mb-0">Pagamentos</h2>
         </div>
         <div class="col-auto">
-          <button (click)="openRegisterPaymentOrder()" type="button" class="btn btn-primary">
+          <button (click)="openCreatePaymentOrder()" type="button" class="btn btn-primary">
             Registrar ordem
           </button>
         </div>
@@ -348,32 +348,67 @@
         <h5 class="mb-0 text-center">Nenhuma ordem registrada</h5>
       </div>
       <div *ngIf="paymentOrders.length > 0" class="row">
-        <div *ngFor="let paymentOrder of paymentOrders; let idx = index; trackBy: trackByPaymentOrder" class="col-4 mt-3">
+        <div *ngFor="let paymentOrder of paymentOrders; let idx = index; trackBy: trackByPaymentOrder" class="col-6 mt-3">
           <div class="payment">
             <div class="card-body">
-              <div class="card-title">
-                <h5 class="d-flex align-items-center">
-                  <fa-icon [icon]="paymentMethods[paymentOrder.method].icon" [fixedWidth]="true"></fa-icon>
-                  <span class="ml-2">{{ paymentMethods[paymentOrder.method].name }}</span>
+              <div class="card-title d-flex align-items-center mb-2">
+                <fa-icon [icon]="paymentMethods[paymentOrder.method].icon" [fixedWidth]="true"></fa-icon>
+                <h5 class="d-inline-block flex-grow-1 ml-2 mb-0">
+                  {{ paymentMethods[paymentOrder.method].name }}
                 </h5>
               </div>
-              <div>
-                <span>{{ paymentOrder.amount | currency:company.currency }}</span>
+              <div class="mb-2">
+                {{ paymentOrder.amount | currency:company.currency }}
+                <span *ngIf="paymentOrder.due_date">· {{ paymentOrder.due_date | date:"MMM d, y" | titlecase }}</span>
               </div>
-              <div class="actions">
-                <fa-icon
-                  [icon]="['fas', 'pen']"
-                  [fixedWidth]="true"
-                  (click)="openEditPaymentOrder(paymentOrder)"
-                  title="Editar">
-                </fa-icon>
-                <fa-icon
-                  [icon]="['fas', 'trash']"
-                  [fixedWidth]="true"
-                  (click)="openDeletePaymentOrder(paymentOrder)"
-                  title="Remover"
-                  class="ml-2">
-                </fa-icon>
+              <div class="d-flex align-items-center">
+                <div class="badges">
+                  <span
+                    *ngIf="!paymentOrder.paid"
+                    [ngClass]="{
+                      'badge-secondary': !isOverduePayment(paymentOrder),
+                      'badge-orange': isOverduePayment(paymentOrder)
+                    }"
+                    class="badge">
+                    <span>Pendente</span>
+                    <fa-icon
+                      [icon]="['fas', 'pen']"
+                      [fixedWidth]="true"
+                      (click)="openChangePaymentOrderStatus(paymentOrder)"
+                      title="Alterar"
+                      class="inherit-line-height cursor-pointer ml-2">
+                    </fa-icon>
+                  </span>
+                  <span *ngIf="paymentOrder.paid" class="badge badge-success">
+                    <span>Pago</span>
+                    <fa-icon
+                      [icon]="['fas', 'pen']"
+                      [fixedWidth]="true"
+                      (click)="openChangePaymentOrderStatus(paymentOrder)"
+                      title="Alterar"
+                      class="inherit-line-height cursor-pointer ml-2">
+                    </fa-icon>
+                  </span>
+                  <span *ngIf="paymentOrder.paid && paymentOrder.payment_date" class="badge badge-deep-orange">
+                    <fa-icon [icon]="['far', 'clock']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
+                    <span class="ml-1">{{ paymentOrder.payment_date | date:"MMM d, y" | titlecase }}</span>
+                  </span>
+                </div>
+                <div class="actions">
+                  <fa-icon
+                    [icon]="['fas', 'pen']"
+                    [fixedWidth]="true"
+                    (click)="openEditPaymentOrder(paymentOrder)"
+                    title="Editar">
+                  </fa-icon>
+                  <fa-icon
+                    [icon]="['fas', 'trash']"
+                    [fixedWidth]="true"
+                    (click)="openDeletePaymentOrder(paymentOrder)"
+                    title="Remover"
+                    class="ml-2">
+                  </fa-icon>
+                </div>
               </div>
             </div>
           </div>
@@ -385,7 +420,7 @@
     <div class="col">
       <h2>Atividades</h2>
       <ngx-masonry [options]="masonryOptions" class="row">
-        <ngxMasonryItem *ngFor="let task of tasks; trackBy: trackByTask" class="col-6" style="margin-bottom: 20px">
+        <ngxMasonryItem *ngFor="let task of tasks; trackBy: trackByTask" class="col-6" style="margin-bottom: 1rem;">
           <div (click)="openTask(task)" class="task">
             <div class="card-body">
               <h5 class="card-title">{{ task.name }}</h5>
@@ -395,15 +430,15 @@
                 </span>
                 <span *ngIf="task.comments.length > 0" class="badge badge-secondary">
                   <fa-icon [icon]="['far', 'comment']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
-                  {{ task.comments.length }}
+                  <span class="ml-1">{{ task.comments.length }}</span>
                 </span>
                 <span *ngIf="task.attachments.length > 0" class="badge badge-secondary">
                   <fa-icon [icon]="['fas', 'paperclip']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
-                  {{ task.attachments.length }}
+                  <span class="ml-1">{{ task.attachments.length }}</span>
                 </span>
-                <span *ngIf="task.schedule_date" class="badge badge-orange">
+                <span *ngIf="task.schedule_date" class="badge badge-deep-orange">
                   <fa-icon [icon]="['far', 'clock']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
-                  {{ task.schedule_date | date:"MMM d, y" | titlecase }}
+                  <span class="ml-1">{{ task.schedule_date | date:"MMM d, y" | titlecase }}</span>
                 </span>
               </div>
             </div>

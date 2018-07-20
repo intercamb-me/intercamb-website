@@ -3,8 +3,8 @@ import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap/modal/modal.m
 import {mergeMap} from 'rxjs/operators';
 import * as distanceInWordsStrict from 'date-fns/distance_in_words_strict';
 
-import {ChangeTaskStatusComponent} from 'app/components/company/task/change-status/change-task-status.component';
-import {SetTaskScheduleDateComponent} from 'app/components/company/task/set-schedule-date/set-task-schedule-date.component';
+import {ChangeTaskStatusComponent} from 'app/components/company/task/change-status/change-status.component';
+import {SetTaskScheduleDateComponent} from 'app/components/company/task/set-schedule-date/set-schedule-date.component';
 
 import {CompanyService} from 'app/services/company.service';
 import {TaskService} from 'app/services/task.service';

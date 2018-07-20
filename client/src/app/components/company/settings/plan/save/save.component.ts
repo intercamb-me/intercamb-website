@@ -7,7 +7,7 @@ import {Plan} from 'app/models/plan.model';
 
 @Component({
   selector: 'app-save-plan',
-  templateUrl: './save-plan.component.html',
+  templateUrl: './save.component.html',
 })
 export class SavePlanComponent implements OnInit {
 

@@ -31,9 +31,8 @@ export class PersonalData {
 
   public toJSON(): any {
     const json = cloneDeep(this) as any;
-    json.birthdate = DateUtils.toDateOnly(json.birthdate);
-    if (!json.birthdate) {
-      delete json.birthdate;
+    if (json.birthdate) {
+      json.birthdate = DateUtils.toDateOnly(json.birthdate);
     }
     return json;
   }

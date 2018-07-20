@@ -197,7 +197,6 @@
                         #birthdatePicker="ngbDatepicker"
                         ngbDatepicker
                         [(ngModel)]="birthdateStruct"
-                        [minDate]="pastDateStruct"
                         (keypress)="onlyDateChars($event)"
                         id="pd-birthdate"
                         name="pd-birthdate"
@@ -266,12 +265,12 @@
           <div class="card">
             <div class="card-body">
               <form #form="ngForm" class="was-validated" novalidate>
-                <div class="d-flex align-items-center">
-                  <div class="flex-grow-1">
+                <div class="row align-items-center">
+                  <div class="col">
                     <h2 class="mb-3">Endereço</h2>
                   </div>
-                  <div class="flex-grow-0">
-                    <button class="btn btn-info">Buscar pelo CEP</button>
+                  <div class="col-auto">
+                    <button (click)="searchAddress()" class="btn btn-info">Buscar pelo CEP</button>
                   </div>
                 </div>
                 <div class="row">

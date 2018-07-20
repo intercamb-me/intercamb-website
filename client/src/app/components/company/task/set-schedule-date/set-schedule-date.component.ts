@@ -22,8 +22,8 @@ import {Client} from 'app/models/client.model';
 import {Task} from 'app/models/task.model';
 
 @Component({
-  selector: 'app-set-task-schedule-date',
-  templateUrl: './set-task-schedule-date.component.html',
+  selector: 'app-set-schedule-date',
+  templateUrl: './set-schedule-date.component.html',
 })
 export class SetTaskScheduleDateComponent implements OnInit {
 

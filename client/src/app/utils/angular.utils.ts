@@ -79,7 +79,7 @@ export class BrazilianNgbDateParserFormatter extends NgbDateParserFormatter {
     const dateSplit = dateStr.split('/');
     return {
       day: Number(dateSplit[0]),
-      month: Number(dateSplit[1]) - 1,
+      month: Number(dateSplit[1]),
       year: Number(dateSplit[2]),
     };
   }

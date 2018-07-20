@@ -96,7 +96,7 @@ export class ClientService {
     );
   }
 
-  public registerPaymentOrders(client: Client, paymentOrders: PaymentOrder[]): Observable<PaymentOrder> {
+  public createPaymentOrders(client: Client, paymentOrders: PaymentOrder[]): Observable<PaymentOrder> {
     return this.http.post<PaymentOrder>(RequestUtils.getApiUrl(`/clients/${client.id}/payment_orders`), paymentOrders, RequestUtils.getJsonOptions()).pipe(
       map((ordersData: PaymentOrder[]) => {
         const orders: PaymentOrder[] = [];

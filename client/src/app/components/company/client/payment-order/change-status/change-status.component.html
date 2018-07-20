@@ -1,0 +1,77 @@
+<div id="edit-payment-order">
+  <form #form="ngForm" novalidate>
+    <div class="modal-header">
+      <h4 class="modal-title">Alterar status</h4>
+      <button (click)="close()" type="button" class="close" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div *ngIf="!selectingPaymentDate" class="row justify-content-center">
+        <div class="col-6 form-group mb-0">
+          <button
+            (click)="changeStatus(false)"
+            class="btn btn-secondary btn-block mb-2"
+            type="button">
+            <fa-icon
+              *ngIf="!paid"
+              [icon]="['fas', 'check']"
+              [fixedWidth]="true"
+              class="d-inline-block mr-2">
+            </fa-icon>
+            <span>Pendente</span>
+          </button>
+          <button
+            (click)="changeStatus(true)"
+            class="btn btn-success btn-block"
+            type="button">
+            <fa-icon
+              *ngIf="paid"
+              [icon]="['fas', 'check']"
+              [fixedWidth]="true"
+              class="d-inline-block mr-2">
+            </fa-icon>
+            <span>Pago</span>
+          </button>
+        </div>
+      </div>
+      <div *ngIf="selectingPaymentDate" class="form-group mb-0">
+        <label for="payment-date">Data do pagamento</label>
+        <div class="input-group">
+          <input
+            #paymentDate="ngModel"
+            #paymentDatePicker="ngbDatepicker"
+            ngbDatepicker
+            [(ngModel)]="paymentDateStruct"
+            [ngClass]="{'is-invalid': paymentDate.invalid && (paymentDate.dirty || paymentDate.touched)}"
+            (keypress)="onlyDateChars($event)"
+            id="payment-date"
+            name="payment-date"
+            class="form-control"
+            placeholder="dd/mm/yyyy">
+          <div class="input-group-append">
+            <button class="btn btn-info" (click)="paymentDatePicker.toggle()" type="button">
+              <fa-icon [icon]="['fas', 'calendar-alt']" [fixedWidth]="true"></fa-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="selectingPaymentDate" class="modal-footer">
+      <button
+        [disabled]="form.invalid"
+        (click)="backToStatusOptions()"
+        type="button"
+        class="btn btn-secondary">
+        Voltar
+      </button>
+      <button
+        [disabled]="form.invalid"
+        (click)="updatePaymentOrder()"
+        type="button"
+        class="btn btn-primary">
+        Atualizar
+      </button>
+    </div>
+  </form>
+</div>

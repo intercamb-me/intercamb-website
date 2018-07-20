@@ -163,12 +163,7 @@
         font-size: 30px;
       }
       .badge {
-        .py-2();
-        .px-2();
-        .text-white();
-        .mb-0();
         font-size: 16px;
-        font-weight: 400;
       }
     }
   }
@@ -185,9 +180,14 @@
         font-size: 25px;
       }
     }
+    .badges {
+      .flex-grow-1();
+      > .badge {
+        .mr-2();
+        font-size: 14px;
+      }
+    }
     .actions {
-      .d-flex();
-      .justify-content-end();
       visibility: hidden;
       font-size: 16px;
       cursor: pointer;
@@ -198,9 +198,7 @@
     cursor: pointer;
     .badge {
       .mr-2();
-      padding: 6px;
       font-size: 14px;
-      font-weight: 400;
     }
   }
 }
@@ -241,9 +239,7 @@
     align-items: unset;
     .badge {
       .mr-2();
-      padding: 6px;
       font-size: 16px;
-      font-weight: 400;
     }
   }
   > .modal-body {
@@ -267,7 +263,7 @@
   }
 }
 
-#register-payment-order {
+#create-payment-order, #edit-payment-order {
   .method {
     .card();
     &.selected {

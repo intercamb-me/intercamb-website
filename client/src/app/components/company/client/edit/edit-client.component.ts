@@ -6,10 +6,10 @@ import {AlertService} from 'app/services/alert.service';
 import {Client} from 'app/models/client.model';
 
 @Component({
-  selector: 'app-update-client',
-  templateUrl: './update-client.component.html',
+  selector: 'app-edit-client',
+  templateUrl: './edit-client.component.html',
 })
-export class UpdateClientComponent implements OnInit {
+export class EditClientComponent implements OnInit {
 
   public client: Client;
   public loading = true;

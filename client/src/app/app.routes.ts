@@ -9,7 +9,7 @@ import {ClientsComponent} from 'app/components/company/clients/clients.component
 import {ClientComponent} from 'app/components/company/client/client.component';
 import {ClientFormComponent} from 'app/components/company/client/form/client-form.component';
 import {CreateClientComponent} from 'app/components/company/client/create/create-client.component';
-import {UpdateClientComponent} from 'app/components/company/client/update/update-client.component';
+import {EditClientComponent} from 'app/components/company/client/edit/edit-client.component';
 import {SchedulingComponent} from 'app/components/company/scheduling/scheduling.component';
 import {ReportsComponent} from 'app/components/company/reports/reports.component';
 import {CompanySettingsComponent} from 'app/components/company/settings/company-settings.component';
@@ -24,7 +24,7 @@ export class AppRoutes {
       {path: 'company', component: CompanyComponent, children: [
         {path: 'clients', component: ClientsComponent},
         {path: 'clients/new', component: CreateClientComponent},
-        {path: 'clients/:client/edit', component: UpdateClientComponent},
+        {path: 'clients/:client/edit', component: EditClientComponent},
         {path: 'clients/:client', component: ClientComponent},
         {path: 'scheduling', component: SchedulingComponent},
         {path: 'reports', component: ReportsComponent},

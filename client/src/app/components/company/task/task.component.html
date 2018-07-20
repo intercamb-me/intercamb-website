@@ -12,15 +12,15 @@
       </span>
       <span *ngIf="task.comments.length > 0" class="badge badge-secondary">
         <fa-icon [icon]="['far', 'comment']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
-        {{ task.comments.length }}
+        <span class="ml-1">{{ task.comments.length }}</span>
       </span>
       <span *ngIf="task.attachments.length > 0" class="badge badge-secondary">
         <fa-icon [icon]="['fas', 'paperclip']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
-        {{ task.attachments.length }}
+        <span class="ml-1">{{ task.attachments.length }}</span>
       </span>
-      <span *ngIf="task.schedule_date" class="badge badge-orange">
+      <span *ngIf="task.schedule_date" class="badge badge-deep-orange">
         <fa-icon [icon]="['far', 'clock']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
-        {{ task.schedule_date | date:"dd 'de' MMMM 'de' yyyy 'às' HH:mm" }}
+        <span class="ml-1">{{ task.schedule_date | date:"dd 'de' MMMM 'de' yyyy 'às' HH:mm" }}</span>
       </span>
     </div>
   </div>
@@ -75,7 +75,7 @@
       <div class="flex-shrink-0 d-flex flex-column justify-content-start">
         <button (click)="openChangeStatus(task)" type="button" class="btn btn-primary d-flex align-items-center">
           <fa-icon [icon]="['fas', 'tasks']" [fixedWidth]="true" class="flex-shrink-0"></fa-icon>
-          <span class="ml-2">Alterar estado</span>
+          <span class="ml-2">Alterar status</span>
         </button>
         <button (click)="openSetScheduleDate(task)" type="button" class="btn btn-primary d-flex align-items-center mt-2">
           <fa-icon [icon]="['far', 'clock']" [fixedWidth]="true" class="flex-shrink-0"></fa-icon>

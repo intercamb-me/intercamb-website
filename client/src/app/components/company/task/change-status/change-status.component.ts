@@ -9,8 +9,8 @@ import {Client} from 'app/models/client.model';
 import {Task} from 'app/models/task.model';
 
 @Component({
-  selector: 'app-change-task-status',
-  templateUrl: './change-task-status.component.html',
+  selector: 'app-change-status',
+  templateUrl: './change-status.component.html',
 })
 export class ChangeTaskStatusComponent {
 

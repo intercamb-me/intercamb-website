@@ -3,8 +3,8 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
 import {mergeMap} from 'rxjs/operators';
 import findIndex from 'lodash-es/findIndex';
 
-import {SavePlanComponent} from 'app/components/company/settings/save-plan/save-plan.component';
-import {DeletePlanComponent} from 'app/components/company/settings/delete-plan/delete-plan.component';
+import {SavePlanComponent} from 'app/components/company/settings/plan/save/save.component';
+import {DeletePlanComponent} from 'app/components/company/settings/plan/delete/delete.component';
 import {ColorSelected, PaletteVariant} from 'app/components/custom/material-palette-picker/material-palette-picker.component';
 
 import {CompanyService} from 'app/services/company.service';

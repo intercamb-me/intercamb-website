@@ -91,6 +91,7 @@ export class MaterialPalettePickerComponent implements OnInit {
         this.selectedPaletteVariant = find(this.selectedPalette.variants, (variant: PaletteVariant) => {
           return variant.name === this.variant;
         });
+        this.selectPalette(this.selectedPalette, this.selectedPaletteVariant);
       } else {
         this.openedPalette = find(this.palettes, (palette: Palette) => {
           return palette.name === this.palette;
@@ -103,6 +104,7 @@ export class MaterialPalettePickerComponent implements OnInit {
         });
         return !isNil(this.selectedPaletteVariant);
       });
+      this.selectPalette(this.selectedPalette, this.selectedPaletteVariant);
     }
   }
 
