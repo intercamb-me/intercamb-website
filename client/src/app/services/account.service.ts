@@ -22,7 +22,8 @@ export class AccountService {
   }
 
   public createAccount(firstName: string, lastName: string, email: string, password: string): Observable<Account> {
-    return this.http.post<Account>(RequestUtils.getApiUrl('/accounts'), {email, password, first_name: firstName, last_name: lastName}, RequestUtils.getJsonOptions()).pipe(
+    const httpUrl = RequestUtils.getApiUrl('/accounts');
+    return this.http.post<Account>(httpUrl, {email, password, first_name: firstName, last_name: lastName}, RequestUtils.getJsonOptions()).pipe(
       map((accountData: Account) => new Account(accountData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
@@ -33,7 +34,8 @@ export class AccountService {
   }
 
   public getAccount(): Observable<Account> {
-    return this.http.get<Account>(RequestUtils.getApiUrl('/accounts/current'), RequestUtils.getJsonOptions()).pipe(
+    const httpUrl = RequestUtils.getApiUrl('/accounts/current');
+    return this.http.get<Account>(httpUrl, RequestUtils.getJsonOptions()).pipe(
       map((accountData: Account) => accountData ? new Account(accountData) : null),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
@@ -44,7 +46,8 @@ export class AccountService {
   }
 
   public login(email: string, password: string): Observable<Account> {
-    return this.http.post<LoginResult>(RequestUtils.getApiUrl('/accounts/login'), {email, password}, RequestUtils.getJsonOptions()).pipe(
+    const httpUrl = RequestUtils.getApiUrl('/accounts/login');
+    return this.http.post<LoginResult>(httpUrl, {email, password}, RequestUtils.getJsonOptions()).pipe(
       map((loginData: LoginResult) => {
         StorageUtils.setApiToken(loginData.token);
         return new Account(loginData.account);
@@ -58,7 +61,8 @@ export class AccountService {
   }
 
   public logout(): Observable<void> {
-    return this.http.post<void>(RequestUtils.getApiUrl('/accounts/logout'), null, RequestUtils.getJsonOptions()).pipe(
+    const httpUrl = RequestUtils.getApiUrl('/accounts/logout');
+    return this.http.post<void>(httpUrl, null, RequestUtils.getJsonOptions()).pipe(
       map(() => {
         StorageUtils.removeApiToken();
         return null;

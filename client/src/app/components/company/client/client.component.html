@@ -399,7 +399,7 @@
               <div class="d-flex align-items-center">
                 <div class="badges">
                   <span
-                    *ngIf="!paymentOrder.paid"
+                    *ngIf="!paymentOrder.payment_date"
                     [ngClass]="{
                       'badge-secondary': !isOverduePayment(paymentOrder),
                       'badge-orange': isOverduePayment(paymentOrder)
@@ -414,7 +414,7 @@
                       class="inherit-line-height cursor-pointer ml-2">
                     </fa-icon>
                   </span>
-                  <span *ngIf="paymentOrder.paid" class="badge badge-success">
+                  <span *ngIf="paymentOrder.payment_date" class="badge badge-success">
                     <span>Pago</span>
                     <fa-icon
                       [icon]="['fas', 'pen']"
@@ -424,7 +424,7 @@
                       class="inherit-line-height cursor-pointer ml-2">
                     </fa-icon>
                   </span>
-                  <span *ngIf="paymentOrder.paid && paymentOrder.payment_date" class="badge badge-deep-orange">
+                  <span *ngIf="paymentOrder.payment_date" class="badge badge-deep-orange">
                     <fa-icon [icon]="['far', 'clock']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
                     <span class="ml-1">{{ paymentOrder.payment_date | date:"MMM d, y" | titlecase }}</span>
                   </span>

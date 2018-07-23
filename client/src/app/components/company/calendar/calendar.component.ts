@@ -29,15 +29,16 @@ interface CalendarEventMeta {
 }
 
 @Component({
-  selector: 'app-scheduling',
-  templateUrl: './scheduling.component.html',
+  selector: 'app-calendar',
+  templateUrl: './calendar.component.html',
 })
-export class SchedulingComponent implements OnInit {
+export class CalendarComponent implements OnInit {
 
   private static readonly VIEW_MONTH = 'month';
   private static readonly VIEW_DAY = 'day';
+  private static readonly CLIENT_FIELDS = 'forename surname';
 
-  public calendarView = SchedulingComponent.VIEW_MONTH;
+  public calendarView = CalendarComponent.VIEW_MONTH;
   public calendarDate = new Date();
   public calendarMonthEvents: CalendarEvent[] = [];
   public calendarDayEvents: any = {};
@@ -58,17 +59,17 @@ export class SchedulingComponent implements OnInit {
 
   public fetchEvents(): void {
     let currentTasks: Task[];
-    this.companyService.listScheduledTasks(this.getStartDate(), this.getEndDate()).pipe(
+    this.companyService.listTasks(this.getStartDate(), this.getEndDate()).pipe(
       mergeMap((tasks) => {
         currentTasks = tasks;
         const clientIds: string[] = [];
         tasks.forEach((task) => {
           clientIds.push(task.client);
         });
-        return this.companyService.listClients(clientIds);
+        return this.companyService.listClients(clientIds, CalendarComponent.CLIENT_FIELDS);
       })
     ).subscribe((clients) => {
-      if (this.calendarView === SchedulingComponent.VIEW_MONTH) {
+      if (this.calendarView === CalendarComponent.VIEW_MONTH) {
         this.setCalendarMonthEvents(currentTasks, clients);
       } else {
         this.setCalendarDayEvents(currentTasks, clients);
@@ -93,7 +94,7 @@ export class SchedulingComponent implements OnInit {
   }
 
   public onDayClicked(date: Date): void {
-    this.calendarView = SchedulingComponent.VIEW_DAY;
+    this.calendarView = CalendarComponent.VIEW_DAY;
     this.calendarDate = date;
     this.fetchEvents();
   }

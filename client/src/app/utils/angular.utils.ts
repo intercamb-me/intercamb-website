@@ -1,6 +1,6 @@
 import {Injectable, Pipe, PipeTransform} from '@angular/core';
 import {CurrencyPipe} from '@angular/common';
-import {NgbDateParserFormatter, NgbDateStruct, NgbDatepickerI18n} from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
+import {NgbDateParserFormatter, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
 import padStart from 'lodash-es/padStart';
 import forEach from 'lodash-es/forEach';
 import size from 'lodash-es/size';
@@ -65,7 +65,7 @@ export class CurrencySymbolPipe extends CurrencyPipe implements PipeTransform {
 
   public transform(currencyCode: string): string {
     const formattedCurrency = super.transform(0, currencyCode, 'symbol', '1.0-2');
-    return formattedCurrency.replace(/[0-9]/g, '');
+    return formattedCurrency.replace(/[0-9]/g, '').trim();
   }
 }
 
@@ -92,37 +92,5 @@ export class BrazilianNgbDateParserFormatter extends NgbDateParserFormatter {
     const month = padStart(String(dateStruct.month), 2, '0');
     const year = padStart(String(dateStruct.year), 4, '0');
     return `${day}/${month}/${year}`;
-  }
-}
-
-@Injectable()
-export class BrazilianNgbDatepickerI18n extends NgbDatepickerI18n {
-
-  private static readonly DEFAULT_LANGUAGE = 'pt-br';
-  private static readonly I18N_VALUES = {
-    'pt-br': {
-      weekdays: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab', 'Dom'],
-      months: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-      monthsFullNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-    },
-  };
-
-  public getWeekdayShortName(weekday: number): string {
-    const i18n = BrazilianNgbDatepickerI18n.I18N_VALUES;
-    return i18n[BrazilianNgbDatepickerI18n.DEFAULT_LANGUAGE].weekdays[weekday - 1];
-  }
-
-  public getMonthShortName(month: number): string {
-    const i18n = BrazilianNgbDatepickerI18n.I18N_VALUES;
-    return i18n[BrazilianNgbDatepickerI18n.DEFAULT_LANGUAGE].months[month - 1];
-  }
-
-  public getMonthFullName(month: number): string {
-    const i18n = BrazilianNgbDatepickerI18n.I18N_VALUES;
-    return i18n[BrazilianNgbDatepickerI18n.DEFAULT_LANGUAGE].monthsFullNames[month - 1];
-  }
-
-  public getDayAriaLabel(dateStruct: NgbDateStruct): string {
-    return `${dateStruct.day}-${dateStruct.month}-${dateStruct.year}`;
   }
 }

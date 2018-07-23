@@ -14,7 +14,10 @@ import {Client} from 'app/models/client.model';
 })
 export class ClientsComponent implements OnInit {
 
+  private static readonly CLIENT_FIELDS = 'forename surname email phone photo_url';
+
   public clients: Client[];
+  public search: string;
   public loading = true;
 
   public masonryOptions: NgxMasonryOptions = {
@@ -28,7 +31,7 @@ export class ClientsComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.companyService.listClients().subscribe((clients) => {
+    this.companyService.listClients(null, ClientsComponent.CLIENT_FIELDS).subscribe((clients) => {
       this.clients = clients;
       this.loading = false;
     }, (err) => {
@@ -42,5 +45,13 @@ export class ClientsComponent implements OnInit {
 
   public openSendForm(): void {
     this.ngbModal.open(CreateClientFormComponent);
+  }
+
+  public searchClients(): void {
+    this.companyService.searchClients(this.search, ClientsComponent.CLIENT_FIELDS).subscribe((clients) => {
+      this.clients = clients;
+    }, (err) => {
+      this.alertService.apiError(null, err);
+    });
   }
 }

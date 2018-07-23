@@ -13,7 +13,7 @@ import {NgbAlertModule} from '@ng-bootstrap/ng-bootstrap/alert/alert.module';
 import {NgbModalModule} from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
 import {NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap/dropdown/dropdown.module';
 import {NgbPopoverModule} from '@ng-bootstrap/ng-bootstrap/popover/popover.module';
-import {NgbDatepickerModule, NgbDateParserFormatter, NgbDatepickerI18n} from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
+import {NgbDatepickerModule, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
 import {NgbTimepickerModule} from '@ng-bootstrap/ng-bootstrap/timepicker/timepicker.module';
 
 // Fontawesome
@@ -33,6 +33,7 @@ import {faDollarSign} from '@fortawesome/free-solid-svg-icons/faDollarSign';
 import {faEllipsisV} from '@fortawesome/free-solid-svg-icons/faEllipsisV';
 import {faEnvelope} from '@fortawesome/free-solid-svg-icons/faEnvelope';
 import {faEnvelopeOpen} from '@fortawesome/free-solid-svg-icons/faEnvelopeOpen';
+import {faHome} from '@fortawesome/free-solid-svg-icons/faHome';
 import {faKey} from '@fortawesome/free-solid-svg-icons/faKey';
 import {faPaperclip} from '@fortawesome/free-solid-svg-icons/faPaperclip';
 import {faPen} from '@fortawesome/free-solid-svg-icons/faPen';
@@ -58,13 +59,14 @@ import {SignUpComponent} from 'app/components/signup/signup.component';
 import {SignInComponent} from 'app/components/signin/signin.component';
 import {SetupCompanyComponent} from 'app/components/company/setup/setup-company.component';
 import {CompanyComponent} from 'app/components/company/company.component';
+import {HomeComponent} from 'app/components/company/home/home.component';
 import {ClientsComponent} from 'app/components/company/clients/clients.component';
 import {ClientComponent} from 'app/components/company/client/client.component';
 import {ClientFormComponent} from 'app/components/company/client/form/client-form.component';
 import {SaveClientComponent} from 'app/components/company/client/save/save-client.component';
 import {CreateClientComponent} from 'app/components/company/client/create/create-client.component';
 import {EditClientComponent} from 'app/components/company/client/edit/edit-client.component';
-import {SchedulingComponent} from 'app/components/company/scheduling/scheduling.component';
+import {CalendarComponent} from 'app/components/company/calendar/calendar.component';
 import {ReportsComponent} from 'app/components/company/reports/reports.component';
 import {CompanySettingsComponent} from 'app/components/company/settings/company-settings.component';
 
@@ -105,7 +107,6 @@ import {
   HyphensIfEmptyPipe,
   CurrencySymbolPipe,
   BrazilianNgbDateParserFormatter,
-  BrazilianNgbDatepickerI18n,
 } from 'app/utils/angular.utils';
 
 registerLocaleData(pt);
@@ -124,6 +125,7 @@ library.add(faDollarSign);
 library.add(faEllipsisV);
 library.add(faEnvelope);
 library.add(faEnvelopeOpen);
+library.add(faHome);
 library.add(faKey);
 library.add(faPaperclip);
 library.add(faPen);
@@ -165,15 +167,16 @@ library.add(faUsers);
     NotFoundComponent,
     SignUpComponent,
     SignInComponent,
-    CompanyComponent,
     SetupCompanyComponent,
+    CompanyComponent,
+    HomeComponent,
     ClientsComponent,
     CreateClientFormComponent,
     ClientComponent,
     SaveClientComponent,
     CreateClientComponent,
     EditClientComponent,
-    SchedulingComponent,
+    CalendarComponent,
     ReportsComponent,
     CompanySettingsComponent,
     // Shared Components
@@ -217,7 +220,6 @@ library.add(faUsers);
     AlertService,
     EventService,
     {provide: LOCALE_ID, useValue: 'pt'},
-    {provide: NgbDatepickerI18n, useClass: BrazilianNgbDatepickerI18n},
     {provide: NgbDateParserFormatter, useClass: BrazilianNgbDateParserFormatter},
   ],
   bootstrap: [AppComponent],

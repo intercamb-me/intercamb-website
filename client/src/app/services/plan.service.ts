@@ -16,7 +16,8 @@ export class PlanService {
   }
 
   public getPlan(id: string): Observable<Plan> {
-    return this.http.get<Plan>(RequestUtils.getApiUrl(`/plans/${id}`), RequestUtils.getJsonOptions()).pipe(
+    const httpUrl = RequestUtils.getApiUrl(`/plans/${id}`);
+    return this.http.get<Plan>(httpUrl, RequestUtils.getJsonOptions()).pipe(
       map((planData: Plan) => new Plan(planData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
@@ -27,7 +28,8 @@ export class PlanService {
   }
 
   public createPlan(name: string, price: number): Observable<Plan> {
-    return this.http.post<Plan>(RequestUtils.getApiUrl('/plans'), {name, price}, RequestUtils.getJsonOptions()).pipe(
+    const httpUrl = RequestUtils.getApiUrl('/plans');
+    return this.http.post<Plan>(httpUrl, {name, price}, RequestUtils.getJsonOptions()).pipe(
       map((planData: Plan) => new Plan(planData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
@@ -38,7 +40,8 @@ export class PlanService {
   }
 
   public updatePlan(plan: Plan): Observable<Plan> {
-    return this.http.put<Plan>(RequestUtils.getApiUrl(`/plans/${plan.id}`), plan, RequestUtils.getJsonOptions()).pipe(
+    const httpUrl = RequestUtils.getApiUrl(`/plans/${plan.id}`);
+    return this.http.put<Plan>(httpUrl, plan, RequestUtils.getJsonOptions()).pipe(
       map((planData: Plan) => new Plan(planData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
@@ -49,7 +52,8 @@ export class PlanService {
   }
 
   public deletePlan(plan: Plan): Observable<void> {
-    return this.http.delete<void>(RequestUtils.getApiUrl(`/plans/${plan.id}`), RequestUtils.getJsonOptions()).pipe(
+    const httpUrl = RequestUtils.getApiUrl(`/plans/${plan.id}`);
+    return this.http.delete<void>(httpUrl, RequestUtils.getJsonOptions()).pipe(
       map(() => null),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);

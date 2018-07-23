@@ -17,8 +17,8 @@ export class ChangePaymentOrderStatusComponent implements OnInit {
   @Input()
   public paymentOrder: PaymentOrder;
 
-  public paid: boolean;
   public paymentDateStruct: NgbDateStruct;
+  public maxPaymentDateStruct: NgbDateStruct;
   public onlyDateChars = onlyDateChars;
   public selectingPaymentDate = false;
   public loading = true;
@@ -28,8 +28,8 @@ export class ChangePaymentOrderStatusComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.paid = this.paymentOrder.paid;
     this.paymentDateStruct = DateUtils.toDateStruct(this.paymentOrder.payment_date);
+    this.maxPaymentDateStruct = DateUtils.toDateStruct(new Date());
   }
 
   public trackByIndex(index: number): number {
@@ -41,11 +41,10 @@ export class ChangePaymentOrderStatusComponent implements OnInit {
   }
 
   public changeStatus(paid: boolean): void {
-    this.paid = paid;
-    this.paymentDateStruct = null;
     if (paid) {
       this.selectingPaymentDate = true;
     } else {
+      this.paymentDateStruct = null;
       this.updatePaymentOrder();
     }
   }
@@ -56,8 +55,7 @@ export class ChangePaymentOrderStatusComponent implements OnInit {
 
   public updatePaymentOrder(): void {
     const data = {
-      paid: this.paid,
-      payment_date: this.paid ? DateUtils.fromDateStruct(this.paymentDateStruct) : null,
+      payment_date: DateUtils.fromDateStruct(this.paymentDateStruct),
     };
     this.paymentService.updatePaymentOrder(this.paymentOrder, data).subscribe((paymentOrder) => {
       this.ngbActiveModal.close(paymentOrder);

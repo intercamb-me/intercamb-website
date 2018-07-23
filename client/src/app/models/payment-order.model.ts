@@ -11,7 +11,6 @@ export class PaymentOrder {
   public method: string;
   public amount: number;
   public due_date: Date;
-  public paid: boolean;
   public payment_date: Date;
   public registration_date: Date;
 
@@ -22,7 +21,6 @@ export class PaymentOrder {
       this.client = data.client;
       this.method = data.method;
       this.amount = data.amount;
-      this.paid = data.paid;
       this.due_date = DateUtils.fromDateOnly(data.due_date);
       this.payment_date = DateUtils.fromDateOnly(data.payment_date);
       this.registration_date = new Date(data.registration_date);

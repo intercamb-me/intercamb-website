@@ -18,7 +18,8 @@ export class TaskService {
   }
 
   public getTask(id: string): Observable<Task> {
-    return this.http.get<Task>(RequestUtils.getApiUrl(`/tasks/${id}`), RequestUtils.getJsonOptions()).pipe(
+    const httpUrl = RequestUtils.getApiUrl(`/tasks/${id}`);
+    return this.http.get<Task>(httpUrl, RequestUtils.getJsonOptions()).pipe(
       map((taskData: Task) => new Task(taskData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
@@ -29,7 +30,8 @@ export class TaskService {
   }
 
   public updateTask(task: Task, data: any): Observable<Task> {
-    return this.http.put<Task>(RequestUtils.getApiUrl(`/tasks/${task.id}`), data, RequestUtils.getJsonOptions()).pipe(
+    const httpUrl = RequestUtils.getApiUrl(`/tasks/${task.id}`);
+    return this.http.put<Task>(httpUrl, data, RequestUtils.getJsonOptions()).pipe(
       map((taskData: Task) => new Task(taskData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
@@ -40,7 +42,8 @@ export class TaskService {
   }
 
   public addTaskComment(task: Task, text: string): Observable<TaskComment> {
-    return this.http.post<TaskComment>(RequestUtils.getApiUrl(`/tasks/${task.id}/comments`), {text}, RequestUtils.getJsonOptions()).pipe(
+    const httpUrl = RequestUtils.getApiUrl(`/tasks/${task.id}/comments`);
+    return this.http.post<TaskComment>(httpUrl, {text}, RequestUtils.getJsonOptions()).pipe(
       map((commentData: TaskComment) => new TaskComment(commentData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
@@ -51,9 +54,10 @@ export class TaskService {
   }
 
   public addTaskAttachment(task: Task, file: File): Observable<TaskAttachment> {
+    const httpUrl = RequestUtils.getApiUrl(`/tasks/${task.id}/attachments`);
     const formData = new FormData();
     formData.append('file', file);
-    return this.http.post<TaskAttachment>(RequestUtils.getApiUrl(`/tasks/${task.id}/attachments`), formData, RequestUtils.getOptions()).pipe(
+    return this.http.post<TaskAttachment>(httpUrl, formData, RequestUtils.getOptions()).pipe(
       map((attachmentData: TaskAttachment) => new TaskAttachment(attachmentData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);

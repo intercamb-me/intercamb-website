@@ -1,7 +1,38 @@
-<div class="row">
-  <div class="col">
-    <h1 class="mb-0">Relatórios</h1>
+<div *ngIf="!loading" id="reports">
+  <div class="row">
+    <div class="col">
+      <h1 class="mb-0">Relatórios</h1>
+    </div>
   </div>
-</div>
-<div class="jumbotron mt-4">
+  <div class="row mt-4">
+    <div class="col">
+      <div class="row mb-4">
+        <div class="col">
+          <div class="mb-2 text-center">
+            <h4 class="mb-0">Clientes mensais</h4>
+            <small>Últimos 12 meses</small>
+          </div>
+          <canvas #clientsPerMonth></canvas>
+        </div>
+      </div>
+      <div class="row mb-4">
+        <div class="col">
+          <div class="mb-2 text-center">
+            <h4 class="mb-0">Planos adquiridos</h4>
+            <small>Últimos 12 meses</small>
+          </div>
+          <canvas #clientsPerPlan></canvas>
+        </div>
+      </div>
+      <div class="row mb-4">
+        <div class="col">
+          <div class="mb-2 text-center">
+            <h4 class="mb-0">Faturamento mensal ({{ company.currency | currencySymbol }})</h4>
+            <small>Últimos 12 meses</small>
+          </div>
+          <canvas #billingPerMonth></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

@@ -9,17 +9,23 @@
         <h1 class="name">{{ company.name }}</h1>
       </div>
       <div class="items">
+        <a [routerLink]="['/company']" class="item">
+          <span class="icon">
+            <fa-icon [icon]="['fas', 'home']" [fixedWidth]="true"></fa-icon>
+          </span>
+          <span class="text">Início</span>
+        </a>
         <a [routerLink]="['/company', 'clients']" class="item">
           <span class="icon">
             <fa-icon [icon]="['fas', 'users']" [fixedWidth]="true"></fa-icon>
           </span>
           <span class="text">Assessorados</span>
         </a>
-        <a [routerLink]="['/company', 'scheduling']" class="item">
+        <a [routerLink]="['/company', 'calendar']" class="item">
           <span class="icon">
             <fa-icon [icon]="['fas', 'calendar-alt']" [fixedWidth]="true"></fa-icon>
           </span>
-          <span class="text">Agendamentos</span>
+          <span class="text">Calendário</span>
         </a>
         <a [routerLink]="['/company', 'reports']" class="item">
           <span class="icon">

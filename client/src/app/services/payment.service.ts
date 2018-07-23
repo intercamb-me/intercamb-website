@@ -16,7 +16,8 @@ export class PaymentService {
   }
 
   public getPaymentOrder(id: string): Observable<PaymentOrder> {
-    return this.http.get<PaymentOrder>(RequestUtils.getApiUrl(`/payment_orders/${id}`), RequestUtils.getJsonOptions()).pipe(
+    const httpUrl = RequestUtils.getApiUrl(`/payment_orders/${id}`);
+    return this.http.get<PaymentOrder>(httpUrl, RequestUtils.getJsonOptions()).pipe(
       map((paymentOrderData: PaymentOrder) => new PaymentOrder(paymentOrderData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
@@ -27,7 +28,8 @@ export class PaymentService {
   }
 
   public updatePaymentOrder(paymentOrder: PaymentOrder, data: any): Observable<PaymentOrder> {
-    return this.http.put<PaymentOrder>(RequestUtils.getApiUrl(`/payment_orders/${paymentOrder.id}`), data, RequestUtils.getJsonOptions()).pipe(
+    const httpUrl = RequestUtils.getApiUrl(`/payment_orders/${paymentOrder.id}`);
+    return this.http.put<PaymentOrder>(httpUrl, data, RequestUtils.getJsonOptions()).pipe(
       map((paymentOrderData: PaymentOrder) => new PaymentOrder(paymentOrderData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
@@ -38,7 +40,8 @@ export class PaymentService {
   }
 
   public deletePaymentOrder(paymentOrder: PaymentOrder): Observable<void> {
-    return this.http.delete<void>(RequestUtils.getApiUrl(`/payment_orders/${paymentOrder.id}`), RequestUtils.getJsonOptions()).pipe(
+    const httpUrl = RequestUtils.getApiUrl(`/payment_orders/${paymentOrder.id}`);
+    return this.http.delete<void>(httpUrl, RequestUtils.getJsonOptions()).pipe(
       map(() => null),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
