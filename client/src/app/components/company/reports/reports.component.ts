@@ -10,8 +10,8 @@ import * as addMonths from 'date-fns/add_months';
 
 import {CompanyService} from 'app/services/company.service';
 import {AlertService} from 'app/services/alert.service';
-import {DateUtils} from 'app/utils/date.utils';
-import {getColors} from 'app/utils/helpers';
+import {CalendarUtils} from 'app/utils/calendar.utils';
+import {Helpers} from 'app/utils/helpers';
 import {Company} from 'app/models/company.model';
 import {Plan} from 'app/models/plan.model';
 
@@ -31,7 +31,7 @@ export class ReportsComponent implements OnInit {
   private clientsPerMonth: any;
   private clientsPerPlan: any;
   private billingPerMonth: any;
-  private colors = shuffle(getColors());
+  private colors = shuffle(Helpers.getColors());
   private monthsNames = getLocaleMonthNames(this.locale, FormStyle.Standalone, TranslationWidth.Abbreviated);
 
   constructor(private companyService: CompanyService, private alertService: AlertService, @Inject(LOCALE_ID) private locale: string) {
@@ -89,7 +89,7 @@ export class ReportsComponent implements OnInit {
     const existentData = {};
     this.clientsPerMonth.forEach((register: any) => {
       const date = new Date(register._id.year, register._id.month - 1);
-      existentData[DateUtils.toDateOnly(date)] = register.count;
+      existentData[CalendarUtils.toDateOnly(date)] = register.count;
     });
     const labels = [];
     const data = [];
@@ -97,7 +97,7 @@ export class ReportsComponent implements OnInit {
     const base = new Date(now.getFullYear(), now.getMonth());
     for (let i = 12; i >= 0; i -= 1) {
       const date = addMonths(base, i * -1);
-      const dataKey = DateUtils.toDateOnly(date);
+      const dataKey = CalendarUtils.toDateOnly(date);
       labels.push(this.monthsNames[date.getMonth()]);
       data.push(existentData[dataKey] || 0);
     }
@@ -160,7 +160,7 @@ export class ReportsComponent implements OnInit {
     const existentData = {};
     this.billingPerMonth.forEach((register: any) => {
       const date = new Date(register._id.year, register._id.month - 1);
-      existentData[DateUtils.toDateOnly(date)] = register.amount;
+      existentData[CalendarUtils.toDateOnly(date)] = register.amount;
     });
     const labels = [];
     const data = [];
@@ -168,7 +168,7 @@ export class ReportsComponent implements OnInit {
     const base = new Date(now.getFullYear(), now.getMonth());
     for (let i = 12; i >= 0; i -= 1) {
       const date = addMonths(base, i * -1);
-      const dataKey = DateUtils.toDateOnly(date);
+      const dataKey = CalendarUtils.toDateOnly(date);
       labels.push(this.monthsNames[date.getMonth()]);
       data.push(existentData[dataKey] || 0);
     }

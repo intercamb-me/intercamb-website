@@ -17,7 +17,7 @@ import {ClientService} from 'app/services/client.service';
 import {PlanService} from 'app/services/plan.service';
 import {AlertService} from 'app/services/alert.service';
 import {ErrorUtils} from 'app/utils/error.utils';
-import {getColor} from 'app/utils/helpers';
+import {Helpers} from 'app/utils/helpers';
 import {Constants} from 'app/utils/constants';
 import {Company} from 'app/models/company.model';
 import {Client} from 'app/models/client.model';
@@ -40,7 +40,7 @@ export class ClientComponent implements OnInit {
   public loading = true;
   public paymentMethods = Constants.PAYMENT_METHODS;
   public taskStatus = Constants.TASK_STATUS;
-  public getColor = getColor;
+  public getColor = Helpers.getColor;
 
   public masonryOptions: NgxMasonryOptions = {
     itemSelector: '.col-6',

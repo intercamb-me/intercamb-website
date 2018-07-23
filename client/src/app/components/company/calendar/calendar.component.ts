@@ -14,19 +14,9 @@ import * as formatDate from 'date-fns/format';
 import {CompanyService} from 'app/services/company.service';
 import {AlertService} from 'app/services/alert.service';
 import {Constants} from 'app/utils/constants';
-import {DateUtils} from 'app/utils/date.utils';
-import {getColor} from 'app/utils/helpers';
+import {CalendarUtils} from 'app/utils/calendar.utils';
 import {Task} from 'app/models/task.model';
 import {Client} from 'app/models/client.model';
-
-interface MetaViews {
-  task: Task;
-  client: Client;
-}
-
-interface CalendarEventMeta {
-  views: MetaViews[];
-}
 
 @Component({
   selector: 'app-calendar',
@@ -70,7 +60,7 @@ export class CalendarComponent implements OnInit {
       })
     ).subscribe((clients) => {
       if (this.calendarView === CalendarComponent.VIEW_MONTH) {
-        this.setCalendarMonthEvents(currentTasks, clients);
+        this.calendarMonthEvents = CalendarUtils.getCalendarMonthEvents(currentTasks, clients);
       } else {
         this.setCalendarDayEvents(currentTasks, clients);
       }
@@ -107,35 +97,6 @@ export class CalendarComponent implements OnInit {
   private getEndDate(): Date {
     const endFunctions = {month: endOfMonth, week: endOfWeek, day: endOfDay};
     return endFunctions[this.calendarView](this.calendarDate);
-  }
-
-  private setCalendarMonthEvents(tasks: Task[], clients: Client[]): void {
-    const clientById = keyBy(clients, 'id');
-    const eventsByDate: any = {};
-    const events: CalendarEvent[] = [];
-    tasks.forEach((task) => {
-      const client = clientById[task.client];
-      const dateIndex = String(DateUtils.toDateOnly(task.schedule_date));
-      if (!eventsByDate[dateIndex]) {
-        eventsByDate[dateIndex] = {};
-      }
-      let event: CalendarEvent<CalendarEventMeta> = eventsByDate[dateIndex][task.name];
-      if (!event) {
-        const color = getColor(task.name);
-        event = {
-          title: task.name,
-          color: {primary: color, secondary: color},
-          start: task.schedule_date,
-          meta: {
-            views: [],
-          },
-        };
-        eventsByDate[dateIndex][task.name] = event;
-        events.push(event);
-      }
-      event.meta.views.push({task, client});
-    });
-    this.calendarMonthEvents = events;
   }
 
   private setCalendarDayEvents(tasks: Task[], clients: Client[]): void {

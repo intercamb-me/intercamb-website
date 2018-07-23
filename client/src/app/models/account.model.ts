@@ -6,7 +6,7 @@ export class Account {
   public first_name: string;
   public last_name: string;
   public email: string;
-  public icon_url: string;
+  public image_url: string;
   public company: string;
   public registration_date: Date;
 
@@ -16,7 +16,7 @@ export class Account {
       this.first_name = data.first_name;
       this.last_name = data.last_name;
       this.email = data.email;
-      this.icon_url = data.icon_url;
+      this.image_url = data.image_url;
       this.company = data.company;
       this.registration_date = new Date(data.registration_date);
     }

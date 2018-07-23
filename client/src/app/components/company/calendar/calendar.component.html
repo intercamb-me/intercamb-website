@@ -11,7 +11,7 @@
     <span
       *ngFor="let event of day.events; trackBy: trackByIndex"
       #eventGroupPopover="ngbPopover"
-      [ngbPopover]="monthEventGroupTemplate"
+      [ngbPopover]="monthEventPopoverTemplate"
       [style.background-color]="event.color.primary"
       (mouseenter)="openEventGroupPopover(eventGroupPopover, event)"
       (mouseleave)="closeEventGroupPopover(eventGroupPopover)"
@@ -22,7 +22,7 @@
   </div>
 </ng-template>
 
-<ng-template #monthEventGroupTemplate let-event="event">
+<ng-template #monthEventPopoverTemplate let-event="event">
   <span
     *ngFor="let view of event.meta.views; trackBy: trackByIndex"
     class="badge badge-secondary mb-1 ml-1 mr-1 px-2 py-2">
@@ -113,7 +113,7 @@
               <a
                 *ngFor="let view of viewByEvent.value; trackBy: trackByIndex"
                 [routerLink]="['/company', 'clients', view.client.id]"
-                class="badge badge-secondary mb-1 ml-1 mr-1 px-2 py-2">
+                class="badge badge-secondary mb-1 mx-1 px-2 py-2 text-small">
                 {{ view.client.forename }} {{ view.client.surname }}
               </a>
             </div>

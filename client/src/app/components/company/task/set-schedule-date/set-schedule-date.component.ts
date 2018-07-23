@@ -17,7 +17,7 @@ import * as setMilliseconds from 'date-fns/set_milliseconds';
 
 import {TaskService} from 'app/services/task.service';
 import {AlertService} from 'app/services/alert.service';
-import {onlyDateChars} from 'app/utils/helpers';
+import {Helpers} from 'app/utils/helpers';
 import {Client} from 'app/models/client.model';
 import {Task} from 'app/models/task.model';
 
@@ -35,7 +35,7 @@ export class SetTaskScheduleDateComponent implements OnInit {
   public selectedDateStruct: NgbDateStruct;
   public selectedTimeStruct: NgbTimeStruct;
   public todayDateStruct: NgbDateStruct;
-  public onlyDateChars = onlyDateChars;
+  public onlyDateChars = Helpers.onlyDateChars;
 
   constructor(private taskService: TaskService, private alertService: AlertService, private ngbActiveModal: NgbActiveModal) {
 

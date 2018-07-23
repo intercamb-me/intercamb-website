@@ -59,5 +59,8 @@ export class CompanyComponent implements OnInit {
     this.eventService.subscribe(EventService.EVENT_COMPANY_CHANGED, (event) => {
       this.company = event.value;
     });
+    this.eventService.subscribe(EventService.EVENT_ACCOUNT_CHANGED, (event) => {
+      this.account = event.value;
+    });
   }
 }

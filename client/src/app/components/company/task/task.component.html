@@ -62,7 +62,7 @@
           </div>
           <div *ngFor="let comment of task.comments.slice().reverse(); trackBy: trackByComment" class="comment">
             <div class="icon">
-              <img *ngIf="accounts.get(comment.account)" [src]="accounts.get(comment.account).icon_url">
+              <img *ngIf="accounts.get(comment.account)" [src]="accounts.get(comment.account).image_url">
             </div>
             <div class="content">
               <p *ngIf="accounts.get(comment.account)" class="account">

@@ -12,7 +12,7 @@ import {SearchAddressComponent} from 'app/components/company/client/search-addre
 
 import {ClientService} from 'app/services/client.service';
 import {AlertService} from 'app/services/alert.service';
-import {onlyDateChars} from 'app/utils/helpers';
+import {Helpers} from 'app/utils/helpers';
 import {Client} from 'app/models/client.model';
 import {Address} from 'app/models/address.model';
 
@@ -30,7 +30,7 @@ export class SaveClientComponent implements OnInit {
   public birthdateStruct: NgbDateStruct;
   public arrivalDateStruct: NgbDateStruct;
   public todayDateStruct: NgbDateStruct;
-  public onlyDateChars = onlyDateChars;
+  public onlyDateChars = Helpers.onlyDateChars;
 
   constructor(private clientService: ClientService, private alertService: AlertService, private ngbModal: NgbModal) {
 

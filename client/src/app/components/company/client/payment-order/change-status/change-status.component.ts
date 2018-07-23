@@ -4,8 +4,8 @@ import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.mo
 
 import {PaymentService} from 'app/services/payment.service';
 import {AlertService} from 'app/services/alert.service';
-import {DateUtils} from 'app/utils/date.utils';
-import {onlyDateChars} from 'app/utils/helpers';
+import {CalendarUtils} from 'app/utils/calendar.utils';
+import {Helpers} from 'app/utils/helpers';
 import {PaymentOrder} from 'app/models/payment-order.model';
 
 @Component({
@@ -19,7 +19,7 @@ export class ChangePaymentOrderStatusComponent implements OnInit {
 
   public paymentDateStruct: NgbDateStruct;
   public maxPaymentDateStruct: NgbDateStruct;
-  public onlyDateChars = onlyDateChars;
+  public onlyDateChars = Helpers.onlyDateChars;
   public selectingPaymentDate = false;
   public loading = true;
 
@@ -28,8 +28,8 @@ export class ChangePaymentOrderStatusComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.paymentDateStruct = DateUtils.toDateStruct(this.paymentOrder.payment_date);
-    this.maxPaymentDateStruct = DateUtils.toDateStruct(new Date());
+    this.paymentDateStruct = CalendarUtils.toDateStruct(this.paymentOrder.payment_date);
+    this.maxPaymentDateStruct = CalendarUtils.toDateStruct(new Date());
   }
 
   public trackByIndex(index: number): number {
@@ -55,7 +55,7 @@ export class ChangePaymentOrderStatusComponent implements OnInit {
 
   public updatePaymentOrder(): void {
     const data = {
-      payment_date: DateUtils.fromDateStruct(this.paymentDateStruct),
+      payment_date: CalendarUtils.fromDateStruct(this.paymentDateStruct),
     };
     this.paymentService.updatePaymentOrder(this.paymentOrder, data).subscribe((paymentOrder) => {
       this.ngbActiveModal.close(paymentOrder);

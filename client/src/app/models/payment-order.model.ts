@@ -1,6 +1,6 @@
 /* tslint:disable:variable-name */
 
-import {DateUtils} from 'app/utils/date.utils';
+import {CalendarUtils} from 'app/utils/calendar.utils';
 import cloneDeep from 'lodash-es/cloneDeep';
 
 export class PaymentOrder {
@@ -21,8 +21,8 @@ export class PaymentOrder {
       this.client = data.client;
       this.method = data.method;
       this.amount = data.amount;
-      this.due_date = DateUtils.fromDateOnly(data.due_date);
-      this.payment_date = DateUtils.fromDateOnly(data.payment_date);
+      this.due_date = CalendarUtils.fromDateOnly(data.due_date);
+      this.payment_date = CalendarUtils.fromDateOnly(data.payment_date);
       this.registration_date = new Date(data.registration_date);
     }
   }
@@ -30,10 +30,10 @@ export class PaymentOrder {
   public toJSON(): any {
     const json = cloneDeep(this) as any;
     if (json.due_date) {
-      json.due_date = DateUtils.toDateOnly(json.due_date);
+      json.due_date = CalendarUtils.toDateOnly(json.due_date);
     }
     if (json.payment_date) {
-      json.payment_date = DateUtils.toDateOnly(json.payment_date);
+      json.payment_date = CalendarUtils.toDateOnly(json.payment_date);
     }
     return json;
   }

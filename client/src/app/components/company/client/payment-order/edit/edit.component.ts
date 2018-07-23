@@ -6,8 +6,8 @@ import {CompanyService} from 'app/services/company.service';
 import {PaymentService} from 'app/services/payment.service';
 import {AlertService} from 'app/services/alert.service';
 import {Constants} from 'app/utils/constants';
-import {DateUtils} from 'app/utils/date.utils';
-import {onlyDateChars} from 'app/utils/helpers';
+import {CalendarUtils} from 'app/utils/calendar.utils';
+import {Helpers} from 'app/utils/helpers';
 import {Company} from 'app/models/company.model';
 import {PaymentOrder} from 'app/models/payment-order.model';
 
@@ -25,7 +25,7 @@ export class EditPaymentOrderComponent implements OnInit {
   public amount: number;
   public dueDateStruct: NgbDateStruct;
   public availableMethods = Constants.PAYMENT_METHODS;
-  public onlyDateChars = onlyDateChars;
+  public onlyDateChars = Helpers.onlyDateChars;
   public loading = true;
 
   constructor(private companyService: CompanyService, private paymentService: PaymentService, private alertService: AlertService, private ngbActiveModal: NgbActiveModal) {
@@ -35,7 +35,7 @@ export class EditPaymentOrderComponent implements OnInit {
   public ngOnInit(): void {
     this.method = this.paymentOrder.method;
     this.amount = this.paymentOrder.amount;
-    this.dueDateStruct = DateUtils.toDateStruct(this.paymentOrder.due_date);
+    this.dueDateStruct = CalendarUtils.toDateStruct(this.paymentOrder.due_date);
     this.companyService.getCompany().subscribe((company) => {
       this.company = company;
       this.loading = false;
@@ -60,7 +60,7 @@ export class EditPaymentOrderComponent implements OnInit {
     const data = {
       method: this.method,
       amount: this.amount,
-      due_date: DateUtils.fromDateStruct(this.dueDateStruct),
+      due_date: CalendarUtils.fromDateStruct(this.dueDateStruct),
     };
     this.paymentService.updatePaymentOrder(this.paymentOrder, data).subscribe((paymentOrder) => {
       this.ngbActiveModal.close(paymentOrder);

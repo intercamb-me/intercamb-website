@@ -10,8 +10,8 @@ import {PlanService} from 'app/services/plan.service';
 import {ClientService} from 'app/services/client.service';
 import {AlertService} from 'app/services/alert.service';
 import {Constants} from 'app/utils/constants';
-import {DateUtils} from 'app/utils/date.utils';
-import {onlyDateChars} from 'app/utils/helpers';
+import {CalendarUtils} from 'app/utils/calendar.utils';
+import {Helpers} from 'app/utils/helpers';
 import {Company} from 'app/models/company.model';
 import {Plan} from 'app/models/plan.model';
 import {Client} from 'app/models/client.model';
@@ -37,7 +37,7 @@ export class CreatePaymentOrderComponent implements OnInit {
   public splits: Split[] = [];
   public dueDateStruct: NgbDateStruct;
   public availableMethods = Constants.PAYMENT_METHODS;
-  public onlyDateChars = onlyDateChars;
+  public onlyDateChars = Helpers.onlyDateChars;
   public loading = true;
 
   constructor(private companyService: CompanyService, private planService: PlanService, private clientService: ClientService, private alertService: AlertService, private ngbActiveModal: NgbActiveModal) {
@@ -68,12 +68,12 @@ export class CreatePaymentOrderComponent implements OnInit {
     if (this.amount) {
       this.splits = [];
       const splitAmount = Math.round((Number(this.amount) / this.numberOfSplits) * 100) / 100;
-      const splitBaseDate = this.dueDateStruct ? DateUtils.fromDateStruct(this.dueDateStruct) : null;
+      const splitBaseDate = this.dueDateStruct ? CalendarUtils.fromDateStruct(this.dueDateStruct) : null;
       for (let i = 0; i < this.numberOfSplits; i += 1) {
         const splitDate = splitBaseDate ? addMonths(splitBaseDate, i) : null;
         this.splits.push({
           amount: splitAmount,
-          dueDateStruct: DateUtils.toDateStruct(splitDate),
+          dueDateStruct: CalendarUtils.toDateStruct(splitDate),
         });
       }
     }
@@ -93,7 +93,7 @@ export class CreatePaymentOrderComponent implements OnInit {
       data.push({
         method: this.method,
         amount: split.amount,
-        due_date: DateUtils.toDateOnly(DateUtils.fromDateStruct(split.dueDateStruct)),
+        due_date: CalendarUtils.toDateOnly(CalendarUtils.fromDateStruct(split.dueDateStruct)),
       });
     });
     this.clientService.createPaymentOrders(this.client, data).subscribe((paymentOrders) => {

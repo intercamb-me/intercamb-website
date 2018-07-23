@@ -15,7 +15,7 @@ import {ClientService} from 'app/services/client.service';
 import {TokenService} from 'app/services/token.service';
 import {AlertService} from 'app/services/alert.service';
 import {ErrorUtils} from 'app/utils/error.utils';
-import {onlyDateChars} from 'app/utils/helpers';
+import {Helpers} from 'app/utils/helpers';
 import {Client} from 'app/models/client.model';
 import {Token} from 'app/models/token.model';
 import {Address} from 'app/models/address.model';
@@ -34,7 +34,7 @@ export class ClientFormComponent implements OnInit {
   public birthdateStruct: NgbDateStruct;
   public arrivalDateStruct: NgbDateStruct;
   public todayDateStruct: NgbDateStruct;
-  public onlyDateChars = onlyDateChars;
+  public onlyDateChars = Helpers.onlyDateChars;
 
   constructor(private clientService: ClientService, private tokenService: TokenService, private alertService: AlertService, private activatedRoute: ActivatedRoute, private router: Router, private ngbModal: NgbModal) {
 

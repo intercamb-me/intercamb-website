@@ -15,7 +15,7 @@ import {Plan} from 'app/models/plan.model';
 
 @Component({
   selector: 'app-company-settings',
-  templateUrl: './company-settings.component.html',
+  templateUrl: './settings.component.html',
 })
 export class CompanySettingsComponent implements OnInit {
 

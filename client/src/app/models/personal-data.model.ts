@@ -2,7 +2,7 @@
 
 import {PlaceOfBirth} from 'app/models/place-of-birth.model';
 import {IdentityDocument} from 'app/models/identity-document.model';
-import {DateUtils} from 'app/utils/date.utils';
+import {CalendarUtils} from 'app/utils/calendar.utils';
 import cloneDeep from 'lodash-es/cloneDeep';
 
 export class PersonalData {
@@ -23,7 +23,7 @@ export class PersonalData {
       this.identity_document = new IdentityDocument(data.identity_document || {});
       this.cpf_number = data.cpf_number;
       this.passport_number = data.passport_number;
-      this.birthdate = DateUtils.fromDateOnly(data.birthdate);
+      this.birthdate = CalendarUtils.fromDateOnly(data.birthdate);
       this.gender = data.gender;
       this.marital_status = data.marital_status;
     }
@@ -32,7 +32,7 @@ export class PersonalData {
   public toJSON(): any {
     const json = cloneDeep(this) as any;
     if (json.birthdate) {
-      json.birthdate = DateUtils.toDateOnly(json.birthdate);
+      json.birthdate = CalendarUtils.toDateOnly(json.birthdate);
     }
     return json;
   }

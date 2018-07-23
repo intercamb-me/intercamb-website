@@ -43,10 +43,10 @@
       <div class="bottom">
         <div ngbDropdown placement="right-bottom">
           <button ngbDropdownToggle id="account-menu" class="btn btn-link p-0">
-            <img [src]="account.icon_url" class="account-icon rounded-circle d-inline-block">
+            <img [src]="account.image_url" class="account-icon">
           </button>
           <div ngbDropdownMenu aria-labelledby="account-menu">
-            <a [routerLink]="['/settings']" class="dropdown-item">Configurações</a>
+            <a [routerLink]="['/account', 'settings']" class="dropdown-item">Configurações</a>
             <a [routerLink]="['#']" (click)="logout()" class="dropdown-item">Sair</a>
           </div>
         </div>
