@@ -21,16 +21,12 @@ import {Plan} from 'app/models/plan.model';
 })
 export class ReportsComponent implements OnInit {
 
-  @ViewChild('clientsPerMonth')
+  public company: Company;
   public clientsPerMonthElement: ElementRef<HTMLCanvasElement>;
-  @ViewChild('clientsPerPlan')
   public clientsPerPlanElement: ElementRef<HTMLCanvasElement>;
-  @ViewChild('billingPerMonth')
   public billingPerMonthElement: ElementRef<HTMLCanvasElement>;
-
   public loading = true;
 
-  private company: Company;
   private plans: Plan[];
   private clientsPerMonth: any;
   private clientsPerPlan: any;
@@ -58,17 +54,34 @@ export class ReportsComponent implements OnInit {
       this.clientsPerMonth = result[1];
       this.clientsPerPlan = result[2];
       this.billingPerMonth = result[3];
-      this.createCharts();
       this.loading = false;
     }, (err) => {
       this.alertService.apiError(null, err);
     });
   }
 
-  private createCharts(): void {
-    this.createClientsPerMonthChart();
-    this.createClientsPerPlanChart();
-    this.createBillingPerMonthChart();
+  @ViewChild('clientsPerMonth')
+  public set setClientsPerMonthElement(elementRef: ElementRef<HTMLCanvasElement>) {
+    this.clientsPerMonthElement = elementRef;
+    if (elementRef) {
+      this.createClientsPerMonthChart();
+    }
+  }
+
+  @ViewChild('clientsPerPlan')
+  public set setClientsPerPlanElement(elementRef: ElementRef<HTMLCanvasElement>) {
+    this.clientsPerPlanElement = elementRef;
+    if (elementRef) {
+      this.createClientsPerPlanChart();
+    }
+  }
+
+  @ViewChild('billingPerMonth')
+  public set setBillingPerMonthElement(elementRef: ElementRef<HTMLCanvasElement>) {
+    this.billingPerMonthElement = elementRef;
+    if (elementRef) {
+      this.createBillingPerMonthChart();
+    }
   }
 
   private createClientsPerMonthChart(): void {
