@@ -20,6 +20,14 @@ if (require.main === module) {
   publish.setWorkingDir(WORKING_DIR);
   publish.setLintTask(lintProject);
   publish.setBuildTask(buildProject);
-  publish.setDockerProject(true);
+  publish.setDockerProject({
+    ecr: {
+      region: 'us-west-1',
+      repository: {
+        url: '554511234717.dkr.ecr.us-west-1.amazonaws.com',
+        namespace: 'intercambio',
+      },
+    },
+  });
   publish.run();
 }
