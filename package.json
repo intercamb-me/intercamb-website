@@ -3,13 +3,13 @@
   "description": "Intercambio Website",
   "version": "0.0.2",
   "private": true,
+  "sideEffects": false,
   "author": {
     "name": "Intercambio team",
     "email": "team@intercamb.me",
     "url": "https://intercamb.me"
   },
   "homepage": "https://intercamb.me",
-  "sideEffects": false,
   "scripts": {
     "lint": "eslint '**/*.js' && tslint 'client/src/**/*.ts'",
     "build": "webpack --config 'client/webpack/webpack-config.js'",
