@@ -5,10 +5,10 @@
   "private": true,
   "author": {
     "name": "Intercambio team",
-    "email": "team@intercambio.io",
-    "url": "https://intercambio.io"
+    "email": "team@intercamb.me",
+    "url": "https://intercamb.me"
   },
-  "homepage": "https://intercambio.io",
+  "homepage": "https://intercamb.me",
   "sideEffects": false,
   "scripts": {
     "lint": "eslint '**/*.js' && tslint 'client/src/**/*.ts'",
@@ -59,6 +59,7 @@
     "ngx-masonry": "1.1.2",
     "optimize-css-assets-webpack-plugin": "5.0.0",
     "purgecss-webpack-plugin": "1.2.0",
+    "release-n-publish": "0.0.6",
     "rxjs": "6.2.2",
     "rxjs-compat": "6.2.2",
     "rxjs-tslint": "0.1.5",

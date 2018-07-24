@@ -117,11 +117,11 @@ module.exports = (settings) => {
         },
       }),
       new CssExtractPlugin({filename: 'assets/styles/[name].css'}),
-      // new CssPurgePlugin({
-      //   paths: glob.sync(`${path.resolve('client', 'src')}/**/*`, {nodir: true}),
-      //   whitelist: ['modal', 'dropdown', 'alert', 'show', 'fade', 'collapse'],
-      //   whitelistPatterns: [/^modal-/, /^dropdown-/, /^alert-/, /^bg-/],
-      // }),
+      new CssPurgePlugin({
+        paths: glob.sync(`${path.resolve('client', 'src')}/**/*`, {nodir: true}),
+        whitelist: ['modal', 'dropdown', 'alert', 'collapse', 'fade', 'show', 'd-block'],
+        whitelistPatterns: [/^modal-/, /^dropdown-/, /^alert-/, /^bg-/, /^cal-/],
+      }),
       new HtmlPlugin({template: path.resolve('client', 'src', 'index.html')}),
     ],
   };

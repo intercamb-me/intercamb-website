@@ -1,7 +1,7 @@
 {
   "apps": [
     {
-      "name": "Intercâmbio Website",
+      "name": "Intercambio Website",
       "script": "server/app.js",
       "exec_mode": "cluster",
       "instances": 0
