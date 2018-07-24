@@ -15,4 +15,4 @@ RUN \
   touch server/config.yml
 COPY . .
 EXPOSE 4000
-CMD ["pm2-docker", "process.json", "--only", "Intercambio Website"]
+CMD ["pm2-docker", "process.json"]
