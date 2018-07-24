@@ -4,3 +4,4 @@ declare module '*.json' {
 }
 
 declare module 'hash-code';
+declare module 'chart.js';
