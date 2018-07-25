@@ -9,11 +9,11 @@ const config = yaml.load(path.resolve('client', 'config.yml'));
 module.exports = (env) => {
   const settings = {env};
   if (env === 'production') {
-    settings.apiUrl = 'https://api.intercamb.me';
-    settings.webUrl = 'https://www.intercamb.me';
+    settings.webUrl = 'http://ec2-13-57-249-230.us-west-1.compute.amazonaws.com:8080';
+    settings.apiUrl = 'http://ec2-13-57-249-230.us-west-1.compute.amazonaws.com:8081';
   } else {
-    settings.apiUrl = _.get(config, 'api.url', 'http://localhost:3000');
     settings.webUrl = _.get(config, 'web.url', 'http://localhost:4000');
+    settings.apiUrl = _.get(config, 'api.url', 'http://localhost:3000');
   }
   return settings;
 };
