@@ -50,7 +50,7 @@ export class CompanyComponent implements OnInit {
     this.accountService.logout().pipe(
       finalize(() => {
         this.account = null;
-        this.router.navigate(['/']);
+        this.router.navigate(['/signin']);
       })
     ).subscribe(null, null);
   }

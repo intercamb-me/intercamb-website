@@ -481,13 +481,24 @@
                 <h2 class="mb-3">Em caso de emergência</h2>
                 <div class="row">
                   <div class="col form-group">
-                    <label for="icoe-name">Responsável</label>
+                    <label for="icoe-responsible">Responsável</label>
                     <input
                       [(ngModel)]="client.in_case_of_emergency.responsible"
                       id="icoe-responsible"
                       name="icoe-responsible"
                       type="text"
                       class="form-control"
+                      required>
+                  </div>
+                  <div class="col form-group">
+                    <label for="icoe-bond">Vínculo</label>
+                    <input
+                      [(ngModel)]="client.in_case_of_emergency.bond"
+                      id="icoe-bond"
+                      name="icoe-bond"
+                      type="text"
+                      class="form-control"
+                      placeholder="Pai, mãe, irmão, amigo..."
                       required>
                   </div>
                   <div class="col form-group">
@@ -509,7 +520,7 @@
                     <input
                       #contactPhone="ngModel"
                       [(ngModel)]="client.in_case_of_emergency.phone"
-                      [ngClass]="{'is-invalid': contactPhone.invalid && (contactPhone.dirty || fatherPhone.touched)}"
+                      [ngClass]="{'is-invalid': contactPhone.invalid && (contactPhone.dirty || contactPhone.touched)}"
                       [dropSpecialCharacters]="false"
                       id="icoe-phone"
                       name="icoe-phone"
@@ -526,7 +537,7 @@
                     <input
                       #contactAlternativePhone="ngModel"
                       [(ngModel)]="client.in_case_of_emergency.alternative_phone"
-                      [ngClass]="{'is-invalid': contactAlternativePhone.invalid && (contactAlternativePhone.dirty || fatherPhone.touched)}"
+                      [ngClass]="{'is-invalid': contactAlternativePhone.invalid && (contactAlternativePhone.dirty || contactAlternativePhone.touched)}"
                       [dropSpecialCharacters]="false"
                       id="icoe-alternative-phone"
                       name="icoe-alternative-phone"
@@ -851,7 +862,7 @@
         <div class="card">
           <div class="client-created">
             <fa-icon [icon]="['fas', 'check']" [fixedWidth]="true"></fa-icon>
-            <h3>Informações enviadas com sucesso, obrigado!</h3>
+            <h3 class="mb-0 text-center">Informações enviadas com sucesso, obrigado!</h3>
           </div>
         </div>
       </div>
