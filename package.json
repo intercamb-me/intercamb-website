@@ -1,7 +1,7 @@
 {
   "name": "intercambio-website",
   "description": "Intercambio Website",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "private": true,
   "sideEffects": false,
   "homepage": "https://intercamb.me",
