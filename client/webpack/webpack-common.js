@@ -9,7 +9,6 @@ const CssExtractPlugin = require('mini-css-extract-plugin');
 const CssOptimizePlugin = require('optimize-css-assets-webpack-plugin');
 const CssPurgePlugin = require('purgecss-webpack-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
-const rxjsPaths = require('rxjs/_esm5/path-mapping');
 const path = require('path');
 const glob = require('glob');
 
@@ -25,13 +24,14 @@ module.exports = (settings) => {
           name: 'vendor',
           test: /\/node_modules\//,
           chunks: 'all',
-          priority: 0,
+          priority: -10,
           enforce: true,
         },
       },
     },
   };
   if (isProduction()) {
+    optimization.minimize = true;
     optimization.minimizer = [
       new JsUglifyPlugin({cache: true, parallel: true}),
       new CssOptimizePlugin({}),
@@ -40,7 +40,7 @@ module.exports = (settings) => {
 
   return {
     optimization,
-    mode: settings.env,
+    mode: 'development',
     devtool: isProduction() ? false : 'source-map',
     entry: {
       vendor: path.resolve('client', 'src', 'vendor.ts'),
@@ -48,7 +48,7 @@ module.exports = (settings) => {
     },
     output: {
       path: path.resolve('dist'),
-      filename: '[name].js',
+      filename: '[name].[chunkhash].js',
     },
     resolve: {
       extensions: ['.ts', '.js'],
@@ -56,7 +56,6 @@ module.exports = (settings) => {
         path.resolve('client', 'src'),
         path.resolve('node_modules'),
       ],
-      alias: rxjsPaths(),
     },
     module: {
       rules: [
@@ -116,7 +115,7 @@ module.exports = (settings) => {
           WEB_URL: JSON.stringify(settings.webUrl),
         },
       }),
-      new CssExtractPlugin({filename: 'assets/styles/[name].css'}),
+      new CssExtractPlugin({filename: 'assets/styles/[name].[chunkhash].css'}),
       new CssPurgePlugin({
         paths: glob.sync(`${path.resolve('client', 'src')}/**/*`, {nodir: true}),
         whitelist: ['modal', 'dropdown', 'alert', 'collapse', 'fade', 'show', 'd-block'],
