@@ -75,18 +75,20 @@
                         <label>
                           <h5 class="mb-0">Cor principal</h5>
                         </label>
-                        <app-material-palette-picker (colorSelected)="onColorSelected($event)"></app-material-palette-picker>
+                        <app-material-palette-picker
+                          (colorSelected)="onColorSelected($event)">
+                        </app-material-palette-picker>
                       </div>
                       <div class="form-group">
                         <label>
                           <h5 class="mb-0">Cor do texto</h5>
                         </label>
                         <div class="palette">
-                          <span (click)="selectTextColor('#000000')" class="color bg-black text-white">
-                            <fa-icon *ngIf="selectedTextColor === '#000000'" [icon]="['fas', 'check']" [fixedWidth]="true"></fa-icon>
-                          </span>
-                          <span (click)="selectTextColor('#212529')" class="color bg-white text-black">
+                          <span (click)="selectTextColor('#212529')" class="color bg-black text-white">
                             <fa-icon *ngIf="selectedTextColor === '#212529'" [icon]="['fas', 'check']" [fixedWidth]="true"></fa-icon>
+                          </span>
+                          <span (click)="selectTextColor('#ffffff')" class="color bg-white text-black">
+                            <fa-icon *ngIf="selectedTextColor === '#ffffff'" [icon]="['fas', 'check']" [fixedWidth]="true"></fa-icon>
                           </span>
                         </div>
                       </div>
