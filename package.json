@@ -3,7 +3,10 @@
   "description": "Intercambio Website",
   "version": "0.0.9",
   "private": true,
-  "sideEffects": false,
+  "sideEffects": [
+    "*.less",
+    "*.css"
+  ],
   "homepage": "https://intercamb.me",
   "author": {
     "name": "Intercambio team",

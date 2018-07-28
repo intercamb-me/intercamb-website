@@ -31,7 +31,6 @@ module.exports = (settings) => {
     },
   };
   if (isProduction()) {
-    optimization.minimize = true;
     optimization.minimizer = [
       new JsUglifyPlugin({cache: true, parallel: true}),
       new CssOptimizePlugin({}),
@@ -40,10 +39,9 @@ module.exports = (settings) => {
 
   return {
     optimization,
-    mode: 'development',
+    mode: settings.env,
     devtool: isProduction() ? false : 'source-map',
     entry: {
-      vendor: path.resolve('client', 'src', 'vendor.ts'),
       main: path.resolve('client', 'src', 'main.ts'),
     },
     output: {

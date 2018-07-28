@@ -1,4 +1,6 @@
 import 'assets/styles/main.less';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'angular-calendar/css/angular-calendar.css';
 
 import 'core-js/es6/symbol';
 import 'core-js/es6/object';
