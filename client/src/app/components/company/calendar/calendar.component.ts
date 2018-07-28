@@ -1,8 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NgbPopover} from '@ng-bootstrap/ng-bootstrap/popover/popover.module';
 import {CalendarEvent} from 'angular-calendar';
-import {mergeMap} from 'rxjs/operators';
-import keyBy from 'lodash-es/keyBy';
 import * as startOfMonth from 'date-fns/start_of_month';
 import * as endOfMonth from 'date-fns/end_of_month';
 import * as startOfWeek from 'date-fns/start_of_week';
@@ -16,7 +14,6 @@ import {AlertService} from 'app/services/alert.service';
 import {Constants} from 'app/utils/constants';
 import {CalendarUtils} from 'app/utils/calendar.utils';
 import {Task} from 'app/models/task.model';
-import {Client} from 'app/models/client.model';
 
 @Component({
   selector: 'app-calendar',
@@ -26,7 +23,6 @@ export class CalendarComponent implements OnInit {
 
   private static readonly VIEW_MONTH = 'month';
   private static readonly VIEW_DAY = 'day';
-  private static readonly CLIENT_FIELDS = 'forename surname';
 
   public calendarView = CalendarComponent.VIEW_MONTH;
   public calendarDate = new Date();
@@ -48,21 +44,11 @@ export class CalendarComponent implements OnInit {
   }
 
   public fetchEvents(): void {
-    let currentTasks: Task[];
-    this.companyService.listTasks(this.getStartDate(), this.getEndDate()).pipe(
-      mergeMap((tasks) => {
-        currentTasks = tasks;
-        const clientIds: string[] = [];
-        tasks.forEach((task) => {
-          clientIds.push(task.client);
-        });
-        return this.companyService.listClients(clientIds, CalendarComponent.CLIENT_FIELDS);
-      })
-    ).subscribe((clients) => {
+    this.companyService.listTasks(this.getStartDate(), this.getEndDate(), {populate: 'client.forename client.surname'}).subscribe((tasks) => {
       if (this.calendarView === CalendarComponent.VIEW_MONTH) {
-        this.calendarMonthEvents = CalendarUtils.getCalendarMonthEvents(currentTasks, clients);
+        this.calendarMonthEvents = CalendarUtils.getCalendarMonthEvents(tasks);
       } else {
-        this.setCalendarDayEvents(currentTasks, clients);
+        this.setCalendarDayEvents(tasks);
       }
     }, (err) => {
       this.alertService.apiError(null, err);
@@ -99,8 +85,7 @@ export class CalendarComponent implements OnInit {
     return endFunctions[this.calendarView](this.calendarDate);
   }
 
-  private setCalendarDayEvents(tasks: Task[], clients: Client[]): void {
-    const clientById = keyBy(clients, 'id');
+  private setCalendarDayEvents(tasks: Task[]): void {
     const calendarDayEvents: any = {};
     tasks.forEach((task) => {
       const hourKey = formatDate(task.schedule_date, 'HH:mm');
@@ -111,9 +96,7 @@ export class CalendarComponent implements OnInit {
       if (!calendarDayEvents[hourKey][eventKey]) {
         calendarDayEvents[hourKey][eventKey] = [];
       }
-      const client = clientById[task.client];
-      const event = {task, client};
-      calendarDayEvents[hourKey][eventKey].push(event);
+      calendarDayEvents[hourKey][eventKey].push(task);
     });
     this.calendarDayEvents = calendarDayEvents;
   }

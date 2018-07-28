@@ -31,7 +31,7 @@ export class ClientsComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.companyService.listClients(null, ClientsComponent.CLIENT_FIELDS).subscribe((clients) => {
+    this.companyService.listClients(null, {select: ClientsComponent.CLIENT_FIELDS}).subscribe((clients) => {
       this.clients = clients;
       this.loading = false;
     }, (err) => {
@@ -48,7 +48,7 @@ export class ClientsComponent implements OnInit {
   }
 
   public searchClients(): void {
-    this.companyService.searchClients(this.search, ClientsComponent.CLIENT_FIELDS).subscribe((clients) => {
+    this.companyService.searchClients(this.search, {select: ClientsComponent.CLIENT_FIELDS}).subscribe((clients) => {
       this.clients = clients;
     }, (err) => {
       this.alertService.apiError(null, err);

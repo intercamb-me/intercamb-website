@@ -14,6 +14,9 @@ export class SavePlanComponent implements OnInit {
   @Input()
   public plan: Plan;
 
+  public name: string;
+  public price: string;
+
   constructor(private planService: PlanService, private alertService: AlertService, private ngbActiveModal: NgbActiveModal) {
 
   }
@@ -22,6 +25,8 @@ export class SavePlanComponent implements OnInit {
     if (!this.plan) {
       this.plan = new Plan();
     }
+    this.name = this.plan.name;
+    this.price = String(this.plan.price);
   }
 
   public close(): void {
@@ -29,7 +34,7 @@ export class SavePlanComponent implements OnInit {
   }
 
   public createPlan(): void {
-    this.planService.createPlan(this.plan.name, this.plan.price).subscribe((plan) => {
+    this.planService.createPlan(this.name, Number(this.price)).subscribe((plan) => {
       this.ngbActiveModal.close(plan);
       this.alertService.success('Plano cadastrado com sucesso!');
     }, (err) => {
@@ -38,6 +43,8 @@ export class SavePlanComponent implements OnInit {
   }
 
   public updatePlan(): void {
+    this.plan.name = this.name;
+    this.plan.price = Number(this.price);
     this.planService.updatePlan(this.plan).subscribe((plan) => {
       this.ngbActiveModal.close(plan);
       this.alertService.success('Plano atualizado com sucesso!');

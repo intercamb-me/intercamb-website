@@ -8,16 +8,16 @@
       <div class="row">
         <div class="col">
           <span
-            *ngIf="plan"
-            [ngStyle]="{'backgroundColor': getColor(plan.name)}"
+            *ngIf="client.plan"
+            [ngStyle]="{'backgroundColor': getColor(client.plan.name)}"
             class="badge">
-            {{ plan.name }}
+            {{ client.plan.name }}
           </span>
         </div>
         <div class="col-auto text-right">
           <button (click)="openAssociatePlan()" type="button" class="btn btn-primary">
-            <span *ngIf="!plan">Associar plano</span>
-            <span *ngIf="plan">Alterar plano</span>
+            <span *ngIf="!client.plan">Associar plano</span>
+            <span *ngIf="client.plan">Alterar plano</span>
           </button>
           <a [routerLink]="['edit']" class="btn btn-primary ml-2">Editar dados</a>
         </div>
@@ -222,16 +222,20 @@
                 <p class="mb-0">{{ client.in_case_of_emergency.responsible | hyphensIfEmpty }}</p>
               </div>
               <div class="col form-group">
+                <label>Vínculo</label>
+                <p class="mb-0">{{ client.in_case_of_emergency.bond | hyphensIfEmpty }}</p>
+              </div>
+              <div class="col form-group">
                 <label>E-mail</label>
                 <p class="mb-0">{{ client.in_case_of_emergency.email | hyphensIfEmpty }}</p>
               </div>
             </div>
             <div class="row">
-              <div class="col form-group mb-0">
+              <div class="col-4 form-group mb-0">
                 <label>Telefone</label>
                 <p class="mb-0">{{ client.in_case_of_emergency.phone | hyphensIfEmpty }}</p>
               </div>
-              <div class="col form-group mb-0">
+              <div class="col-4 form-group mb-0">
                 <label>Telefone alternativo</label>
                 <p class="mb-0">{{ client.in_case_of_emergency.alternative_phone | hyphensIfEmpty }}</p>
               </div>
@@ -379,11 +383,11 @@
           </button>
         </div>
       </div>
-      <div *ngIf="paymentOrders.length === 0" class="jumbotron mt-3 mb-0">
+      <div *ngIf="client.payment_orders.length === 0" class="jumbotron mt-3 mb-0">
         <h5 class="mb-0 text-center">Nenhuma ordem registrada</h5>
       </div>
-      <div *ngIf="paymentOrders.length > 0" class="row">
-        <div *ngFor="let paymentOrder of paymentOrders; let idx = index; trackBy: trackByPaymentOrder" class="col-6 mt-3">
+      <div *ngIf="client.payment_orders.length > 0" class="row">
+        <div *ngFor="let paymentOrder of client.payment_orders; let idx = index; trackBy: trackByPaymentOrder" class="col-6 mt-3">
           <div class="payment">
             <div class="card-body">
               <div class="card-title d-flex align-items-center mb-2">
@@ -455,7 +459,7 @@
     <div class="col">
       <h2>Atividades</h2>
       <ngx-masonry [options]="masonryOptions" class="row">
-        <ngxMasonryItem *ngFor="let task of tasks; trackBy: trackByTask" class="col-6" style="margin-bottom: 1rem;">
+        <ngxMasonryItem *ngFor="let task of client.tasks; trackBy: trackByTask" class="col-6" style="margin-bottom: 1rem;">
           <div (click)="openTask(task)" class="task">
             <div class="card-body">
               <h5 class="card-title">{{ task.name }}</h5>

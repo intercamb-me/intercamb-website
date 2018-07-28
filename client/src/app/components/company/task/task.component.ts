@@ -1,12 +1,12 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
-import {mergeMap} from 'rxjs/operators';
+import {forkJoin} from 'rxjs';
 import * as distanceInWordsStrict from 'date-fns/distance_in_words_strict';
 
 import {ChangeTaskStatusComponent} from 'app/components/company/task/change-status/change-status.component';
 import {SetTaskScheduleDateComponent} from 'app/components/company/task/set-schedule-date/set-schedule-date.component';
 
-import {CompanyService} from 'app/services/company.service';
+import {AccountService} from 'app/services/account.service';
 import {TaskService} from 'app/services/task.service';
 import {AlertService} from 'app/services/alert.service';
 import {Constants} from 'app/utils/constants';
@@ -28,25 +28,24 @@ export class TaskComponent implements OnInit {
   @Input()
   public task: Task;
 
-  public accounts = new Map<string, Account>();
+  public account: Account;
   public taskStatus = Constants.TASK_STATUS;
   public comment = '';
   public commentRows = 1;
+  public loading = true;
 
-  constructor(private companyService: CompanyService, private taskService: TaskService, private alertService: AlertService, private ngbModal: NgbModal, private ngbActiveModal: NgbActiveModal) {
+  constructor(private accountService: AccountService, private taskService: TaskService, private alertService: AlertService, private ngbModal: NgbModal, private ngbActiveModal: NgbActiveModal) {
 
   }
 
   public ngOnInit(): void {
-    this.companyService.listAccounts().pipe(
-      mergeMap((accounts) => {
-        accounts.forEach((account) => {
-          this.accounts.set(account.id, account);
-        });
-        return this.taskService.getTask(this.task.id);
-      })
-    ).subscribe((task) => {
-      this.task = task;
+    forkJoin(
+      this.accountService.getAccount(),
+      this.taskService.getTask(this.task.id, {populate: 'comments.account attachments.account'})
+    ).subscribe((result) => {
+      this.account = result[0];
+      this.task = result[1];
+      this.loading = false;
     }, (err) => {
       this.alertService.apiError(null, err);
     });
@@ -111,6 +110,7 @@ export class TaskComponent implements OnInit {
     const keyCode = event.which || event.keyCode;
     if (!event.shiftKey && keyCode === 13) {
       this.taskService.addTaskComment(this.task, this.comment).subscribe((comment) => {
+        comment.account = this.account;
         this.task.comments.push(comment);
       }, (err) => {
         this.alertService.apiError(null, err);
@@ -133,6 +133,7 @@ export class TaskComponent implements OnInit {
   public addTaskAttachment(event: any): void {
     const file = event.target.files[0];
     this.taskService.addTaskAttachment(this.task, file).subscribe((attachment) => {
+      attachment.account = this.account;
       this.task.attachments.push(attachment);
     }, (err) => {
       this.alertService.apiError(null, err, 'Não foi possível enviar o arquivo, por favor tente novamente mais tarde!');

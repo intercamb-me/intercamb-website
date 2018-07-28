@@ -16,17 +16,17 @@
       (mouseenter)="openEventGroupPopover(eventGroupPopover, event)"
       (mouseleave)="closeEventGroupPopover(eventGroupPopover)"
       triggers="manual"
-      class="badge mx-1 my-1 px-2 py-1">
-      {{ event.meta.views.length }}
+      class="badge mx-1 my-1">
+      {{ event.meta.tasks.length }}
     </span>
   </div>
 </ng-template>
 
 <ng-template #eventPopoverTemplate let-event="event">
   <span
-    *ngFor="let view of event.meta.views; trackBy: trackByIndex"
-    class="badge badge-secondary mb-1 ml-1 mr-1 px-2 py-2">
-    {{ view.client.forename }} {{ view.client.surname }}
+    *ngFor="let task of event.meta.tasks; trackBy: trackByIndex"
+    class="badge badge-secondary mb-1 ml-1 mr-1">
+    {{ task.client.forename }} {{ task.client.surname }}
   </span>
 </ng-template>
 

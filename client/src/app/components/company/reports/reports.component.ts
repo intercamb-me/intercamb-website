@@ -13,7 +13,6 @@ import {AlertService} from 'app/services/alert.service';
 import {CalendarUtils} from 'app/utils/calendar.utils';
 import {Helpers} from 'app/utils/helpers';
 import {Company} from 'app/models/company.model';
-import {Plan} from 'app/models/plan.model';
 
 @Component({
   selector: 'app-reports',
@@ -27,7 +26,6 @@ export class ReportsComponent implements OnInit {
   public billingPerMonthElement: ElementRef<HTMLCanvasElement>;
   public loading = true;
 
-  private plans: Plan[];
   private clientsPerMonth: any;
   private clientsPerPlan: any;
   private billingPerMonth: any;
@@ -39,21 +37,19 @@ export class ReportsComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.companyService.getCompany().pipe(
+    this.companyService.getCompany({populate: 'plans'}).pipe(
       mergeMap((company) => {
         this.company = company;
         return forkJoin([
-          this.companyService.listPlans(),
           this.companyService.getClientsPerMonthReport(),
           this.companyService.getClientsPerPlanReport(),
           this.companyService.getBillingPerMonthReport(),
         ]);
       })
     ).subscribe((result: any[]) => {
-      this.plans = result[0];
-      this.clientsPerMonth = result[1];
-      this.clientsPerPlan = result[2];
-      this.billingPerMonth = result[3];
+      this.clientsPerMonth = result[0];
+      this.clientsPerPlan = result[1];
+      this.billingPerMonth = result[2];
       this.loading = false;
     }, (err) => {
       this.alertService.apiError(null, err);
@@ -136,7 +132,7 @@ export class ReportsComponent implements OnInit {
     const labels: string[] = [];
     const data: any[] = [];
     this.clientsPerPlan.forEach((register: any) => {
-      const plan = find(this.plans, (currentPlan) => {
+      const plan = find(this.company.plans, (currentPlan) => {
         return currentPlan.id === register._id;
       });
       labels.push(plan ? plan.name : 'Sem plano');

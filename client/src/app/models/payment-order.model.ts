@@ -6,8 +6,8 @@ import cloneDeep from 'lodash-es/cloneDeep';
 export class PaymentOrder {
 
   public id: string;
-  public company: string;
-  public client: string;
+  public company_id: string;
+  public client_id: string;
   public method: string;
   public amount: number;
   public due_date: Date;
@@ -17,8 +17,8 @@ export class PaymentOrder {
   constructor(data?: any) {
     if (data) {
       this.id = data.id;
-      this.company = data.company;
-      this.client = data.client;
+      this.company_id = data.company;
+      this.client_id = data.client;
       this.method = data.method;
       this.amount = data.amount;
       this.due_date = CalendarUtils.fromDateOnly(data.due_date);

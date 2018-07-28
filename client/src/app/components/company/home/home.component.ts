@@ -3,7 +3,6 @@ import {NgbPopover} from '@ng-bootstrap/ng-bootstrap/popover/popover.module';
 import {CalendarEvent, CalendarUtils as LibCalendarUtils} from 'angular-calendar';
 import {GetMonthViewArgs, MonthView, getMonthView} from 'calendar-utils';
 import {forkJoin} from 'rxjs';
-import {mergeMap} from 'rxjs/operators';
 import * as startOfWeek from 'date-fns/start_of_week';
 import * as addWeeks from 'date-fns/add_weeks';
 import * as endOfWeek from 'date-fns/end_of_week';
@@ -11,8 +10,6 @@ import * as endOfWeek from 'date-fns/end_of_week';
 import {CompanyService} from 'app/services/company.service';
 import {AlertService} from 'app/services/alert.service';
 import {CalendarUtils} from 'app/utils/calendar.utils';
-import {Client} from 'app/models/client.model';
-import {Task} from 'app/models/task.model';
 
 export class CustomCalendarUtils extends LibCalendarUtils {
 
@@ -32,11 +29,7 @@ export class CustomCalendarUtils extends LibCalendarUtils {
 })
 export class HomeComponent implements OnInit {
 
-  private static readonly CLIENT_FIELDS = 'forename surname';
-
   public clientsCount: number;
-  public tasks: Task[];
-  public clients: Client[];
   public loading = true;
   public calendarDate = new Date();
   public calendarEvents: CalendarEvent[] = [];
@@ -50,20 +43,10 @@ export class HomeComponent implements OnInit {
     const endDate = endOfWeek(addWeeks(new Date(), 1));
     forkJoin([
       this.companyService.countClients(),
-      this.companyService.listTasks(startDate, endDate),
-    ]).pipe(
-      mergeMap((result) => {
-        this.clientsCount = result[0];
-        this.tasks = result[1];
-        const clientIds: string[] = [];
-        this.tasks.forEach((task) => {
-          clientIds.push(task.client);
-        });
-        return this.companyService.listClients(clientIds, HomeComponent.CLIENT_FIELDS);
-      })
-    ).subscribe((clients) => {
-      this.clients = clients;
-      this.calendarEvents = CalendarUtils.getCalendarMonthEvents(this.tasks, this.clients);
+      this.companyService.listTasks(startDate, endDate, {populate: 'client.forename client.surname'}),
+    ]).subscribe((result) => {
+      this.clientsCount = result[0];
+      this.calendarEvents = CalendarUtils.getCalendarMonthEvents(result[1]);
       this.loading = false;
     }, (err) => {
       this.alertService.apiError(null, err);

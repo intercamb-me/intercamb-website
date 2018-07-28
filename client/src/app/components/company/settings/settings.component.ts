@@ -11,6 +11,7 @@ import {CompanyService} from 'app/services/company.service';
 import {AlertService} from 'app/services/alert.service';
 import {EventService} from 'app/services/event.service';
 import {Company} from 'app/models/company.model';
+import {Institution} from 'app/models/institution.model';
 import {Plan} from 'app/models/plan.model';
 
 @Component({
@@ -20,7 +21,7 @@ import {Plan} from 'app/models/plan.model';
 export class CompanySettingsComponent implements OnInit {
 
   public company: Company;
-  public plans: Plan[];
+  public allInstitutions: Institution[];
   public loading = true;
   public selectedPaletteVariant: PaletteVariant;
   public selectedTextColor: string;
@@ -30,18 +31,22 @@ export class CompanySettingsComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.companyService.getCompany().pipe(
+    this.companyService.getCompany({populate: 'plans'}).pipe(
       mergeMap((company) => {
         this.company = company;
         this.selectedTextColor = this.company.text_color;
-        return this.companyService.listPlans();
+        return this.companyService.listAllInstitutions();
       })
-    ).subscribe((plans) => {
-      this.plans = plans;
+    ).subscribe((allInstitutions) => {
+      this.allInstitutions = allInstitutions;
       this.loading = false;
     }, (err) => {
       this.alertService.apiError(null, err);
     });
+  }
+
+  public trackByInstitution(_index: number, institution: Institution): string {
+    return institution.name;
   }
 
   public trackByPlan(_index: number, plan: Plan): string {
@@ -58,17 +63,21 @@ export class CompanySettingsComponent implements OnInit {
     this.selectedTextColor = color;
   }
 
+  public openUpdateInstitutions(): void {
+
+  }
+
   public openSavePlan(plan: Plan): void {
     const modalRef = this.ngbModal.open(SavePlanComponent);
     modalRef.componentInstance.plan = plan;
     modalRef.result.then((updatedPlan) => {
-      const index = findIndex(this.plans, (currentPlan) => {
+      const index = findIndex(this.company.plans, (currentPlan) => {
         return currentPlan.id === updatedPlan.id;
       });
       if (index < 0) {
-        this.plans.push(updatedPlan);
+        this.company.plans.push(updatedPlan);
       } else {
-        this.plans[index] = updatedPlan;
+        this.company.plans[index] = updatedPlan;
       }
     }).catch(() => {
       // Nothing to do...
@@ -79,11 +88,11 @@ export class CompanySettingsComponent implements OnInit {
     const modalRef = this.ngbModal.open(DeletePlanComponent);
     modalRef.componentInstance.plan = plan;
     modalRef.result.then(() => {
-      const index = findIndex(this.plans, (currentPlan) => {
+      const index = findIndex(this.company.plans, (currentPlan) => {
         return currentPlan.id === plan.id;
       });
       if (index >= 0) {
-        this.plans.splice(index, 1);
+        this.company.plans.splice(index, 1);
       }
     }).catch(() => {
       // Nothing to do...

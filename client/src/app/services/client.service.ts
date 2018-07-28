@@ -7,7 +7,6 @@ import {EventService} from 'app/services/event.service';
 import {ApiError} from 'app/services/commons/api.error';
 import {RequestUtils} from 'app/utils/request.utils';
 import {Client} from 'app/models/client.model';
-import {Task} from 'app/models/task.model';
 import {Token} from 'app/models/token.model';
 import {Plan} from 'app/models/plan.model';
 import {PaymentOrder} from 'app/models/payment-order.model';
@@ -20,9 +19,13 @@ export class ClientService {
 
   }
 
-  public getClient(id: string): Observable<Client> {
+  public getClient(id: string, options?: any): Observable<Client> {
     const httpUrl = RequestUtils.getApiUrl(`/clients/${id}`);
-    return this.http.get<Client>(httpUrl, RequestUtils.getJsonOptions()).pipe(
+    const httpOptions = RequestUtils.getJsonOptions();
+    let params = new HttpParams();
+    params = RequestUtils.fillOptionsParams(params, options);
+    httpOptions.params = params;
+    return this.http.get<Client>(httpUrl, httpOptions).pipe(
       map((clientData: Client) => new Client(clientData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
@@ -62,24 +65,6 @@ export class ClientService {
     );
   }
 
-  public listTasks(client: Client): Observable<Task[]> {
-    const httpUrl = RequestUtils.getApiUrl(`/clients/${client.id}/tasks`);
-    return this.http.get<Task[]>(httpUrl, RequestUtils.getJsonOptions()).pipe(
-      map((tasksData: Task[]) => {
-        const tasks: Task[] = [];
-        tasksData.forEach((taskData) => {
-          tasks.push(new Task(taskData));
-        });
-        return tasks;
-      }),
-      catchError((err: HttpErrorResponse) => {
-        const apiError = ApiError.withResponse(err);
-        this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
-        return throwError(apiError);
-      })
-    );
-  }
-
   public associatePlan(client: Client, plan: Plan): Observable<void> {
     const httpUrl = RequestUtils.getApiUrl(`/clients/${client.id}/plans/${plan.id}`);
     return this.http.post<void>(httpUrl, {}, RequestUtils.getJsonOptions()).pipe(
@@ -104,27 +89,9 @@ export class ClientService {
     );
   }
 
-  public createPaymentOrders(client: Client, paymentOrders: PaymentOrder[]): Observable<PaymentOrder> {
+  public createPaymentOrders(client: Client, paymentOrders: PaymentOrder[]): Observable<PaymentOrder[]> {
     const httpUrl = RequestUtils.getApiUrl(`/clients/${client.id}/payment_orders`);
     return this.http.post<PaymentOrder>(httpUrl, paymentOrders, RequestUtils.getJsonOptions()).pipe(
-      map((ordersData: PaymentOrder[]) => {
-        const orders: PaymentOrder[] = [];
-        ordersData.forEach((orderData) => {
-          orders.push(new PaymentOrder(orderData));
-        });
-        return orders;
-      }),
-      catchError((err: HttpErrorResponse) => {
-        const apiError = ApiError.withResponse(err);
-        this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
-        return throwError(apiError);
-      })
-    );
-  }
-
-  public listPaymentOrders(client: Client): Observable<PaymentOrder[]> {
-    const httpUrl = RequestUtils.getApiUrl(`/clients/${client.id}/payment_orders`);
-    return this.http.get<PaymentOrder[]>(httpUrl, RequestUtils.getJsonOptions()).pipe(
       map((ordersData: PaymentOrder[]) => {
         const orders: PaymentOrder[] = [];
         ordersData.forEach((orderData) => {

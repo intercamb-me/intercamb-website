@@ -1,19 +1,12 @@
 import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
 import {CalendarEvent} from 'angular-calendar';
 import padStart from 'lodash-es/padStart';
-import keyBy from 'lodash-es/keyBy';
 
 import {Helpers} from 'app/utils/helpers';
 import {Task} from 'app/models/task.model';
-import {Client} from 'app/models/client.model';
-
-interface MetaViews {
-  task: Task;
-  client: Client;
-}
 
 interface CalendarEventMeta {
-  views: MetaViews[];
+  tasks: Task[];
 }
 
 export class CalendarUtils {
@@ -59,12 +52,10 @@ export class CalendarUtils {
     };
   }
 
-  public static getCalendarMonthEvents(tasks: Task[], clients: Client[]): CalendarEvent[] {
-    const clientById = keyBy(clients, 'id');
+  public static getCalendarMonthEvents(tasks: Task[]): CalendarEvent[] {
     const eventsByDate: any = {};
     const events: CalendarEvent[] = [];
     tasks.forEach((task) => {
-      const client = clientById[task.client];
       const dateIndex = String(CalendarUtils.toDateOnly(task.schedule_date));
       if (!eventsByDate[dateIndex]) {
         eventsByDate[dateIndex] = {};
@@ -77,13 +68,13 @@ export class CalendarUtils {
           color: {primary: color, secondary: color},
           start: task.schedule_date,
           meta: {
-            views: [],
+            tasks: [],
           },
         };
         eventsByDate[dateIndex][task.name] = event;
         events.push(event);
       }
-      event.meta.views.push({task, client});
+      event.meta.tasks.push(task);
     });
     return events;
   }

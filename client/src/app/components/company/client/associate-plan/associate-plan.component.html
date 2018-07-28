@@ -8,8 +8,8 @@
       </button>
     </div>
     <div class="modal-body">
-      <div class="row">
-        <div *ngFor="let plan of plans; trackBy: trackByPlan" (click)="selectPlan(plan)" class="col-6 col-lg-4 mb-3 cursor-pointer">
+      <div *ngIf="company.plans.length > 0" class="row">
+        <div *ngFor="let plan of company.plans; trackBy: trackByPlan" (click)="selectPlan(plan)" class="col-6 col-lg-4 mb-3 cursor-pointer">
           <div [ngClass]="{'selected': selectedPlan && selectedPlan.id === plan.id}" class="plan">
             <div class="card-body px-0 py-0">
               <h5 class="mb-0 px-3 py-2">{{ plan.name }}</h5>
@@ -17,6 +17,9 @@
             </div>
           </div>
         </div>
+      </div>
+      <div *ngIf="company.plans.length === 0" class="jumbotron mb-0">
+        <h5>Nenhum plano cadastrado. Clique <a [routerLink]="['/company', 'settings']" (click)="close()" class="text-primary">aqui</a> para cadastrar os planos oferecidos por sua empresa.</h5>
       </div>
     </div>
     <div class="modal-footer">
@@ -30,7 +33,6 @@
       </button>
       <button
         *ngIf="client.plan && client.plan === selectedPlan.id"
-        [disabled]=""
         (click)="dissociatePlan()"
         type="button"
         class="btn btn-danger">

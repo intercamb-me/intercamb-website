@@ -85,10 +85,17 @@
       .align-items-end();
       .mt-4();
       .px-1();
-      .account-icon {
+      .account-btn {
+        .btn();
+        .btn-link();
         .rounded-circle();
-        width: 40px;
-        height: 40px;
+        .p-0();
+        border: 3px solid @white;
+        > .account-icon {
+          .rounded-circle();
+          width: 40px;
+          height: 40px;
+        }
       }
       .dropdown-menu {
         .ml-2();

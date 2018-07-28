@@ -28,7 +28,7 @@
       </span>
     </div>
   </div>
-  <div class="modal-body px-4 py-4">
+  <div *ngIf="!loading" class="modal-body px-4 py-4">
     <div class="row">
       <div class="col">
         <div class="attachments">
@@ -36,11 +36,11 @@
           <div *ngIf="task.attachments.length === 0" class="jumbotron py-5 mb-0 text-center">
             <p class="mb-0">Nenhum arquivo</p>
           </div>
-          <div class="row">
+          <div *ngIf="task.attachments.length > 0" class="row">
             <div *ngFor="let attachment of task.attachments; trackBy: trackByAttachment" class="col col-md-6 mb-3">
               <div (click)="openTaskAttachment(attachment)" class="attachment">
-                <div *ngIf="accounts.get(attachment.account)" class="account">
-                  {{ accounts.get(attachment.account).getFullName() }}
+                <div class="account">
+                  {{ attachment.account.getFullName() }}
                   <span class="time">{{ formatDate(attachment.registration_date) }}</span>
                 </div>
                 <div class="type">
@@ -62,11 +62,11 @@
           </div>
           <div *ngFor="let comment of task.comments.slice().reverse(); trackBy: trackByComment" class="comment">
             <div class="icon">
-              <img *ngIf="accounts.get(comment.account)" [src]="accounts.get(comment.account).image_url">
+              <img *ngIf="comment.account" [src]="comment.account.image_url">
             </div>
             <div class="content">
-              <p *ngIf="accounts.get(comment.account)" class="account">
-                {{ accounts.get(comment.account).getFullName() }}
+              <p class="account">
+                {{ comment.account.getFullName() }}
                 <span class="time">{{ formatDate(comment.registration_date) }}</span>
               </p>
               <div class="balloon">

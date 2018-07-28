@@ -22,7 +22,7 @@ export class EditPaymentOrderComponent implements OnInit {
 
   public company: Company;
   public method: string;
-  public amount: number;
+  public amount: string;
   public dueDateStruct: NgbDateStruct;
   public availableMethods = Constants.PAYMENT_METHODS;
   public onlyDateChars = Helpers.onlyDateChars;
@@ -34,7 +34,7 @@ export class EditPaymentOrderComponent implements OnInit {
 
   public ngOnInit(): void {
     this.method = this.paymentOrder.method;
-    this.amount = this.paymentOrder.amount;
+    this.amount = String(this.paymentOrder.amount);
     this.dueDateStruct = CalendarUtils.toDateStruct(this.paymentOrder.due_date);
     this.companyService.getCompany().subscribe((company) => {
       this.company = company;
@@ -59,7 +59,7 @@ export class EditPaymentOrderComponent implements OnInit {
   public updatePaymentOrder(): void {
     const data = {
       method: this.method,
-      amount: this.amount,
+      amount: Number(this.amount),
       due_date: CalendarUtils.fromDateStruct(this.dueDateStruct),
     };
     this.paymentService.updatePaymentOrder(this.paymentOrder, data).subscribe((paymentOrder) => {

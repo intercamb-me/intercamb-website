@@ -22,7 +22,7 @@ export class SignInComponent implements OnInit {
 
   public ngOnInit(): void {
     this.accountService.getAccount().subscribe((account) => {
-      if (account && account.company) {
+      if (account && account.company_id) {
         this.router.navigate(['/company']);
         return;
       }

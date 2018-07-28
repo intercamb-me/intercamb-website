@@ -118,8 +118,8 @@ module.exports = (settings) => {
       new CssExtractPlugin({filename: 'assets/styles/[name].[chunkhash].css'}),
       new CssPurgePlugin({
         paths: glob.sync(`${path.resolve('client', 'src')}/**/*`, {nodir: true}),
-        whitelist: ['modal', 'dropdown', 'alert', 'collapse', 'fade', 'show', 'd-block', 'ng-fa-icon'],
-        whitelistPatterns: [/^modal-/, /^dropdown-/, /^alert-/, /^bg-/, /^cal-/],
+        whitelist: ['collapse', 'fade', 'show', 'arrow', 'd-block', 'custom-select', 'btn-link', 'btn-light', 'fieldset'],
+        whitelistPatterns: [/^modal/, /^dropdown/, /^popover/, /^bs-popover/, /^alert/, /^bg-/, /^ng-/, /^ngb-/, /^cal-/],
       }),
       new HtmlPlugin({template: path.resolve('client', 'src', 'index.html')}),
     ],

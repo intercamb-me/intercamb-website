@@ -17,7 +17,7 @@ import {Plan} from 'app/models/plan.model';
 import {Client} from 'app/models/client.model';
 
 interface Split {
-  amount: number;
+  amount: string;
   dueDateStruct: NgbDateStruct;
 }
 
@@ -32,7 +32,7 @@ export class CreatePaymentOrderComponent implements OnInit {
 
   public company: Company;
   public method: string;
-  public amount: number;
+  public amount: string;
   public numberOfSplits = 1;
   public splits: Split[] = [];
   public dueDateStruct: NgbDateStruct;
@@ -48,11 +48,11 @@ export class CreatePaymentOrderComponent implements OnInit {
     this.companyService.getCompany().pipe(
       mergeMap((company) => {
         this.company = company;
-        return this.client.plan ? this.planService.getPlan(this.client.plan) : of(null);
+        return this.client.plan_id ? this.planService.getPlan(this.client.plan_id) : of(null);
       })
     ).subscribe((plan: Plan) => {
       if (plan) {
-        this.amount = plan.price;
+        this.amount = String(plan.price);
       }
       this.loading = false;
     }, (err) => {
@@ -72,7 +72,7 @@ export class CreatePaymentOrderComponent implements OnInit {
       for (let i = 0; i < this.numberOfSplits; i += 1) {
         const splitDate = splitBaseDate ? addMonths(splitBaseDate, i) : null;
         this.splits.push({
-          amount: splitAmount,
+          amount: String(splitAmount),
           dueDateStruct: CalendarUtils.toDateStruct(splitDate),
         });
       }
@@ -92,7 +92,7 @@ export class CreatePaymentOrderComponent implements OnInit {
     this.splits.forEach((split) => {
       data.push({
         method: this.method,
-        amount: split.amount,
+        amount: Number(split.amount),
         due_date: CalendarUtils.toDateOnly(CalendarUtils.fromDateStruct(split.dueDateStruct)),
       });
     });

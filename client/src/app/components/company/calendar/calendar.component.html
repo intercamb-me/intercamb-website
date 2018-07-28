@@ -16,17 +16,17 @@
       (mouseenter)="openEventGroupPopover(eventGroupPopover, event)"
       (mouseleave)="closeEventGroupPopover(eventGroupPopover)"
       triggers="manual"
-      class="badge mx-1 my-1 px-2 py-1">
-      {{ event.meta.views.length }}
+      class="badge mx-1 my-1">
+      {{ event.meta.tasks.length }}
     </span>
   </div>
 </ng-template>
 
 <ng-template #monthEventPopoverTemplate let-event="event">
   <span
-    *ngFor="let view of event.meta.views; trackBy: trackByIndex"
-    class="badge badge-secondary mb-1 ml-1 mr-1 px-2 py-2">
-    {{ view.client.forename }} {{ view.client.surname }}
+    *ngFor="let task of event.meta.tasks; trackBy: trackByIndex"
+    class="badge badge-secondary mb-1 ml-1 mr-1">
+    {{ task.client.forename }} {{ task.client.surname }}
   </span>
 </ng-template>
 
@@ -107,14 +107,14 @@
       <ng-container *ngIf="(calendarDayEvents | size) > 0">
         <div *ngFor="let eventsByHour of calendarDayEvents | mapValues; trackBy: trackByIndex" class="mb-4">
           <h4 class="jumbotron px-4 py-2 mb-2">{{ eventsByHour.key }}</h4>
-          <div *ngFor="let viewByEvent of eventsByHour.value | mapValues; trackBy: trackByIndex" class="card mb-2">
+          <div *ngFor="let tasksByEvent of eventsByHour.value | mapValues; trackBy: trackByIndex" class="card mb-2">
             <div class="card-body">
-              <h5>{{ viewByEvent.key }}</h5>
+              <h5>{{ tasksByEvent.key }}</h5>
               <a
-                *ngFor="let view of viewByEvent.value; trackBy: trackByIndex"
-                [routerLink]="['/company', 'clients', view.client.id]"
-                class="badge badge-secondary mb-1 mx-1 px-2 py-2 text-small">
-                {{ view.client.forename }} {{ view.client.surname }}
+                *ngFor="let task of tasksByEvent.value; trackBy: trackByIndex"
+                [routerLink]="['/company', 'clients', task.client.id]"
+                class="badge badge-secondary my-1 mr-2 font-small">
+                {{ task.client.forename }} {{ task.client.surname }}
               </a>
             </div>
           </div>

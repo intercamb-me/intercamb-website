@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {HttpClient, HttpParams, HttpErrorResponse} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {map, catchError} from 'rxjs/operators';
 
@@ -17,9 +17,13 @@ export class TaskService {
 
   }
 
-  public getTask(id: string): Observable<Task> {
+  public getTask(id: string, options: any): Observable<Task> {
     const httpUrl = RequestUtils.getApiUrl(`/tasks/${id}`);
-    return this.http.get<Task>(httpUrl, RequestUtils.getJsonOptions()).pipe(
+    const httpOptions = RequestUtils.getJsonOptions();
+    let params = new HttpParams();
+    params = RequestUtils.fillOptionsParams(params, options);
+    httpOptions.params = params;
+    return this.http.get<Task>(httpUrl, httpOptions).pipe(
       map((taskData: Task) => new Task(taskData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
