@@ -22,9 +22,9 @@ export class SaveInstitutionsComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.companyService.getCompany({populate: 'available_institutions'}).pipe(
+    this.companyService.getCompany({populate: 'institutions'}).pipe(
       mergeMap((company) => {
-        this.selectedInstitutions = company.available_institutions;
+        this.selectedInstitutions = company.institutions;
         return this.companyService.listAllInstitutions();
       })
     ).subscribe((allInstitutions) => {
@@ -70,12 +70,12 @@ export class SaveInstitutionsComponent implements OnInit {
 
   public saveInstitutions(): void {
     const data = {
-      available_institutions: this.selectedInstitutions.map((institution) => {
+      institutions: this.selectedInstitutions.map((institution) => {
         return institution.id;
       }),
     };
-    this.companyService.updateCompany(data).subscribe((company) => {
-      this.ngbActiveModal.close(company.available_institutions);
+    this.companyService.updateCompany(data).subscribe(() => {
+      this.ngbActiveModal.close(this.selectedInstitutions);
     }, (err) => {
       this.alertService.apiError(null, err);
     });

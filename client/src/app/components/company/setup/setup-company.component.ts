@@ -7,6 +7,7 @@ import {AccountService} from 'app/services/account.service';
 import {CompanyService} from 'app/services/company.service';
 import {AlertService} from 'app/services/alert.service';
 import {Company} from 'app/models/company.model';
+import {Institution} from 'app/models/institution.model';
 
 @Component({
   selector: 'app-setup-company',
@@ -20,6 +21,9 @@ export class SetupCompanyComponent implements OnInit {
   public loading = true;
   public selectedPaletteVariant: PaletteVariant;
   public selectedTextColor: string;
+  public allInstitutions: Institution[];
+  public selectedInstitutions: Institution[] = [];
+  public selectedInstitution: Institution;
 
   constructor(private accountService: AccountService, private companyService: CompanyService, private alertService: AlertService, private router: Router) {
 
@@ -35,10 +39,23 @@ export class SetupCompanyComponent implements OnInit {
         this.router.navigate(['/company']);
         return;
       }
-      this.loading = false;
+      this.companyService.listAllInstitutions().subscribe((allInstitutions) => {
+        this.allInstitutions = allInstitutions;
+        this.loading = false;
+      }, (err) => {
+        this.alertService.apiError(null, err);
+      });
     }, (err) => {
       this.alertService.apiError(null, err);
     });
+  }
+
+  public trackByInstitution(_index: number, institution: Institution): string {
+    return institution.id;
+  }
+
+  public compareInstitutions(institution: Institution, otherInstitution: Institution): boolean {
+    return institution && otherInstitution && institution.id === otherInstitution.id;
   }
 
   public onColorSelected(colorSelected: ColorSelected): void {
@@ -60,19 +77,6 @@ export class SetupCompanyComponent implements OnInit {
     });
   }
 
-  public updateCompany(): void {
-    const data = {
-      primary_color: this.selectedPaletteVariant.color,
-      text_color: this.selectedPaletteVariant.textColor,
-    };
-    this.companyService.updateCompany(data).subscribe((company) => {
-      this.company = company;
-      this.router.navigate(['/company']);
-    }, (err) => {
-      this.alertService.apiError(null, err, 'Não foi possível atualizar as configurações, por favor tente novamente em alguns instantes!');
-    });
-  }
-
   public updateCompanyLogo(event: any): void {
     const file = event.target.files[0];
     this.companyService.updateCompanyLogo(file).subscribe((company) => {
@@ -80,6 +84,54 @@ export class SetupCompanyComponent implements OnInit {
       this.alertService.success('Logo atualizado com sucesso!');
     }, (err) => {
       this.alertService.apiError(null, err, 'Não foi possível atualizar o logo, por favor tente novamente em alguns instantes!');
+    });
+  }
+
+  public updateCompanyColors(): void {
+    const data = {
+      primary_color: this.selectedPaletteVariant.color,
+      text_color: this.selectedPaletteVariant.textColor,
+    };
+    this.companyService.updateCompany(data).subscribe((company) => {
+      this.company = company;
+      this.step = this.step + 1;
+    }, (err) => {
+      this.alertService.apiError(null, err, 'Não foi possível atualizar as configurações, por favor tente novamente em alguns instantes!');
+    });
+  }
+
+  public addInstitution(): void {
+    if (this.selectedInstitution) {
+      const index = this.selectedInstitutions.findIndex((currentInstitution) => {
+        return currentInstitution.id === this.selectedInstitution.id;
+      });
+      if (index < 0) {
+        this.selectedInstitutions.push(this.selectedInstitution);
+      }
+      this.selectedInstitution = null;
+    }
+  }
+
+  public removeInstitution(institution: Institution): void {
+    const index = this.selectedInstitutions.findIndex((currentInstitution) => {
+      return currentInstitution.id === institution.id;
+    });
+    if (index >= 0) {
+      this.selectedInstitutions.splice(index, 1);
+    }
+  }
+
+  public updateCompanyInfo(): void {
+    const data = {
+      institutions: this.selectedInstitutions.map((institution) => {
+        return institution.id;
+      }),
+    };
+    this.companyService.updateCompany(data).subscribe((company) => {
+      this.company = company;
+      this.router.navigate(['/company']);
+    }, (err) => {
+      this.alertService.apiError(null, err);
     });
   }
 }

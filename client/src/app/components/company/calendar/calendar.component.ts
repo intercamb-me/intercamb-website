@@ -44,7 +44,7 @@ export class CalendarComponent implements OnInit {
   }
 
   public fetchEvents(): void {
-    this.companyService.listTasks(this.getStartDate(), this.getEndDate(), {populate: 'client.forename client.surname'}).subscribe((tasks) => {
+    this.companyService.listTasks(this.getStartDate(), this.getEndDate(), {select: 'client.forename client.surname', populate: 'client'}).subscribe((tasks) => {
       if (this.calendarView === CalendarComponent.VIEW_MONTH) {
         this.calendarMonthEvents = CalendarUtils.getCalendarMonthEvents(tasks);
       } else {

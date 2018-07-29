@@ -22,8 +22,8 @@ export class SearchAddressComponent {
 
   public searchAddress(): void {
     this.clientService.searchAddress(this.zipCode).subscribe((zipCodeAddress) => {
-      this.ngbActiveModal.close(zipCodeAddress);
       this.alertService.success('Endereço encontrado! Os campos foram preenchidos automaticamente.');
+      this.ngbActiveModal.close(zipCodeAddress);
     }, (err) => {
       this.alertService.apiError(null, err, 'Não foi possível buscar o endereço, por favor tente novamente mais tarde!');
     });

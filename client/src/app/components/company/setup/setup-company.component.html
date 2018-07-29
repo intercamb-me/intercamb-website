@@ -92,9 +92,79 @@
                           </span>
                         </div>
                       </div>
+                    </div>
+                  </div>
+                  <hr/>
+                  <div class="row">
+                    <div class="col">
                       <button
                         [disabled]="!selectedPaletteVariant || !selectedTextColor"
-                        (click)="updateCompany()"
+                        (click)="updateCompanyColors()"
+                        type="button"
+                        class="btn btn-primary float-right">
+                        Confirmar
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="step === 2" class="col">
+        <h2 class="mb-4 text-center text-white">
+          Para finalizar, conte-nos um pouco mais sobre sua empresa.
+        </h2>
+        <div class="row justify-content-center">
+          <div class="col-md-8 col-lg-6">
+            <div class="card">
+              <div class="card-body">
+                <form #form="ngForm" (ngSubmit)="updateCompany()" novalidate>
+                  <p>Selecione todas as instituições de ensino que sua empresa oferece.</p>
+                  <div class="form-row">
+                    <div class="col form-group">
+                      <select
+                        [(ngModel)]="selectedInstitution"
+                        [compareWith]="compareInstitutions"
+                        name="institution"
+                        class="form-control">
+                        <option *ngFor="let institution of allInstitutions; trackBy: trackByInstitution" [ngValue]="institution">
+                          {{ institution.name }}
+                          <span *ngIf="institution.acronym"> ({{ institution.acronym }})</span>
+                        </option>
+                      </select>
+                    </div>
+                    <div class="col-auto form-group">
+                      <button
+                        (click)="addInstitution()"
+                        class="btn btn-primary"
+                        type="button">
+                        Adicionar
+                      </button>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <span *ngFor="let institution of selectedInstitutions" class="badge badge-secondary mb-2 mr-2">
+                        <span *ngIf="institution.acronym">{{ institution.acronym }}</span>
+                        <span *ngIf="!institution.acronym">{{ institution.name }}</span>
+                        <fa-icon
+                          [icon]="['fas', 'times']"
+                          [fixedWidth]="true"
+                          (click)="removeInstitution(institution)"
+                          title="Remover"
+                          class="cursor-pointer ml-2">
+                        </fa-icon>
+                      </span>
+                    </div>
+                  </div>
+                  <hr/>
+                  <div class="row">
+                    <div class="col">
+                      <button
+                        [disabled]="selectedInstitutions.length === 0"
+                        (click)="updateCompanyInfo()"
                         type="button"
                         class="btn btn-primary float-right">
                         Confirmar

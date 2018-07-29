@@ -43,7 +43,7 @@ export class HomeComponent implements OnInit {
     const endDate = endOfWeek(addWeeks(new Date(), 1));
     forkJoin([
       this.companyService.countClients(),
-      this.companyService.listTasks(startDate, endDate, {populate: 'client.forename client.surname'}),
+      this.companyService.listTasks(startDate, endDate, {select: 'client.forename client.surname', populate: 'client'}),
     ]).subscribe((result) => {
       this.clientsCount = result[0];
       this.calendarEvents = CalendarUtils.getCalendarMonthEvents(result[1]);

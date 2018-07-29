@@ -51,7 +51,7 @@ export class ClientComponent implements OnInit {
     this.companyService.getCompany().pipe(
       mergeMap((company) => {
         this.company = company;
-        return this.clientService.getClient(clientId, {populate: 'plan payment_orders tasks'});
+        return this.clientService.getClient(clientId, {populate: 'intended_course.institution plan payment_orders tasks'});
       })
     ).subscribe((client) => {
       this.client = client;

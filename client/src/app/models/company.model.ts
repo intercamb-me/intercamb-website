@@ -14,7 +14,7 @@ export class Company {
   public owner_id: string;
   public registration_date: Date;
 
-  public available_institutions: Institution[];
+  public institutions: Institution[];
   public plans: Plan[];
 
   constructor(data?: any) {
@@ -27,10 +27,10 @@ export class Company {
       this.text_color = data.text_color;
       this.owner_id = data.owner;
       this.registration_date = new Date(data.registration_date);
-      this.available_institutions = [];
-      if (data.available_institutions) {
-        (data.available_institutions as any[]).forEach((institution) => {
-          this.available_institutions.push(new Institution(institution));
+      this.institutions = [];
+      if (data.institutions) {
+        (data.institutions as any[]).forEach((institution) => {
+          this.institutions.push(new Institution(institution));
         });
       }
       this.plans = [];

@@ -53,9 +53,9 @@ export class ClientService {
     );
   }
 
-  public updateClient(client: Client): Observable<Client> {
+  public updateClient(client: Client, data: any): Observable<Client> {
     const httpUrl = RequestUtils.getApiUrl(`/clients/${client.id}`);
-    return this.http.put<Client>(httpUrl, client, RequestUtils.getJsonOptions()).pipe(
+    return this.http.put<Client>(httpUrl, data, RequestUtils.getJsonOptions()).pipe(
       map((clientData: Client) => new Client(clientData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);

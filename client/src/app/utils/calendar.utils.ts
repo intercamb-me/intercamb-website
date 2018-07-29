@@ -1,6 +1,8 @@
 import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
 import {CalendarEvent} from 'angular-calendar';
 import padStart from 'lodash-es/padStart';
+import isNull from 'lodash-es/isNull';
+import isUndefined from 'lodash-es/isUndefined';
 
 import {Helpers} from 'app/utils/helpers';
 import {Task} from 'app/models/task.model';
@@ -12,8 +14,11 @@ interface CalendarEventMeta {
 export class CalendarUtils {
 
   public static fromDateOnly(dateOnly: number): Date {
-    if (!dateOnly) {
+    if (isNull(dateOnly)) {
       return null;
+    }
+    if (isUndefined(dateOnly)) {
+      return undefined;
     }
     const dateOnlyStr = String(dateOnly);
     const year = dateOnlyStr.substring(0, 4);
@@ -24,8 +29,11 @@ export class CalendarUtils {
   }
 
   public static toDateOnly(date: Date): number {
-    if (!date) {
+    if (isNull(date)) {
       return null;
+    }
+    if (isUndefined(date)) {
+      return undefined;
     }
     const year = padStart(String(date.getFullYear()), 4, '0');
     const month = padStart(String(date.getMonth()), 2, '0');
@@ -35,15 +43,21 @@ export class CalendarUtils {
   }
 
   public static fromDateStruct(dateStruct: NgbDateStruct): Date {
-    if (!dateStruct) {
+    if (isNull(dateStruct)) {
       return null;
+    }
+    if (isUndefined(dateStruct)) {
+      return undefined;
     }
     return new Date(dateStruct.year, dateStruct.month - 1, dateStruct.day);
   }
 
   public static toDateStruct(date: Date): NgbDateStruct {
-    if (!date) {
+    if (isNull(date)) {
       return null;
+    }
+    if (isUndefined(date)) {
+      return undefined;
     }
     return {
       year: date.getFullYear(),

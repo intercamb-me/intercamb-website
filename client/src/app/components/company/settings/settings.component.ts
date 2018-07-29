@@ -30,7 +30,7 @@ export class CompanySettingsComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.companyService.getCompany({populate: 'plans available_institutions'}).subscribe((company) => {
+    this.companyService.getCompany({populate: 'plans institutions'}).subscribe((company) => {
       this.company = company;
       this.selectedTextColor = this.company.text_color;
       this.loading = false;
@@ -60,7 +60,7 @@ export class CompanySettingsComponent implements OnInit {
   public openSaveInstitutions(): void {
     const modalRef = this.ngbModal.open(SaveInstitutionsComponent);
     modalRef.result.then((updatedInstitutions) => {
-      this.company.available_institutions = updatedInstitutions;
+      this.company.institutions = updatedInstitutions;
     }).catch(() => {
       // Nothing to do...
     });

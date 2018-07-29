@@ -1,5 +1,5 @@
-<div id="register-client">
-  <form #form="ngForm" novalidate>
+<div *ngIf="!loading" id="save-client">
+  <form #form="ngForm" (ngSubmit)="saveClient()" novalidate>
     <div class="row">
       <div class="col">
         <h1 class="mb-0">Cadastrar assessorado</h1>
@@ -14,7 +14,7 @@
               <label for="bi-forename">Nome</label>
               <input
                 #forename="ngModel"
-                [(ngModel)]="client.forename"
+                [(ngModel)]="formData.forename"
                 [ngClass]="{'is-invalid': forename.invalid && (forename.dirty || forename.touched)}"
                 id="bi-forename"
                 name="bi-forename"
@@ -27,7 +27,7 @@
               <label for="bi-surname">Sobrenome</label>
               <input
                 #surname="ngModel"
-                [(ngModel)]="client.surname"
+                [(ngModel)]="formData.surname"
                 [ngClass]="{'is-invalid': surname.invalid && (surname.dirty || surname.touched)}"
                 id="bi-surname"
                 name="bi-surname"
@@ -42,7 +42,7 @@
               <label for="bi-email">E-mail</label>
               <input
                 #email="ngModel"
-                [(ngModel)]="client.email"
+                [(ngModel)]="formData.email"
                 [ngClass]="{'is-invalid': email.invalid && (email.dirty || email.touched)}"
                 id="bi-email"
                 name="bi-email"
@@ -55,7 +55,7 @@
               <label for="bi-phone">Telefone</label>
               <input
                 #phone="ngModel"
-                [(ngModel)]="client.phone"
+                [(ngModel)]="formData.phone"
                 [ngClass]="{'is-invalid': phone.invalid && (phone.dirty || phone.touched)}"
                 [dropSpecialCharacters]="false"
                 id="bi-phone"
@@ -79,7 +79,7 @@
             <div class="col form-group">
               <label for="pd-nationality">Nacionalidade</label>
               <input
-                [(ngModel)]="client.personal_data.nationality"
+                [(ngModel)]="formData.personal_data.nationality"
                 id="pd-nationality"
                 name="pd-nationality"
                 type="text"
@@ -91,7 +91,7 @@
               <div class="form-row">
                 <div class="col">
                   <input
-                    [(ngModel)]="client.personal_data.place_of_birth.city"
+                    [(ngModel)]="formData.personal_data.place_of_birth.city"
                     id="pd-pob-city"
                     name="pd-pob-city"
                     type="text"
@@ -100,7 +100,7 @@
                 </div>
                 <div class="col">
                   <input
-                    [(ngModel)]="client.personal_data.place_of_birth.state"
+                    [(ngModel)]="formData.personal_data.place_of_birth.state"
                     id="pd-pob-state"
                     name="pd-pob-state"
                     type="text"
@@ -115,7 +115,7 @@
             <div class="form-row">
               <div class="col">
                 <input
-                  [(ngModel)]="client.personal_data.identity_document.number"
+                  [(ngModel)]="formData.personal_data.identity_document.number"
                   id="pd-identity-document-number"
                   name="pd-identity-document-number"
                   type="text"
@@ -125,7 +125,7 @@
               </div>
               <div class="col">
                 <input
-                  [(ngModel)]="client.personal_data.identity_document.issuing_authority"
+                  [(ngModel)]="formData.personal_data.identity_document.issuing_authority"
                   id="pd-identity-document-issuing-authority"
                   name="pd-identity-document-issuing-authority"
                   type="text"
@@ -134,7 +134,7 @@
               </div>
               <div class="col">
                 <input
-                  [(ngModel)]="client.personal_data.identity_document.state"
+                  [(ngModel)]="formData.personal_data.identity_document.state"
                   id="pd-identity-document-state"
                   name="pd-identity-document-state"
                   type="text"
@@ -147,7 +147,7 @@
             <div class="col form-group">
               <label for="pd-cpf">CPF</label>
               <input
-                [(ngModel)]="client.personal_data.cpf_number"
+                [(ngModel)]="formData.personal_data.cpf_number"
                 id="pd-cpf"
                 name="pd-cpf"
                 type="text"
@@ -157,7 +157,7 @@
             <div class="col form-group">
               <label for="pd-passport">Passaporte</label>
               <input
-                [(ngModel)]="client.personal_data.passport_number"
+                [(ngModel)]="formData.personal_data.passport_number"
                 id="pd-passport"
                 name="pd-passport"
                 type="text"
@@ -173,7 +173,7 @@
                   #birthdate="ngModel"
                   #birthdatePicker="ngbDatepicker"
                   ngbDatepicker
-                  [(ngModel)]="birthdateStruct"
+                  [(ngModel)]="formData.personal_data.birthdate"
                   [ngClass]="{'is-invalid': birthdate.invalid && (birthdate.dirty || birthdate.touched)}"
                   (keypress)="onlyDateChars($event)"
                   id="pd-birthdate"
@@ -190,7 +190,7 @@
             <div class="col form-group">
               <label for="pd-gender">Sexo</label>
               <select
-                [(ngModel)]="client.personal_data.gender"
+                [(ngModel)]="formData.personal_data.gender"
                 id="pd-gender"
                 name="pd-gender"
                 class="form-control">
@@ -204,7 +204,7 @@
             <div class="col-6 form-group">
               <label for="pd-civil-status">Estado Civil</label>
               <select
-                [(ngModel)]="client.personal_data.marital_status"
+                [(ngModel)]="formData.personal_data.marital_status"
                 id="pd-marital-status"
                 name="pd-marital-status"
                 class="form-control">
@@ -227,14 +227,14 @@
               <h2 class="mb-3">Endereço</h2>
             </div>
             <div class="col-auto">
-              <button (click)="searchAddress()" class="btn btn-info">Buscar pelo CEP</button>
+              <button (click)="searchAddress()" type="button" class="btn btn-info">Buscar pelo CEP</button>
             </div>
           </div>
           <div class="row">
             <div class="col form-group">
               <label for="addr-public-place">Logradouro</label>
               <input
-                [(ngModel)]="client.address.public_place"
+                [(ngModel)]="formData.address.public_place"
                 id="addr-public-place"
                 name="addr-public-place"
                 type="text"
@@ -243,7 +243,7 @@
             <div class="col form-group">
               <label for="addr-number">Número</label>
               <input
-                [(ngModel)]="client.address.number"
+                [(ngModel)]="formData.address.number"
                 id="addr-number"
                 name="addr-number"
                 type="text"
@@ -255,7 +255,7 @@
             <div class="col form-group">
               <label for="addr-complement">Complemento</label>
               <input
-                [(ngModel)]="client.address.complement"
+                [(ngModel)]="formData.address.complement"
                 id="addr-complement"
                 name="addr-complement"
                 type="text"
@@ -264,7 +264,7 @@
             <div class="col form-group">
               <label for="addr-neighborhood">Bairro</label>
               <input
-                [(ngModel)]="client.address.neighborhood"
+                [(ngModel)]="formData.address.neighborhood"
                 id="addr-neighborhood"
                 name="addr-neighborhood"
                 type="text"
@@ -275,7 +275,7 @@
             <div class="col form-group">
               <label for="addr-city">Cidade</label>
               <input
-                [(ngModel)]="client.address.city"
+                [(ngModel)]="formData.address.city"
                 id="addr-city"
                 name="addr-city"
                 type="text"
@@ -284,7 +284,7 @@
             <div class="col form-group">
               <label for="addr-state">Estado</label>
               <input
-                [(ngModel)]="client.address.state"
+                [(ngModel)]="formData.address.state"
                 id="addr-state"
                 name="addr-state"
                 type="text"
@@ -293,7 +293,7 @@
             <div class="form-group">
               <label for="addr-zip-code">CEP</label>
               <input
-                [(ngModel)]="client.address.zip_code"
+                [(ngModel)]="formData.address.zip_code"
                 id="addr-zip-code"
                 name="addr-zip-code"
                 type="text"
@@ -313,7 +313,7 @@
               <div class="form-group">
                 <label for="fd-mother-name">Nome completo</label>
                 <input
-                  [(ngModel)]="client.family_data.mother.name"
+                  [(ngModel)]="formData.family_data.mother.name"
                   id="fd-mother-name"
                   name="fd-mother-name"
                   type="text"
@@ -323,7 +323,7 @@
                 <label for="fd-mother-email">E-mail</label>
                 <input
                   #motherEmail="ngModel"
-                  [(ngModel)]="client.family_data.mother.email"
+                  [(ngModel)]="formData.family_data.mother.email"
                   [ngClass]="{'is-invalid': motherEmail.invalid && (motherEmail.dirty || motherEmail.touched)}"
                   id="fd-mother-email"
                   name="fd-mother-email"
@@ -335,7 +335,7 @@
                 <label for="fd-mother-phone">Telefone</label>
                 <input
                   #motherPhone="ngModel"
-                  [(ngModel)]="client.family_data.mother.phone"
+                  [(ngModel)]="formData.family_data.mother.phone"
                   [ngClass]="{'is-invalid': motherPhone.invalid && (motherPhone.dirty || motherPhone.touched)}"
                   [dropSpecialCharacters]="false"
                   id="fd-mother-phone"
@@ -354,7 +354,7 @@
               <div class="form-group">
                 <label for="fd-father-name">Nome completo</label>
                 <input
-                  [(ngModel)]="client.family_data.father.name"
+                  [(ngModel)]="formData.family_data.father.name"
                   id="fd-father-name"
                   name="fd-father-name"
                   type="text"
@@ -364,7 +364,7 @@
                 <label for="fd-father-email">E-mail</label>
                 <input
                   #fatherEmail="ngModel"
-                  [(ngModel)]="client.family_data.father.email"
+                  [(ngModel)]="formData.family_data.father.email"
                   [ngClass]="{'is-invalid': fatherEmail.invalid && (fatherEmail.dirty || fatherEmail.touched)}"
                   id="fd-father-email"
                   name="fd-father-email"
@@ -376,7 +376,7 @@
                 <label for="fd-father-phone">Telefone</label>
                 <input
                   #fatherPhone="ngModel"
-                  [(ngModel)]="client.family_data.father.phone"
+                  [(ngModel)]="formData.family_data.father.phone"
                   [ngClass]="{'is-invalid': fatherPhone.invalid && (fatherPhone.dirty || fatherPhone.touched)}"
                   [dropSpecialCharacters]="false"
                   id="fd-father-phone"
@@ -400,7 +400,7 @@
             <div class="col form-group">
               <label for="icoe-responsible">Responsável</label>
               <input
-                [(ngModel)]="client.in_case_of_emergency.responsible"
+                [(ngModel)]="formData.in_case_of_emergency.responsible"
                 id="icoe-responsible"
                 name="icoe-responsible"
                 type="text"
@@ -409,7 +409,7 @@
             <div class="col form-group">
               <label for="icoe-bond">Vínculo</label>
               <input
-                [(ngModel)]="client.in_case_of_emergency.bond"
+                [(ngModel)]="formData.in_case_of_emergency.bond"
                 id="icoe-bond"
                 name="icoe-bond"
                 type="text"
@@ -420,7 +420,7 @@
               <label for="icoe-email">E-mail</label>
               <input
                 #contactEmail="ngModel"
-                [(ngModel)]="client.in_case_of_emergency.email"
+                [(ngModel)]="formData.in_case_of_emergency.email"
                 [ngClass]="{'is-invalid': contactEmail.invalid && (contactEmail.dirty || contactEmail.touched)}"
                 id="icoe-email"
                 name="icoe-email"
@@ -434,7 +434,7 @@
               <label for="icoe-phone">Telefone</label>
               <input
                 #contactPhone="ngModel"
-                [(ngModel)]="client.in_case_of_emergency.phone"
+                [(ngModel)]="formData.in_case_of_emergency.phone"
                 [ngClass]="{'is-invalid': contactPhone.invalid && (contactPhone.dirty || contactPhone.touched)}"
                 [dropSpecialCharacters]="false"
                 id="icoe-phone"
@@ -450,7 +450,7 @@
               <label for="icoe-alternative-phone">Telefone alternativo</label>
               <input
                 #contactAlternativePhone="ngModel"
-                [(ngModel)]="client.in_case_of_emergency.alternative_phone"
+                [(ngModel)]="formData.in_case_of_emergency.alternative_phone"
                 [ngClass]="{'is-invalid': contactAlternativePhone.invalid && (contactAlternativePhone.dirty || contactAlternativePhone.touched)}"
                 [dropSpecialCharacters]="false"
                 id="icoe-alternative-phone"
@@ -475,7 +475,7 @@
               <div class="form-group">
                 <label for="ad-high-school-school">Nome da escola</label>
                 <input
-                  [(ngModel)]="client.academic_data.high_school.school"
+                  [(ngModel)]="formData.academic_data.high_school.school"
                   id="ad-high-school-school"
                   name="ad-high-school-school"
                   type="text"
@@ -485,7 +485,7 @@
                 <div class="col form-group">
                   <label for="ad-high-school-city">Cidade</label>
                   <input
-                    [(ngModel)]="client.academic_data.high_school.city"
+                    [(ngModel)]="formData.academic_data.high_school.city"
                     id="ad-high-school-city"
                     name="ad-high-school-city"
                     type="text"
@@ -494,7 +494,7 @@
                 <div class="col form-group">
                   <label for="ad-high-school-state">Estado</label>
                   <input
-                    [(ngModel)]="client.academic_data.high_school.state"
+                    [(ngModel)]="formData.academic_data.high_school.state"
                     id="ad-high-school-state"
                     name="ad-high-school-state"
                     type="text"
@@ -504,7 +504,7 @@
               <div class="form-group">
                 <label for="ad-high-school-conclusion-year">Ano de conclusão</label>
                 <input
-                  [(ngModel)]="client.academic_data.high_school.conclusion_year"
+                  [(ngModel)]="formData.academic_data.high_school.conclusion_year"
                   id="ad-high-school-conclusion-year"
                   name="ad-high-school-conclusion-year"
                   type="text"
@@ -518,7 +518,7 @@
               <div class="form-group">
                 <label for="ad-higher-education-institution">Nome da instituição</label>
                 <input
-                  [(ngModel)]="client.academic_data.higher_education.institution"
+                  [(ngModel)]="formData.academic_data.higher_education.institution"
                   id="ad-higher-education-institution"
                   name="ad-higher-education-institution"
                   type="text"
@@ -528,7 +528,7 @@
                 <div class="col form-group">
                   <label for="ad-higher-education-city">Cidade</label>
                   <input
-                    [(ngModel)]="client.academic_data.higher_education.city"
+                    [(ngModel)]="formData.academic_data.higher_education.city"
                     id="ad-higher-education-city"
                     name="ad-higher-education-city"
                     type="text"
@@ -537,7 +537,7 @@
                 <div class="col form-group">
                   <label for="ad-higher-education-state">Estado</label>
                   <input
-                    [(ngModel)]="client.academic_data.higher_education.state"
+                    [(ngModel)]="formData.academic_data.higher_education.state"
                     id="ad-higher-education-state"
                     name="ad-higher-education-state"
                     type="text"
@@ -547,7 +547,7 @@
               <div class="form-group">
                 <label for="ad-higher-education-course">Curso</label>
                 <input
-                  [(ngModel)]="client.academic_data.higher_education.course"
+                  [(ngModel)]="formData.academic_data.higher_education.course"
                   id="ad-higher-education-course"
                   name="ad-higher-education-course"
                   type="text"
@@ -556,7 +556,7 @@
               <div class="form-group">
                 <label for="ad-high-school-conclusion-year">Ano de conclusão</label>
                 <input
-                  [(ngModel)]="client.academic_data.higher_education.conclusion_year"
+                  [(ngModel)]="formData.academic_data.higher_education.conclusion_year"
                   id="ad-higher-education-conclusion-year"
                   name="ad-higher-education-conclusion-year"
                   type="text"
@@ -571,52 +571,62 @@
       <div class="row mt-4">
         <div class="col">
           <h2 class="mb-3">Curso pretendido</h2>
-          <div class="row">
-            <div class="col form-group">
-              <label for="cd-course-name">Nome do curso</label>
-              <input
-                [(ngModel)]="client.intended_course.name"
-                id="cd-course-name"
-                name="cd-course-name"
-                type="text"
-                class="form-control">
-            </div>
-            <div class="col form-group">
-              <label for="cd-institution">Faculdade</label>
-              <input
-                [(ngModel)]="client.intended_course.institution"
-                id="cd-institution"
-                name="cd-institution"
-                type="text"
-                class="form-control">
-            </div>
+          <div *ngIf="company.institutions.length === 0" class="jumbotron mb-0">
+            <h5>Sua empresa ainda não está associada a nenhuma instituição de ensino. Vá até as <a [routerLink]="['/company', 'settings']" class="text-primary">configurações da empresa</a> e associe as instituições que sua empresa oferece.</h5>
           </div>
-          <div class="row">
-            <div class="col form-group">
-              <label for="cd-preferred-shift">Turno preferido</label>
-              <select
-                [(ngModel)]="client.intended_course.preferred_shift"
-                id="cd-preferred-shift"
-                name="cd-preferred-shift"
-                class="form-control">
-                <option [ngValue]="undefined"></option>
-                <option value="Matutino">Matutino</option>
-                <option value="Vespertino">Vespertino</option>
-                <option value="Noturno">Noturno</option>
-              </select>
+          <div *ngIf="company.institutions.length > 0">
+            <div class="row">
+              <div class="col form-group">
+                <label for="ic-name">Nome do curso</label>
+                <input
+                  [(ngModel)]="formData.intended_course.name"
+                  id="ic-name"
+                  name="ic-name"
+                  type="text"
+                  class="form-control">
+              </div>
+              <div class="col form-group">
+                <label for="ic-institution">Instituição</label>
+                <select
+                  [(ngModel)]="formData.intended_course.institution"
+                  [compareWith]="compareInstitutions"
+                  id="ic-institution"
+                  name="ic-institution"
+                  class="form-control">
+                  <option *ngFor="let institution of company.institutions; trackBy: trackByInstitution" [ngValue]="institution.id">
+                    {{ institution.name }}
+                    <span *ngIf="institution.acronym"> ({{ institution.acronym }})</span>
+                  </option>
+                </select>
+              </div>
             </div>
-            <div class="col form-group">
-              <label for="cd-alternative-shift">Segunda opção de turno</label>
-              <select
-                [(ngModel)]="client.intended_course.alternative_shift"
-                id="cd-alternative-shift"
-                name="cd-alternative-shift"
-                class="form-control">
-                <option [ngValue]="undefined"></option>
-                <option value="Matutino">Matutino</option>
-                <option value="Vespertino">Vespertino</option>
-                <option value="Noturno">Noturno</option>
-              </select>
+            <div class="row">
+              <div class="col form-group">
+                <label for="ic-preferred-shift">Turno preferido</label>
+                <select
+                  [(ngModel)]="formData.intended_course.preferred_shift"
+                  id="ic-preferred-shift"
+                  name="ic-preferred-shift"
+                  class="form-control">
+                  <option [ngValue]="undefined"></option>
+                  <option value="Matutino">Matutino</option>
+                  <option value="Vespertino">Vespertino</option>
+                  <option value="Noturno">Noturno</option>
+                </select>
+              </div>
+              <div class="col form-group">
+                <label for="ic-alternative-shift">Segunda opção de turno</label>
+                <select
+                  [(ngModel)]="formData.intended_course.alternative_shift"
+                  id="ic-alternative-shift"
+                  name="ic-alternative-shift"
+                  class="form-control">
+                  <option [ngValue]="undefined"></option>
+                  <option value="Matutino">Matutino</option>
+                  <option value="Vespertino">Vespertino</option>
+                  <option value="Noturno">Noturno</option>
+                </select>
+              </div>
             </div>
           </div>
         </div>
@@ -628,7 +638,7 @@
           <div class="form-group">
             <label for="ai-disabilities">É portador de deficiência? Se sim, qual?</label>
             <input
-              [(ngModel)]="client.additional_information.disabilities"
+              [(ngModel)]="formData.additional_information.disabilities"
               id="ai-disabilities"
               name="ai-disabilities"
               type="text"
@@ -644,7 +654,7 @@
                     #arrivalDatePicker="ngbDatepicker"
                     ngbDatepicker
                     [ngClass]="{'is-invalid': arrivalDate.invalid && (arrivalDate.dirty || arrivalDate.touched)}"
-                    [(ngModel)]="arrivalDateStruct"
+                    [(ngModel)]="formData.additional_information.arrival_date"
                     [minDate]="todayDateStruct"
                     (keypress)="onlyDateChars($event)"
                     id="ai-arrival-date"
@@ -665,7 +675,7 @@
             <div class="form-row">
               <div class="col-6">
                 <select
-                  [(ngModel)]="client.additional_information.how_did_you_know_the_company"
+                  [(ngModel)]="formData.additional_information.how_did_you_know_the_company"
                   id="ai-how-did-you-find-the-company"
                   name="ai-how-did-you-find-the-company"
                   class="form-control">
@@ -683,20 +693,11 @@
       <div class="row mt-4">
         <div class="col">
           <button
-            *ngIf="!client.id"
             [disabled]="form.invalid"
-            (click)="createClient()"
-            type="button"
+            type="submit"
             class="btn btn-primary btn-lg">
-            Cadastrar
-          </button>
-          <button
-            *ngIf="client.id"
-            [disabled]="form.invalid"
-            (click)="updateClient()"
-            type="button"
-            class="btn btn-primary btn-lg">
-            Atualizar
+            <span *ngIf="!client.id">Cadastrar</span>
+            <span *ngIf="client.id">Atualizar</span>
           </button>
         </div>
       </div>

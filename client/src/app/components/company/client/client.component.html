@@ -11,7 +11,8 @@
             *ngIf="client.plan"
             [ngStyle]="{'backgroundColor': getColor(client.plan.name)}"
             class="badge">
-            {{ client.plan.name }}
+            <fa-icon [icon]="['fas', 'dollar-sign']" [fixedWidth]="true"></fa-icon>
+            <span class="ml-1">{{ client.plan.name }}</span>
           </span>
         </div>
         <div class="col-auto text-right">
@@ -326,7 +327,14 @@
               </div>
               <div class="col form-group">
                 <label>Faculdade</label>
-                <p class="mb-0">{{ client.intended_course.institution | hyphensIfEmpty }}</p>
+                <p *ngIf="client.intended_course.institution" class="mb-0">
+                  <span *ngIf="client.intended_course.institution.acronym">
+                    {{ client.intended_course.institution.acronym | hyphensIfEmpty }}
+                  </span>
+                  <span *ngIf="!client.intended_course.institution.acronym">
+                    {{ client.intended_course.institution.name | hyphensIfEmpty }}
+                  </span>
+                </p>
               </div>
             </div>
             <div class="row">

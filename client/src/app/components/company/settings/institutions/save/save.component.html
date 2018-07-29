@@ -10,7 +10,11 @@
       <p>Selecione todas as instituições de ensino que sua empresa oferece.</p>
       <div class="form-row">
         <div class="col form-group">
-          <select [(ngModel)]="selectedInstitution" [compareWith]="compareInstitutions" name="institution" class="form-control">
+          <select
+            [(ngModel)]="selectedInstitution"
+            [compareWith]="compareInstitutions"
+            name="institution"
+            class="form-control">
             <option *ngFor="let institution of allInstitutions; trackBy: trackByInstitution" [ngValue]="institution">
               {{ institution.name }}
               <span *ngIf="institution.acronym"> ({{ institution.acronym }})</span>
