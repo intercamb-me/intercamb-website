@@ -33,14 +33,14 @@
       <button
         *ngIf="task.schedule_date"
         (click)="removeScheduleDate()"
-        type="submit"
+        type="button"
         class="btn btn-danger">
         Remover
       </button>
       <button
         [disabled]="form.invalid"
         (click)="confirmScheduleDate()"
-        type="submit"
+        type="button"
         class="btn btn-primary">
         Salvar
       </button>

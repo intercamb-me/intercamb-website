@@ -38,6 +38,7 @@ import {faKey} from '@fortawesome/free-solid-svg-icons/faKey';
 import {faPaperclip} from '@fortawesome/free-solid-svg-icons/faPaperclip';
 import {faPen} from '@fortawesome/free-solid-svg-icons/faPen';
 import {faTasks} from '@fortawesome/free-solid-svg-icons/faTasks';
+import {faTimes} from '@fortawesome/free-solid-svg-icons/faTimes';
 import {faTrash} from '@fortawesome/free-solid-svg-icons/faTrash';
 import {faUser} from '@fortawesome/free-solid-svg-icons/faUser';
 import {faUsers} from '@fortawesome/free-solid-svg-icons/faUsers';
@@ -80,6 +81,7 @@ import {TaskComponent} from 'app/components/company/task/task.component';
 import {ChangeTaskStatusComponent} from 'app/components/company/task/change-status/change-status.component';
 import {SetTaskScheduleDateComponent} from 'app/components/company/task/set-schedule-date/set-schedule-date.component';
 import {SearchAddressComponent} from 'app/components/company/client/search-address/search-address.component';
+import {SaveInstitutionsComponent} from 'app/components/company/settings/institutions/save/save.component';
 import {SavePlanComponent} from 'app/components/company/settings/plan/save/save.component';
 import {DeletePlanComponent} from 'app/components/company/settings/plan/delete/delete.component';
 import {AssociatePlanComponent} from 'app/components/company/client/associate-plan/associate-plan.component';
@@ -131,6 +133,8 @@ library.add(faKey);
 library.add(faPaperclip);
 library.add(faPen);
 library.add(faTasks);
+library.add(faTasks);
+library.add(faTimes);
 library.add(faTrash);
 library.add(faUser);
 library.add(faUsers);
@@ -189,6 +193,7 @@ library.add(faUsers);
     ChangeTaskStatusComponent,
     SetTaskScheduleDateComponent,
     SearchAddressComponent,
+    SaveInstitutionsComponent,
     SavePlanComponent,
     DeletePlanComponent,
     AssociatePlanComponent,
@@ -203,6 +208,7 @@ library.add(faUsers);
     ChangeTaskStatusComponent,
     SetTaskScheduleDateComponent,
     SearchAddressComponent,
+    SaveInstitutionsComponent,
     SavePlanComponent,
     DeletePlanComponent,
     AssociatePlanComponent,

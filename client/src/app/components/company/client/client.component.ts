@@ -135,9 +135,7 @@ export class ClientComponent implements OnInit {
     const modalRef = this.ngbModal.open(EditPaymentOrderComponent, {size: 'lg'});
     modalRef.componentInstance.paymentOrder = paymentOrder;
     modalRef.result.then((updatedPaymentOrder) => {
-      const index = this.client.payment_orders.findIndex((currentPaymentOrder) => {
-        return currentPaymentOrder.id === updatedPaymentOrder.id;
-      });
+      const index = this.client.payment_orders.indexOf(paymentOrder);
       if (index >= 0) {
         this.client.payment_orders[index] = updatedPaymentOrder;
       }
@@ -150,9 +148,7 @@ export class ClientComponent implements OnInit {
     const modalRef = this.ngbModal.open(DeletePaymentOrderComponent);
     modalRef.componentInstance.paymentOrder = paymentOrder;
     modalRef.result.then(() => {
-      const index = this.client.payment_orders.findIndex((currentPaymentOrder) => {
-        return currentPaymentOrder.id === paymentOrder.id;
-      });
+      const index = this.client.payment_orders.indexOf(paymentOrder);
       if (index >= 0) {
         this.client.payment_orders.splice(index, 1);
       }
@@ -165,9 +161,7 @@ export class ClientComponent implements OnInit {
     const modalRef = this.ngbModal.open(ChangePaymentOrderStatusComponent);
     modalRef.componentInstance.paymentOrder = paymentOrder;
     modalRef.result.then((updatedPaymentOrder) => {
-      const index = this.client.payment_orders.findIndex((currentPaymentOrder) => {
-        return currentPaymentOrder.id === updatedPaymentOrder.id;
-      });
+      const index = this.client.payment_orders.indexOf(paymentOrder);
       if (index >= 0) {
         this.client.payment_orders[index] = updatedPaymentOrder;
       }
@@ -185,10 +179,10 @@ export class ClientComponent implements OnInit {
     modalRef.componentInstance.client = this.client;
     modalRef.componentInstance.task = task;
     modalRef.result.then((updatedTask) => {
-      const index = this.client.tasks.findIndex((currentTask) => {
-        return currentTask.id === updatedTask.id;
-      });
-      this.client.tasks[index] = updatedTask;
+      const index = this.client.tasks.indexOf(task);
+      if (index >= 0) {
+        this.client.tasks[index] = updatedTask;
+      }
     }).catch(() => {
       // Nothing to do...
     });

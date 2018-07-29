@@ -33,6 +33,18 @@ export class AccountService {
     );
   }
 
+  public getAccount(): Observable<Account> {
+    const httpUrl = RequestUtils.getApiUrl('/accounts/current');
+    return this.http.get<Account>(httpUrl, RequestUtils.getJsonOptions()).pipe(
+      map((accountData: Account) => accountData ? new Account(accountData) : null),
+      catchError((err: HttpErrorResponse) => {
+        const apiError = ApiError.withResponse(err);
+        this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
+        return throwError(apiError);
+      })
+    );
+  }
+
   public updateAccount(data: any): Observable<Account> {
     const httpUrl = RequestUtils.getApiUrl('/accounts/current');
     return this.http.put<Account>(httpUrl, data, RequestUtils.getJsonOptions()).pipe(
@@ -51,18 +63,6 @@ export class AccountService {
     formData.append('image', image);
     return this.http.put<Account>(httpUrl, formData, RequestUtils.getOptions()).pipe(
       map((accountData: Account) => new Account(accountData)),
-      catchError((err: HttpErrorResponse) => {
-        const apiError = ApiError.withResponse(err);
-        this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
-        return throwError(apiError);
-      })
-    );
-  }
-
-  public getAccount(): Observable<Account> {
-    const httpUrl = RequestUtils.getApiUrl('/accounts/current');
-    return this.http.get<Account>(httpUrl, RequestUtils.getJsonOptions()).pipe(
-      map((accountData: Account) => accountData ? new Account(accountData) : null),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
         this.eventService.publish(EventService.EVENT_API_ERROR, apiError);

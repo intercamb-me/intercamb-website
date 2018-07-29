@@ -15,9 +15,9 @@ export class TokenService {
 
   }
 
-  public getToken(id: string): Observable<Token> {
-    const httpUrl = RequestUtils.getApiUrl(`/tokens/${id}`);
-    return this.http.get<Token>(httpUrl, RequestUtils.getJsonOptions()).pipe(
+  public createToken(identifier: string, type: string): Observable<Token> {
+    const httpUrl = RequestUtils.getApiUrl('/tokens');
+    return this.http.post<Token>(httpUrl, {identifier, type}, RequestUtils.getJsonOptions()).pipe(
       map((tokenData: Token) => new Token(tokenData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
@@ -27,9 +27,9 @@ export class TokenService {
     );
   }
 
-  public createToken(identifier: string, type: string): Observable<Token> {
-    const httpUrl = RequestUtils.getApiUrl('/tokens');
-    return this.http.post<Token>(httpUrl, {identifier, type}, RequestUtils.getJsonOptions()).pipe(
+  public getToken(id: string): Observable<Token> {
+    const httpUrl = RequestUtils.getApiUrl(`/tokens/${id}`);
+    return this.http.get<Token>(httpUrl, RequestUtils.getJsonOptions()).pipe(
       map((tokenData: Token) => new Token(tokenData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);

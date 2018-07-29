@@ -15,9 +15,9 @@ export class PlanService {
 
   }
 
-  public getPlan(id: string): Observable<Plan> {
-    const httpUrl = RequestUtils.getApiUrl(`/plans/${id}`);
-    return this.http.get<Plan>(httpUrl, RequestUtils.getJsonOptions()).pipe(
+  public createPlan(name: string, price: number): Observable<Plan> {
+    const httpUrl = RequestUtils.getApiUrl('/plans');
+    return this.http.post<Plan>(httpUrl, {name, price}, RequestUtils.getJsonOptions()).pipe(
       map((planData: Plan) => new Plan(planData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
@@ -27,9 +27,9 @@ export class PlanService {
     );
   }
 
-  public createPlan(name: string, price: number): Observable<Plan> {
-    const httpUrl = RequestUtils.getApiUrl('/plans');
-    return this.http.post<Plan>(httpUrl, {name, price}, RequestUtils.getJsonOptions()).pipe(
+  public getPlan(id: string): Observable<Plan> {
+    const httpUrl = RequestUtils.getApiUrl(`/plans/${id}`);
+    return this.http.get<Plan>(httpUrl, RequestUtils.getJsonOptions()).pipe(
       map((planData: Plan) => new Plan(planData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);

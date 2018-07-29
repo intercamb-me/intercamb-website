@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
-import {mergeMap} from 'rxjs/operators';
 import findIndex from 'lodash-es/findIndex';
 
+import {SaveInstitutionsComponent} from 'app/components/company/settings/institutions/save/save.component';
 import {SavePlanComponent} from 'app/components/company/settings/plan/save/save.component';
 import {DeletePlanComponent} from 'app/components/company/settings/plan/delete/delete.component';
 import {ColorSelected, PaletteVariant} from 'app/components/custom/material-palette-picker/material-palette-picker.component';
@@ -21,7 +21,6 @@ import {Plan} from 'app/models/plan.model';
 export class CompanySettingsComponent implements OnInit {
 
   public company: Company;
-  public allInstitutions: Institution[];
   public loading = true;
   public selectedPaletteVariant: PaletteVariant;
   public selectedTextColor: string;
@@ -31,14 +30,9 @@ export class CompanySettingsComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.companyService.getCompany({populate: 'plans'}).pipe(
-      mergeMap((company) => {
-        this.company = company;
-        this.selectedTextColor = this.company.text_color;
-        return this.companyService.listAllInstitutions();
-      })
-    ).subscribe((allInstitutions) => {
-      this.allInstitutions = allInstitutions;
+    this.companyService.getCompany({populate: 'plans available_institutions'}).subscribe((company) => {
+      this.company = company;
+      this.selectedTextColor = this.company.text_color;
       this.loading = false;
     }, (err) => {
       this.alertService.apiError(null, err);
@@ -63,8 +57,13 @@ export class CompanySettingsComponent implements OnInit {
     this.selectedTextColor = color;
   }
 
-  public openUpdateInstitutions(): void {
-
+  public openSaveInstitutions(): void {
+    const modalRef = this.ngbModal.open(SaveInstitutionsComponent);
+    modalRef.result.then((updatedInstitutions) => {
+      this.company.available_institutions = updatedInstitutions;
+    }).catch(() => {
+      // Nothing to do...
+    });
   }
 
   public openSavePlan(plan: Plan): void {

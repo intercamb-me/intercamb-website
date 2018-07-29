@@ -686,7 +686,7 @@
             *ngIf="!client.id"
             [disabled]="form.invalid"
             (click)="createClient()"
-            type="submit"
+            type="button"
             class="btn btn-primary btn-lg">
             Cadastrar
           </button>
@@ -694,7 +694,7 @@
             *ngIf="client.id"
             [disabled]="form.invalid"
             (click)="updateClient()"
-            type="submit"
+            type="button"
             class="btn btn-primary btn-lg">
             Atualizar
           </button>

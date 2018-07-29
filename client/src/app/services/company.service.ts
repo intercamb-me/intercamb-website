@@ -19,7 +19,7 @@ export class CompanyService {
   }
 
   public listAllInstitutions(): Observable<Institution[]> {
-    const httpUrl = RequestUtils.getApiUrl('/companies/current/accounts');
+    const httpUrl = RequestUtils.getApiUrl('/companies/institutions');
     return this.http.get<Institution[]>(httpUrl, RequestUtils.getJsonOptions()).pipe(
       map((institutionsData: Institution[]) => {
         const institutions: Institution[] = [];
@@ -36,14 +36,10 @@ export class CompanyService {
     );
   }
 
-  public getCompany(options?: any): Observable<Company> {
-    const httpUrl = RequestUtils.getApiUrl('/companies/current');
-    const httpOptions = RequestUtils.getJsonOptions();
-    let params = new HttpParams();
-    params = RequestUtils.fillOptionsParams(params, options);
-    httpOptions.params = params;
-    return this.http.get<Company>(httpUrl, httpOptions).pipe(
-      map((companyData: Company) => companyData ? new Company(companyData) : null),
+  public createCompany(name: string): Observable<Company> {
+    const httpUrl = RequestUtils.getApiUrl('/companies');
+    return this.http.post<Company>(httpUrl, {name}, RequestUtils.getJsonOptions()).pipe(
+      map((companyData: Company) => new Company(companyData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
         this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
@@ -52,10 +48,14 @@ export class CompanyService {
     );
   }
 
-  public createCompany(name: string): Observable<Company> {
-    const httpUrl = RequestUtils.getApiUrl('/companies');
-    return this.http.post<Company>(httpUrl, {name}, RequestUtils.getJsonOptions()).pipe(
-      map((companyData: Company) => new Company(companyData)),
+  public getCompany(options?: any): Observable<Company> {
+    const httpUrl = RequestUtils.getApiUrl('/companies/current');
+    const httpOptions = RequestUtils.getJsonOptions();
+    let params = new HttpParams();
+    params = RequestUtils.fillOptionsParams(params, options);
+    httpOptions.params = params;
+    return this.http.get<Company>(httpUrl, httpOptions).pipe(
+      map((companyData: Company) => companyData ? new Company(companyData) : null),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
         this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
@@ -169,25 +169,6 @@ export class CompanyService {
           tasks.push(new Task(taskData));
         });
         return tasks;
-      }),
-      catchError((err: HttpErrorResponse) => {
-        const apiError = ApiError.withResponse(err);
-        this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
-        return throwError(apiError);
-      })
-    );
-  }
-
-  public countTasks(startDate: Date, endDate: Date): Observable<number> {
-    const httpUrl = RequestUtils.getApiUrl('/companies/current/tasks/count');
-    const httpOptions = RequestUtils.getJsonOptions();
-    let params = new HttpParams();
-    params = params.set('start_time', String(startDate.getTime()));
-    params = params.set('end_time', String(endDate.getTime()));
-    httpOptions.params = params;
-    return this.http.get<number>(httpUrl, httpOptions).pipe(
-      map((countData: any) => {
-        return countData.count;
       }),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);

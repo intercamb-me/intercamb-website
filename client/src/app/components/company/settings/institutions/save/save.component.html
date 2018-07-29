@@ -1,0 +1,52 @@
+<div *ngIf="!loading" id="save-institutions">
+  <form #form="ngForm" (ngSubmit)="saveInstitutions()" novalidate>
+    <div class="modal-header">
+      <h4 class="modal-title">Associar instituições</h4>
+      <button (click)="close()" type="button" class="close" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>Selecione todas as instituições de ensino que sua empresa oferece.</p>
+      <div class="form-row">
+        <div class="col form-group">
+          <select [(ngModel)]="selectedInstitution" [compareWith]="compareInstitutions" name="institution" class="form-control">
+            <option *ngFor="let institution of allInstitutions; trackBy: trackByInstitution" [ngValue]="institution">
+              {{ institution.name }}
+              <span *ngIf="institution.acronym"> ({{ institution.acronym }})</span>
+            </option>
+          </select>
+        </div>
+        <div class="col-auto form-group">
+          <button
+            (click)="addInstitution()"
+            class="btn btn-primary"
+            type="button">
+            Adicionar
+          </button>
+        </div>
+      </div>
+      <div>
+        <span *ngFor="let institution of selectedInstitutions" class="badge badge-secondary mb-2 mr-2">
+          <span *ngIf="institution.acronym">{{ institution.acronym }}</span>
+          <span *ngIf="!institution.acronym">{{ institution.name }}</span>
+          <fa-icon
+            [icon]="['fas', 'times']"
+            [fixedWidth]="true"
+            (click)="removeInstitution(institution)"
+            title="Remover"
+            class="cursor-pointer ml-2">
+          </fa-icon>
+        </span>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button
+        [disabled]="form.invalid"
+        class="btn btn-primary"
+        type="submit">
+        Confirmar
+      </button>
+    </div>
+  </form>
+</div>

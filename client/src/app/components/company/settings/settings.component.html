@@ -70,8 +70,9 @@
           <h2 class="mb-0">Instituições</h2>
         </div>
         <div class="col-auto">
-          <button (click)="openUpdateInstitutions()" type="button" class="btn btn-primary">
-            Cadastrar
+          <button (click)="openSaveInstitutions()" type="button" class="btn btn-primary">
+            <span *ngIf="company.available_institutions.length === 0">Associar</span>
+            <span *ngIf="company.available_institutions.length > 0">Atualizar</span>
           </button>
         </div>
       </div>
@@ -80,8 +81,10 @@
       </div>
       <div *ngIf="company.available_institutions.length > 0" class="mt-3">
         <div class="row">
-          <div *ngFor="let institution of company.available_institutions; trackBy: trackByInstitution" class="badge badge-secondary">
-            {{ institution }}
+          <div class="col">
+            <span *ngFor="let institution of company.available_institutions; trackBy: trackByInstitution" class="badge badge-secondary font-small mb-2 mr-2">
+              {{ institution.name }}
+            </span>
           </div>
         </div>
       </div>

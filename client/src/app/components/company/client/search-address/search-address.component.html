@@ -1,5 +1,5 @@
 <div id="search-address">
-  <form #form="ngForm" (submit)="searchAddress()" novalidate>
+  <form #form="ngForm" (ngSubmit)="searchAddress()" novalidate>
     <div class="modal-header">
       <h4 class="modal-title">Buscar endereço</h4>
       <button (click)="close()" type="button" class="close" aria-label="Close">

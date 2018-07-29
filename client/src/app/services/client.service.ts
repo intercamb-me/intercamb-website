@@ -19,22 +19,6 @@ export class ClientService {
 
   }
 
-  public getClient(id: string, options?: any): Observable<Client> {
-    const httpUrl = RequestUtils.getApiUrl(`/clients/${id}`);
-    const httpOptions = RequestUtils.getJsonOptions();
-    let params = new HttpParams();
-    params = RequestUtils.fillOptionsParams(params, options);
-    httpOptions.params = params;
-    return this.http.get<Client>(httpUrl, httpOptions).pipe(
-      map((clientData: Client) => new Client(clientData)),
-      catchError((err: HttpErrorResponse) => {
-        const apiError = ApiError.withResponse(err);
-        this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
-        return throwError(apiError);
-      })
-    );
-  }
-
   public createClient(data: any, token?: Token): Observable<Client> {
     const httpUrl = RequestUtils.getApiUrl('/clients');
     const httpOptions = RequestUtils.getJsonOptions();
@@ -44,6 +28,22 @@ export class ClientService {
     }
     httpOptions.params = params;
     return this.http.post<Client>(httpUrl, data, httpOptions).pipe(
+      map((clientData: Client) => new Client(clientData)),
+      catchError((err: HttpErrorResponse) => {
+        const apiError = ApiError.withResponse(err);
+        this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
+        return throwError(apiError);
+      })
+    );
+  }
+
+  public getClient(id: string, options?: any): Observable<Client> {
+    const httpUrl = RequestUtils.getApiUrl(`/clients/${id}`);
+    const httpOptions = RequestUtils.getJsonOptions();
+    let params = new HttpParams();
+    params = RequestUtils.fillOptionsParams(params, options);
+    httpOptions.params = params;
+    return this.http.get<Client>(httpUrl, httpOptions).pipe(
       map((clientData: Client) => new Client(clientData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
