@@ -35,7 +35,7 @@ export class SetupCompanyComponent implements OnInit {
         this.router.navigate(['/signup']);
         return;
       }
-      if (account.company_id) {
+      if (account.company) {
         this.router.navigate(['/company']);
         return;
       }

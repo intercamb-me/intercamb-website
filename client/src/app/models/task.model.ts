@@ -2,9 +2,11 @@
 
 import {Company} from 'app/models/company.model';
 import {Client} from 'app/models/client.model';
+import {TaskCounters} from 'app/models/task-counters.model';
 import {TaskAttachment} from 'app/models/task-attachment.model';
 import {TaskComment} from 'app/models/task-comment.model';
 import isObject from 'lodash-es/isObject';
+import cloneDeep from 'lodash-es/cloneDeep';
 
 export class Task {
 
@@ -16,6 +18,7 @@ export class Task {
   public name: string;
   public status: string;
   public schedule_date: Date;
+  public counters: TaskCounters;
   public attachments: TaskAttachment[];
   public comments: TaskComment[];
   public registration_date: Date;
@@ -26,6 +29,7 @@ export class Task {
       this.name = data.name;
       this.status = data.status;
       this.schedule_date = data.schedule_date ? new Date(data.schedule_date) : undefined;
+      this.counters = new TaskCounters(data.counters);
       this.registration_date = new Date(data.registration_date);
       if (isObject(data.company)) {
         this.company = new Company(data.company);
@@ -52,5 +56,14 @@ export class Task {
         });
       }
     }
+  }
+
+  public toJSON(): any {
+    const json = cloneDeep(this) as any;
+    json.company = json.company_id;
+    delete json.company_id;
+    json.client = json.client_id;
+    delete json.client_id;
+    return json;
   }
 }

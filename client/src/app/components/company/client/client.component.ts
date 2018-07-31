@@ -48,10 +48,10 @@ export class ClientComponent implements OnInit {
 
   public ngOnInit(): void {
     const clientId = this.activatedRoute.snapshot.paramMap.get('client');
-    this.companyService.getCompany().pipe(
+    this.companyService.getCompany({select: 'currency'}).pipe(
       mergeMap((company) => {
         this.company = company;
-        return this.clientService.getClient(clientId, {populate: 'intended_course.institution plan payment_orders tasks'});
+        return this.clientService.getClient(clientId, {populate: 'intended_course>institution plan payment_orders tasks'});
       })
     ).subscribe((client) => {
       this.client = client;
@@ -92,7 +92,7 @@ export class ClientComponent implements OnInit {
   }
 
   public nextInfoStep(): void {
-    this.infoStep = this.infoStep + 1;
+    this.infoStep += 1;
   }
 
   public previousInfoStep(): void {

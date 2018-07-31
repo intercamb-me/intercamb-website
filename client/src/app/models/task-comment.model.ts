@@ -2,6 +2,7 @@
 
 import {Account} from 'app/models/account.model';
 import isObject from 'lodash-es/isObject';
+import cloneDeep from 'lodash-es/cloneDeep';
 
 export class TaskComment {
 
@@ -23,5 +24,12 @@ export class TaskComment {
         this.account_id = data.account;
       }
     }
+  }
+
+  public toJSON(): any {
+    const json = cloneDeep(this) as any;
+    json.account = json.account_id;
+    delete json.account_id;
+    return json;
   }
 }

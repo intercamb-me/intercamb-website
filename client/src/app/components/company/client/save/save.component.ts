@@ -1,6 +1,7 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
 import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
+import {mergeMap} from 'rxjs/operators';
 import cloneDeep from 'lodash-es/cloneDeep';
 
 import {SearchAddressComponent} from 'app/components/company/client/search-address/search-address.component';
@@ -16,7 +17,7 @@ import {Address} from 'app/models/address.model';
 
 @Component({
   selector: 'app-save-client',
-  templateUrl: './save-client.component.html',
+  templateUrl: './save.component.html',
 })
 export class SaveClientComponent implements OnInit {
 
@@ -36,8 +37,13 @@ export class SaveClientComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.companyService.getCompany({select: 'institutions', populate: 'institutions'}).subscribe((company) => {
-      this.company = company;
+    this.companyService.getCompany({select: 'institutions', populate: 'institutions'}).pipe(
+      mergeMap((company) => {
+        this.company = company;
+        return this.clientService.getClient(this.client.id);
+      })
+    ).subscribe((client) => {
+      this.client = client;
       this.formData = this.getFormData();
       const now = new Date();
       this.todayDateStruct = {

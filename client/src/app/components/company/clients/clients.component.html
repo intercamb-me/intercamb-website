@@ -36,7 +36,7 @@
       </div>
     </div>
     <ngx-masonry [options]="masonryOptions" class="row mt-3">
-      <ngxMasonryItem *ngFor="let client of clients; trackBy: trackByClient" class="col-6" style="margin-bottom: 1rem;">
+      <ngxMasonryItem *ngFor="let client of clients; trackBy: trackByClient" class="col-6" style="margin-top: 0.5rem; margin-bottom: 0.5rem;">
         <a [routerLink]="['/company', 'clients', client.id]" class="client">
           <div class="content">
             <img class="photo" [src]="client.photo_url">

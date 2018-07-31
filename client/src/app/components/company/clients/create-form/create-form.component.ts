@@ -7,7 +7,7 @@ import {Token} from 'app/models/token.model';
 
 @Component({
   selector: 'app-create-client-form',
-  templateUrl: './create-client-form.component.html',
+  templateUrl: './create-form.component.html',
 })
 export class CreateClientFormComponent {
 

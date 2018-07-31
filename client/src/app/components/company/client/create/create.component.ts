@@ -5,7 +5,7 @@ import {Client} from 'app/models/client.model';
 
 @Component({
   selector: 'app-create-client',
-  templateUrl: './create-client.component.html',
+  templateUrl: './create.component.html',
 })
 export class CreateClientComponent {
 

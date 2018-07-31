@@ -11,7 +11,7 @@ export class Company {
   public currency: string;
   public primary_color: string;
   public text_color: string;
-  public owner_id: string;
+  public owner: string;
   public registration_date: Date;
 
   public institutions: Institution[];
@@ -25,7 +25,7 @@ export class Company {
       this.currency = data.currency;
       this.primary_color = data.primary_color;
       this.text_color = data.text_color;
-      this.owner_id = data.owner;
+      this.owner = data.owner;
       this.registration_date = new Date(data.registration_date);
       this.institutions = [];
       if (data.institutions) {

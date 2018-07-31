@@ -12,6 +12,7 @@ import {PersonalData} from 'app/models/personal-data.model';
 import {PaymentOrder} from 'app/models/payment-order.model';
 import {Task} from 'app/models/task.model';
 import isObject from 'lodash-es/isObject';
+import cloneDeep from 'lodash-es/cloneDeep';
 
 export class Client {
 
@@ -25,6 +26,7 @@ export class Client {
   public email: string;
   public phone: string;
   public photo_url: string;
+  public needs_revision: boolean;
   public registration_date: Date;
   public address: Address;
   public personal_data: PersonalData;
@@ -44,6 +46,7 @@ export class Client {
       this.email = data.email;
       this.phone = data.phone;
       this.photo_url = data.photo_url;
+      this.needs_revision = data.needs_revision;
       this.registration_date = new Date(data.registration_date);
       this.address = new Address(data.address || {});
       this.personal_data = new PersonalData(data.personal_data || {});
@@ -77,5 +80,14 @@ export class Client {
         });
       }
     }
+  }
+
+  public toJSON(): any {
+    const json = cloneDeep(this) as any;
+    json.company = json.company_id;
+    delete json.company_id;
+    json.plan = json.plan_id;
+    delete json.plan_id;
+    return json;
   }
 }

@@ -9,6 +9,7 @@ import {RequestUtils} from 'app/utils/request.utils';
 import {Company} from 'app/models/company.model';
 import {Institution} from 'app/models/institution.model';
 import {Client} from 'app/models/client.model';
+import {PaymentOrder} from 'app/models/payment-order.model';
 import {Task} from 'app/models/task.model';
 
 @Injectable()
@@ -117,6 +118,28 @@ export class CompanyService {
     );
   }
 
+  public listClientsToReview(options?: any): Observable<Client[]> {
+    const httpUrl = RequestUtils.getApiUrl('/companies/current/clients/review');
+    const httpOptions = RequestUtils.getJsonOptions();
+    let params = new HttpParams();
+    params = RequestUtils.fillOptionsParams(params, options);
+    httpOptions.params = params;
+    return this.http.get<Client[]>(httpUrl, httpOptions).pipe(
+      map((clientsData: Client[]) => {
+        const clients: Client[] = [];
+        clientsData.forEach((clientData: any) => {
+          clients.push(new Client(clientData));
+        });
+        return clients;
+      }),
+      catchError((err: HttpErrorResponse) => {
+        const apiError = ApiError.withResponse(err);
+        this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
+        return throwError(apiError);
+      })
+    );
+  }
+
   public countClients(): Observable<number> {
     const httpUrl = RequestUtils.getApiUrl('/companies/current/clients/count');
     return this.http.get<number>(httpUrl, RequestUtils.getJsonOptions()).pipe(
@@ -154,8 +177,8 @@ export class CompanyService {
     );
   }
 
-  public listTasks(startDate: Date, endDate: Date, options?: any): Observable<Task[]> {
-    const httpUrl = RequestUtils.getApiUrl('/companies/current/tasks');
+  public listScheduledTasks(startDate: Date, endDate: Date, options?: any): Observable<Task[]> {
+    const httpUrl = RequestUtils.getApiUrl('/companies/current/tasks/scheduled');
     const httpOptions = RequestUtils.getJsonOptions();
     let params = new HttpParams();
     params = params.set('start_time', String(startDate.getTime()));
@@ -169,6 +192,28 @@ export class CompanyService {
           tasks.push(new Task(taskData));
         });
         return tasks;
+      }),
+      catchError((err: HttpErrorResponse) => {
+        const apiError = ApiError.withResponse(err);
+        this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
+        return throwError(apiError);
+      })
+    );
+  }
+
+  public listNextPendingPaymentOrders(options?: any): Observable<PaymentOrder[]> {
+    const httpUrl = RequestUtils.getApiUrl('/companies/current/payment_orders/pending');
+    const httpOptions = RequestUtils.getJsonOptions();
+    let params = new HttpParams();
+    params = RequestUtils.fillOptionsParams(params, options);
+    httpOptions.params = params;
+    return this.http.get<PaymentOrder[]>(httpUrl, httpOptions).pipe(
+      map((paymentOrdersData: PaymentOrder[]) => {
+        const paymentOrders: PaymentOrder[] = [];
+        paymentOrdersData.forEach((paymentOrderData: any) => {
+          paymentOrders.push(new PaymentOrder(paymentOrderData));
+        });
+        return paymentOrders;
       }),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);

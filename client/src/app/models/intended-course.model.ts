@@ -2,6 +2,7 @@
 
 import {Institution} from 'app/models/institution.model';
 import isObject from 'lodash-es/isObject';
+import cloneDeep from 'lodash-es/cloneDeep';
 
 export class IntendedCourse {
 
@@ -23,5 +24,12 @@ export class IntendedCourse {
         this.institution_id = data.institution;
       }
     }
+  }
+
+  public toJSON(): any {
+    const json = cloneDeep(this) as any;
+    json.institution = json.institution_id;
+    delete json.institution_id;
+    return json;
   }
 }

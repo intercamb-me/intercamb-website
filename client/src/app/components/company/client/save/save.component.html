@@ -2,7 +2,8 @@
   <form #form="ngForm" (ngSubmit)="saveClient()" novalidate>
     <div class="row">
       <div class="col">
-        <h1 class="mb-0">Cadastrar assessorado</h1>
+        <h1 *ngIf="!client.id" class="mb-0">Cadastrar assessorado</h1>
+        <h1 *ngIf="client.id" class="mb-0">Editar assessorado</h1>
       </div>
     </div>
     <div class="px-4">
@@ -588,12 +589,16 @@
               <div class="col form-group">
                 <label for="ic-institution">Instituição</label>
                 <select
-                  [(ngModel)]="formData.intended_course.institution"
+                  [(ngModel)]="formData.intended_course.institution_id"
                   [compareWith]="compareInstitutions"
                   id="ic-institution"
                   name="ic-institution"
                   class="form-control">
-                  <option *ngFor="let institution of company.institutions; trackBy: trackByInstitution" [ngValue]="institution.id">
+                  <option [ngValue]="undefined"></option>
+                  <option
+                    *ngFor="let institution of company.institutions; trackBy: trackByInstitution"
+                    [ngValue]="institution.id"
+                    [selected]="formData.intended_course.institution_id === institution.id">
                     {{ institution.name }}
                     <span *ngIf="institution.acronym"> ({{ institution.acronym }})</span>
                   </option>

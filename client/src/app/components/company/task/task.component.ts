@@ -1,6 +1,6 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
-import {forkJoin} from 'rxjs';
+import {mergeMap} from 'rxjs/operators';
 import * as distanceInWordsStrict from 'date-fns/distance_in_words_strict';
 
 import {ChangeTaskStatusComponent} from 'app/components/company/task/change-status/change-status.component';
@@ -39,12 +39,13 @@ export class TaskComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    forkJoin(
-      this.accountService.getAccount(),
-      this.taskService.getTask(this.task.id, {populate: 'comments.account attachments.account'})
-    ).subscribe((result) => {
-      this.account = result[0];
-      this.task = result[1];
+    this.taskService.getTask(this.task.id, {populate: 'attachments.account comments.account'}).pipe(
+      mergeMap((task) => {
+        this.task = task;
+        return this.accountService.getAccount();
+      })
+    ).subscribe((account) => {
+      this.account = account;
       this.loading = false;
     }, (err) => {
       this.alertService.apiError(null, err);
@@ -111,6 +112,7 @@ export class TaskComponent implements OnInit {
     if (!event.shiftKey && keyCode === 13) {
       this.taskService.addTaskComment(this.task, this.comment).subscribe((comment) => {
         comment.account = this.account;
+        this.task.counters.comments += 1;
         this.task.comments.push(comment);
       }, (err) => {
         this.alertService.apiError(null, err);
@@ -134,6 +136,7 @@ export class TaskComponent implements OnInit {
     const file = event.target.files[0];
     this.taskService.addTaskAttachment(this.task, file).subscribe((attachment) => {
       attachment.account = this.account;
+      this.task.counters.attachments += 1;
       this.task.attachments.push(attachment);
     }, (err) => {
       this.alertService.apiError(null, err, 'Não foi possível enviar o arquivo, por favor tente novamente mais tarde!');
@@ -142,6 +145,6 @@ export class TaskComponent implements OnInit {
 
   public openTaskAttachment(attachment: TaskAttachment): void {
     const win = window.open();
-    win.location.href = `${process.env.API_URL}/tasks/${this.task.id}/attachments/${attachment.id}/file?access_token=${StorageUtils.getApiToken()}`;
+    win.location.href = `${process.env.API_URL}/attachments/${attachment.id}/file?access_token=${StorageUtils.getApiToken()}`;
   }
 }

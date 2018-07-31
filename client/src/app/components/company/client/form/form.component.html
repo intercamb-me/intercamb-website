@@ -726,7 +726,10 @@
                         name="ic-institution"
                         class="form-control"
                         required>
-                        <option *ngFor="let institution of token.company.institutions; trackBy: trackByInstitution" [ngValue]="institution.id">
+                        <option
+                          *ngFor="let institution of token.company.institutions; trackBy: trackByInstitution"
+                          [ngValue]="institution.id"
+                          [selected]="formData.intended_course.institution === institution.id">
                           {{ institution.name }}
                           <span *ngIf="institution.acronym"> ({{ institution.acronym }})</span>
                         </option>

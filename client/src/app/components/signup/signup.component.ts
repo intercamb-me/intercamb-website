@@ -25,7 +25,7 @@ export class SignUpComponent implements OnInit {
 
   public ngOnInit(): void {
     this.accountService.getAccount().subscribe((account) => {
-      if (account && account.company_id) {
+      if (account && account.company) {
         this.router.navigate(['/company']);
         return;
       }

@@ -7,7 +7,7 @@ import {Client} from 'app/models/client.model';
 
 @Component({
   selector: 'app-edit-client',
-  templateUrl: './edit-client.component.html',
+  templateUrl: './edit.component.html',
 })
 export class EditClientComponent implements OnInit {
 

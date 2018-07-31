@@ -11,8 +11,15 @@
             *ngIf="client.plan"
             [ngStyle]="{'backgroundColor': getColor(client.plan.name)}"
             class="badge">
-            <fa-icon [icon]="['fas', 'dollar-sign']" [fixedWidth]="true"></fa-icon>
+            <fa-icon [icon]="['fas', 'dollar-sign']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
             <span class="ml-1">{{ client.plan.name }}</span>
+          </span>
+          <span
+            *ngIf="client.needs_revision"
+            title="{{ client.forename }} preencheu o formulário de cadastro de clientes. Agora é necessário revisar todas as informações."
+            class="badge badge-danger">
+            <fa-icon [icon]="['fas', 'check-double']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
+            <span class="ml-1">Revisar</span>
           </span>
         </div>
         <div class="col-auto text-right">
@@ -395,20 +402,20 @@
         <h5 class="mb-0 text-center">Nenhuma ordem registrada</h5>
       </div>
       <div *ngIf="client.payment_orders.length > 0" class="row">
-        <div *ngFor="let paymentOrder of client.payment_orders; let idx = index; trackBy: trackByPaymentOrder" class="col-6 mt-3">
+        <div *ngFor="let paymentOrder of client.payment_orders; let idx = index; trackBy: trackByPaymentOrder" class="col-6 my-2">
           <div class="payment">
-            <div class="card-body">
-              <div class="card-title d-flex align-items-center mb-2">
+            <div class="content">
+              <div class="type">
                 <fa-icon [icon]="paymentMethods[paymentOrder.method].icon" [fixedWidth]="true"></fa-icon>
                 <h5 class="d-inline-block flex-grow-1 ml-2 mb-0">
                   {{ paymentMethods[paymentOrder.method].name }}
                 </h5>
               </div>
-              <div class="mb-2">
+              <div class="info">
                 {{ paymentOrder.amount | currency:company.currency }}
                 <span *ngIf="paymentOrder.due_date">· {{ paymentOrder.due_date | date:"MMM d, y" | titlecase }}</span>
               </div>
-              <div class="d-flex align-items-center">
+              <div class="bottom">
                 <div class="badges">
                   <span
                     *ngIf="!paymentOrder.payment_date"
@@ -467,7 +474,7 @@
     <div class="col">
       <h2>Atividades</h2>
       <ngx-masonry [options]="masonryOptions" class="row">
-        <ngxMasonryItem *ngFor="let task of client.tasks; trackBy: trackByTask" class="col-6" style="margin-bottom: 1rem;">
+        <ngxMasonryItem *ngFor="let task of client.tasks; trackBy: trackByTask" class="col-6" style="margin-top: 0.5rem; margin-bottom: 0.5rem;">
           <div (click)="openTask(task)" class="task">
             <div class="card-body">
               <h5 class="card-title">{{ task.name }}</h5>
@@ -475,13 +482,13 @@
                 <span class="badge badge-{{ taskStatus[task.status].colorSelector }}">
                   {{ taskStatus[task.status].name }}
                 </span>
-                <span *ngIf="task.comments.length > 0" class="badge badge-secondary">
+                <span *ngIf="task.counters.comments > 0" class="badge badge-secondary">
                   <fa-icon [icon]="['far', 'comment']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
-                  <span class="ml-1">{{ task.comments.length }}</span>
+                  <span class="ml-1">{{ task.counters.comments }}</span>
                 </span>
-                <span *ngIf="task.attachments.length > 0" class="badge badge-secondary">
+                <span *ngIf="task.counters > 0" class="badge badge-secondary">
                   <fa-icon [icon]="['fas', 'paperclip']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
-                  <span class="ml-1">{{ task.attachments.length }}</span>
+                  <span class="ml-1">{{ task.counters }}</span>
                 </span>
                 <span *ngIf="task.schedule_date" class="badge badge-deep-orange">
                   <fa-icon [icon]="['far', 'clock']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>

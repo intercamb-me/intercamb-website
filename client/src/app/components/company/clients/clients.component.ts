@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
 import {NgxMasonryOptions} from 'ngx-masonry';
 
-import {CreateClientFormComponent} from 'app/components/company/clients/create-form/create-client-form.component';
+import {CreateClientFormComponent} from 'app/components/company/clients/create-form/create-form.component';
 
 import {CompanyService} from 'app/services/company.service';
 import {AlertService} from 'app/services/alert.service';

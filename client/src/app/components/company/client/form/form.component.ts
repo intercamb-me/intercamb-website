@@ -18,7 +18,7 @@ import {Address} from 'app/models/address.model';
 
 @Component({
   selector: 'app-client-form',
-  templateUrl: './client-form.component.html',
+  templateUrl: './form.component.html',
 })
 export class ClientFormComponent implements OnInit {
 
@@ -67,7 +67,7 @@ export class ClientFormComponent implements OnInit {
   }
 
   public nextInfoStep(): void {
-    this.infoStep = this.infoStep + 1;
+    this.infoStep += 1;
   }
 
   public previousInfoStep(): void {

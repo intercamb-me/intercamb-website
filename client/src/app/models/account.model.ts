@@ -7,7 +7,7 @@ export class Account {
   public last_name: string;
   public email: string;
   public image_url: string;
-  public company_id: string;
+  public company: string;
   public registration_date: Date;
 
   constructor(data?: any) {
@@ -17,7 +17,7 @@ export class Account {
       this.last_name = data.last_name;
       this.email = data.email;
       this.image_url = data.image_url;
-      this.company_id = data.company;
+      this.company = data.company;
       this.registration_date = new Date(data.registration_date);
     }
   }

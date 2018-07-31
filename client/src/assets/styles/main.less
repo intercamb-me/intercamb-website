@@ -110,6 +110,41 @@
   }
 }
 
+#home {
+  .payment {
+    .card();
+    text-decoration: none;
+    color: inherit;
+    &:hover, &:link, &:visited {
+      text-decoration: none;
+      color: inherit;
+    }
+    > .container {
+      .card-body();
+      .d-flex();
+      > .photo {
+        .flex-shrink-0();
+        .rounded-circle();
+        width: 60px;
+        height: 60px;
+      }
+      > .content {
+        .flex-grow-1();
+        .ml-3();
+        > .type {
+          .d-flex();
+          .align-items-center();
+          .mb-2();
+          > .ng-fa-icon {
+            .d-inline-block();
+            font-size: 25px;
+          }
+        }
+      }
+    }
+  }
+}
+
 #company-settings {
   .logo {
     .d-block();
@@ -139,32 +174,6 @@
   }
 }
 
-#clients {
-  .client {
-    .card();
-    text-decoration: none;
-    color: inherit;
-    &:hover, &:link, &:visited {
-      text-decoration: none;
-      color: inherit;
-    }
-    > .content {
-      .card-body();
-      .d-flex();
-      > .photo {
-        .flex-shrink-0();
-        .rounded-circle();
-        width: 60px;
-        height: 60px;
-      }
-      > .info {
-        .flex-grow-1();
-        .ml-3();
-      }
-    }
-  }
-}
-
 #client {
   .basic-info {
     .d-flex();
@@ -181,7 +190,8 @@
         font-size: 30px;
       }
       .badge {
-        font-size: 16px;
+        .mr-2();
+        .font-small();
       }
     }
   }
@@ -189,26 +199,39 @@
     .card();
     &:hover {
       .actions {
-        visibility: visible;
+        visibility: visible !important;
       }
     }
-    .card-title {
-      .ng-fa-icon {
-        .d-inline-block();
-        font-size: 25px;
+    > .content {
+      .card-body();
+      > .type {
+        .d-flex();
+        .align-items-center();
+        .mb-2();
+        > .ng-fa-icon {
+          .d-inline-block();
+          font-size: 25px;
+        }
       }
-    }
-    .badges {
-      .flex-grow-1();
-      > .badge {
-        .mr-2();
-        font-size: 14px;
+      > .info {
+        .mb-2();
       }
-    }
-    .actions {
-      visibility: hidden;
-      font-size: 16px;
-      cursor: pointer;
+      > .bottom {
+        .d-flex();
+        .align-items-center();
+        > .badges {
+          .flex-grow-1();
+          > .badge {
+            .mr-2();
+            font-size: 14px;
+          }
+        }
+        > .actions {
+          visibility: hidden;
+          font-size: 16px;
+          cursor: pointer;
+        }
+      }
     }
   }
   .task {
@@ -291,6 +314,30 @@
 #calendar {
   .popover-body {
     .text-center();
+  }
+}
+
+.client {
+  .card();
+  text-decoration: none;
+  color: inherit;
+  &:hover, &:link, &:visited {
+    text-decoration: none;
+    color: inherit;
+  }
+  > .content {
+    .card-body();
+    .d-flex();
+    > .photo {
+      .flex-shrink-0();
+      .rounded-circle();
+      width: 60px;
+      height: 60px;
+    }
+    > .info {
+      .flex-grow-1();
+      .ml-3();
+    }
   }
 }
 
