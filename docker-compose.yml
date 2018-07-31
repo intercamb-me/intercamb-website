@@ -1,9 +1,9 @@
 version: "3.6"
 services:
-  intercambio-website:
-    image: "intercambio-website:latest"
-    container_name: "intercambio-website"
-    hostname: "intercambio-website"
+  intercamb-website:
+    image: "intercamb-website:latest"
+    container_name: "intercamb-website"
+    hostname: "intercamb-website"
     network_mode: "host"
     volumes:
-      - "./server/config.yml:/usr/src/intercambio-website/server/config.yml"
+      - "./server/config.yml:/usr/src/intercamb-website/server/config.yml"

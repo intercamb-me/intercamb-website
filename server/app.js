@@ -40,5 +40,5 @@ middlewares.configure(app);
 routes.configure(express, app);
 
 app.listen(app.get('port'), () => {
-  logger.info(`Intercambio Website server is listening on port ${app.get('port')}`);
+  logger.info(`Intercamb.me Website server is listening on port ${app.get('port')}`);
 });

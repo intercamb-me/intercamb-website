@@ -52,7 +52,7 @@ const fileLogger = winston.createLogger({
       ),
     }),
     new winston.transports.File({
-      filename: path.resolve('intercambio-website.log'),
+      filename: path.resolve('intercamb-website.log'),
       format: printFormat,
     }),
   ],

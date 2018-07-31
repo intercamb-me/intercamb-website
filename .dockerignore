@@ -6,7 +6,7 @@
 /client
 /docker-compose.yml
 /Dockerfile
-/intercambio-website.log
+/intercamb-website.log
 /node_modules
 /npm-debug.log
 /server/config.yml
