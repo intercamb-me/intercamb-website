@@ -1,7 +1,7 @@
 {
   "name": "intercamb-website",
   "description": "Intercamb.me Website",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "private": true,
   "sideEffects": [
     "*.less",
