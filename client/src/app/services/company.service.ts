@@ -201,7 +201,7 @@ export class CompanyService {
     );
   }
 
-  public listNextPendingPaymentOrders(options?: any): Observable<PaymentOrder[]> {
+  public listPendingPaymentOrders(options?: any): Observable<PaymentOrder[]> {
     const httpUrl = RequestUtils.getApiUrl('/companies/current/payment_orders/pending');
     const httpOptions = RequestUtils.getJsonOptions();
     let params = new HttpParams();
@@ -223,6 +223,27 @@ export class CompanyService {
     );
   }
 
+  public listOverduePaymentOrders(options?: any): Observable<PaymentOrder[]> {
+    const httpUrl = RequestUtils.getApiUrl('/companies/current/payment_orders/overdue');
+    const httpOptions = RequestUtils.getJsonOptions();
+    let params = new HttpParams();
+    params = RequestUtils.fillOptionsParams(params, options);
+    httpOptions.params = params;
+    return this.http.get<PaymentOrder[]>(httpUrl, httpOptions).pipe(
+      map((paymentOrdersData: PaymentOrder[]) => {
+        const paymentOrders: PaymentOrder[] = [];
+        paymentOrdersData.forEach((paymentOrderData: any) => {
+          paymentOrders.push(new PaymentOrder(paymentOrderData));
+        });
+        return paymentOrders;
+      }),
+      catchError((err: HttpErrorResponse) => {
+        const apiError = ApiError.withResponse(err);
+        this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
+        return throwError(apiError);
+      })
+    );
+  }
   public getClientsPerMonthReport(): Observable<any> {
     const httpUrl = RequestUtils.getApiUrl('/companies/current/reports/clients_per_month');
     return this.http.get<any>(httpUrl, RequestUtils.getJsonOptions()).pipe(

@@ -41,28 +41,9 @@
       </div>
     </div>
   </div>
-  <div *ngIf="clientsToReview.length > 0" class="row mt-4">
-    <div class="col">
-      <h2>Assessorados para revisão</h2>
-      <ngx-masonry [options]="masonryOptions" class="row">
-        <ngxMasonryItem *ngFor="let client of clientsToReview; trackBy: trackByClient" class="col-6" style="margin-top: 0.5rem; margin-bottom: 0.5rem;">
-          <a [routerLink]="['/company', 'clients', client.id]" class="client">
-            <div class="content">
-              <img class="photo" [src]="client.photo_url">
-              <div class="info">
-                <h5>{{ client.forename }} {{ client.surname }}</h5>
-                <p class="mb-2 text-secondary">{{ client.email }}</p>
-                <p class="mb-0 text-secondary">{{ client.phone }}</p>
-              </div>
-            </div>
-          </a>
-        </ngxMasonryItem>
-      </ngx-masonry>
-    </div>
-  </div>
   <div class="row mt-4">
     <div class="col">
-      <h2>Próximas atividades</h2>
+      <h3>Próximas atividades</h3>
       <mwl-calendar-month-view
         [viewDate]="calendarDate"
         [events]="calendarEvents"
@@ -72,9 +53,68 @@
   </div>
   <div class="row mt-4">
     <div class="col">
-      <h2>Próximos pagamentos</h2>
+      <h3 class="mb-0">Assessorados para revisão</h3>
+      <div *ngIf="clientsToReview.length === 0" class="jumbotron mt-3 mb-0">
+        <h5 class="mb-0 text-center">Nenhuma assessorado para revisão</h5>
+      </div>
+      <div *ngIf="clientsToReview.length > 0" class="row">
+        <div class="col">
+          <ngx-masonry [options]="masonryOptions" class="row">
+            <ngxMasonryItem *ngFor="let client of clientsToReview; trackBy: trackByClient" class="col-6" style="margin-top: 0.5rem; margin-bottom: 0.5rem;">
+              <a [routerLink]="['/company', 'clients', client.id]" class="client">
+                <div class="content">
+                  <img class="photo" [src]="client.photo_url">
+                  <div class="info">
+                    <h5>{{ client.forename }} {{ client.surname }}</h5>
+                    <p class="mb-2 text-secondary">{{ client.email }}</p>
+                    <p class="mb-0 text-secondary">{{ client.phone }}</p>
+                  </div>
+                </div>
+              </a>
+            </ngxMasonryItem>
+          </ngx-masonry>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col">
+      <h3 class="mb-0">Próximas ordens de pagamento</h3>
+      <div *ngIf="pendingPaymentOrders.length === 0" class="jumbotron mt-3 mb-0">
+        <h5 class="mb-0 text-center">Nenhuma ordem de pagamento</h5>
+      </div>
       <div *ngIf="pendingPaymentOrders.length > 0" class="row">
         <div *ngFor="let paymentOrder of pendingPaymentOrders; let idx = index; trackBy: trackByPaymentOrder" class="col-6 my-2">
+          <a [routerLink]="['/company', 'clients', paymentOrder.client.id]" class="payment">
+            <div class="container">
+              <img class="photo" [src]="paymentOrder.client.photo_url">
+              <div class="content">
+                <h5>{{ paymentOrder.client.forename }} {{ paymentOrder.client.surname }}</h5>
+                <div class="type">
+                  <fa-icon [icon]="paymentMethods[paymentOrder.method].icon" [fixedWidth]="true"></fa-icon>
+                  <h5 class="d-inline-block flex-grow-1 ml-2 mb-0">
+                    {{ paymentMethods[paymentOrder.method].name }}
+                  </h5>
+                </div>
+                <div class="info">
+                  {{ paymentOrder.amount | currency:paymentOrder.company.currency }}
+                  <span *ngIf="paymentOrder.due_date">· {{ paymentOrder.due_date | date:"MMM d, y" | titlecase }}</span>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col">
+      <h3 class="mb-0">Ordens de pagamento vencidas</h3>
+      <div *ngIf="overduePaymentOrders.length === 0" class="jumbotron mt-3 mb-0">
+        <h5 class="mb-0 text-center">Nenhuma ordem de pagamento</h5>
+      </div>
+      <div *ngIf="overduePaymentOrders.length > 0" class="row">
+        <div *ngFor="let paymentOrder of overduePaymentOrders; let idx = index; trackBy: trackByPaymentOrder" class="col-6 my-2">
           <a [routerLink]="['/company', 'clients', paymentOrder.client.id]" class="payment">
             <div class="container">
               <img class="photo" [src]="paymentOrder.client.photo_url">

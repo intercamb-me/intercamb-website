@@ -36,6 +36,7 @@ export class HomeComponent implements OnInit {
   public clientsCount: number;
   public clientsToReview: Client[];
   public pendingPaymentOrders: PaymentOrder[];
+  public overduePaymentOrders: PaymentOrder[];
   public calendarEvents: CalendarEvent[] = [];
   public calendarDate = new Date();
   public paymentMethods = Constants.PAYMENT_METHODS;
@@ -58,12 +59,14 @@ export class HomeComponent implements OnInit {
       this.companyService.countClients(),
       this.companyService.listClientsToReview({limit: 6}),
       this.companyService.listScheduledTasks(startDate, endDate, {select: 'client.forename client.surname', populate: 'client'}),
-      this.companyService.listNextPendingPaymentOrders({select: 'company.currency client.photo_url client.forename client.surname', populate: 'company client', limit: 6}),
+      this.companyService.listPendingPaymentOrders({select: 'company.currency client.photo_url client.forename client.surname', populate: 'company client', limit: 6}),
+      this.companyService.listOverduePaymentOrders({select: 'company.currency client.photo_url client.forename client.surname', populate: 'company client', limit: 6}),
     ]).subscribe((result) => {
       this.clientsCount = result[0];
       this.clientsToReview = result[1];
       this.calendarEvents = CalendarUtils.getCalendarMonthEvents(result[2]);
       this.pendingPaymentOrders = result[3];
+      this.overduePaymentOrders = result[4];
       this.loading = false;
     }, (err) => {
       this.alertService.apiError(null, err);

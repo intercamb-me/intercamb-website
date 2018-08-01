@@ -1,6 +1,7 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
 import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
+import {of} from 'rxjs';
 import {mergeMap} from 'rxjs/operators';
 import cloneDeep from 'lodash-es/cloneDeep';
 
@@ -40,7 +41,7 @@ export class SaveClientComponent implements OnInit {
     this.companyService.getCompany({select: 'institutions', populate: 'institutions'}).pipe(
       mergeMap((company) => {
         this.company = company;
-        return this.clientService.getClient(this.client.id);
+        return this.client.id ? this.clientService.getClient(this.client.id) : of(new Client({}));
       })
     ).subscribe((client) => {
       this.client = client;
