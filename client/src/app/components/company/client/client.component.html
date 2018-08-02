@@ -486,9 +486,9 @@
                   <fa-icon [icon]="['far', 'comment']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
                   <span class="ml-1">{{ task.counters.comments }}</span>
                 </span>
-                <span *ngIf="task.counters > 0" class="badge badge-secondary">
+                <span *ngIf="task.counters.attachments > 0" class="badge badge-secondary">
                   <fa-icon [icon]="['fas', 'paperclip']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
-                  <span class="ml-1">{{ task.counters }}</span>
+                  <span class="ml-1">{{ task.counters.attachments }}</span>
                 </span>
                 <span *ngIf="task.schedule_date" class="badge badge-deep-orange">
                   <fa-icon [icon]="['far', 'clock']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>

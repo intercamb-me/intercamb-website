@@ -17,7 +17,7 @@ export class ClientsComponent implements OnInit {
   private static readonly CLIENT_FIELDS = 'forename surname email phone photo_url';
 
   public clients: Client[];
-  public search: string;
+  public search: string = null;
   public loading = true;
 
   public masonryOptions: NgxMasonryOptions = {

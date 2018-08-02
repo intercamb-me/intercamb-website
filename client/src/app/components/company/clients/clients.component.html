@@ -12,10 +12,10 @@
       </a>
     </div>
   </div>
-  <div *ngIf="clients.length === 0" class="jumbotron mt-3 mb-0">
+  <div *ngIf="clients.length === 0 && search === null" class="jumbotron mt-3 mb-0">
     <h5 class="mb-0 text-center">Nenhum assessorado cadastrado</h5>
   </div>
-  <ng-container *ngIf="clients.length > 0" >
+  <ng-container *ngIf="clients.length > 0 || search !== null" >
     <div class="row mt-4">
       <div class="col-6">
         <form (ngSubmit)="searchClients()" novalidate>
@@ -34,6 +34,9 @@
           </div>
         </form>
       </div>
+    </div>
+    <div *ngIf="clients.length === 0" class="jumbotron mt-3 mb-0">
+      <h5 class="mb-0 text-center">Nenhum assessorado encontrado</h5>
     </div>
     <ngx-masonry [options]="masonryOptions" class="row mt-3">
       <ngxMasonryItem *ngFor="let client of clients; trackBy: trackByClient" class="col-6" style="margin-top: 0.5rem; margin-bottom: 0.5rem;">
