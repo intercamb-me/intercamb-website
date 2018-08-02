@@ -16,6 +16,9 @@ import {Institution} from 'app/models/institution.model';
 export class SetupCompanyComponent implements OnInit {
 
   public name: string;
+  public contactEmail: string;
+  public contactPhone: string;
+  public website: string;
   public company: Company;
   public step = 0;
   public loading = true;
@@ -69,7 +72,13 @@ export class SetupCompanyComponent implements OnInit {
   }
 
   public createCompany(): void {
-    this.companyService.createCompany(this.name).subscribe((company) => {
+    const data = {
+      name: this.name,
+      contact_email: this.contactEmail,
+      contact_phone: this.contactPhone,
+      website: this.website,
+    };
+    this.companyService.createCompany(data).subscribe((company) => {
       this.company = company;
       this.step = this.step + 1;
     }, (err) => {

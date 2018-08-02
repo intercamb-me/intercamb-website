@@ -37,9 +37,9 @@ export class CompanyService {
     );
   }
 
-  public createCompany(name: string): Observable<Company> {
+  public createCompany(data: any): Observable<Company> {
     const httpUrl = RequestUtils.getApiUrl('/companies');
-    return this.http.post<Company>(httpUrl, {name}, RequestUtils.getJsonOptions()).pipe(
+    return this.http.post<Company>(httpUrl, data, RequestUtils.getJsonOptions()).pipe(
       map((companyData: Company) => new Company(companyData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
