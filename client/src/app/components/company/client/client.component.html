@@ -77,14 +77,7 @@
             <div class="row">
               <div class="col form-group">
                 <label>CPF</label>
-                <p class="mb-0">
-                  <span *ngIf="client.personal_data.cpf_number">
-                    {{ client.personal_data.cpf_number | mask:"000.000.000-00" }}
-                  </span>
-                  <span *ngIf="!client.personal_data.cpf_number">
-                    {{ "" | hyphensIfEmpty }}
-                  </span>
-                </p>
+                <p class="mb-0">{{ client.personal_data.cpf_number | hyphensIfEmpty }}</p>
               </div>
               <div class="col form-group">
                 <label>Passaporte</label>
@@ -151,14 +144,7 @@
             <div class="row">
               <div class="col form-group mb-0">
                 <label>CEP</label>
-                <p class="mb-0">
-                  <span *ngIf="client.address.zip_code">
-                    {{ client.address.zip_code | mask:"00000-000" }}
-                  </span>
-                  <span *ngIf="!client.address.zip_code">
-                    {{ "" | hyphensIfEmpty }}
-                  </span>
-                </p>
+                <p class="mb-0">{{ client.address.zip_code | hyphensIfEmpty }}</p>
               </div>
             </div>
           </div>

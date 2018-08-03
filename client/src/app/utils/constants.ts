@@ -1,5 +1,12 @@
 export class Constants {
 
+  public static readonly PHONE_PATTERN = /^\+\d{1,3} \d+ \d{4,}$/;
+  public static readonly PHONE_MASK = '+0* 0* 0*';
+  public static readonly CPF_MASK = '000.000.000-00';
+  public static readonly ZIP_CODE_MASK = '00000-000';
+  public static readonly CURRENCY_MASK = '0*.00';
+  public static readonly NUMBER_MASK = '0*';
+
   public static readonly TASK_STATUS = {
     pending: {
       id: 'pending',

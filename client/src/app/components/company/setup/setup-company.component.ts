@@ -6,6 +6,7 @@ import {ColorSelected, PaletteVariant} from 'app/components/custom/material-pale
 import {AccountService} from 'app/services/account.service';
 import {CompanyService} from 'app/services/company.service';
 import {AlertService} from 'app/services/alert.service';
+import {Constants} from 'app/utils/constants';
 import {Company} from 'app/models/company.model';
 import {Institution} from 'app/models/institution.model';
 
@@ -27,6 +28,8 @@ export class SetupCompanyComponent implements OnInit {
   public allInstitutions: Institution[];
   public selectedInstitutions: Institution[] = [];
   public selectedInstitution: Institution;
+  public phonePattern = Constants.PHONE_PATTERN;
+  public phoneMask = Constants.PHONE_MASK;
 
   constructor(private accountService: AccountService, private companyService: CompanyService, private alertService: AlertService, private router: Router) {
 

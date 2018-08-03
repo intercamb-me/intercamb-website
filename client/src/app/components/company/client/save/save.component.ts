@@ -10,6 +10,7 @@ import {SearchAddressComponent} from 'app/components/company/client/search-addre
 import {CompanyService} from 'app/services/company.service';
 import {ClientService} from 'app/services/client.service';
 import {AlertService} from 'app/services/alert.service';
+import {Constants} from 'app/utils/constants';
 import {Helpers} from 'app/utils/helpers';
 import {Company} from 'app/models/company.model';
 import {Institution} from 'app/models/institution.model';
@@ -30,6 +31,10 @@ export class SaveClientComponent implements OnInit {
   public company: Company;
   public formData: any;
   public todayDateStruct: NgbDateStruct;
+  public phonePattern = Constants.PHONE_PATTERN;
+  public phoneMask = Constants.PHONE_MASK;
+  public cpfMask = Constants.CPF_MASK;
+  public zipCodeMask = Constants.ZIP_CODE_MASK;
   public onlyDateChars = Helpers.onlyDateChars;
   public loading = true;
 

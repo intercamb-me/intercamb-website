@@ -57,14 +57,14 @@
                     <input
                       [(ngModel)]="formData.phone"
                       [dropSpecialCharacters]="false"
+                      [mask]="phoneMask"
+                      [pattern]="phonePattern"
                       id="bi-phone"
                       name="bi-phone"
                       type="text"
                       class="form-control"
-                      mask="+0* 0* 0*"
                       placeholder="Exemplo: +55 71 99999999"
                       maxlength="17"
-                      pattern="^\+\d{1,3} \d+ \d+$"
                       required>
                   </div>
                 </div>
@@ -132,11 +132,11 @@
                     <div class="col">
                       <input
                         [(ngModel)]="formData.personal_data.identity_document.number"
+                        [mask]="numberMask"
                         id="pd-identity-document-number"
                         name="pd-identity-document-number"
                         type="text"
                         class="form-control"
-                        mask="0*"
                         placeholder="Número"
                         required>
                     </div>
@@ -167,22 +167,23 @@
                     <label for="pd-cpf">CPF</label>
                     <input
                       [(ngModel)]="formData.personal_data.cpf_number"
+                      [dropSpecialCharacters]="false"
+                      [mask]="cpfMask"
                       id="pd-cpf"
                       name="pd-cpf"
                       type="text"
                       class="form-control"
-                      mask="000.000.000-00"
                       required>
                   </div>
                   <div class="col form-group">
                     <label for="pd-passport">Passaporte</label>
                     <input
                       [(ngModel)]="formData.personal_data.passport_number"
+                      [mask]="numberMask"
                       id="pd-passport"
                       name="pd-passport"
                       type="text"
-                      class="form-control"
-                      mask="0*">
+                      class="form-control">
                     <small class="form-text text-muted">
                       Caso possua passaporte, é muito importante que informe o número.
                     </small>
@@ -288,11 +289,11 @@
                     <label for="addr-number">Número</label>
                     <input
                       [(ngModel)]="formData.address.number"
+                      [mask]="numberMask"
                       id="addr-number"
                       name="addr-number"
                       type="text"
                       class="form-control"
-                      mask="0*"
                       required>
                   </div>
                 </div>
@@ -343,11 +344,12 @@
                     <label for="addr-zip-code">CEP</label>
                     <input
                       [(ngModel)]="formData.address.zip_code"
+                      [dropSpecialCharacters]="false"
+                      [mask]="zipCodeMask"
                       id="addr-zip-code"
                       name="addr-zip-code"
                       type="text"
                       class="form-control"
-                      mask="00000-000"
                       required>
                   </div>
                 </div>
@@ -402,14 +404,14 @@
                       <input
                         [(ngModel)]="formData.family_data.mother.phone"
                         [dropSpecialCharacters]="false"
+                        [mask]="phoneMask"
+                        [pattern]="phonePattern"
                         id="fd-mother-phone"
                         name="fd-mother-phone"
                         type="text"
                         class="form-control"
-                        mask="+0* 0* 0*"
                         placeholder="Exemplo: +55 71 99999999"
-                        maxlength="17"
-                        pattern="^\+\d{1,3} \d+ \d+$">
+                        maxlength="17">
                     </div>
                   </div>
                   <div class="vr"></div>
@@ -442,14 +444,14 @@
                       <input
                         [(ngModel)]="formData.family_data.father.phone"
                         [dropSpecialCharacters]="false"
+                        [mask]="phoneMask"
+                        [pattern]="phonePattern"
                         id="fd-father-phone"
                         name="fd-father-phone"
                         type="text"
                         class="form-control"
-                        mask="+0* 0* 0*"
                         placeholder="Exemplo: +55 71 99999999"
-                        maxlength="17"
-                        pattern="^\+\d{1,3} \d+ \d+$">
+                        maxlength="17">
                     </div>
                   </div>
                 </div>
@@ -522,14 +524,14 @@
                       [(ngModel)]="formData.in_case_of_emergency.phone"
                       [ngClass]="{'is-invalid': contactPhone.invalid && (contactPhone.dirty || contactPhone.touched)}"
                       [dropSpecialCharacters]="false"
+                      [mask]="phoneMask"
+                      [pattern]="phonePattern"
                       id="icoe-phone"
                       name="icoe-phone"
                       type="text"
                       class="form-control"
-                      mask="+0* 0* 0*"
                       placeholder="Exemplo: +55 71 99999999"
                       maxlength="17"
-                      pattern="^\+\d{1,3} \d+ \d+$"
                       required>
                   </div>
                   <div class="col-4 form-group">
@@ -539,14 +541,14 @@
                       [(ngModel)]="formData.in_case_of_emergency.alternative_phone"
                       [ngClass]="{'is-invalid': contactAlternativePhone.invalid && (contactAlternativePhone.dirty || contactAlternativePhone.touched)}"
                       [dropSpecialCharacters]="false"
+                      [mask]="phoneMask"
+                      [pattern]="phonePattern"
                       id="icoe-alternative-phone"
                       name="icoe-alternative-phone"
                       type="text"
                       class="form-control"
-                      mask="+0* 0* 0*"
                       placeholder="Exemplo: +55 71 99999999"
-                      maxlength="17"
-                      pattern="^\+\d{1,3} \d+ \d+$">
+                      maxlength="17">
                   </div>
                 </div>
                 <div class="row">
@@ -614,11 +616,11 @@
                       <label for="ad-high-school-conclusion-year">Ano de conclusão</label>
                       <input
                         [(ngModel)]="formData.academic_data.high_school.conclusion_year"
+                        [mask]="numberMask"
                         id="ad-high-school-conclusion-year"
                         name="ad-high-school-conclusion-year"
                         type="text"
                         class="form-control"
-                        mask="0*"
                         required>
                     </div>
                   </div>
@@ -671,11 +673,11 @@
                       <input
                         [(ngModel)]="formData.academic_data.higher_education.conclusion_year"
                         [required]="formData.academic_data.higher_education.institution ? true : null"
+                        [mask]="numberMask"
                         id="ad-higher-education-conclusion-year"
                         name="ad-higher-education-conclusion-year"
                         type="text"
-                        class="form-control"
-                        mask="0*">
+                        class="form-control">
                     </div>
                   </div>
                 </div>

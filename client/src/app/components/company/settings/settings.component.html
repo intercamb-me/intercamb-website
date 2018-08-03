@@ -21,45 +21,133 @@
     </div>
     <div class="col px-4">
       <div class="row">
-        <div class="col-6 form-group">
-          <label for="name">
-            <h5 class="mb-0">Nome</h5>
-          </label>
-          <input
-            [(ngModel)]="company.name"
-            id="name"
-            name="name"
-            type="text"
-            class="form-control"
-            minlength="3"
-            required>
+        <div class="col">
+          <form #form="ngForm" novalidate>
+            <div class="row">
+              <div class="col-6 form-group">
+                <label for="name">
+                  <h5 class="mb-0">Nome</h5>
+                </label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text form-control">
+                      <fa-icon [icon]="['fas', 'briefcase']" [fixedWidth]="true"></fa-icon>
+                    </span>
+                  </div>
+                  <input
+                    [(ngModel)]="company.name"
+                    id="name"
+                    name="name"
+                    type="text"
+                    class="form-control"
+                    minlength="4"
+                    required>
+                </div>
+              </div>
+              <div class="col-6 form-group">
+                <label for="contact-email">
+                  <h5 class="mb-0">E-mail para contato</h5>
+                </label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text form-control">
+                      <fa-icon [icon]="['fas', 'envelope']" [fixedWidth]="true"></fa-icon>
+                    </span>
+                  </div>
+                  <input
+                    [(ngModel)]="company.contact_email"
+                    id="contact-email"
+                    name="contact-email"
+                    type="email"
+                    class="form-control"
+                    email
+                    required>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6 form-group">
+                <label for="contact-phone">
+                  <h5 class="mb-0">Telefone para contato</h5>
+                </label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text form-control">
+                      <fa-icon [icon]="['fas', 'phone']" [fixedWidth]="true"></fa-icon>
+                    </span>
+                  </div>
+                  <input
+                    [(ngModel)]="company.contact_phone"
+                    [dropSpecialCharacters]="false"
+                    [mask]="phoneMask"
+                    [pattern]="phonePattern"
+                    id="contact-phone"
+                    name="contact-phone"
+                    type="text"
+                    class="form-control"
+                    maxlength="17"
+                    required>
+                </div>
+              </div>
+              <div class="col-6 form-group">
+                <label for="website">
+                  <h5 class="mb-0">Website</h5>
+                </label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text form-control">
+                      <fa-icon [icon]="['fas', 'hashtag']" [fixedWidth]="true"></fa-icon>
+                    </span>
+                  </div>
+                  <input
+                    [(ngModel)]="website"
+                    id="website"
+                    name="website"
+                    type="text"
+                    class="form-control">
+                </div>
+              </div>
+            </div>
+            <button
+              [disabled]="form.invalid"
+              (click)="updateCompanyInfo()"
+              type="button"
+              class="btn btn-primary">
+              Atualizar
+            </button>
+          </form>
         </div>
       </div>
-      <div class="form-group">
-        <label>
-          <h5 class="mb-0">Cor principal</h5>
-        </label>
-        <app-material-palette-picker
-          [color]="company.primary_color"
-          (colorSelected)="onColorSelected($event)">
-        </app-material-palette-picker>
-      </div>
-      <div class="form-group">
-        <label>
-          <h5 class="mb-0">Cor do texto</h5>
-        </label>
-        <div class="palette">
-          <span (click)="selectTextColor('#212529')" class="color bg-black text-white">
-            <fa-icon *ngIf="selectedTextColor === '#212529'" [icon]="['fas', 'check']" [fixedWidth]="true"></fa-icon>
-          </span>
-          <span (click)="selectTextColor('#ffffff')" class="color bg-white text-black">
-            <fa-icon *ngIf="selectedTextColor === '#ffffff'" [icon]="['fas', 'check']" [fixedWidth]="true"></fa-icon>
-          </span>
+      <hr/>
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label>
+              <h5 class="mb-0">Cor principal</h5>
+            </label>
+            <app-material-palette-picker
+              [color]="company.primary_color"
+              (colorSelected)="onColorSelected($event)">
+            </app-material-palette-picker>
+          </div>
+          <div class="form-group">
+            <label>
+              <h5 class="mb-0">Cor do texto</h5>
+            </label>
+            <div class="palette">
+              <span (click)="selectTextColor('#212529')" class="color bg-black text-white">
+                <fa-icon *ngIf="selectedTextColor === '#212529'" [icon]="['fas', 'check']" [fixedWidth]="true"></fa-icon>
+              </span>
+              <span (click)="selectTextColor('#ffffff')" class="color bg-white text-black">
+                <fa-icon *ngIf="selectedTextColor === '#ffffff'" [icon]="['fas', 'check']" [fixedWidth]="true"></fa-icon>
+              </span>
+            </div>
+          </div>
+          <button (click)="updateCompanyColors()" type="button" class="btn btn-primary">
+            Atualizar
+          </button>
         </div>
       </div>
-      <button (click)="updateCompany()" type="button" class="btn btn-primary">
-        Atualizar
-      </button>
     </div>
   </div>
   <hr class="mt-5"/>
@@ -110,7 +198,7 @@
           <div *ngFor="let plan of company.plans; trackBy: trackByPlan" class="col-4 mb-3">
             <div class="plan">
               <div class="card-body px-0 py-0">
-                <h5 class="mb-0 px-3 py-2">{{ plan.name }}</h5>
+                <h5 class="mb-0 px-3">{{ plan.name }}</h5>
                 <h4 class="mb-0 px-3 py-4 bg-info text-center text-white">{{ plan.price | currency:company.currency }}</h4>
                 <div class="actions">
                   <fa-icon

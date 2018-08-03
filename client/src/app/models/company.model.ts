@@ -7,6 +7,9 @@ export class Company {
 
   public id: string;
   public name: string;
+  public contact_email: string;
+  public contact_phone: string;
+  public website: string;
   public logo_url: string;
   public currency: string;
   public primary_color: string;
@@ -21,6 +24,9 @@ export class Company {
     if (data) {
       this.id = data.id;
       this.name = data.name;
+      this.contact_email = data.contact_email;
+      this.contact_phone = data.contact_phone;
+      this.website = data.website;
       this.logo_url = data.logo_url;
       this.currency = data.currency;
       this.primary_color = data.primary_color;

@@ -24,6 +24,7 @@ export class EditPaymentOrderComponent implements OnInit {
   public method: string;
   public amount: string;
   public dueDateStruct: NgbDateStruct;
+  public currencyMask = Constants.CURRENCY_MASK;
   public availableMethods = Constants.PAYMENT_METHODS;
   public onlyDateChars = Helpers.onlyDateChars;
   public loading = true;

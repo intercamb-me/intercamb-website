@@ -3,6 +3,7 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
 
 import {PlanService} from 'app/services/plan.service';
 import {AlertService} from 'app/services/alert.service';
+import {Constants} from 'app/utils/constants';
 import {Plan} from 'app/models/plan.model';
 
 @Component({
@@ -16,6 +17,7 @@ export class SavePlanComponent implements OnInit {
 
   public name: string;
   public price: string;
+  public currencyMask = Constants.CURRENCY_MASK;
 
   constructor(private planService: PlanService, private alertService: AlertService, private ngbActiveModal: NgbActiveModal) {
 

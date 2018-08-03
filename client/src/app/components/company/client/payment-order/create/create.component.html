@@ -8,10 +8,10 @@
         <input
           [(ngModel)]="split.amount"
           [dropSpecialCharacters]="false"
+          [mask]="currencyMask"
           name="split-amount-{{ index }}"
           type="text"
           class="form-control"
-          mask="0*.00"
           placeholder="Valor"
           required>
       </div>
@@ -72,12 +72,12 @@
                 <input
                   [(ngModel)]="amount"
                   [dropSpecialCharacters]="false"
+                  [mask]="currencyMask"
                   (ngModelChange)="onSplitChange()"
                   id="amount"
                   name="amount"
                   type="text"
                   class="form-control"
-                  mask="0*.00"
                   required>
               </div>
             </div>

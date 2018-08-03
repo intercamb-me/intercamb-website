@@ -27,11 +27,11 @@
           <input
             [(ngModel)]="price"
             [dropSpecialCharacters]="false"
+            [mask]="currencyMask"
             id="price"
             name="price"
             type="text"
             class="form-control"
-            mask="0*.00"
             required>
         </div>
       </div>

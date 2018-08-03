@@ -11,10 +11,10 @@
         <div class="col form-group mb-0">
           <input
             [(ngModel)]="zipCode"
+            [mask]="zipCodeMask"
             type="text"
             name="zip-code"
             class="form-control"
-            mask="00000-000"
             placeholder="CEP"
             required>
         </div>

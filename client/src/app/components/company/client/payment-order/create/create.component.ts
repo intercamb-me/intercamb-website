@@ -37,6 +37,7 @@ export class CreatePaymentOrderComponent implements OnInit {
   public splits: Split[] = [];
   public dueDateStruct: NgbDateStruct;
   public availableMethods = Constants.PAYMENT_METHODS;
+  public currencyMask = Constants.CURRENCY_MASK;
   public onlyDateChars = Helpers.onlyDateChars;
   public loading = true;
 

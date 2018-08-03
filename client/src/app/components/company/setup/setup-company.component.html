@@ -56,14 +56,14 @@
                       <input
                         [(ngModel)]="contactPhone"
                         [dropSpecialCharacters]="false"
+                        [mask]="phoneMask"
+                        [pattern]="phonePattern"
                         id="contact-phone"
                         name="contact-phone"
                         type="text"
                         class="form-control py-2"
-                        mask="+0* 0* 0*"
                         placeholder="Telefone para contato"
                         maxlength="17"
-                        pattern="^\+\d{1,3} \d+ \d+$"
                         required>
                     </div>
                   </div>

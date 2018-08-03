@@ -10,6 +10,7 @@ import {ColorSelected, PaletteVariant} from 'app/components/custom/material-pale
 import {CompanyService} from 'app/services/company.service';
 import {AlertService} from 'app/services/alert.service';
 import {EventService} from 'app/services/event.service';
+import {Constants} from 'app/utils/constants';
 import {Company} from 'app/models/company.model';
 import {Institution} from 'app/models/institution.model';
 import {Plan} from 'app/models/plan.model';
@@ -24,6 +25,8 @@ export class CompanySettingsComponent implements OnInit {
   public loading = true;
   public selectedPaletteVariant: PaletteVariant;
   public selectedTextColor: string;
+  public phonePattern = Constants.PHONE_PATTERN;
+  public phoneMask = Constants.PHONE_MASK;
 
   constructor(private companyService: CompanyService, private alertService: AlertService, private eventService: EventService, private ngbModal: NgbModal) {
 
@@ -98,11 +101,23 @@ export class CompanySettingsComponent implements OnInit {
     });
   }
 
-  public updateCompany(): void {
+  public updateCompanyLogo(event: any): void {
+    const file = event.target.files[0];
+    this.companyService.updateCompanyLogo(file).subscribe((company) => {
+      this.company = company;
+      this.eventService.publish(EventService.EVENT_COMPANY_CHANGED, company);
+      this.alertService.success('Logo atualizado com sucesso!');
+    }, (err) => {
+      this.alertService.apiError(null, err, 'Não foi possível atualizar o logo, por favor tente novamente mais tarde!');
+    });
+  }
+
+  public updateCompanyInfo(): void {
     const data = {
       name: this.company.name,
-      primary_color: this.selectedPaletteVariant.color,
-      text_color: this.selectedTextColor,
+      contact_email: this.company.contact_email,
+      contact_phone: this.company.contact_phone,
+      website: this.company.website,
     };
     this.companyService.updateCompany(data).subscribe((company) => {
       this.company = company;
@@ -113,14 +128,17 @@ export class CompanySettingsComponent implements OnInit {
     });
   }
 
-  public updateCompanyLogo(event: any): void {
-    const file = event.target.files[0];
-    this.companyService.updateCompanyLogo(file).subscribe((company) => {
+  public updateCompanyColors(): void {
+    const data = {
+      primary_color: this.selectedPaletteVariant.color,
+      text_color: this.selectedTextColor,
+    };
+    this.companyService.updateCompany(data).subscribe((company) => {
       this.company = company;
       this.eventService.publish(EventService.EVENT_COMPANY_CHANGED, company);
-      this.alertService.success('Logo atualizado com sucesso!');
+      this.alertService.success('Configurações atualizadas com sucesso!');
     }, (err) => {
-      this.alertService.apiError(null, err, 'Não foi possível atualizar o logo, por favor tente novamente mais tarde!');
+      this.alertService.apiError(null, err, 'Não foi possível atualizar as configurações, por favor tente novamente mais tarde!');
     });
   }
 }

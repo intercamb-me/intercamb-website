@@ -3,6 +3,7 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
 
 import {ClientService} from 'app/services/client.service';
 import {AlertService} from 'app/services/alert.service';
+import {Constants} from 'app/utils/constants';
 
 @Component({
   selector: 'app-search-address',
@@ -11,6 +12,7 @@ import {AlertService} from 'app/services/alert.service';
 export class SearchAddressComponent {
 
   public zipCode: string;
+  public zipCodeMask = Constants.ZIP_CODE_MASK;
 
   constructor(private clientService: ClientService, private alertService: AlertService, private ngbActiveModal: NgbActiveModal) {
 
