@@ -12,7 +12,7 @@
           <h2 class="mb-3">Informações básicas</h2>
           <div class="row">
             <div class="col form-group">
-              <label for="bi-forename">Nome</label>
+              <label for="bi-forename">Nome <span class="text-danger">*</span></label>
               <input
                 #forename="ngModel"
                 [(ngModel)]="formData.forename"
@@ -25,7 +25,7 @@
                 required>
             </div>
             <div class="col form-group">
-              <label for="bi-surname">Sobrenome</label>
+              <label for="bi-surname">Sobrenome <span class="text-danger">*</span></label>
               <input
                 #surname="ngModel"
                 [(ngModel)]="formData.surname"
@@ -40,7 +40,7 @@
           </div>
           <div class="row">
             <div class="col form-group">
-              <label for="bi-email">E-mail</label>
+              <label for="bi-email">E-mail <span class="text-danger">*</span></label>
               <input
                 #email="ngModel"
                 [(ngModel)]="formData.email"
@@ -53,7 +53,7 @@
                 required>
             </div>
             <div class="col form-group">
-              <label for="bi-phone">Telefone</label>
+              <label for="bi-phone">Telefone <span class="text-danger">*</span></label>
               <input
                 #phone="ngModel"
                 [(ngModel)]="formData.phone"
