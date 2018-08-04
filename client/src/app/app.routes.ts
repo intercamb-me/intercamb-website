@@ -1,6 +1,6 @@
 import {Routes} from '@angular/router';
 
-import {NotFoundComponent} from 'app/components/not-found/not-found.component';
+import {LandingPageComponent} from 'app/components/landing-page/landing-page.component';
 import {SignUpComponent} from 'app/components/signup/signup.component';
 import {SignInComponent} from 'app/components/signin/signin.component';
 import {SetupCompanyComponent} from 'app/components/company/setup/setup-company.component';
@@ -15,11 +15,13 @@ import {CalendarComponent} from 'app/components/company/calendar/calendar.compon
 import {ReportsComponent} from 'app/components/company/reports/reports.component';
 import {CompanySettingsComponent} from 'app/components/company/settings/settings.component';
 import {AccountSettingsComponent} from 'app/components/account/settings/settings.component';
+import {NotFoundComponent} from 'app/components/not-found/not-found.component';
 
 export class AppRoutes {
 
   public static listRoutes(): Routes {
     return [
+      {path: '', component: LandingPageComponent},
       {path: 'signup', component: SignUpComponent},
       {path: 'signin', component: SignInComponent},
       {path: 'company/setup', component: SetupCompanyComponent},

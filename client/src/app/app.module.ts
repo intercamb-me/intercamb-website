@@ -58,7 +58,7 @@ import {AppRoutes} from 'app/app.routes';
 // Components
 import {AppComponent} from 'app/app.component';
 import {AlertsComponent} from 'app/components/alerts/alerts.component';
-import {NotFoundComponent} from 'app/components/not-found/not-found.component';
+import {LandingPageComponent} from 'app/components/landing-page/landing-page.component';
 import {SignUpComponent} from 'app/components/signup/signup.component';
 import {SignInComponent} from 'app/components/signin/signin.component';
 import {SetupCompanyComponent} from 'app/components/company/setup/setup-company.component';
@@ -74,6 +74,7 @@ import {CalendarComponent} from 'app/components/company/calendar/calendar.compon
 import {ReportsComponent} from 'app/components/company/reports/reports.component';
 import {CompanySettingsComponent} from 'app/components/company/settings/settings.component';
 import {AccountSettingsComponent} from 'app/components/account/settings/settings.component';
+import {NotFoundComponent} from 'app/components/not-found/not-found.component';
 
 // Shared Components
 import {MaterialPalettePickerComponent} from 'app/components/custom/material-palette-picker/material-palette-picker.component';
@@ -175,7 +176,7 @@ library.add(faUsers);
     // Components
     AppComponent,
     AlertsComponent,
-    NotFoundComponent,
+    LandingPageComponent,
     SignUpComponent,
     SignInComponent,
     SetupCompanyComponent,
@@ -191,6 +192,7 @@ library.add(faUsers);
     ReportsComponent,
     CompanySettingsComponent,
     AccountSettingsComponent,
+    NotFoundComponent,
     // Shared Components
     MaterialPalettePickerComponent,
     // Modals

@@ -38,7 +38,7 @@ export class SetupCompanyComponent implements OnInit {
   public ngOnInit(): void {
     this.accountService.getAccount().subscribe((account) => {
       if (!account) {
-        this.router.navigate(['/signup']);
+        this.router.navigate(['/signin']);
         return;
       }
       if (account.company) {
