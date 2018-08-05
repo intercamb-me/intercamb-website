@@ -11,9 +11,13 @@
       <div *ngIf="company.plans.length > 0" class="row">
         <div *ngFor="let plan of company.plans; trackBy: trackByPlan" (click)="selectPlan(plan)" class="col-6 col-lg-4 mb-3 cursor-pointer">
           <div [ngClass]="{'selected': selectedPlan && selectedPlan.id === plan.id}" class="plan">
-            <div class="card-body px-0 py-0">
+            <div class="content">
               <h5 class="mb-0 px-3 py-2">{{ plan.name }}</h5>
-              <h4 class="mb-0 px-3 py-4 bg-info text-center text-white">{{ plan.price | currency:company.currency }}</h4>
+              <h4
+                [ngStyle]="{'backgroundColor': getColor(plan.name)}"
+                class="mb-0 px-3 py-4 text-center text-white">
+                {{ plan.price | currency:company.currency }}
+              </h4>
             </div>
           </div>
         </div>

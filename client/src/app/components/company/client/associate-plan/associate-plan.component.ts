@@ -5,6 +5,7 @@ import find from 'lodash-es/find';
 import {CompanyService} from 'app/services/company.service';
 import {ClientService} from 'app/services/client.service';
 import {AlertService} from 'app/services/alert.service';
+import {Helpers} from 'app/utils/helpers';
 import {Company} from 'app/models/company.model';
 import {Client} from 'app/models/client.model';
 import {Plan} from 'app/models/plan.model';
@@ -19,6 +20,7 @@ export class AssociatePlanComponent implements OnInit {
   public client: Client;
   public company: Company;
   public selectedPlan: Plan;
+  public getColor = Helpers.getColor;
   public loading = true;
 
   constructor(private companyService: CompanyService, private clientService: ClientService, private alertService: AlertService, private ngbActiveModal: NgbActiveModal) {

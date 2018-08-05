@@ -65,6 +65,7 @@
     "rxjs": "6.2.2",
     "rxjs-compat": "6.2.2",
     "rxjs-tslint": "0.1.5",
+    "smooch": "4.12.11",
     "ts-loader": "4.4.2",
     "tslint-angular": "1.1.2",
     "tslint-config-airbnb": "5.9.2",
