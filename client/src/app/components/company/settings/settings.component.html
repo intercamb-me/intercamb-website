@@ -198,8 +198,12 @@
           <div *ngFor="let plan of company.plans; trackBy: trackByPlan" class="col-4 mb-3">
             <div class="plan">
               <div class="card-body px-0 py-0">
-                <h5 class="mb-0 px-3">{{ plan.name }}</h5>
-                <h4 class="mb-0 px-3 py-4 bg-info text-center text-white">{{ plan.price | currency:company.currency }}</h4>
+                <h5 class="mb-0 px-3 py-2">{{ plan.name }}</h5>
+                <h4
+                  [ngStyle]="{'backgroundColor': getColor(plan.name)}"
+                  class="mb-0 px-3 py-4 text-center text-white">
+                  {{ plan.price | currency:company.currency }}
+                </h4>
                 <div class="actions">
                   <fa-icon
                     [icon]="['fas', 'pen']"

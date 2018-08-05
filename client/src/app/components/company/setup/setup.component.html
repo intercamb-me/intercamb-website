@@ -1,0 +1,247 @@
+<div id="setup-company" [ngStyle]="{'background-color': selectedPaletteVariant ? selectedPaletteVariant.color : undefined}">
+  <div class="container">
+    <div *ngIf="!loading" class="row py-5">
+      <div *ngIf="step === 0" class="col">
+        <h2 class="mb-4 text-center text-white">
+          Para começar, primeiro cadastre a sua empresa.
+        </h2>
+        <div class="row justify-content-center">
+          <div class="col-md-8 col-lg-6">
+            <div class="card">
+              <div class="card-body">
+                <form #form="ngForm" (ngSubmit)="createCompany()" novalidate>
+                  <div class="form-group">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text form-control">
+                          <fa-icon [icon]="['fas', 'briefcase']" [fixedWidth]="true"></fa-icon>
+                        </span>
+                      </div>
+                      <input
+                        #nameInput="ngModel"
+                        [(ngModel)]="name"
+                        [ngClass]="{'is-invalid': nameInput.invalid && (nameInput.dirty || nameInput.touched)}"
+                        id="name"
+                        name="name"
+                        type="text"
+                        class="form-control py-2"
+                        placeholder="Nome da empresa"
+                        minlength="4"
+                        required>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text form-control">
+                          <fa-icon [icon]="['fas', 'envelope']" [fixedWidth]="true"></fa-icon>
+                        </span>
+                      </div>
+                      <input
+                        #emailInput="ngModel"
+                        [(ngModel)]="contactEmail"
+                        [ngClass]="{'is-invalid': emailInput.invalid && (emailInput.dirty || emailInput.touched)}"
+                        id="contact-email"
+                        name="contact-email"
+                        type="email"
+                        class="form-control py-2"
+                        placeholder="E-mail para contato"
+                        email
+                        required>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text form-control">
+                          <fa-icon [icon]="['fas', 'phone']" [fixedWidth]="true"></fa-icon>
+                        </span>
+                      </div>
+                      <input
+                        #phoneInput="ngModel"
+                        [(ngModel)]="contactPhone"
+                        [ngClass]="{'is-invalid': phoneInput.invalid && (phoneInput.dirty || phoneInput.touched)}"
+                        [dropSpecialCharacters]="false"
+                        [mask]="phoneMask"
+                        [pattern]="phonePattern"
+                        id="contact-phone"
+                        name="contact-phone"
+                        type="text"
+                        class="form-control py-2"
+                        placeholder="Telefone para contato"
+                        maxlength="17"
+                        required>
+                        <div
+                          *ngIf="phoneInput.invalid && (phoneInput.dirty || phoneInput.touched)"
+                          class="invalid-feedback">
+                          Formato válido: +55 71 99999999
+                        </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text form-control">
+                          <fa-icon [icon]="['fas', 'hashtag']" [fixedWidth]="true"></fa-icon>
+                        </span>
+                      </div>
+                      <input
+                        [(ngModel)]="website"
+                        id="website"
+                        name="website"
+                        type="text"
+                        class="form-control py-2"
+                        placeholder="Website">
+                    </div>
+                  </div>
+                  <div class="form-group mb-0">
+                    <button
+                      [disabled]="form.invalid"
+                      type="submit"
+                      class="btn btn-primary btn-lg btn-block">
+                      Cadastrar
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="step === 1" class="col">
+        <h2
+          [ngStyle]="{'color': selectedTextColor || undefined}"
+          class="mb-4 text-center">
+          Personalize o website para ficar com a cara da sua empresa.
+        </h2>
+        <div class="row justify-content-center">
+          <div class="col-10 col-lg-8">
+            <div class="card">
+              <div class="card-body">
+                <form novalidate>
+                  <div class="row">
+                    <div class="col-auto">
+                      <div class="form-group">
+                        <img [src]="company.logo_url" class="logo"/>
+                        <label class="btn btn-primary btn-block btn-file mt-3">
+                          Alterar logo
+                          <input
+                            (change)="updateCompanyLogo($event)"
+                            id="logo"
+                            name="logo"
+                            type="file"
+                            accept="image/*">
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-group">
+                        <label>
+                          <h5 class="mb-0">Cor principal</h5>
+                        </label>
+                        <app-material-palette-picker
+                          (colorSelected)="onColorSelected($event)">
+                        </app-material-palette-picker>
+                      </div>
+                      <div class="form-group">
+                        <label>
+                          <h5 class="mb-0">Cor do texto</h5>
+                        </label>
+                        <div class="palette">
+                          <span (click)="selectTextColor('#212529')" class="color bg-black text-white">
+                            <fa-icon *ngIf="selectedTextColor === '#212529'" [icon]="['fas', 'check']" [fixedWidth]="true"></fa-icon>
+                          </span>
+                          <span (click)="selectTextColor('#ffffff')" class="color bg-white text-black">
+                            <fa-icon *ngIf="selectedTextColor === '#ffffff'" [icon]="['fas', 'check']" [fixedWidth]="true"></fa-icon>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <hr/>
+                  <div class="row">
+                    <div class="col">
+                      <button
+                        [disabled]="!selectedPaletteVariant || !selectedTextColor"
+                        (click)="updateCompanyColors()"
+                        type="button"
+                        class="btn btn-primary float-right">
+                        Confirmar
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="step === 2" class="col">
+        <h2 class="mb-4 text-center text-white">
+          Para finalizar, conte-nos um pouco mais sobre sua empresa.
+        </h2>
+        <div class="row justify-content-center">
+          <div class="col-md-8 col-lg-6">
+            <div class="card">
+              <div class="card-body">
+                <form #form="ngForm" (ngSubmit)="updateCompany()" novalidate>
+                  <p>Selecione todas as instituições de ensino que sua empresa oferece.</p>
+                  <div class="form-row">
+                    <div class="col form-group">
+                      <select
+                        [(ngModel)]="selectedInstitution"
+                        [compareWith]="compareInstitutions"
+                        name="institution"
+                        class="form-control">
+                        <option *ngFor="let institution of allInstitutions; trackBy: trackByInstitution" [ngValue]="institution">
+                          {{ institution.name }}
+                          <span *ngIf="institution.acronym"> ({{ institution.acronym }})</span>
+                        </option>
+                      </select>
+                    </div>
+                    <div class="col-auto form-group">
+                      <button
+                        (click)="addInstitution()"
+                        class="btn btn-primary"
+                        type="button">
+                        Adicionar
+                      </button>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <span *ngFor="let institution of selectedInstitutions" class="badge badge-secondary mb-2 mr-2">
+                        <span *ngIf="institution.acronym">{{ institution.acronym }}</span>
+                        <span *ngIf="!institution.acronym">{{ institution.name }}</span>
+                        <fa-icon
+                          [icon]="['fas', 'times']"
+                          [fixedWidth]="true"
+                          (click)="removeInstitution(institution)"
+                          title="Remover"
+                          class="cursor-pointer ml-2">
+                        </fa-icon>
+                      </span>
+                    </div>
+                  </div>
+                  <hr/>
+                  <div class="row">
+                    <div class="col">
+                      <button
+                        [disabled]="selectedInstitutions.length === 0"
+                        (click)="updateCompanyInfo()"
+                        type="button"
+                        class="btn btn-primary float-right">
+                        Confirmar
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-alerts></app-alerts>

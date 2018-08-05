@@ -11,6 +11,7 @@ import {CompanyService} from 'app/services/company.service';
 import {AlertService} from 'app/services/alert.service';
 import {EventService} from 'app/services/event.service';
 import {Constants} from 'app/utils/constants';
+import {Helpers} from 'app/utils/helpers';
 import {Company} from 'app/models/company.model';
 import {Institution} from 'app/models/institution.model';
 import {Plan} from 'app/models/plan.model';
@@ -25,6 +26,7 @@ export class CompanySettingsComponent implements OnInit {
   public loading = true;
   public selectedPaletteVariant: PaletteVariant;
   public selectedTextColor: string;
+  public getColor = Helpers.getColor;
   public phonePattern = Constants.PHONE_PATTERN;
   public phoneMask = Constants.PHONE_MASK;
 
