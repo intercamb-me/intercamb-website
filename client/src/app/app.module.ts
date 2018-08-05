@@ -61,7 +61,7 @@ import {AlertsComponent} from 'app/components/alerts/alerts.component';
 import {LandingPageComponent} from 'app/components/landing-page/landing-page.component';
 import {SignUpComponent} from 'app/components/signup/signup.component';
 import {SignInComponent} from 'app/components/signin/signin.component';
-import {SetupCompanyComponent} from 'app/components/company/setup/setup-company.component';
+import {SetupCompanyComponent} from 'app/components/company/setup/setup.component';
 import {CompanyComponent} from 'app/components/company/company.component';
 import {HomeComponent} from 'app/components/company/home/home.component';
 import {ClientsComponent} from 'app/components/company/clients/clients.component';
