@@ -28,41 +28,27 @@
                 <label for="name">
                   <h5 class="mb-0">Nome</h5>
                 </label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text form-control">
-                      <fa-icon [icon]="['fas', 'briefcase']" [fixedWidth]="true"></fa-icon>
-                    </span>
-                  </div>
-                  <input
-                    [(ngModel)]="company.name"
-                    id="name"
-                    name="name"
-                    type="text"
-                    class="form-control"
-                    minlength="4"
-                    required>
-                </div>
+                <input
+                  [(ngModel)]="company.name"
+                  id="name"
+                  name="name"
+                  type="text"
+                  class="form-control"
+                  minlength="4"
+                  required>
               </div>
               <div class="col-6 form-group">
                 <label for="contact-email">
                   <h5 class="mb-0">E-mail para contato</h5>
                 </label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text form-control">
-                      <fa-icon [icon]="['fas', 'envelope']" [fixedWidth]="true"></fa-icon>
-                    </span>
-                  </div>
-                  <input
-                    [(ngModel)]="company.contact_email"
-                    id="contact-email"
-                    name="contact-email"
-                    type="email"
-                    class="form-control"
-                    email
-                    required>
-                </div>
+                <input
+                  [(ngModel)]="company.contact_email"
+                  id="contact-email"
+                  name="contact-email"
+                  type="email"
+                  class="form-control"
+                  email
+                  required>
               </div>
             </div>
             <div class="row">
@@ -70,42 +56,28 @@
                 <label for="contact-phone">
                   <h5 class="mb-0">Telefone para contato</h5>
                 </label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text form-control">
-                      <fa-icon [icon]="['fas', 'phone']" [fixedWidth]="true"></fa-icon>
-                    </span>
-                  </div>
-                  <input
-                    [(ngModel)]="company.contact_phone"
-                    [dropSpecialCharacters]="false"
-                    [mask]="phoneMask"
-                    [pattern]="phonePattern"
-                    id="contact-phone"
-                    name="contact-phone"
-                    type="text"
-                    class="form-control"
-                    maxlength="17"
-                    required>
-                </div>
+                <input
+                  [(ngModel)]="company.contact_phone"
+                  [dropSpecialCharacters]="false"
+                  [mask]="phoneMask"
+                  [pattern]="phonePattern"
+                  id="contact-phone"
+                  name="contact-phone"
+                  type="text"
+                  class="form-control"
+                  maxlength="17"
+                  required>
               </div>
               <div class="col-6 form-group">
                 <label for="website">
                   <h5 class="mb-0">Website</h5>
                 </label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text form-control">
-                      <fa-icon [icon]="['fas', 'hashtag']" [fixedWidth]="true"></fa-icon>
-                    </span>
-                  </div>
-                  <input
-                    [(ngModel)]="company.website"
-                    id="website"
-                    name="website"
-                    type="text"
-                    class="form-control">
-                </div>
+                <input
+                  [(ngModel)]="company.website"
+                  id="website"
+                  name="website"
+                  type="text"
+                  class="form-control">
               </div>
             </div>
             <button
@@ -118,7 +90,7 @@
           </form>
         </div>
       </div>
-      <hr/>
+      <hr class="my-4"/>
       <div class="row">
         <div class="col">
           <div class="form-group">
@@ -150,8 +122,49 @@
       </div>
     </div>
   </div>
-  <hr class="mt-5"/>
-  <div class="row mt-3">
+  <hr class="my-4"/>
+  <div class="row">
+    <div class="col">
+      <div class="row align-items-center">
+        <div class="col">
+          <h3 class="mb-0">Contas</h3>
+        </div>
+        <div class="col-auto">
+          <button (click)="openInvitation()" type="button" class="btn btn-primary">
+            Convidar
+          </button>
+        </div>
+      </div>
+      <div class="mt-3">
+        <div class="row">
+          <div *ngFor="let account of accounts; trackBy: trackByAccount" class="col-12 mb-3">
+            <div class="account">
+              <img class="image" [src]="account.image_url">
+              <div class="info">
+                <h5 class="d-flex align-items-center mb-1">
+                  {{ account.getFullName() }}
+                  <span *ngIf="account.id === company.owner" class="badge">Admin</span>
+                </h5>
+                <p class="mb-0 text-secondary">{{ account.email }}</p>
+              </div>
+              <div class="actions">
+                <fa-icon
+                  *ngIf="company.owner === authenticatedAccount.id && company.owner !== account.id"
+                  [icon]="['fas', 'trash']"
+                  [fixedWidth]="true"
+                  (click)="openRemoveAccount(account)"
+                  class="cursor-pointer"
+                  title="Remover">
+                </fa-icon>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr class="my-4"/>
+  <div class="row">
     <div class="col">
       <div class="row align-items-center">
         <div class="col">
@@ -178,7 +191,8 @@
       </div>
     </div>
   </div>
-  <div class="row mt-3">
+  <hr class="my-4"/>
+  <div class="row">
     <div class="col">
       <div class="row align-items-center">
         <div class="col">
@@ -197,7 +211,7 @@
         <div class="row">
           <div *ngFor="let plan of plans; trackBy: trackByPlan" class="col-4 mb-3">
             <div class="plan">
-              <div class="card-body px-0 py-0">
+              <div class="content">
                 <h5 class="mb-0 px-3 py-2">{{ plan.name }}</h5>
                 <h4
                   [ngStyle]="{'backgroundColor': getColor(plan.name)}"

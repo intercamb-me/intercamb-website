@@ -106,7 +106,8 @@
   > .content {
     .col-9();
     .px-4();
-    .py-4();
+    .pt-4();
+    .pb-5();
     background-color: @white;
   }
 }
@@ -155,13 +156,42 @@
   }
   .plan {
     .card();
-    .actions {
-      .d-flex();
-      .justify-content-end();
-      .px-3();
-      .py-3();
-      font-size: 20px;
-      cursor: pointer;
+    > .content {
+      .card-body();
+      .px-0();
+      .py-0();
+      > .actions {
+        .d-flex();
+        .justify-content-end();
+        .px-3();
+        .py-3();
+        font-size: 20px;
+        cursor: pointer;
+      }
+    }
+  }
+  .account {
+    .d-flex();
+    .align-items-center();
+    > .image {
+      .rounded-circle();
+      width: 55px;
+      height: 55px;
+    }
+    > .info {
+      .flex-grow-1();
+      .mx-4();
+      .mb-0();
+      .badge {
+        .badge-secondary();
+        .px-1();
+        .py-1();
+        .ml-2();
+        font-size: 12px;
+      }
+    }
+    > .actions {
+
     }
   }
 }

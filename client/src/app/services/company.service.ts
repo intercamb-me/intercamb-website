@@ -6,6 +6,7 @@ import {map, catchError} from 'rxjs/operators';
 import {EventService} from 'app/services/event.service';
 import {ApiError} from 'app/services/commons/api.error';
 import {RequestUtils} from 'app/utils/request.utils';
+import {Account} from 'app/models/account.model';
 import {Company} from 'app/models/company.model';
 import {Institution} from 'app/models/institution.model';
 import {Client} from 'app/models/client.model';
@@ -83,6 +84,18 @@ export class CompanyService {
     formData.append('logo', logo);
     return this.http.put<Company>(httpUrl, formData, RequestUtils.getOptions()).pipe(
       map((companyData: Company) => new Company(companyData)),
+      catchError((err: HttpErrorResponse) => {
+        const apiError = ApiError.withResponse(err);
+        this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
+        return throwError(apiError);
+      })
+    );
+  }
+
+  public removeAccount(account: Account): Observable<void> {
+    const httpUrl = RequestUtils.getApiUrl(`/companies/current/accounts/${account.id}`);
+    return this.http.delete<void>(httpUrl, RequestUtils.getJsonOptions()).pipe(
+      map(() => null),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
         this.eventService.publish(EventService.EVENT_API_ERROR, apiError);

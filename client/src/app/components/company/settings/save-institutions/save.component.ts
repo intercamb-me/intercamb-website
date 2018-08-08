@@ -76,8 +76,9 @@ export class SaveInstitutionsComponent implements OnInit {
     };
     this.companyService.updateCompany(data).subscribe(() => {
       this.ngbActiveModal.close(this.selectedInstitutions);
+      this.alertService.success('Instituições atualizadas com sucesso!');
     }, (err) => {
-      this.alertService.apiError(null, err);
+      this.alertService.apiError(null, err, 'Não foi possível atualizar as instituições, por favor tente novamente mais tarde!');
     });
   }
 }

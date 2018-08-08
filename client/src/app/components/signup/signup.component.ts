@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {mergeMap} from 'rxjs/operators';
 
 import {AccountService} from 'app/services/account.service';
@@ -19,11 +19,14 @@ export class SignUpComponent implements OnInit {
   public password: string;
   public loading = true;
 
-  constructor(private accountService: AccountService, private eventService: EventService, private alertService: AlertService, private router: Router) {
+  private invitation: string;
+
+  constructor(private accountService: AccountService, private eventService: EventService, private alertService: AlertService, private activatedRoute: ActivatedRoute, private router: Router) {
 
   }
 
   public ngOnInit(): void {
+    this.invitation = this.activatedRoute.snapshot.queryParamMap.get('invitation');
     this.accountService.getAccount().subscribe((account) => {
       if (account && account.company) {
         this.router.navigate(['/company']);
@@ -40,13 +43,17 @@ export class SignUpComponent implements OnInit {
   }
 
   public signUp(): void {
-    this.accountService.createAccount(this.firstName, this.lastName, this.email, this.password).pipe(
+    this.accountService.createAccount(this.firstName, this.lastName, this.email, this.password, this.invitation).pipe(
       mergeMap(() => {
         return this.accountService.login(this.email, this.password);
       })
     ).subscribe((account) => {
       this.eventService.publish(EventService.EVENT_ACCOUNT_CHANGED, account);
-      this.router.navigate(['/company', 'setup']);
+      if (account.company) {
+        this.router.navigate(['/company']);
+      } else {
+        this.router.navigate(['/company', 'setup']);
+      }
     }, (err) => {
       this.alertService.apiError(ErrorUtils.CONTEXT_AUTHENTICATION, err);
     });

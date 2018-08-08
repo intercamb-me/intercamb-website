@@ -81,11 +81,13 @@ import {MaterialPalettePickerComponent} from 'app/components/custom/material-pal
 
 // Modals
 import {CreateClientFormComponent} from 'app/components/company/clients/create-form/create-form.component';
+import {DeleteClientComponent} from 'app/components/company/client/delete/delete.component';
 import {TaskComponent} from 'app/components/company/task/task.component';
 import {ChangeTaskStatusComponent} from 'app/components/company/task/change-status/change-status.component';
 import {SetTaskScheduleDateComponent} from 'app/components/company/task/set-schedule-date/set-schedule-date.component';
 import {SearchAddressComponent} from 'app/components/company/client/search-address/search-address.component';
-import {SaveInstitutionsComponent} from 'app/components/company/settings/institutions/save/save.component';
+import {RemoveAccountComponent} from 'app/components/company/settings/remove-account/remove-account.component';
+import {SaveInstitutionsComponent} from 'app/components/company/settings/save-institutions/save.component';
 import {SavePlanComponent} from 'app/components/company/settings/plan/save/save.component';
 import {DeletePlanComponent} from 'app/components/company/settings/plan/delete/delete.component';
 import {AssociatePlanComponent} from 'app/components/company/client/associate-plan/associate-plan.component';
@@ -93,17 +95,19 @@ import {CreatePaymentOrderComponent} from 'app/components/company/client/payment
 import {EditPaymentOrderComponent} from 'app/components/company/client/payment-order/edit/edit.component';
 import {DeletePaymentOrderComponent} from 'app/components/company/client/payment-order/delete/delete.component';
 import {ChangePaymentOrderStatusComponent} from 'app/components/company/client/payment-order/change-status/change-status.component';
+import {InvitationComponent} from 'app/components/company/settings/invitation/invitation.component';
 
 // Services
-import {CompanyService} from 'app/services/company.service';
 import {AccountService} from 'app/services/account.service';
+import {AlertService} from 'app/services/alert.service';
 import {ClientService} from 'app/services/client.service';
+import {CompanyService} from 'app/services/company.service';
+import {EventService} from 'app/services/event.service';
+import {InvitationService} from 'app/services/invitation.service';
+import {PaymentService} from 'app/services/payment.service';
+import {PlanService} from 'app/services/plan.service';
 import {TaskService} from 'app/services/task.service';
 import {TokenService} from 'app/services/token.service';
-import {PlanService} from 'app/services/plan.service';
-import {PaymentService} from 'app/services/payment.service';
-import {AlertService} from 'app/services/alert.service';
-import {EventService} from 'app/services/event.service';
 
 // Utilities
 import {
@@ -197,10 +201,12 @@ library.add(faUsers);
     MaterialPalettePickerComponent,
     // Modals
     ClientFormComponent,
+    DeleteClientComponent,
     TaskComponent,
     ChangeTaskStatusComponent,
     SetTaskScheduleDateComponent,
     SearchAddressComponent,
+    RemoveAccountComponent,
     SaveInstitutionsComponent,
     SavePlanComponent,
     DeletePlanComponent,
@@ -209,13 +215,16 @@ library.add(faUsers);
     EditPaymentOrderComponent,
     DeletePaymentOrderComponent,
     ChangePaymentOrderStatusComponent,
+    InvitationComponent,
   ],
   entryComponents: [
     CreateClientFormComponent,
+    DeleteClientComponent,
     TaskComponent,
     ChangeTaskStatusComponent,
     SetTaskScheduleDateComponent,
     SearchAddressComponent,
+    RemoveAccountComponent,
     SaveInstitutionsComponent,
     SavePlanComponent,
     DeletePlanComponent,
@@ -224,17 +233,19 @@ library.add(faUsers);
     EditPaymentOrderComponent,
     DeletePaymentOrderComponent,
     ChangePaymentOrderStatusComponent,
+    InvitationComponent,
   ],
   providers: [
-    CompanyService,
     AccountService,
+    AlertService,
     ClientService,
+    CompanyService,
+    EventService,
+    InvitationService,
+    PaymentService,
+    PlanService,
     TaskService,
     TokenService,
-    PlanService,
-    PaymentService,
-    AlertService,
-    EventService,
     {provide: LOCALE_ID, useValue: 'pt'},
     {provide: NgbDateParserFormatter, useClass: BrazilianNgbDateParserFormatter},
   ],

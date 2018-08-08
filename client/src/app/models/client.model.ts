@@ -82,6 +82,10 @@ export class Client {
     }
   }
 
+  public getFullName(): string {
+    return `${this.forename} ${this.surname}`;
+  }
+
   public toJSON(): any {
     const json = cloneDeep(this) as any;
     json.company = json.company_id;

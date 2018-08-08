@@ -2,7 +2,7 @@
   <div class="basic-info">
     <img class="photo" [src]="client.photo_url">
     <div class="info">
-      <h1>{{ client.forename }} {{ client.surname }}</h1>
+      <h1>{{ client.getFullName() }}</h1>
       <h5 class="text-secondary">{{ client.email }}</h5>
       <h5 class="text-secondary">{{ client.phone }}</h5>
       <div class="row">
@@ -485,6 +485,13 @@
           </div>
         </ngxMasonryItem>
       </ngx-masonry>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col">
+      <button (click)="openDeleteClient()" type="button" class="btn btn-danger float-right">
+        Remover
+      </button>
     </div>
   </div>
 </div>

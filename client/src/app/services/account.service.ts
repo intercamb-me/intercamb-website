@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {HttpClient, HttpParams, HttpErrorResponse} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {map, catchError} from 'rxjs/operators';
 
@@ -21,9 +21,15 @@ export class AccountService {
 
   }
 
-  public createAccount(firstName: string, lastName: string, email: string, password: string): Observable<Account> {
+  public createAccount(firstName: string, lastName: string, email: string, password: string, invitation?: string): Observable<Account> {
     const httpUrl = RequestUtils.getApiUrl('/accounts');
-    return this.http.post<Account>(httpUrl, {email, password, first_name: firstName, last_name: lastName}, RequestUtils.getJsonOptions()).pipe(
+    const httpOptions = RequestUtils.getJsonOptions();
+    let params = new HttpParams();
+    if (invitation) {
+      params = params.set('invitation', invitation);
+    }
+    httpOptions.params = params;
+    return this.http.post<Account>(httpUrl, {email, password, first_name: firstName, last_name: lastName}, httpOptions).pipe(
       map((accountData: Account) => new Account(accountData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);

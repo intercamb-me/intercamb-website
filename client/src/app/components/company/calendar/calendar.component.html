@@ -26,7 +26,7 @@
   <span
     *ngFor="let task of event.meta.tasks; trackBy: trackByIndex"
     class="badge badge-secondary mb-1 ml-1 mr-1">
-    {{ task.client.forename }} {{ task.client.surname }}
+    {{ task.client.getFullName() }}
   </span>
 </ng-template>
 
@@ -114,7 +114,7 @@
                 *ngFor="let task of tasksByEvent.value; trackBy: trackByIndex"
                 [routerLink]="['/company', 'clients', task.client.id]"
                 class="badge badge-secondary my-1 mr-2 font-small">
-                {{ task.client.forename }} {{ task.client.surname }}
+                {{ task.client.getFullName() }}
               </a>
             </div>
           </div>

@@ -65,6 +65,17 @@ export class ClientService {
     );
   }
 
+  public deleteClient(client: Client): Observable<void> {
+    const httpUrl = RequestUtils.getApiUrl(`/clients/${client.id}`);
+    return this.http.delete<void>(httpUrl, RequestUtils.getJsonOptions()).pipe(
+      map(() => null),
+      catchError((err: HttpErrorResponse) => {
+        const apiError = ApiError.withResponse(err);
+        this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
+        return throwError(apiError);
+      })
+    );
+  }
   public associatePlan(client: Client, plan: Plan): Observable<void> {
     const httpUrl = RequestUtils.getApiUrl(`/clients/${client.id}/plans/${plan.id}`);
     return this.http.post<void>(httpUrl, {}, RequestUtils.getJsonOptions()).pipe(

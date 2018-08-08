@@ -10,6 +10,7 @@ import {EditPaymentOrderComponent} from 'app/components/company/client/payment-o
 import {DeletePaymentOrderComponent} from 'app/components/company/client/payment-order/delete/delete.component';
 import {ChangePaymentOrderStatusComponent} from 'app/components/company/client/payment-order/change-status/change-status.component';
 import {TaskComponent} from 'app/components/company/task/task.component';
+import {DeleteClientComponent} from 'app/components/company/client/delete/delete.component';
 
 import {CompanyService} from 'app/services/company.service';
 import {ClientService} from 'app/services/client.service';
@@ -116,8 +117,6 @@ export class ClientComponent implements OnInit {
         this.client.plan = null;
         this.client.plan_id = null;
       }
-    }).catch(() => {
-      // Nothing to do...
     });
   }
 
@@ -126,8 +125,6 @@ export class ClientComponent implements OnInit {
     modalRef.componentInstance.client = this.client;
     modalRef.result.then((paymentOrders) => {
       this.client.payment_orders.push(...paymentOrders);
-    }).catch(() => {
-      // Nothing to do...
     });
   }
 
@@ -139,8 +136,6 @@ export class ClientComponent implements OnInit {
       if (index >= 0) {
         this.client.payment_orders[index] = updatedPaymentOrder;
       }
-    }).catch(() => {
-      // Nothing to do...
     });
   }
 
@@ -152,21 +147,16 @@ export class ClientComponent implements OnInit {
       if (index >= 0) {
         this.client.payment_orders.splice(index, 1);
       }
-    }).catch(() => {
-      // Nothing to do...
     });
   }
 
   public openChangePaymentOrderStatus(paymentOrder: PaymentOrder): void {
     const modalRef = this.ngbModal.open(ChangePaymentOrderStatusComponent);
-    modalRef.componentInstance.paymentOrder = paymentOrder;
     modalRef.result.then((updatedPaymentOrder) => {
       const index = this.client.payment_orders.indexOf(paymentOrder);
       if (index >= 0) {
         this.client.payment_orders[index] = updatedPaymentOrder;
       }
-    }).catch(() => {
-      // Nothing to do...
     });
   }
 
@@ -183,8 +173,14 @@ export class ClientComponent implements OnInit {
       if (index >= 0) {
         this.client.tasks[index] = updatedTask;
       }
-    }).catch(() => {
-      // Nothing to do...
+    });
+  }
+
+  public openDeleteClient(): void {
+    const modalRef = this.ngbModal.open(DeleteClientComponent);
+    modalRef.componentInstance.client = this.client;
+    modalRef.result.then(() => {
+      this.router.navigate(['/company', 'clients']);
     });
   }
 }

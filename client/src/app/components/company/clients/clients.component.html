@@ -1,7 +1,7 @@
 <div *ngIf="!loading" id="clients">
   <div class="row align-items-center">
     <div class="col">
-      <h1 class="mb-0">Assessorados</h1>
+      <h1 class="mb-0">Clientes</h1>
     </div>
     <div class="col-auto">
       <button (click)="openSendForm()" type="button" class="btn btn-primary">
@@ -44,7 +44,7 @@
           <div class="content">
             <img class="photo" [src]="client.photo_url">
             <div class="info">
-              <h5>{{ client.forename }} {{ client.surname }}</h5>
+              <h5>{{ client.getFullName() }}</h5>
               <p class="mb-2 text-secondary">{{ client.email }}</p>
               <p class="mb-0 text-secondary">{{ client.phone }}</p>
             </div>

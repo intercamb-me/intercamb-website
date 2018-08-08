@@ -1,17 +1,22 @@
 import {Component, OnInit} from '@angular/core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
+import {mergeMap} from 'rxjs/operators';
 import findIndex from 'lodash-es/findIndex';
 
-import {SaveInstitutionsComponent} from 'app/components/company/settings/institutions/save/save.component';
+import {RemoveAccountComponent} from 'app/components/company/settings/remove-account/remove-account.component';
+import {SaveInstitutionsComponent} from 'app/components/company/settings/save-institutions/save.component';
 import {SavePlanComponent} from 'app/components/company/settings/plan/save/save.component';
 import {DeletePlanComponent} from 'app/components/company/settings/plan/delete/delete.component';
+import {InvitationComponent} from 'app/components/company/settings/invitation/invitation.component';
 import {ColorSelected, PaletteVariant} from 'app/components/custom/material-palette-picker/material-palette-picker.component';
 
+import {AccountService} from 'app/services/account.service';
 import {CompanyService} from 'app/services/company.service';
 import {AlertService} from 'app/services/alert.service';
 import {EventService} from 'app/services/event.service';
 import {Constants} from 'app/utils/constants';
 import {Helpers} from 'app/utils/helpers';
+import {Account} from 'app/models/account.model';
 import {Company} from 'app/models/company.model';
 import {Institution} from 'app/models/institution.model';
 import {Plan} from 'app/models/plan.model';
@@ -23,8 +28,10 @@ import {Plan} from 'app/models/plan.model';
 export class CompanySettingsComponent implements OnInit {
 
   public company: Company;
+  public authenticatedAccount: Account;
   public institutions: Institution[];
   public plans: Plan[];
+  public accounts: Account[];
   public loading = true;
   public selectedPaletteVariant: PaletteVariant;
   public selectedTextColor: string;
@@ -32,23 +39,33 @@ export class CompanySettingsComponent implements OnInit {
   public phonePattern = Constants.PHONE_PATTERN;
   public phoneMask = Constants.PHONE_MASK;
 
-  constructor(private companyService: CompanyService, private alertService: AlertService, private eventService: EventService, private ngbModal: NgbModal) {
+  constructor(private accountService: AccountService, private companyService: CompanyService, private alertService: AlertService, private eventService: EventService, private ngbModal: NgbModal) {
 
   }
 
   public ngOnInit(): void {
-    this.companyService.getCompany({populate: 'institutions plans'}).subscribe((company) => {
-      this.company = company;
-      this.institutions = company.institutions;
-      this.plans = company.plans;
+    this.companyService.getCompany({populate: 'institutions plans accounts'}).pipe(
+      mergeMap((company) => {
+        this.company = company;
+        this.institutions = company.institutions;
+        this.plans = company.plans;
+        this.accounts = company.accounts;
+        return this.accountService.getAccount();
+      })
+    ).subscribe((account) => {
+      this.authenticatedAccount = account;
       this.loading = false;
     }, (err) => {
       this.alertService.apiError(null, err);
     });
   }
 
+  public trackByAccount(_index: number, account: Account): string {
+    return account.id;
+  }
+
   public trackByInstitution(_index: number, institution: Institution): string {
-    return institution.name;
+    return institution.id;
   }
 
   public trackByPlan(_index: number, plan: Plan): string {
@@ -65,12 +82,23 @@ export class CompanySettingsComponent implements OnInit {
     this.selectedTextColor = color;
   }
 
+  public openRemoveAccount(account: Account): void {
+    const modalRef = this.ngbModal.open(RemoveAccountComponent);
+    modalRef.componentInstance.account = account;
+    modalRef.result.then(() => {
+      const index = findIndex(this.accounts, (currentAccount) => {
+        return currentAccount.id === account.id;
+      });
+      if (index >= 0) {
+        this.accounts.splice(index, 1);
+      }
+    });
+  }
+
   public openSaveInstitutions(): void {
     const modalRef = this.ngbModal.open(SaveInstitutionsComponent);
     modalRef.result.then((updatedInstitutions) => {
       this.institutions = updatedInstitutions;
-    }).catch(() => {
-      // Nothing to do...
     });
   }
 
@@ -86,8 +114,6 @@ export class CompanySettingsComponent implements OnInit {
       } else {
         this.plans[index] = updatedPlan;
       }
-    }).catch(() => {
-      // Nothing to do...
     });
   }
 
@@ -101,9 +127,11 @@ export class CompanySettingsComponent implements OnInit {
       if (index >= 0) {
         this.plans.splice(index, 1);
       }
-    }).catch(() => {
-      // Nothing to do...
     });
+  }
+
+  public openInvitation(): void {
+    this.ngbModal.open(InvitationComponent);
   }
 
   public updateCompanyLogo(event: any): void {

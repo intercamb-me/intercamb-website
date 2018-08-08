@@ -1,0 +1,22 @@
+<div id="delete-plan">
+  <form #form="ngForm" novalidate>
+    <div class="modal-header">
+      <h4 class="modal-title">Remover conta</h4>
+      <button (click)="close()" type="button" class="close" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>Tem certeza que deseja remover esta conta da empresa?</p>
+    </div>
+    <div class="modal-footer">
+      <button
+        [disabled]="form.invalid"
+        (click)="removeAccount()"
+        class="btn btn-danger"
+        type="submit">
+        Remover
+      </button>
+    </div>
+  </form>
+</div>

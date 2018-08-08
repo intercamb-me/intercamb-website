@@ -79,8 +79,6 @@ export class SaveClientComponent implements OnInit {
       this.formData.address.city = address.city;
       this.formData.address.neighborhood = address.neighborhood;
       this.formData.address.public_place = address.public_place;
-    }).catch(() => {
-      // Nothing to do...
     });
   }
 

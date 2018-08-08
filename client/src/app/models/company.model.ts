@@ -1,5 +1,6 @@
 /* tslint:disable:variable-name */
 
+import {Account} from 'app/models/account.model';
 import {Institution} from 'app/models/institution.model';
 import {Plan} from 'app/models/plan.model';
 
@@ -17,6 +18,7 @@ export class Company {
   public owner: string;
   public registration_date: Date;
 
+  public accounts: Account[];
   public institutions: Institution[];
   public plans: Plan[];
 
@@ -33,6 +35,12 @@ export class Company {
       this.text_color = data.text_color;
       this.owner = data.owner;
       this.registration_date = new Date(data.registration_date);
+      this.accounts = [];
+      if (data.accounts) {
+        (data.accounts as any[]).forEach((account) => {
+          this.accounts.push(new Account(account));
+        });
+      }
       this.institutions = [];
       if (data.institutions) {
         (data.institutions as any[]).forEach((institution) => {
