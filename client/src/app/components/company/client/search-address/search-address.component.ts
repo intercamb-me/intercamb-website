@@ -13,6 +13,7 @@ export class SearchAddressComponent {
 
   public zipCode: string;
   public zipCodeMask = Constants.ZIP_CODE_MASK;
+  public searching = false;
 
   constructor(private clientService: ClientService, private alertService: AlertService, private ngbActiveModal: NgbActiveModal) {
 
@@ -23,10 +24,12 @@ export class SearchAddressComponent {
   }
 
   public searchAddress(): void {
+    this.searching = true;
     this.clientService.searchAddress(this.zipCode).subscribe((zipCodeAddress) => {
       this.alertService.success('Endereço encontrado! Os campos foram preenchidos automaticamente.');
       this.ngbActiveModal.close(zipCodeAddress);
     }, (err) => {
+      this.searching = false;
       this.alertService.apiError(null, err, 'Não foi possível buscar o endereço, por favor tente novamente mais tarde!');
     });
   }

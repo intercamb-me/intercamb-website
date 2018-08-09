@@ -8,7 +8,7 @@ import {Institution} from 'app/models/institution.model';
 
 @Component({
   selector: 'app-save-institutions',
-  templateUrl: './save.component.html',
+  templateUrl: './save-institutions.component.html',
 })
 export class SaveInstitutionsComponent implements OnInit {
 
@@ -16,6 +16,7 @@ export class SaveInstitutionsComponent implements OnInit {
   public selectedInstitutions: Institution[];
   public selectedInstitution: Institution;
   public loading = true;
+  public saving = false;
 
   constructor(private companyService: CompanyService, private alertService: AlertService, private ngbActiveModal: NgbActiveModal) {
 
@@ -69,6 +70,7 @@ export class SaveInstitutionsComponent implements OnInit {
   }
 
   public saveInstitutions(): void {
+    this.saving = true;
     const data = {
       institutions: this.selectedInstitutions.map((institution) => {
         return institution.id;
@@ -78,6 +80,7 @@ export class SaveInstitutionsComponent implements OnInit {
       this.ngbActiveModal.close(this.selectedInstitutions);
       this.alertService.success('Instituições atualizadas com sucesso!');
     }, (err) => {
+      this.saving = false;
       this.alertService.apiError(null, err, 'Não foi possível atualizar as instituições, por favor tente novamente mais tarde!');
     });
   }

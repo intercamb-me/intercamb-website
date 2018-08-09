@@ -39,9 +39,9 @@ export class PlanService {
     );
   }
 
-  public updatePlan(plan: Plan): Observable<Plan> {
+  public updatePlan(plan: Plan, data: any): Observable<Plan> {
     const httpUrl = RequestUtils.getApiUrl(`/plans/${plan.id}`);
-    return this.http.put<Plan>(httpUrl, plan, RequestUtils.getJsonOptions()).pipe(
+    return this.http.put<Plan>(httpUrl, data, RequestUtils.getJsonOptions()).pipe(
       map((planData: Plan) => new Plan(planData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);

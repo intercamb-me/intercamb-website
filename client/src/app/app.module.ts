@@ -87,7 +87,7 @@ import {ChangeTaskStatusComponent} from 'app/components/company/task/change-stat
 import {SetTaskScheduleDateComponent} from 'app/components/company/task/set-schedule-date/set-schedule-date.component';
 import {SearchAddressComponent} from 'app/components/company/client/search-address/search-address.component';
 import {RemoveAccountComponent} from 'app/components/company/settings/remove-account/remove-account.component';
-import {SaveInstitutionsComponent} from 'app/components/company/settings/save-institutions/save.component';
+import {SaveInstitutionsComponent} from 'app/components/company/settings/save-institutions/save-institutions.component';
 import {SavePlanComponent} from 'app/components/company/settings/plan/save/save.component';
 import {DeletePlanComponent} from 'app/components/company/settings/plan/delete/delete.component';
 import {AssociatePlanComponent} from 'app/components/company/client/associate-plan/associate-plan.component';

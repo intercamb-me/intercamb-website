@@ -11,6 +11,7 @@ import {AlertService} from 'app/services/alert.service';
 export class InvitationComponent {
 
   public email: string;
+  public sending: boolean;
 
   constructor(private invitationService: InvitationService, private alertService: AlertService, private ngbActiveModal: NgbActiveModal) {
 
@@ -21,10 +22,12 @@ export class InvitationComponent {
   }
 
   public createInvitation(): void {
+    this.sending = true;
     this.invitationService.createInvitation(this.email).subscribe(() => {
       this.ngbActiveModal.close();
       this.alertService.success('Convite enviado com sucesso!');
     }, (err) => {
+      this.sending = false;
       this.alertService.apiError(null, err, 'Não foi possível enviar o convite, por favor tente novamente mais tarde!');
     });
   }

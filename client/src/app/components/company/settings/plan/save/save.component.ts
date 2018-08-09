@@ -18,6 +18,7 @@ export class SavePlanComponent implements OnInit {
   public name: string;
   public price: string;
   public currencyMask = Constants.CURRENCY_MASK;
+  public saving = false;
 
   constructor(private planService: PlanService, private alertService: AlertService, private ngbActiveModal: NgbActiveModal) {
 
@@ -36,21 +37,27 @@ export class SavePlanComponent implements OnInit {
   }
 
   public createPlan(): void {
+    this.saving = true;
     this.planService.createPlan(this.name, Number(this.price)).subscribe((plan) => {
       this.ngbActiveModal.close(plan);
       this.alertService.success('Plano cadastrado com sucesso!');
     }, (err) => {
+      this.saving = false;
       this.alertService.apiError(null, err, 'Não foi possível cadastrar o plano, por favor tente novamente mais tarde!');
     });
   }
 
   public updatePlan(): void {
-    this.plan.name = this.name;
-    this.plan.price = Number(this.price);
-    this.planService.updatePlan(this.plan).subscribe((plan) => {
+    this.saving = true;
+    const data = {
+      name: this.name,
+      price: Number(this.price),
+    };
+    this.planService.updatePlan(this.plan, data).subscribe((plan) => {
       this.ngbActiveModal.close(plan);
       this.alertService.success('Plano atualizado com sucesso!');
     }, (err) => {
+      this.saving = false;
       this.alertService.apiError(null, err, 'Não foi possível atualizar o plano, por favor tente novamente mais tarde!');
     });
   }

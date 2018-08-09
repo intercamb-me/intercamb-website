@@ -20,7 +20,7 @@
         </div>
         <div class="col-auto form-group mb-0">
           <button
-            [disabled]="form.invalid"
+            [disabled]="form.invalid || searching"
             class="btn btn-primary"
             type="submit">
             Buscar

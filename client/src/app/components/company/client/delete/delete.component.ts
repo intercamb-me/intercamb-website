@@ -14,6 +14,8 @@ export class DeleteClientComponent {
   @Input()
   public client: Client;
 
+  public deleting = false;
+
   constructor(private clientService: ClientService, private alertService: AlertService, private ngbActiveModal: NgbActiveModal) {
 
   }
@@ -23,10 +25,12 @@ export class DeleteClientComponent {
   }
 
   public deleteClient(): void {
+    this.deleting = true;
     this.clientService.deleteClient(this.client).subscribe(() => {
       this.ngbActiveModal.close();
       this.alertService.success('Cliente removido com sucesso!');
     }, (err) => {
+      this.deleting = false;
       this.alertService.apiError(null, err, 'Não foi possível remover o cliente, por favor tente novamente mais tarde!');
     });
   }

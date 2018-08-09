@@ -37,6 +37,7 @@ export class SaveClientComponent implements OnInit {
   public zipCodeMask = Constants.ZIP_CODE_MASK;
   public onlyDateChars = Helpers.onlyDateChars;
   public loading = true;
+  public saving = false;
 
   constructor(private companyService: CompanyService, private clientService: ClientService, private alertService: AlertService, private ngbModal: NgbModal) {
 
@@ -83,6 +84,7 @@ export class SaveClientComponent implements OnInit {
   }
 
   public saveClient(): void {
+    this.saving = true;
     const data = this.fixFormData();
     const observable = !this.client.id ? this.clientService.createClient(data) : this.clientService.updateClient(this.client, data);
     observable.subscribe((client) => {
@@ -94,7 +96,12 @@ export class SaveClientComponent implements OnInit {
       this.client = client;
       this.saved.emit(client);
     }, (err) => {
-      this.alertService.apiError(null, err);
+      this.saving = false;
+      if (!this.client.id) {
+        this.alertService.apiError(null, err, 'Não foi possível cadastrar o cliente, por favor tente novamente em alguns instantes!');
+      } else {
+        this.alertService.apiError(null, err, 'Não foi possível atualizar o cliente, por favor tente novamente em alguns instantes!');
+      }
     });
   }
 

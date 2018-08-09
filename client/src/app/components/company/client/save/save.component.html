@@ -699,7 +699,7 @@
       <div class="row mt-4">
         <div class="col">
           <button
-            [disabled]="form.invalid"
+            [disabled]="form.invalid || saving"
             type="submit"
             class="btn btn-primary btn-lg">
             <span *ngIf="!client.id">Cadastrar</span>

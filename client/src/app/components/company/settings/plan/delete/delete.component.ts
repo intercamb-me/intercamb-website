@@ -14,6 +14,8 @@ export class DeletePlanComponent {
   @Input()
   public plan: Plan;
 
+  public deleting = false;
+
   constructor(private planService: PlanService, private alertService: AlertService, private ngbActiveModal: NgbActiveModal) {
 
   }
@@ -23,10 +25,12 @@ export class DeletePlanComponent {
   }
 
   public deletePlan(): void {
+    this.deleting = true;
     this.planService.deletePlan(this.plan).subscribe(() => {
       this.ngbActiveModal.close();
       this.alertService.success('Plano removido com sucesso!');
     }, (err) => {
+      this.deleting = false;
       this.alertService.apiError(null, err, 'Não foi possível remover o plano, por favor tente novamente mais tarde!');
     });
   }

@@ -11,7 +11,7 @@
     </div>
     <div class="modal-footer">
       <button
-        [disabled]="form.invalid"
+        [disabled]="form.invalid || deleting"
         (click)="deletePlan()"
         class="btn btn-danger"
         type="submit">
