@@ -91,6 +91,8 @@ export class TaskComponent implements OnInit {
     modalRef.componentInstance.task = this.task;
     modalRef.result.then((updatedTask) => {
       this.task = updatedTask;
+    }).catch(() => {
+      // Nothing to do...
     });
   }
 
@@ -100,6 +102,8 @@ export class TaskComponent implements OnInit {
     modalRef.componentInstance.task = this.task;
     modalRef.result.then((updatedTask) => {
       this.task = updatedTask;
+    }).catch(() => {
+      // Nothing to do...
     });
   }
 

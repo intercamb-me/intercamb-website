@@ -96,7 +96,7 @@
                   </div>
                   <div class="form-group mb-0">
                     <button
-                      [disabled]="form.invalid"
+                      [disabled]="form.invalid || creating"
                       type="submit"
                       class="btn btn-primary btn-lg btn-block">
                       Cadastrar
@@ -118,7 +118,7 @@
           <div class="col-10 col-lg-8">
             <div class="card">
               <div class="card-body">
-                <form novalidate>
+                <form (ngSubmit)="updateCompanyColors()" novalidate>
                   <div class="row">
                     <div class="col-auto">
                       <div class="form-group">
@@ -126,6 +126,7 @@
                         <label class="btn btn-primary btn-block btn-file mt-3">
                           Alterar logo
                           <input
+                            [disabled]="updating"
                             (change)="updateCompanyLogo($event)"
                             id="logo"
                             name="logo"
@@ -162,9 +163,8 @@
                   <div class="row">
                     <div class="col">
                       <button
-                        [disabled]="!selectedPaletteVariant || !selectedTextColor"
-                        (click)="updateCompanyColors()"
-                        type="button"
+                        [disabled]="!selectedPaletteVariant || !selectedTextColor || updating"
+                        type="submit"
                         class="btn btn-primary float-right">
                         Confirmar
                       </button>
@@ -184,7 +184,7 @@
           <div class="col-md-8 col-lg-6">
             <div class="card">
               <div class="card-body">
-                <form #form="ngForm" (ngSubmit)="updateCompany()" novalidate>
+                <form #form="ngForm" (ngSubmit)="updateCompanyInfo()" novalidate>
                   <p>Selecione todas as instituições de ensino que sua empresa oferece.</p>
                   <div class="form-row">
                     <div class="col form-group">
@@ -227,9 +227,8 @@
                   <div class="row">
                     <div class="col">
                       <button
-                        [disabled]="selectedInstitutions.length === 0"
-                        (click)="updateCompanyInfo()"
-                        type="button"
+                        [disabled]="selectedInstitutions.length === 0 || updating"
+                        type="submit"
                         class="btn btn-primary float-right">
                         Confirmar
                       </button>

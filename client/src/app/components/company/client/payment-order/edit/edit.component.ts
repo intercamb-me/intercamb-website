@@ -28,6 +28,7 @@ export class EditPaymentOrderComponent implements OnInit {
   public availableMethods = Constants.PAYMENT_METHODS;
   public onlyDateChars = Helpers.onlyDateChars;
   public loading = true;
+  public updating = false;
 
   constructor(private companyService: CompanyService, private paymentService: PaymentService, private alertService: AlertService, private ngbActiveModal: NgbActiveModal) {
 
@@ -58,6 +59,7 @@ export class EditPaymentOrderComponent implements OnInit {
   }
 
   public updatePaymentOrder(): void {
+    this.updating = true;
     const data = {
       method: this.method,
       amount: Number(this.amount),
@@ -67,7 +69,8 @@ export class EditPaymentOrderComponent implements OnInit {
       this.ngbActiveModal.close(paymentOrder);
       this.alertService.success('Ordem de pagamento atualizada com sucesso!');
     }, (err) => {
-      this.alertService.apiError(null, err, 'Não foi possível atualizar a ordem de pagament, por favor tente novamente mais tarde!');
+      this.updating = false;
+      this.alertService.apiError(null, err, 'Não foi possível atualizar a ordem de pagamento, por favor tente novamente mais tarde!');
     });
   }
 }

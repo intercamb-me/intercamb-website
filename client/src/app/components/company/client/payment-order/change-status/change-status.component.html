@@ -1,5 +1,5 @@
 <div id="edit-payment-order">
-  <form #form="ngForm" novalidate>
+  <form #form="ngForm" (ngSubmit)="updatePaymentOrder()" novalidate>
     <div class="modal-header">
       <h4 class="modal-title">Alterar status</h4>
       <button (click)="close()" type="button" class="close" aria-label="Close">
@@ -60,16 +60,15 @@
     </div>
     <div *ngIf="selectingPaymentDate" class="modal-footer">
       <button
-        [disabled]="form.invalid"
+        [disabled]="form.invalid || updating"
         (click)="backToStatusOptions()"
         type="button"
         class="btn btn-secondary">
         Voltar
       </button>
       <button
-        [disabled]="form.invalid"
-        (click)="updatePaymentOrder()"
-        type="button"
+        [disabled]="form.invalid || updating"
+        type="submit"
         class="btn btn-primary">
         Atualizar
       </button>

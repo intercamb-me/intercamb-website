@@ -29,7 +29,7 @@
     <div class="modal-footer">
       <button
         *ngIf="!client.plan"
-        [disabled]="!selectedPlan"
+        [disabled]="!selectedPlan || updating"
         (click)="associatePlan()"
         type="button"
         class="btn btn-primary">
@@ -37,6 +37,7 @@
       </button>
       <button
         *ngIf="client.plan && client.plan === selectedPlan.id"
+        [disabled]="updating"
         (click)="dissociatePlan()"
         type="button"
         class="btn btn-danger">
@@ -44,6 +45,7 @@
       </button>
       <button
         *ngIf="client.plan && client.plan !== selectedPlan.id"
+        [disabled]="updating"
         (click)="associatePlan()"
         type="button"
         class="btn btn-primary">

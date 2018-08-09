@@ -11,6 +11,7 @@
         <label class="btn btn-primary btn-block btn-file mt-3">
           Alterar logo
           <input
+            [disabled]="updating"
             (change)="updateCompanyLogo($event)"
             id="logo"
             name="logo"
@@ -22,7 +23,7 @@
     <div class="col px-4">
       <div class="row">
         <div class="col">
-          <form #form="ngForm" novalidate>
+          <form #form="ngForm" (ngSubmit)="updateCompanyInfo()" novalidate>
             <div class="row">
               <div class="col-6 form-group">
                 <label for="name">
@@ -81,9 +82,8 @@
               </div>
             </div>
             <button
-              [disabled]="form.invalid"
-              (click)="updateCompanyInfo()"
-              type="button"
+              [disabled]="form.invalid || updating"
+              type="submit"
               class="btn btn-primary">
               Atualizar
             </button>
@@ -115,7 +115,11 @@
               </span>
             </div>
           </div>
-          <button (click)="updateCompanyColors()" type="button" class="btn btn-primary">
+          <button
+            [disabled]="updating"
+            (click)="updateCompanyColors()"
+            type="button"
+            class="btn btn-primary">
             Atualizar
           </button>
         </div>

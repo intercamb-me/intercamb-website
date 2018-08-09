@@ -1,5 +1,5 @@
 <div id="delete-plan">
-  <form #form="ngForm" novalidate>
+  <form #form="ngForm" (ngSubmit)="removeAccount()" novalidate>
     <div class="modal-header">
       <h4 class="modal-title">Remover conta</h4>
       <button (click)="close()" type="button" class="close" aria-label="Close">
@@ -11,8 +11,7 @@
     </div>
     <div class="modal-footer">
       <button
-        [disabled]="form.invalid"
-        (click)="removeAccount()"
+        [disabled]="form.invalid || removing"
         class="btn btn-danger"
         type="submit">
         Remover

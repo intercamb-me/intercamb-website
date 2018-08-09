@@ -15,6 +15,7 @@ export class SignInComponent implements OnInit {
   public email: string;
   public password: string;
   public loading = true;
+  public signingIn = false;
 
   constructor(private accountService: AccountService, private alertService: AlertService, private eventService: EventService, private router: Router) {
 
@@ -37,11 +38,13 @@ export class SignInComponent implements OnInit {
   }
 
   public signIn(): void {
+    this.signingIn = true;
     this.accountService.login(this.email, this.password).subscribe((account) => {
       this.eventService.publish(EventService.EVENT_ACCOUNT_CHANGED, account);
       this.router.navigate(['/company']);
     }, (err) => {
-      this.alertService.apiError(ErrorUtils.CONTEXT_AUTHENTICATION, err);
+      this.signingIn = false;
+      this.alertService.apiError(ErrorUtils.CONTEXT_AUTHENTICATION, err, 'Não foi possível acessar a conta, por favor tente novamente mais tarde!');
     });
   }
 }

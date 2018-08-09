@@ -14,6 +14,8 @@ export class RemoveAccountComponent {
   @Input()
   public account: Account;
 
+  public removing = false;
+
   constructor(private companyService: CompanyService, private alertService: AlertService, private ngbActiveModal: NgbActiveModal) {
 
   }
@@ -23,10 +25,12 @@ export class RemoveAccountComponent {
   }
 
   public removeAccount(): void {
+    this.removing = true;
     this.companyService.removeAccount(this.account).subscribe(() => {
       this.ngbActiveModal.close();
       this.alertService.success('Conta removida com sucesso!');
     }, (err) => {
+      this.removing = false;
       this.alertService.apiError(null, err, 'Não foi possível remover a conta, por favor tente novamente mais tarde!');
     });
   }

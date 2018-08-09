@@ -4,7 +4,7 @@ import {mergeMap} from 'rxjs/operators';
 import findIndex from 'lodash-es/findIndex';
 
 import {RemoveAccountComponent} from 'app/components/company/settings/remove-account/remove-account.component';
-import {SaveInstitutionsComponent} from 'app/components/company/settings/save-institutions/save.component';
+import {SaveInstitutionsComponent} from 'app/components/company/settings/save-institutions/save-institutions.component';
 import {SavePlanComponent} from 'app/components/company/settings/plan/save/save.component';
 import {DeletePlanComponent} from 'app/components/company/settings/plan/delete/delete.component';
 import {InvitationComponent} from 'app/components/company/settings/invitation/invitation.component';
@@ -32,12 +32,13 @@ export class CompanySettingsComponent implements OnInit {
   public institutions: Institution[];
   public plans: Plan[];
   public accounts: Account[];
-  public loading = true;
   public selectedPaletteVariant: PaletteVariant;
   public selectedTextColor: string;
   public getColor = Helpers.getColor;
   public phonePattern = Constants.PHONE_PATTERN;
   public phoneMask = Constants.PHONE_MASK;
+  public loading = true;
+  public updating = false;
 
   constructor(private accountService: AccountService, private companyService: CompanyService, private alertService: AlertService, private eventService: EventService, private ngbModal: NgbModal) {
 
@@ -92,6 +93,8 @@ export class CompanySettingsComponent implements OnInit {
       if (index >= 0) {
         this.accounts.splice(index, 1);
       }
+    }).catch(() => {
+      // Nothing to do...
     });
   }
 
@@ -99,6 +102,8 @@ export class CompanySettingsComponent implements OnInit {
     const modalRef = this.ngbModal.open(SaveInstitutionsComponent);
     modalRef.result.then((updatedInstitutions) => {
       this.institutions = updatedInstitutions;
+    }).catch(() => {
+      // Nothing to do...
     });
   }
 
@@ -114,6 +119,8 @@ export class CompanySettingsComponent implements OnInit {
       } else {
         this.plans[index] = updatedPlan;
       }
+    }).catch(() => {
+      // Nothing to do...
     });
   }
 
@@ -127,6 +134,8 @@ export class CompanySettingsComponent implements OnInit {
       if (index >= 0) {
         this.plans.splice(index, 1);
       }
+    }).catch(() => {
+      // Nothing to do...
     });
   }
 
@@ -135,17 +144,20 @@ export class CompanySettingsComponent implements OnInit {
   }
 
   public updateCompanyLogo(event: any): void {
+    this.updating = true;
     const file = event.target.files[0];
     this.companyService.updateCompanyLogo(file).subscribe((company) => {
       this.company = company;
       this.eventService.publish(EventService.EVENT_COMPANY_CHANGED, company);
       this.alertService.success('Logo atualizado com sucesso!');
     }, (err) => {
+      this.updating = false;
       this.alertService.apiError(null, err, 'Não foi possível atualizar o logo, por favor tente novamente mais tarde!');
     });
   }
 
   public updateCompanyInfo(): void {
+    this.updating = true;
     const data = {
       name: this.company.name,
       contact_email: this.company.contact_email,
@@ -157,11 +169,13 @@ export class CompanySettingsComponent implements OnInit {
       this.eventService.publish(EventService.EVENT_COMPANY_CHANGED, company);
       this.alertService.success('Configurações atualizadas com sucesso!');
     }, (err) => {
+      this.updating = false;
       this.alertService.apiError(null, err, 'Não foi possível atualizar as configurações, por favor tente novamente mais tarde!');
     });
   }
 
   public updateCompanyColors(): void {
+    this.updating = true;
     const data = {
       primary_color: this.selectedPaletteVariant.color,
       text_color: this.selectedTextColor,
@@ -171,6 +185,7 @@ export class CompanySettingsComponent implements OnInit {
       this.eventService.publish(EventService.EVENT_COMPANY_CHANGED, company);
       this.alertService.success('Configurações atualizadas com sucesso!');
     }, (err) => {
+      this.updating = false;
       this.alertService.apiError(null, err, 'Não foi possível atualizar as configurações, por favor tente novamente mais tarde!');
     });
   }

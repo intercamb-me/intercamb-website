@@ -18,6 +18,7 @@ export class SignUpComponent implements OnInit {
   public email: string;
   public password: string;
   public loading = true;
+  public signingUp = false;
 
   private invitation: string;
 
@@ -43,6 +44,7 @@ export class SignUpComponent implements OnInit {
   }
 
   public signUp(): void {
+    this.signingUp = true;
     this.accountService.createAccount(this.firstName, this.lastName, this.email, this.password, this.invitation).pipe(
       mergeMap(() => {
         return this.accountService.login(this.email, this.password);
@@ -55,7 +57,8 @@ export class SignUpComponent implements OnInit {
         this.router.navigate(['/company', 'setup']);
       }
     }, (err) => {
-      this.alertService.apiError(ErrorUtils.CONTEXT_AUTHENTICATION, err);
+      this.signingUp = false;
+      this.alertService.apiError(ErrorUtils.CONTEXT_AUTHENTICATION, err, 'Não foi possível criar a conta, por favor tente novamente mais tarde!');
     });
   }
 }

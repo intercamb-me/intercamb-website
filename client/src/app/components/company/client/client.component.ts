@@ -117,6 +117,8 @@ export class ClientComponent implements OnInit {
         this.client.plan = null;
         this.client.plan_id = null;
       }
+    }).catch(() => {
+      // Nothing to do...
     });
   }
 
@@ -125,6 +127,8 @@ export class ClientComponent implements OnInit {
     modalRef.componentInstance.client = this.client;
     modalRef.result.then((paymentOrders) => {
       this.client.payment_orders.push(...paymentOrders);
+    }).catch(() => {
+      // Nothing to do...
     });
   }
 
@@ -136,6 +140,8 @@ export class ClientComponent implements OnInit {
       if (index >= 0) {
         this.client.payment_orders[index] = updatedPaymentOrder;
       }
+    }).catch(() => {
+      // Nothing to do...
     });
   }
 
@@ -147,6 +153,8 @@ export class ClientComponent implements OnInit {
       if (index >= 0) {
         this.client.payment_orders.splice(index, 1);
       }
+    }).catch(() => {
+      // Nothing to do...
     });
   }
 
@@ -157,6 +165,8 @@ export class ClientComponent implements OnInit {
       if (index >= 0) {
         this.client.payment_orders[index] = updatedPaymentOrder;
       }
+    }).catch(() => {
+      // Nothing to do...
     });
   }
 
@@ -173,6 +183,8 @@ export class ClientComponent implements OnInit {
       if (index >= 0) {
         this.client.tasks[index] = updatedTask;
       }
+    }).catch(() => {
+      // Nothing to do...
     });
   }
 
@@ -181,6 +193,8 @@ export class ClientComponent implements OnInit {
     modalRef.componentInstance.client = this.client;
     modalRef.result.then(() => {
       this.router.navigate(['/company', 'clients']);
+    }).catch(() => {
+      // Nothing to do...
     });
   }
 }

@@ -1,5 +1,5 @@
 <div *ngIf="!loading" id="edit-payment-order">
-  <form #form="ngForm" novalidate>
+  <form #form="ngForm" (ngSubmit)="updatePaymentOrder()" novalidate>
     <div class="modal-header">
       <h4 class="modal-title">Atualizar ordem de pagamento</h4>
       <button (click)="close()" type="button" class="close" aria-label="Close">
@@ -69,9 +69,8 @@
     </div>
     <div class="modal-footer">
       <button
-        [disabled]="form.invalid"
-        (click)="updatePaymentOrder()"
-        type="button"
+        [disabled]="form.invalid || updating"
+        type="submit"
         class="btn btn-primary">
         Atualizar
       </button>

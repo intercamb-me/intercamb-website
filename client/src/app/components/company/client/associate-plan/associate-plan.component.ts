@@ -22,6 +22,7 @@ export class AssociatePlanComponent implements OnInit {
   public selectedPlan: Plan;
   public getColor = Helpers.getColor;
   public loading = true;
+  public updating = false;
 
   constructor(private companyService: CompanyService, private clientService: ClientService, private alertService: AlertService, private ngbActiveModal: NgbActiveModal) {
 
@@ -54,19 +55,23 @@ export class AssociatePlanComponent implements OnInit {
   }
 
   public associatePlan(): void {
+    this.updating = true;
     this.clientService.associatePlan(this.client, this.selectedPlan).subscribe(() => {
       this.ngbActiveModal.close(this.selectedPlan);
       this.alertService.success('Plano associado com sucesso!');
     }, (err) => {
+      this.updating = false;
       this.alertService.apiError(null, err, 'Não foi possível associar o plano, por favor tente novamente mais tarde!');
     });
   }
 
   public dissociatePlan(): void {
+    this.updating = true;
     this.clientService.dissociatePlan(this.client).subscribe(() => {
       this.ngbActiveModal.close();
       this.alertService.success('Plano desassociado com sucesso!');
     }, (err) => {
+      this.updating = false;
       this.alertService.apiError(null, err, 'Não foi possível desassociar o plano, por favor tente novamente mais tarde!');
     });
   }

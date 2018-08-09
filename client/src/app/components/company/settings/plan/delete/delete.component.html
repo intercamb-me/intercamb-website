@@ -1,5 +1,5 @@
 <div id="delete-plan">
-  <form #form="ngForm" novalidate>
+  <form #form="ngForm" (ngSubmit)="deletePlan()" novalidate>
     <div class="modal-header">
       <h4 class="modal-title">Remover plano</h4>
       <button (click)="close()" type="button" class="close" aria-label="Close">
@@ -12,7 +12,6 @@
     <div class="modal-footer">
       <button
         [disabled]="form.invalid || deleting"
-        (click)="deletePlan()"
         class="btn btn-danger"
         type="submit">
         Remover

@@ -84,7 +84,7 @@
                   </div>
                   <div class="form-group mb-0">
                     <button
-                      [disabled]="form.invalid"
+                      [disabled]="form.invalid || signingUp"
                       type="submit"
                       class="btn btn-primary btn-lg btn-block">
                       Criar conta

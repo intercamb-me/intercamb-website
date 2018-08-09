@@ -22,6 +22,7 @@ export class ChangePaymentOrderStatusComponent implements OnInit {
   public onlyDateChars = Helpers.onlyDateChars;
   public selectingPaymentDate = false;
   public loading = true;
+  public updating = false;
 
   constructor(private paymentService: PaymentService, private alertService: AlertService, private ngbActiveModal: NgbActiveModal) {
 
@@ -54,6 +55,7 @@ export class ChangePaymentOrderStatusComponent implements OnInit {
   }
 
   public updatePaymentOrder(): void {
+    this.updating = true;
     const data = {
       payment_date: CalendarUtils.fromDateStruct(this.paymentDateStruct),
     };
@@ -61,7 +63,8 @@ export class ChangePaymentOrderStatusComponent implements OnInit {
       this.ngbActiveModal.close(paymentOrder);
       this.alertService.success('Ordem de pagamento atualizada com sucesso!');
     }, (err) => {
-      this.alertService.apiError(null, err, 'Não foi possível atualizar a ordem de pagament, por favor tente novamente mais tarde!');
+      this.updating = false;
+      this.alertService.apiError(null, err, 'Não foi possível atualizar a ordem de pagamento, por favor tente novamente mais tarde!');
     });
   }
 }

@@ -11,6 +11,7 @@
         <label class="btn btn-primary btn-block btn-file mt-3">
           Alterar imagem
           <input
+            [disabled]="updating"
             (change)="updateAccountImage($event)"
             id="image"
             name="image"
@@ -20,52 +21,57 @@
       </div>
     </div>
     <div class="col px-4">
-      <div class="row">
-        <div class="col-6 form-group">
-          <label for="name">
-            <h5 class="mb-0">Primeiro nome</h5>
-          </label>
-          <input
-            [(ngModel)]="account.first_name"
-            id="first-name"
-            name="first-name"
-            type="text"
-            class="form-control"
-            minlength="4"
-            required>
+      <form #form="ngForm" (ngSubmit)="updateAccount()" novalidate>
+        <div class="row">
+          <div class="col-6 form-group">
+            <label for="name">
+              <h5 class="mb-0">Primeiro nome</h5>
+            </label>
+            <input
+              [(ngModel)]="account.first_name"
+              id="first-name"
+              name="first-name"
+              type="text"
+              class="form-control"
+              minlength="4"
+              required>
+          </div>
+          <div class="col-6 form-group">
+            <label for="name">
+              <h5 class="mb-0">Último nome</h5>
+            </label>
+            <input
+              [(ngModel)]="account.last_name"
+              id="last-name"
+              name="last-name"
+              type="text"
+              class="form-control"
+              minlength="4"
+              required>
+          </div>
         </div>
-        <div class="col-6 form-group">
-          <label for="name">
-            <h5 class="mb-0">Último nome</h5>
-          </label>
-          <input
-            [(ngModel)]="account.last_name"
-            id="last-name"
-            name="last-name"
-            type="text"
-            class="form-control"
-            minlength="4"
-            required>
+        <div class="row">
+          <div class="col-6 form-group">
+            <label for="name">
+              <h5 class="mb-0">E-mail</h5>
+            </label>
+            <input
+              [(ngModel)]="account.email"
+              id="email"
+              name="email"
+              type="text"
+              class="form-control"
+              email
+              required>
+          </div>
         </div>
+        <button
+          [disabled]="form.invalid || updating"
+          type="submit"
+          class="btn btn-primary">
+          Atualizar
+        </button>
       </div>
-      <div class="row">
-        <div class="col-6 form-group">
-          <label for="name">
-            <h5 class="mb-0">E-mail</h5>
-          </label>
-          <input
-            [(ngModel)]="account.email"
-            id="email"
-            name="email"
-            type="text"
-            class="form-control"
-            email
-            required>
-        </div>
-      </div>
-      <button (click)="updateAccount()" type="button" class="btn btn-primary">
-        Atualizar
-      </button>
-    </div>
+    </form>
   </div>
 </div>

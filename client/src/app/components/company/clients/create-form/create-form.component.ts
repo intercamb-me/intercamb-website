@@ -13,6 +13,7 @@ export class CreateClientFormComponent {
 
   public identifier: string;
   public token: Token;
+  public generating = false;
 
   constructor(private tokenService: TokenService, private alertService: AlertService, private ngbActiveModal: NgbActiveModal) {
 
@@ -23,10 +24,12 @@ export class CreateClientFormComponent {
   }
 
   public createToken(): void {
+    this.generating = true;
     this.tokenService.createToken(this.identifier, Token.TYPE_CLIENT_FORM).subscribe((token) => {
       this.token = token;
       this.alertService.success('URL gerada com sucesso!');
     }, (err) => {
+      this.generating = false;
       this.alertService.apiError(null, err, 'Não foi possível gerar a URL, por favor tente novamente mais tarde!');
     });
   }
