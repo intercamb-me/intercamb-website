@@ -319,7 +319,7 @@
                 <p class="mb-0">{{ client.intended_course.name | hyphensIfEmpty }}</p>
               </div>
               <div class="col form-group">
-                <label>Faculdade</label>
+                <label>Instituição</label>
                 <p *ngIf="client.intended_course.institution" class="mb-0">
                   <span *ngIf="client.intended_course.institution.acronym">
                     {{ client.intended_course.institution.acronym | hyphensIfEmpty }}
@@ -327,6 +327,9 @@
                   <span *ngIf="!client.intended_course.institution.acronym">
                     {{ client.intended_course.institution.name | hyphensIfEmpty }}
                   </span>
+                </p>
+                <p *ngIf="!client.intended_course.institution" class="mb-0">
+                  {{ "" | hyphensIfEmpty }}
                 </p>
               </div>
             </div>

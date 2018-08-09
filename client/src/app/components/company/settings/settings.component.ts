@@ -148,6 +148,7 @@ export class CompanySettingsComponent implements OnInit {
     const file = event.target.files[0];
     this.companyService.updateCompanyLogo(file).subscribe((company) => {
       this.company = company;
+      this.updating = false;
       this.eventService.publish(EventService.EVENT_COMPANY_CHANGED, company);
       this.alertService.success('Logo atualizado com sucesso!');
     }, (err) => {
@@ -166,6 +167,7 @@ export class CompanySettingsComponent implements OnInit {
     };
     this.companyService.updateCompany(data).subscribe((company) => {
       this.company = company;
+      this.updating = false;
       this.eventService.publish(EventService.EVENT_COMPANY_CHANGED, company);
       this.alertService.success('Configurações atualizadas com sucesso!');
     }, (err) => {
@@ -182,6 +184,7 @@ export class CompanySettingsComponent implements OnInit {
     };
     this.companyService.updateCompany(data).subscribe((company) => {
       this.company = company;
+      this.updating = false;
       this.eventService.publish(EventService.EVENT_COMPANY_CHANGED, company);
       this.alertService.success('Configurações atualizadas com sucesso!');
     }, (err) => {

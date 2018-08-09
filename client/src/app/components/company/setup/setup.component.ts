@@ -119,6 +119,7 @@ export class SetupCompanyComponent implements OnInit {
     const file = event.target.files[0];
     this.companyService.updateCompanyLogo(file).subscribe((company) => {
       this.company = company;
+      this.updating = false;
       this.alertService.success('Logo atualizado com sucesso!');
     }, (err) => {
       this.updating = false;
@@ -134,6 +135,7 @@ export class SetupCompanyComponent implements OnInit {
     };
     this.companyService.updateCompany(data).subscribe((company) => {
       this.company = company;
+      this.updating = false;
       this.step = this.step + 1;
     }, (err) => {
       this.updating = false;
@@ -150,6 +152,7 @@ export class SetupCompanyComponent implements OnInit {
     };
     this.companyService.updateCompany(data).subscribe((company) => {
       this.company = company;
+      this.updating = false;
       this.router.navigate(['/company']);
     }, (err) => {
       this.updating = false;

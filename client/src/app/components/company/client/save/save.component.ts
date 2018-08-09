@@ -96,6 +96,7 @@ export class SaveClientComponent implements OnInit {
         this.alertService.success('Cliente atualizado com sucesso!');
       }
       this.client = client;
+      this.saving = false;
       this.saved.emit(client);
     }, (err) => {
       this.saving = false;

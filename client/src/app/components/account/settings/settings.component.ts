@@ -37,6 +37,7 @@ export class AccountSettingsComponent implements OnInit {
     };
     this.accountService.updateAccount(data).subscribe((account) => {
       this.account = account;
+      this.updating = false;
       this.eventService.publish(EventService.EVENT_ACCOUNT_CHANGED, account);
       this.alertService.success('Configurações atualizadas com sucesso!');
     }, (err) => {
@@ -50,6 +51,7 @@ export class AccountSettingsComponent implements OnInit {
     const file = event.target.files[0];
     this.accountService.updateAccountImage(file).subscribe((account) => {
       this.account = account;
+      this.updating = false;
       this.eventService.publish(EventService.EVENT_ACCOUNT_CHANGED, account);
       this.alertService.success('Imagem atualizada com sucesso!');
     }, (err) => {
