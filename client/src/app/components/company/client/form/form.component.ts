@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 import cloneDeep from 'lodash-es/cloneDeep';
 
 import {SearchAddressComponent} from 'app/components/company/client/search-address/search-address.component';

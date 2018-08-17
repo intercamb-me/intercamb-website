@@ -1,6 +1,5 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 import {of} from 'rxjs';
 import {mergeMap} from 'rxjs/operators';
 import cloneDeep from 'lodash-es/cloneDeep';
