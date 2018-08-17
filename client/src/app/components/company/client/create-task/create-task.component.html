@@ -1,0 +1,30 @@
+<div id="save-plan">
+  <form #form="ngForm" (ngSubmit)="createTask()" novalidate>
+    <div class="modal-header">
+      <h4 class="modal-title">Criar atividade</h4>
+      <button (click)="close()" type="button" class="close" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="name">Nome</label>
+        <input
+          [(ngModel)]="name"
+          id="name"
+          name="name"
+          type="text"
+          class="form-control"
+          required>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button
+        [disabled]="form.invalid || creating"
+        class="btn btn-primary"
+        type="submit">
+        Criar
+      </button>
+    </div>
+  </form>
+</div>
