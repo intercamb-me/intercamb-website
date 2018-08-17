@@ -4,6 +4,7 @@ import {mergeMap} from 'rxjs/operators';
 import findIndex from 'lodash-es/findIndex';
 
 import {RemoveAccountComponent} from 'app/components/company/settings/remove-account/remove-account.component';
+import {SaveDefaultTasksComponent} from 'app/components/company/settings/save-default-tasks/save-default-tasks.component';
 import {SaveInstitutionsComponent} from 'app/components/company/settings/save-institutions/save-institutions.component';
 import {SavePlanComponent} from 'app/components/company/settings/plan/save/save.component';
 import {DeletePlanComponent} from 'app/components/company/settings/plan/delete/delete.component';
@@ -29,9 +30,10 @@ export class CompanySettingsComponent implements OnInit {
 
   public company: Company;
   public authenticatedAccount: Account;
+  public accounts: Account[];
+  public defaultTasks: string[];
   public institutions: Institution[];
   public plans: Plan[];
-  public accounts: Account[];
   public selectedPaletteVariant: PaletteVariant;
   public selectedTextColor: string;
   public getColor = Helpers.getColor;
@@ -48,9 +50,10 @@ export class CompanySettingsComponent implements OnInit {
     this.companyService.getCompany({populate: 'institutions plans accounts'}).pipe(
       mergeMap((company) => {
         this.company = company;
+        this.accounts = company.accounts;
+        this.defaultTasks = company.default_tasks;
         this.institutions = company.institutions;
         this.plans = company.plans;
-        this.accounts = company.accounts;
         return this.accountService.getAccount();
       })
     ).subscribe((account) => {
@@ -63,6 +66,10 @@ export class CompanySettingsComponent implements OnInit {
 
   public trackByAccount(_index: number, account: Account): string {
     return account.id;
+  }
+
+  public trackByDefaultTask(_index: number, defaultTask: string): string {
+    return defaultTask;
   }
 
   public trackByInstitution(_index: number, institution: Institution): string {
@@ -102,6 +109,15 @@ export class CompanySettingsComponent implements OnInit {
     const modalRef = this.ngbModal.open(SaveInstitutionsComponent);
     modalRef.result.then((updatedInstitutions) => {
       this.institutions = updatedInstitutions;
+    }).catch(() => {
+      // Nothing to do...
+    });
+  }
+
+  public openSaveDefaultTasks(): void {
+    const modalRef = this.ngbModal.open(SaveDefaultTasksComponent);
+    modalRef.result.then((defaultTasks) => {
+      this.defaultTasks = defaultTasks;
     }).catch(() => {
       // Nothing to do...
     });

@@ -16,6 +16,7 @@ export class Company {
   public primary_color: string;
   public text_color: string;
   public owner: string;
+  public default_tasks: string[];
   public registration_date: Date;
 
   public accounts: Account[];
@@ -34,6 +35,7 @@ export class Company {
       this.primary_color = data.primary_color;
       this.text_color = data.text_color;
       this.owner = data.owner;
+      this.default_tasks = data.default_tasks;
       this.registration_date = new Date(data.registration_date);
       this.accounts = [];
       if (data.accounts) {

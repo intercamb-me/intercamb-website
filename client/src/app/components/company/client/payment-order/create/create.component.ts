@@ -46,7 +46,7 @@ export class CreatePaymentOrderComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.companyService.getCompany().pipe(
+    this.companyService.getCompany({select: 'currency'}).pipe(
       mergeMap((company) => {
         this.company = company;
         return this.client.plan_id ? this.planService.getPlan(this.client.plan_id) : of(null);

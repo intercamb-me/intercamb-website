@@ -1,5 +1,5 @@
 <div *ngIf="!loading" id="save-institutions">
-  <form #form="ngForm" (ngSubmit)="saveInstitutions()" novalidate>
+  <form #form="ngForm" (ngSubmit)="addInstitution()" novalidate>
     <div class="modal-header">
       <h4 class="modal-title">Associar instituições</h4>
       <button (click)="close()" type="button" class="close" aria-label="Close">
@@ -23,9 +23,8 @@
         </div>
         <div class="col-auto form-group">
           <button
-            (click)="addInstitution()"
             class="btn btn-primary"
-            type="button">
+            type="submit">
             Adicionar
           </button>
         </div>
@@ -47,8 +46,9 @@
     <div class="modal-footer">
       <button
         [disabled]="form.invalid || saving"
+        (click)="saveInstitutions()"
         class="btn btn-primary"
-        type="submit">
+        type="button">
         Confirmar
       </button>
     </div>

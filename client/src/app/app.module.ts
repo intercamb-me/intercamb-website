@@ -92,6 +92,7 @@ import {SetTaskScheduleDateComponent} from 'app/components/company/task/set-sche
 import {DeleteTaskComponent} from 'app/components/company/task/delete/delete.component';
 import {SearchAddressComponent} from 'app/components/company/client/search-address/search-address.component';
 import {RemoveAccountComponent} from 'app/components/company/settings/remove-account/remove-account.component';
+import {SaveDefaultTasksComponent} from 'app/components/company/settings/save-default-tasks/save-default-tasks.component';
 import {SaveInstitutionsComponent} from 'app/components/company/settings/save-institutions/save-institutions.component';
 import {SavePlanComponent} from 'app/components/company/settings/plan/save/save.component';
 import {DeletePlanComponent} from 'app/components/company/settings/plan/delete/delete.component';
@@ -214,6 +215,7 @@ library.add(faUsers);
     DeleteTaskComponent,
     SearchAddressComponent,
     RemoveAccountComponent,
+    SaveDefaultTasksComponent,
     SaveInstitutionsComponent,
     SavePlanComponent,
     DeletePlanComponent,
@@ -234,6 +236,7 @@ library.add(faUsers);
     DeleteTaskComponent,
     SearchAddressComponent,
     RemoveAccountComponent,
+    SaveDefaultTasksComponent,
     SaveInstitutionsComponent,
     SavePlanComponent,
     DeletePlanComponent,

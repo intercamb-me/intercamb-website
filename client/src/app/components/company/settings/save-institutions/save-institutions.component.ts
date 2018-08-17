@@ -23,7 +23,7 @@ export class SaveInstitutionsComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.companyService.getCompany({populate: 'institutions'}).pipe(
+    this.companyService.getCompany({select: '_id', populate: 'institutions'}).pipe(
       mergeMap((company) => {
         this.selectedInstitutions = company.institutions;
         return this.companyService.listAllInstitutions();

@@ -37,7 +37,7 @@ export class EditPaymentOrderComponent implements OnInit {
     this.method = this.paymentOrder.method;
     this.amount = String(this.paymentOrder.amount);
     this.dueDateStruct = CalendarUtils.toDateStruct(this.paymentOrder.due_date);
-    this.companyService.getCompany().subscribe((company) => {
+    this.companyService.getCompany({select: 'currency'}).subscribe((company) => {
       this.company = company;
       this.loading = false;
     }, (err) => {

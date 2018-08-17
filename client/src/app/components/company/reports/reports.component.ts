@@ -37,7 +37,7 @@ export class ReportsComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.companyService.getCompany({populate: 'plans'}).pipe(
+    this.companyService.getCompany({select: '_id', populate: 'plans'}).pipe(
       mergeMap((company) => {
         this.company = company;
         return forkJoin([

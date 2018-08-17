@@ -29,7 +29,7 @@ export class AssociatePlanComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.companyService.getCompany({populate: 'plans'}).subscribe((company) => {
+    this.companyService.getCompany({select: 'currency', populate: 'plans'}).subscribe((company) => {
       this.company = company;
       if (this.client.plan_id) {
         this.selectedPlan = find(company.plans, (plan) => {
