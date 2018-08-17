@@ -19,6 +19,7 @@ export class ClientsComponent implements OnInit {
   public clients: Client[];
   public search: string = null;
   public loading = true;
+  public searching = false;
 
   public masonryOptions: NgxMasonryOptions = {
     itemSelector: '.col-6',
@@ -48,9 +49,12 @@ export class ClientsComponent implements OnInit {
   }
 
   public searchClients(): void {
+    this.searching = true;
     this.companyService.searchClients(this.search, {select: ClientsComponent.CLIENT_FIELDS}).subscribe((clients) => {
       this.clients = clients;
+      this.searching = false;
     }, (err) => {
+      this.searching = false;
       this.alertService.apiError(null, err);
     });
   }

@@ -27,7 +27,7 @@
               class="form-control"
               placeholder="Busque pelo nome, email ou telefone.">
             <div class="input-group-append">
-              <button type="submit" class="btn btn-primary">
+              <button [disabled]="searching" type="submit" class="btn btn-primary">
                 Buscar
               </button>
             </div>
