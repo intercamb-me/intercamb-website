@@ -54,6 +54,8 @@ import {NgxMaskModule} from 'ngx-mask';
 import {NgxMasonryModule} from 'ngx-masonry';
 import {ClipboardModule} from 'ngx-clipboard';
 import {CalendarModule} from 'angular-calendar';
+import {LoadingBarHttpClientModule} from '@ngx-loading-bar/http-client';
+import {LoadingBarRouterModule} from '@ngx-loading-bar/router';
 
 // Routes
 import {AppRoutes} from 'app/app.routes';
@@ -174,6 +176,8 @@ library.add(faUsers);
     NgxMasonryModule,
     ClipboardModule,
     CalendarModule.forRoot(),
+    LoadingBarHttpClientModule,
+    LoadingBarRouterModule,
   ],
   declarations: [
     // Pipes
