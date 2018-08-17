@@ -1,6 +1,6 @@
 import {Injectable, Pipe, PipeTransform} from '@angular/core';
 import {CurrencyPipe} from '@angular/common';
-import {NgbDateParserFormatter, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
+import {NgbDateParserFormatter, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 import padStart from 'lodash-es/padStart';
 import forEach from 'lodash-es/forEach';
 import size from 'lodash-es/size';

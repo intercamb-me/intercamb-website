@@ -1,10 +1,11 @@
 import {Component, OnInit, Input} from '@angular/core';
-import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
+import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {mergeMap} from 'rxjs/operators';
 import * as distanceInWordsStrict from 'date-fns/distance_in_words_strict';
 
 import {ChangeTaskStatusComponent} from 'app/components/company/task/change-status/change-status.component';
 import {SetTaskScheduleDateComponent} from 'app/components/company/task/set-schedule-date/set-schedule-date.component';
+import {DeleteTaskComponent} from 'app/components/company/task/delete/delete.component';
 
 import {AccountService} from 'app/services/account.service';
 import {TaskService} from 'app/services/task.service';
@@ -14,8 +15,8 @@ import {StorageUtils} from 'app/utils/storage.utils';
 import {Account} from 'app/models/account.model';
 import {Client} from 'app/models/client.model';
 import {Task} from 'app/models/task.model';
-import {TaskComment} from 'app/models/task-comment.model';
 import {TaskAttachment} from 'app/models/task-attachment.model';
+import {TaskComment} from 'app/models/task-comment.model';
 
 @Component({
   selector: 'app-task',
@@ -102,6 +103,16 @@ export class TaskComponent implements OnInit {
     modalRef.componentInstance.task = this.task;
     modalRef.result.then((updatedTask) => {
       this.task = updatedTask;
+    }).catch(() => {
+      // Nothing to do...
+    });
+  }
+
+  public openDeleteTask(): void {
+    const modalRef = this.ngbModal.open(DeleteTaskComponent, {centered: true});
+    modalRef.componentInstance.task = this.task;
+    modalRef.result.then(() => {
+      this.ngbActiveModal.close();
     }).catch(() => {
       // Nothing to do...
     });

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {NgbPopover} from '@ng-bootstrap/ng-bootstrap/popover/popover.module';
+import {NgbPopover} from '@ng-bootstrap/ng-bootstrap';
 import {CalendarEvent} from 'angular-calendar';
 import * as startOfMonth from 'date-fns/start_of_month';
 import * as endOfMonth from 'date-fns/end_of_month';

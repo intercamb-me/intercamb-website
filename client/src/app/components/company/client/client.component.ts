@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {mergeMap} from 'rxjs/operators';
 import {NgxMasonryOptions} from 'ngx-masonry';
 
@@ -9,6 +9,7 @@ import {CreatePaymentOrderComponent} from 'app/components/company/client/payment
 import {EditPaymentOrderComponent} from 'app/components/company/client/payment-order/edit/edit.component';
 import {DeletePaymentOrderComponent} from 'app/components/company/client/payment-order/delete/delete.component';
 import {ChangePaymentOrderStatusComponent} from 'app/components/company/client/payment-order/change-status/change-status.component';
+import {CreateTaskComponent} from 'app/components/company/client/create-task/create-task.component';
 import {TaskComponent} from 'app/components/company/task/task.component';
 import {DeleteClientComponent} from 'app/components/company/client/delete/delete.component';
 
@@ -18,8 +19,8 @@ import {AlertService} from 'app/services/alert.service';
 import {ErrorUtils} from 'app/utils/error.utils';
 import {Helpers} from 'app/utils/helpers';
 import {Constants} from 'app/utils/constants';
-import {Company} from 'app/models/company.model';
 import {Client} from 'app/models/client.model';
+import {Company} from 'app/models/company.model';
 import {PaymentOrder} from 'app/models/payment-order.model';
 import {Task} from 'app/models/task.model';
 
@@ -170,6 +171,16 @@ export class ClientComponent implements OnInit {
     });
   }
 
+  public openCreateTask(): void {
+    const modalRef = this.ngbModal.open(CreateTaskComponent);
+    modalRef.componentInstance.client = this.client;
+    modalRef.result.then((task) => {
+      this.client.tasks.push(task);
+    }).catch(() => {
+      // Nothing to do...
+    });
+  }
+
   public openTask(task: Task): void {
     const modalRef = this.ngbModal.open(TaskComponent, {
       size: 'lg',
@@ -181,7 +192,11 @@ export class ClientComponent implements OnInit {
     modalRef.result.then((updatedTask) => {
       const index = this.client.tasks.indexOf(task);
       if (index >= 0) {
-        this.client.tasks[index] = updatedTask;
+        if (updatedTask) {
+          this.client.tasks[index] = updatedTask;
+        } else {
+          this.client.tasks.splice(index, 1);
+        }
       }
     }).catch(() => {
       // Nothing to do...

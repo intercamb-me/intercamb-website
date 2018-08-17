@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {mergeMap} from 'rxjs/operators';
 
 import {CompanyService} from 'app/services/company.service';

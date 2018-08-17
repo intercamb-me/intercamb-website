@@ -1,6 +1,6 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
-import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 import {of} from 'rxjs';
 import {mergeMap} from 'rxjs/operators';
 import cloneDeep from 'lodash-es/cloneDeep';
@@ -12,10 +12,10 @@ import {ClientService} from 'app/services/client.service';
 import {AlertService} from 'app/services/alert.service';
 import {Constants} from 'app/utils/constants';
 import {Helpers} from 'app/utils/helpers';
+import {Address} from 'app/models/address.model';
+import {Client} from 'app/models/client.model';
 import {Company} from 'app/models/company.model';
 import {Institution} from 'app/models/institution.model';
-import {Client} from 'app/models/client.model';
-import {Address} from 'app/models/address.model';
 
 @Component({
   selector: 'app-save-client',

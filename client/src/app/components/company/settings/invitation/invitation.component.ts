@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
 import {InvitationService} from 'app/services/invitation.service';
 import {AlertService} from 'app/services/alert.service';

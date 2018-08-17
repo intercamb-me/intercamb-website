@@ -1,6 +1,6 @@
 import {Component, OnInit, Input} from '@angular/core';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
-import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 import {mergeMap} from 'rxjs/operators';
 import {of} from 'rxjs';
 import * as addMonths from 'date-fns/add_months';
@@ -12,9 +12,9 @@ import {AlertService} from 'app/services/alert.service';
 import {Constants} from 'app/utils/constants';
 import {CalendarUtils} from 'app/utils/calendar.utils';
 import {Helpers} from 'app/utils/helpers';
+import {Client} from 'app/models/client.model';
 import {Company} from 'app/models/company.model';
 import {Plan} from 'app/models/plan.model';
-import {Client} from 'app/models/client.model';
 
 interface Split {
   amount: string;

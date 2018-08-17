@@ -1,7 +1,7 @@
 import {Component, OnInit, Input} from '@angular/core';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
-import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
-import {NgbTimeStruct} from '@ng-bootstrap/ng-bootstrap/timepicker/timepicker.module';
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
+import {NgbTimeStruct} from '@ng-bootstrap/ng-bootstrap';
 import * as getYear from 'date-fns/get_year';
 import * as setYear from 'date-fns/set_year';
 import * as getMonth from 'date-fns/get_month';

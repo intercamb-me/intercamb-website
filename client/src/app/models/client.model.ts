@@ -1,15 +1,15 @@
 /* tslint:disable:variable-name */
 
-import {Company} from 'app/models/company.model';
-import {Plan} from 'app/models/plan.model';
 import {AcademicData} from 'app/models/academic-data.model';
 import {AdditionalInformation} from 'app/models/additional-information.model';
 import {Address} from 'app/models/address.model';
+import {Company} from 'app/models/company.model';
 import {FamilyData} from 'app/models/family-data.model';
 import {InCaseOfEmergency} from 'app/models/in-case-of-emergency.model';
 import {IntendedCourse} from 'app/models/intended-course.model';
-import {PersonalData} from 'app/models/personal-data.model';
 import {PaymentOrder} from 'app/models/payment-order.model';
+import {PersonalData} from 'app/models/personal-data.model';
+import {Plan} from 'app/models/plan.model';
 import {Task} from 'app/models/task.model';
 import isObject from 'lodash-es/isObject';
 import cloneDeep from 'lodash-es/cloneDeep';

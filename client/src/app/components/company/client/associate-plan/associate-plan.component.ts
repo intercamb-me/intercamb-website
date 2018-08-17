@@ -1,13 +1,13 @@
 import {Component, OnInit, Input} from '@angular/core';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import find from 'lodash-es/find';
 
 import {CompanyService} from 'app/services/company.service';
 import {ClientService} from 'app/services/client.service';
 import {AlertService} from 'app/services/alert.service';
 import {Helpers} from 'app/utils/helpers';
-import {Company} from 'app/models/company.model';
 import {Client} from 'app/models/client.model';
+import {Company} from 'app/models/company.model';
 import {Plan} from 'app/models/plan.model';
 
 @Component({

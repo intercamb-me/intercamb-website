@@ -461,8 +461,20 @@
   </div>
   <div class="row mt-4">
     <div class="col">
-      <h3 class="mb-0">Atividades</h3>
-      <ngx-masonry [options]="masonryOptions" class="row">
+      <div class="row align-items-center">
+        <div class="col">
+          <h3 class="mb-0">Atividades</h3>
+        </div>
+        <div class="col-auto">
+          <button (click)="openCreateTask()" type="button" class="btn btn-primary">
+            Criar atividade
+          </button>
+        </div>
+      </div>
+      <div *ngIf="client.tasks.length === 0" class="jumbotron mt-3 mb-0">
+        <h5 class="mb-0 text-center">Nenhuma atividade criada</h5>
+      </div>
+      <ngx-masonry *ngIf="client.tasks.length > 0" [options]="masonryOptions" class="row">
         <ngxMasonryItem *ngFor="let task of client.tasks; trackBy: trackByTask" class="col-6" style="margin-top: 0.5rem; margin-bottom: 0.5rem;">
           <div (click)="openTask(task)" class="task">
             <div class="card-body">

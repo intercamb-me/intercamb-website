@@ -9,12 +9,15 @@ import {registerLocaleData} from '@angular/common';
 import pt from '@angular/common/locales/pt';
 
 // Bootstrap
-import {NgbAlertModule} from '@ng-bootstrap/ng-bootstrap/alert/alert.module';
-import {NgbModalModule} from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
-import {NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap/dropdown/dropdown.module';
-import {NgbPopoverModule} from '@ng-bootstrap/ng-bootstrap/popover/popover.module';
-import {NgbDatepickerModule, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
-import {NgbTimepickerModule} from '@ng-bootstrap/ng-bootstrap/timepicker/timepicker.module';
+import {
+  NgbAlertModule,
+  NgbDatepickerModule,
+  NgbDateParserFormatter,
+  NgbDropdownModule,
+  NgbModalModule,
+  NgbPopoverModule,
+  NgbTimepickerModule
+} from '@ng-bootstrap/ng-bootstrap';
 
 // Fontawesome
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
@@ -82,9 +85,11 @@ import {MaterialPalettePickerComponent} from 'app/components/custom/material-pal
 // Modals
 import {CreateClientFormComponent} from 'app/components/company/clients/create-form/create-form.component';
 import {DeleteClientComponent} from 'app/components/company/client/delete/delete.component';
+import {CreateTaskComponent} from 'app/components/company/client/create-task/create-task.component';
 import {TaskComponent} from 'app/components/company/task/task.component';
 import {ChangeTaskStatusComponent} from 'app/components/company/task/change-status/change-status.component';
 import {SetTaskScheduleDateComponent} from 'app/components/company/task/set-schedule-date/set-schedule-date.component';
+import {DeleteTaskComponent} from 'app/components/company/task/delete/delete.component';
 import {SearchAddressComponent} from 'app/components/company/client/search-address/search-address.component';
 import {RemoveAccountComponent} from 'app/components/company/settings/remove-account/remove-account.component';
 import {SaveInstitutionsComponent} from 'app/components/company/settings/save-institutions/save-institutions.component';
@@ -202,9 +207,11 @@ library.add(faUsers);
     // Modals
     ClientFormComponent,
     DeleteClientComponent,
+    CreateTaskComponent,
     TaskComponent,
     ChangeTaskStatusComponent,
     SetTaskScheduleDateComponent,
+    DeleteTaskComponent,
     SearchAddressComponent,
     RemoveAccountComponent,
     SaveInstitutionsComponent,
@@ -220,9 +227,11 @@ library.add(faUsers);
   entryComponents: [
     CreateClientFormComponent,
     DeleteClientComponent,
+    CreateTaskComponent,
     TaskComponent,
     ChangeTaskStatusComponent,
     SetTaskScheduleDateComponent,
+    DeleteTaskComponent,
     SearchAddressComponent,
     RemoveAccountComponent,
     SaveInstitutionsComponent,

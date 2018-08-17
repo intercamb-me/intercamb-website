@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
-import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 import cloneDeep from 'lodash-es/cloneDeep';
 
 import {SearchAddressComponent} from 'app/components/company/client/search-address/search-address.component';
@@ -12,10 +12,10 @@ import {AlertService} from 'app/services/alert.service';
 import {ErrorUtils} from 'app/utils/error.utils';
 import {Constants} from 'app/utils/constants';
 import {Helpers} from 'app/utils/helpers';
-import {Institution} from 'app/models/institution.model';
-import {Client} from 'app/models/client.model';
-import {Token} from 'app/models/token.model';
 import {Address} from 'app/models/address.model';
+import {Client} from 'app/models/client.model';
+import {Institution} from 'app/models/institution.model';
+import {Token} from 'app/models/token.model';
 
 @Component({
   selector: 'app-client-form',

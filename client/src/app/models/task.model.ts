@@ -1,10 +1,10 @@
 /* tslint:disable:variable-name */
 
-import {Company} from 'app/models/company.model';
 import {Client} from 'app/models/client.model';
-import {TaskCounters} from 'app/models/task-counters.model';
+import {Company} from 'app/models/company.model';
 import {TaskAttachment} from 'app/models/task-attachment.model';
 import {TaskComment} from 'app/models/task-comment.model';
+import {TaskCounters} from 'app/models/task-counters.model';
 import isObject from 'lodash-es/isObject';
 import cloneDeep from 'lodash-es/cloneDeep';
 

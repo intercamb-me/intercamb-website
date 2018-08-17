@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {NgbPopover} from '@ng-bootstrap/ng-bootstrap/popover/popover.module';
+import {NgbPopover} from '@ng-bootstrap/ng-bootstrap';
 import {CalendarEvent, CalendarUtils as LibCalendarUtils} from 'angular-calendar';
 import {GetMonthViewArgs, MonthView, getMonthView} from 'calendar-utils';
 import {NgxMasonryOptions} from 'ngx-masonry';

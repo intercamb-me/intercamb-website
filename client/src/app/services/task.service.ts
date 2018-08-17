@@ -45,6 +45,18 @@ export class TaskService {
     );
   }
 
+  public deleteTask(task: Task): Observable<void> {
+    const httpUrl = RequestUtils.getApiUrl(`/tasks/${task.id}`);
+    return this.http.delete<void>(httpUrl, RequestUtils.getJsonOptions()).pipe(
+      map(() => null),
+      catchError((err: HttpErrorResponse) => {
+        const apiError = ApiError.withResponse(err);
+        this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
+        return throwError(apiError);
+      })
+    );
+  }
+
   public addTaskComment(task: Task, text: string): Observable<TaskComment> {
     const httpUrl = RequestUtils.getApiUrl(`/tasks/${task.id}/comments`);
     return this.http.post<TaskComment>(httpUrl, {text}, RequestUtils.getJsonOptions()).pipe(

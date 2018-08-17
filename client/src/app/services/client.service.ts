@@ -6,11 +6,12 @@ import {map, catchError} from 'rxjs/operators';
 import {EventService} from 'app/services/event.service';
 import {ApiError} from 'app/services/commons/api.error';
 import {RequestUtils} from 'app/utils/request.utils';
-import {Client} from 'app/models/client.model';
-import {Token} from 'app/models/token.model';
-import {Plan} from 'app/models/plan.model';
-import {PaymentOrder} from 'app/models/payment-order.model';
 import {Address} from 'app/models/address.model';
+import {Client} from 'app/models/client.model';
+import {PaymentOrder} from 'app/models/payment-order.model';
+import {Plan} from 'app/models/plan.model';
+import {Task} from 'app/models/task.model';
+import {Token} from 'app/models/token.model';
 
 @Injectable()
 export class ClientService {
@@ -76,6 +77,7 @@ export class ClientService {
       })
     );
   }
+
   public associatePlan(client: Client, plan: Plan): Observable<void> {
     const httpUrl = RequestUtils.getApiUrl(`/clients/${client.id}/plans/${plan.id}`);
     return this.http.post<void>(httpUrl, {}, RequestUtils.getJsonOptions()).pipe(
@@ -110,6 +112,18 @@ export class ClientService {
         });
         return orders;
       }),
+      catchError((err: HttpErrorResponse) => {
+        const apiError = ApiError.withResponse(err);
+        this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
+        return throwError(apiError);
+      })
+    );
+  }
+
+  public createTask(client: Client, name: string): Observable<PaymentOrder[]> {
+    const httpUrl = RequestUtils.getApiUrl(`/clients/${client.id}/tasks`);
+    return this.http.post<PaymentOrder>(httpUrl, {name}, RequestUtils.getJsonOptions()).pipe(
+      map((taskData: Task) => new Task(taskData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
         this.eventService.publish(EventService.EVENT_API_ERROR, apiError);

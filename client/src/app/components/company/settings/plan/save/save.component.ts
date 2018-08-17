@@ -1,5 +1,5 @@
 import {Component, OnInit, Input} from '@angular/core';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
 import {PlanService} from 'app/services/plan.service';
 import {AlertService} from 'app/services/alert.service';

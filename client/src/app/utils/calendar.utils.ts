@@ -1,4 +1,4 @@
-import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker.module';
+import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 import {CalendarEvent} from 'angular-calendar';
 import padStart from 'lodash-es/padStart';
 import isNull from 'lodash-es/isNull';

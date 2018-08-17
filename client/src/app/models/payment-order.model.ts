@@ -1,8 +1,8 @@
 /* tslint:disable:variable-name */
 
 import {CalendarUtils} from 'app/utils/calendar.utils';
-import {Company} from 'app/models/company.model';
 import {Client} from 'app/models/client.model';
+import {Company} from 'app/models/company.model';
 import isObject from 'lodash-es/isObject';
 import cloneDeep from 'lodash-es/cloneDeep';
 

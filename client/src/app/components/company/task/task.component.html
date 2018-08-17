@@ -77,11 +77,11 @@
         </div>
       </div>
       <div class="col-auto d-flex flex-column justify-content-start">
-        <button (click)="openChangeStatus(task)" type="button" class="btn btn-primary d-flex align-items-center">
+        <button (click)="openChangeStatus()" type="button" class="btn btn-primary d-flex align-items-center">
           <fa-icon [icon]="['fas', 'tasks']" [fixedWidth]="true" class="flex-shrink-0"></fa-icon>
           <span class="ml-2">Alterar status</span>
         </button>
-        <button (click)="openSetScheduleDate(task)" type="button" class="btn btn-primary d-flex align-items-center mt-2">
+        <button (click)="openSetScheduleDate()" type="button" class="btn btn-primary d-flex align-items-center mt-2">
           <fa-icon [icon]="['far', 'clock']" [fixedWidth]="true" class="flex-shrink-0"></fa-icon>
           <span *ngIf="!task.schedule_date" class="ml-2">Marcar data</span>
           <span *ngIf="task.schedule_date" class="ml-2">Alterar data</span>
@@ -91,6 +91,10 @@
           <span class="ml-2">Anexar arquivo</span>
           <input (change)="addTaskAttachment($event)" type="file" name="file" accept="*/*">
         </label>
+        <button (click)="openDeleteTask()" type="button" class="btn btn-danger d-flex align-items-center">
+          <fa-icon [icon]="['fas', 'trash']" [fixedWidth]="true" class="flex-shrink-0"></fa-icon>
+          <span class="ml-2">Remover</span>
+        </button>
       </div>
     </div>
   </div>
