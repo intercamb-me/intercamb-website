@@ -35,6 +35,9 @@ export class ClientsComponent implements OnInit {
     this.companyService.listClients(null, {select: ClientsComponent.CLIENT_FIELDS}).subscribe((clients) => {
       this.clients = clients;
       this.loading = false;
+      if (this.clients.length > 0) {
+        this.search = '';
+      }
     }, (err) => {
       this.alertService.apiError(null, err);
     });

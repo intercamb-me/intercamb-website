@@ -8,6 +8,20 @@
       <div class="row">
         <div class="col">
           <span
+            *ngIf="client.needs_revision"
+            title="{{ client.forename }} preencheu o formulário de cadastro de clientes. Agora é necessário revisar todas as informações."
+            class="badge badge-danger">
+            <fa-icon [icon]="['fas', 'check-double']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
+            <span class="ml-1">Revisar</span>
+          </span>
+          <span
+            *ngIf="client.personal_data.birthdate"
+            [ngClass]="{'badge-danger': getAge() < 18, 'badge-secondary': getAge() >= 18}"
+            class="badge">
+            <fa-icon [icon]="['fas', 'birthday-cake']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
+            <span class="ml-1">{{ getAge() }} anos</span>
+          </span>
+          <span
             *ngIf="client.plan"
             [ngStyle]="{'backgroundColor': getColor(client.plan.name)}"
             class="badge">
@@ -15,11 +29,25 @@
             <span class="ml-1">{{ client.plan.name }}</span>
           </span>
           <span
-            *ngIf="client.needs_revision"
-            title="{{ client.forename }} preencheu o formulário de cadastro de clientes. Agora é necessário revisar todas as informações."
-            class="badge badge-danger">
-            <fa-icon [icon]="['fas', 'check-double']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
-            <span class="ml-1">Revisar</span>
+            *ngIf="client.intended_course.name"
+            [ngStyle]="{'backgroundColor': getColor(client.intended_course.name)}"
+            class="badge">
+            <fa-icon [icon]="['fas', 'graduation-cap']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
+            <span class="ml-1">
+              {{ client.intended_course.name }}
+            </span>
+          </span>
+          <span
+            *ngIf="client.intended_course.institution"
+            [ngStyle]="{'backgroundColor': getColor(client.intended_course.institution.name)}"
+            class="badge">
+            <fa-icon [icon]="['fas', 'school']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
+            <span *ngIf="client.intended_course.institution.acronym" class="ml-1">
+              {{ client.intended_course.institution.acronym }}
+            </span>
+            <span *ngIf="!client.intended_course.institution.acronym" class="ml-1">
+              {{ client.intended_course.institution.name }}
+            </span>
           </span>
         </div>
         <div class="col-auto text-right">

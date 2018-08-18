@@ -77,6 +77,12 @@ export class ClientComponent implements OnInit {
     return task.id;
   }
 
+  public getAge(): number {
+    const ageDiff = Date.now() - this.client.personal_data.birthdate.getTime();
+    const ageDate = new Date(ageDiff);
+    return Math.abs(ageDate.getUTCFullYear() - 1970);
+  }
+
   public hasIdentityDocument(): boolean {
     const identityCard = this.client.personal_data.identity_document;
     if (identityCard && identityCard.number && identityCard.issuing_authority && identityCard.state) {
