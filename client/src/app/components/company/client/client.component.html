@@ -30,8 +30,7 @@
           </span>
           <span
             *ngIf="client.intended_course.name"
-            [ngStyle]="{'backgroundColor': getColor(client.intended_course.name)}"
-            class="badge">
+            class="badge badge-secondary">
             <fa-icon [icon]="['fas', 'graduation-cap']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
             <span class="ml-1">
               {{ client.intended_course.name }}
@@ -39,8 +38,7 @@
           </span>
           <span
             *ngIf="client.intended_course.institution"
-            [ngStyle]="{'backgroundColor': getColor(client.intended_course.institution.name)}"
-            class="badge">
+            class="badge badge-secondary">
             <fa-icon [icon]="['fas', 'school']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
             <span *ngIf="client.intended_course.institution.acronym" class="ml-1">
               {{ client.intended_course.institution.acronym }}
