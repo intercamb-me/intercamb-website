@@ -167,6 +167,7 @@ export class ClientComponent implements OnInit {
 
   public openChangePaymentOrderStatus(paymentOrder: PaymentOrder): void {
     const modalRef = this.ngbModal.open(ChangePaymentOrderStatusComponent);
+    modalRef.componentInstance.paymentOrder = paymentOrder;
     modalRef.result.then((updatedPaymentOrder) => {
       const index = this.client.payment_orders.indexOf(paymentOrder);
       if (index >= 0) {

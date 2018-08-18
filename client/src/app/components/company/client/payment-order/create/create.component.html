@@ -126,7 +126,7 @@
       <div class="form-group mb-0">
         <label>Parcelas</label>
         <div *ngIf="splits.length === 0" class="jumbotron mb-0">
-          <h5 class="mb-0 text-center">Preencha os campos acima para configurar as parcelas</h5>
+          <p class="mb-0 text-center">Preencha os campos acima para configurar as parcelas</p>
         </div>
         <ng-container *ngFor="let split of splits; let idx = index; trackBy: trackByIndex">
           <ng-container *ngTemplateOutlet="splitTemplate; context: {split: split, index: idx}"></ng-container>
