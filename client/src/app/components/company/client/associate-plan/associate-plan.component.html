@@ -22,11 +22,11 @@
           </div>
         </div>
       </div>
-      <div *ngIf="company.plans.length === 0" class="jumbotron mb-0">
-        <h5>Nenhum plano cadastrado. Clique <a [routerLink]="['/company', 'settings']" (click)="close()" class="text-primary">aqui</a> para cadastrar os planos oferecidos por sua empresa.</h5>
+      <div *ngIf="company.plans.length === 0">
+        <p class="mb-0">Nenhum plano cadastrado. Clique <a [routerLink]="['/company', 'settings']" (click)="close()" class="text-primary">aqui</a> para cadastrar os planos oferecidos por sua empresa.</p>
       </div>
     </div>
-    <div class="modal-footer">
+    <div *ngIf="company.plans.length > 0" class="modal-footer">
       <button
         *ngIf="!client.plan"
         [disabled]="!selectedPlan || updating"
