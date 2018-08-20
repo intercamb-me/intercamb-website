@@ -1,0 +1,35 @@
+<div id="set-schedule-date">
+  <form #form="ngForm" (ngSubmit)="saveLocation()" novalidate>
+    <div class="modal-header">
+      <h4 class="modal-title">Localização</h4>
+      <button (click)="close()" type="button" class="close" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <input
+        appGooglePlaces
+        (selectPlace)="selectPlace($event)"
+        type="text"
+        type="text"
+        class="form-control"
+        placeholder="Digite o endereço...">
+    </div>
+    <div class="modal-footer">
+      <button
+        *ngIf="task.place"
+        [disabled]="saving"
+        (click)="removeLocation()"
+        type="button"
+        class="btn btn-danger">
+        Remover
+      </button>
+      <button
+        [disabled]="!place || saving"
+        type="submit"
+        class="btn btn-primary">
+        Salvar
+      </button>
+    </div>
+  </form>
+</div>
