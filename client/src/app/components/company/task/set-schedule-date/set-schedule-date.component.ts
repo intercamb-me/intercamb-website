@@ -16,7 +16,6 @@ import * as setMilliseconds from 'date-fns/set_milliseconds';
 import {TaskService} from 'app/services/task.service';
 import {AlertService} from 'app/services/alert.service';
 import {Helpers} from 'app/utils/helpers';
-import {Client} from 'app/models/client.model';
 import {Task} from 'app/models/task.model';
 
 @Component({
@@ -26,13 +25,10 @@ import {Task} from 'app/models/task.model';
 export class SetTaskScheduleDateComponent implements OnInit {
 
   @Input()
-  public client: Client;
-  @Input()
   public task: Task;
 
   public selectedDateStruct: NgbDateStruct;
   public selectedTimeStruct: NgbTimeStruct;
-  public todayDateStruct: NgbDateStruct;
   public onlyDateChars = Helpers.onlyDateChars;
   public updating = false;
 
@@ -53,12 +49,6 @@ export class SetTaskScheduleDateComponent implements OnInit {
         second: 0,
       };
     }
-    const now = new Date();
-    this.todayDateStruct = {
-      year: getYear(now),
-      month: getMonth(now) + 1,
-      day: getDate(now),
-    };
   }
 
   public close(): void {

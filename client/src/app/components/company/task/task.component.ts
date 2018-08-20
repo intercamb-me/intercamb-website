@@ -5,6 +5,7 @@ import * as distanceInWordsStrict from 'date-fns/distance_in_words_strict';
 
 import {ChangeTaskStatusComponent} from 'app/components/company/task/change-status/change-status.component';
 import {SetTaskScheduleDateComponent} from 'app/components/company/task/set-schedule-date/set-schedule-date.component';
+import {SetTaskLocationComponent} from 'app/components/company/task/set-location/set-location.component';
 import {DeleteTaskComponent} from 'app/components/company/task/delete/delete.component';
 
 import {AccountService} from 'app/services/account.service';
@@ -17,6 +18,7 @@ import {Client} from 'app/models/client.model';
 import {Task} from 'app/models/task.model';
 import {TaskAttachment} from 'app/models/task-attachment.model';
 import {TaskComment} from 'app/models/task-comment.model';
+import {TaskCounters} from 'app/models/task-counters.model';
 
 @Component({
   selector: 'app-task',
@@ -30,6 +32,9 @@ export class TaskComponent implements OnInit {
   public task: Task;
 
   public account: Account;
+  public attachments: TaskAttachment[];
+  public comments: TaskComment[];
+  public counters: TaskCounters;
   public taskStatus = Constants.TASK_STATUS;
   public comment = '';
   public commentRows = 1;
@@ -43,6 +48,9 @@ export class TaskComponent implements OnInit {
     this.taskService.getTask(this.task.id, {populate: 'attachments.account comments.account'}).pipe(
       mergeMap((task) => {
         this.task = task;
+        this.attachments = task.attachments;
+        this.comments = task.comments;
+        this.counters = task.counters;
         return this.accountService.getAccount();
       })
     ).subscribe((account) => {
@@ -62,6 +70,9 @@ export class TaskComponent implements OnInit {
   }
 
   public close(): void {
+    this.task.attachments = this.attachments;
+    this.task.comments = this.comments;
+    this.task.counters = this.counters;
     this.ngbActiveModal.close(this.task);
   }
 
@@ -88,7 +99,6 @@ export class TaskComponent implements OnInit {
 
   public openChangeStatus(): void {
     const modalRef = this.ngbModal.open(ChangeTaskStatusComponent, {centered: true});
-    modalRef.componentInstance.client = this.client;
     modalRef.componentInstance.task = this.task;
     modalRef.result.then((updatedTask) => {
       this.task = updatedTask;
@@ -99,7 +109,16 @@ export class TaskComponent implements OnInit {
 
   public openSetScheduleDate(): void {
     const modalRef = this.ngbModal.open(SetTaskScheduleDateComponent, {centered: true});
-    modalRef.componentInstance.client = this.client;
+    modalRef.componentInstance.task = this.task;
+    modalRef.result.then((updatedTask) => {
+      this.task = updatedTask;
+    }).catch(() => {
+      // Nothing to do...
+    });
+  }
+
+  public openSetLocation(): void {
+    const modalRef = this.ngbModal.open(SetTaskLocationComponent, {centered: true});
     modalRef.componentInstance.task = this.task;
     modalRef.result.then((updatedTask) => {
       this.task = updatedTask;
@@ -123,8 +142,8 @@ export class TaskComponent implements OnInit {
     if (!event.shiftKey && keyCode === 13) {
       this.taskService.addTaskComment(this.task, this.comment).subscribe((comment) => {
         comment.account = this.account;
-        this.task.counters.comments += 1;
-        this.task.comments.push(comment);
+        this.counters.comments += 1;
+        this.comments.push(comment);
       }, (err) => {
         this.alertService.apiError(null, err);
       });
@@ -147,8 +166,8 @@ export class TaskComponent implements OnInit {
     const file = event.target.files[0];
     this.taskService.addTaskAttachment(this.task, file).subscribe((attachment) => {
       attachment.account = this.account;
-      this.task.counters.attachments += 1;
-      this.task.attachments.push(attachment);
+      this.counters.attachments += 1;
+      this.attachments.push(attachment);
     }, (err) => {
       this.alertService.apiError(null, err, 'Não foi possível enviar o arquivo, por favor tente novamente mais tarde!');
     });

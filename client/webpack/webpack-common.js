@@ -117,7 +117,7 @@ module.exports = (settings) => {
       new CssPurgePlugin({
         paths: glob.sync(`${path.resolve('client', 'src')}/**/*`, {nodir: true}),
         whitelist: ['collapse', 'fade', 'show', 'arrow', 'd-block', 'custom-select', 'btn-link', 'btn-light', 'fieldset', 'loading-bar-spinner'],
-        whitelistPatterns: [/^modal/, /^dropdown/, /^popover/, /^bs-popover/, /^alert/, /^bg-/, /^ng-/, /^ngb-/, /^cal-/],
+        whitelistPatterns: [/^modal/, /^dropdown/, /^popover/, /^bs-popover/, /^alert/, /^bg-/, /^ng-/, /^ngb-/, /^cal-/, /^pac-/],
       }),
       new HtmlPlugin({template: path.resolve('client', 'src', 'index.html')}),
     ],

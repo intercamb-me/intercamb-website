@@ -5,6 +5,7 @@ import {Company} from 'app/models/company.model';
 import {TaskAttachment} from 'app/models/task-attachment.model';
 import {TaskComment} from 'app/models/task-comment.model';
 import {TaskCounters} from 'app/models/task-counters.model';
+import {TaskPlace} from 'app/models/task-place.model';
 import isObject from 'lodash-es/isObject';
 import cloneDeep from 'lodash-es/cloneDeep';
 
@@ -18,9 +19,10 @@ export class Task {
   public name: string;
   public status: string;
   public schedule_date: Date;
-  public counters: TaskCounters;
   public attachments: TaskAttachment[];
   public comments: TaskComment[];
+  public counters: TaskCounters;
+  public place: TaskPlace;
   public registration_date: Date;
 
   constructor(data?: any) {
@@ -29,8 +31,9 @@ export class Task {
       this.name = data.name;
       this.status = data.status;
       this.schedule_date = data.schedule_date ? new Date(data.schedule_date) : undefined;
-      this.counters = new TaskCounters(data.counters);
       this.registration_date = new Date(data.registration_date);
+      this.counters = new TaskCounters(data.counters);
+      this.place = data.place ? new TaskPlace(data.place) : undefined;
       if (isObject(data.company)) {
         this.company = new Company(data.company);
         this.company_id = this.company.id;

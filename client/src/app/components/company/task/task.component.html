@@ -1,4 +1,4 @@
-<div id="task">
+<div *ngIf="!loading" id="task">
   <div class="modal-header px-4">
     <div class="row">
       <div class="col">
@@ -14,30 +14,34 @@
       <span class="badge badge-{{ taskStatus[task.status].colorSelector }}">
         {{ taskStatus[task.status].name }}
       </span>
-      <span *ngIf="task.counters.comments > 0" class="badge badge-secondary">
-        <fa-icon [icon]="['far', 'comment']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
-        <span class="ml-1">{{ task.counters.comments }}</span>
+      <span *ngIf="counters.comments > 0" class="badge badge-secondary">
+        <fa-icon [icon]="['fas', 'comment']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
+        <span class="ml-1">{{ counters.comments }}</span>
       </span>
-      <span *ngIf="task.counters.attachments > 0" class="badge badge-secondary">
+      <span *ngIf="counters.attachments > 0" class="badge badge-secondary">
         <fa-icon [icon]="['fas', 'paperclip']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
-        <span class="ml-1">{{ task.counters.attachments }}</span>
+        <span class="ml-1">{{ counters.attachments }}</span>
       </span>
       <span *ngIf="task.schedule_date" class="badge badge-deep-orange">
-        <fa-icon [icon]="['far', 'clock']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
+        <fa-icon [icon]="['fas', 'clock']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
         <span class="ml-1">{{ task.schedule_date | date:"dd 'de' MMMM 'de' yyyy 'às' HH:mm" }}</span>
+      </span>
+      <span *ngIf="task.place" class="badge badge-info">
+        <fa-icon [icon]="['fas', 'map-marker-alt']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
+        <span class="ml-1">{{ task.place.formatted_address }}</span>
       </span>
     </div>
   </div>
-  <div *ngIf="!loading" class="modal-body px-4 py-4">
+  <div class="modal-body px-4 py-4">
     <div class="row">
       <div class="col">
         <div class="attachments">
           <h5>Arquivos</h5>
-          <div *ngIf="task.attachments.length === 0" class="jumbotron py-5 mb-0 text-center">
+          <div *ngIf="attachments.length === 0" class="jumbotron py-5 mb-0 text-center">
             <p class="mb-0">Nenhum arquivo</p>
           </div>
-          <div *ngIf="task.attachments.length > 0" class="row">
-            <div *ngFor="let attachment of task.attachments; trackBy: trackByAttachment" class="col col-md-6 mb-3">
+          <div *ngIf="attachments.length > 0" class="row">
+            <div *ngFor="let attachment of attachments; trackBy: trackByAttachment" class="col col-md-6 mb-3">
               <div (click)="openTaskAttachment(attachment)" class="attachment">
                 <div class="account">
                   {{ attachment.account.getFullName() }}
@@ -57,10 +61,10 @@
         <div class="comments">
           <h5>Comentários</h5>
           <textarea [(ngModel)]="comment" (keypress)="onCommentKeyPress($event)" (keyup)="onCommentKeyUp($event)" class="form-control mb-3" name="comment" [rows]="commentRows" placeholder="Deixe um comentário..."></textarea>
-          <div *ngIf="task.comments.length === 0" class="jumbotron py-5 mb-0 text-center">
+          <div *ngIf="comments.length === 0" class="jumbotron py-5 mb-0 text-center">
             <p class="mb-0">Nenhum comentário</p>
           </div>
-          <div *ngFor="let comment of task.comments.slice().reverse(); trackBy: trackByComment" class="comment">
+          <div *ngFor="let comment of comments.slice().reverse(); trackBy: trackByComment" class="comment">
             <div class="icon">
               <img *ngIf="comment.account" [src]="comment.account.image_url">
             </div>
@@ -81,17 +85,21 @@
           <fa-icon [icon]="['fas', 'tasks']" [fixedWidth]="true" class="flex-shrink-0"></fa-icon>
           <span class="ml-2">Alterar status</span>
         </button>
-        <button (click)="openSetScheduleDate()" type="button" class="btn btn-primary d-flex align-items-center mt-2">
-          <fa-icon [icon]="['far', 'clock']" [fixedWidth]="true" class="flex-shrink-0"></fa-icon>
-          <span *ngIf="!task.schedule_date" class="ml-2">Marcar data</span>
-          <span *ngIf="task.schedule_date" class="ml-2">Alterar data</span>
-        </button>
-        <label class="btn btn-primary btn-file d-flex align-items-center mt-2">
+        <label class="btn btn-primary btn-file d-flex align-items-center mt-2 mb-0">
           <fa-icon [icon]="['fas', 'paperclip']" [fixedWidth]="true" class="flex-shrink-0"></fa-icon>
           <span class="ml-2">Anexar arquivo</span>
           <input (change)="addTaskAttachment($event)" type="file" name="file" accept="*/*">
         </label>
-        <button (click)="openDeleteTask()" type="button" class="btn btn-danger d-flex align-items-center">
+        <button (click)="openSetScheduleDate()" type="button" class="btn btn-primary d-flex align-items-center mt-2">
+          <fa-icon [icon]="['fas', 'clock']" [fixedWidth]="true" class="flex-shrink-0"></fa-icon>
+          <span *ngIf="!task.schedule_date" class="ml-2">Marcar data</span>
+          <span *ngIf="task.schedule_date" class="ml-2">Alterar data</span>
+        </button>
+        <button (click)="openSetLocation()" type="button" class="btn btn-primary d-flex align-items-center mt-2">
+          <fa-icon [icon]="['fas', 'map-marker-alt']" [fixedWidth]="true" class="flex-shrink-0"></fa-icon>
+          <span class="ml-2">Localização</span>
+        </button>
+        <button (click)="openDeleteTask()" type="button" class="btn btn-danger d-flex align-items-center mt-2">
           <fa-icon [icon]="['fas', 'trash']" [fixedWidth]="true" class="flex-shrink-0"></fa-icon>
           <span class="ml-2">Remover</span>
         </button>

@@ -5,7 +5,6 @@ import values from 'lodash-es/values';
 import {TaskService} from 'app/services/task.service';
 import {AlertService} from 'app/services/alert.service';
 import {Constants} from 'app/utils/constants';
-import {Client} from 'app/models/client.model';
 import {Task} from 'app/models/task.model';
 
 @Component({
@@ -14,8 +13,6 @@ import {Task} from 'app/models/task.model';
 })
 export class ChangeTaskStatusComponent {
 
-  @Input()
-  public client: Client;
   @Input()
   public task: Task;
 

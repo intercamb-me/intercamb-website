@@ -12,14 +12,14 @@
             title="{{ client.forename }} preencheu o formulário de cadastro de clientes. Agora é necessário revisar todas as informações."
             class="badge badge-danger">
             <fa-icon [icon]="['fas', 'check-double']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
-            <span class="ml-1">Revisar</span>
+            <span class="ml-2">Revisar</span>
           </span>
           <span
             *ngIf="client.personal_data.birthdate"
             [ngClass]="{'badge-danger': getAge() < 18, 'badge-secondary': getAge() >= 18}"
             class="badge">
             <fa-icon [icon]="['fas', 'birthday-cake']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
-            <span class="ml-1">{{ getAge() }} anos</span>
+            <span class="ml-2">{{ getAge() }} anos</span>
           </span>
           <span
             *ngIf="client.plan"
@@ -32,20 +32,14 @@
             *ngIf="client.intended_course.name"
             class="badge badge-secondary">
             <fa-icon [icon]="['fas', 'graduation-cap']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
-            <span class="ml-1">
-              {{ client.intended_course.name }}
-            </span>
+            <span class="ml-2">{{ client.intended_course.name }}</span>
           </span>
           <span
             *ngIf="client.intended_course.institution"
             class="badge badge-secondary">
             <fa-icon [icon]="['fas', 'school']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
-            <span *ngIf="client.intended_course.institution.acronym" class="ml-1">
-              {{ client.intended_course.institution.acronym }}
-            </span>
-            <span *ngIf="!client.intended_course.institution.acronym" class="ml-1">
-              {{ client.intended_course.institution.name }}
-            </span>
+            <span *ngIf="client.intended_course.institution.acronym" class="ml-2">{{ client.intended_course.institution.acronym }}</span>
+            <span *ngIf="!client.intended_course.institution.acronym" class="ml-2">{{ client.intended_course.institution.name }}</span>
           </span>
         </div>
         <div class="col-auto text-right">
@@ -459,7 +453,7 @@
                     </fa-icon>
                   </span>
                   <span *ngIf="paymentOrder.payment_date" class="badge badge-deep-orange">
-                    <fa-icon [icon]="['far', 'clock']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
+                    <fa-icon [icon]="['fas', 'dollar-sign']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
                     <span class="ml-1">{{ paymentOrder.payment_date | date:"MMM d, y" | titlecase }}</span>
                   </span>
                 </div>
@@ -510,7 +504,7 @@
                   {{ taskStatus[task.status].name }}
                 </span>
                 <span *ngIf="task.counters.comments > 0" class="badge badge-secondary">
-                  <fa-icon [icon]="['far', 'comment']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
+                  <fa-icon [icon]="['fas', 'comment']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
                   <span class="ml-1">{{ task.counters.comments }}</span>
                 </span>
                 <span *ngIf="task.counters.attachments > 0" class="badge badge-secondary">
@@ -518,8 +512,12 @@
                   <span class="ml-1">{{ task.counters.attachments }}</span>
                 </span>
                 <span *ngIf="task.schedule_date" class="badge badge-deep-orange">
-                  <fa-icon [icon]="['far', 'clock']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
+                  <fa-icon [icon]="['fas', 'clock']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
                   <span class="ml-1">{{ task.schedule_date | date:"MMM d, y" | titlecase }}</span>
+                </span>
+                <span *ngIf="task.place" class="badge badge-info">
+                  <fa-icon [icon]="['fas', 'map-marker-alt']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
+                  <span class="ml-1">{{ task.place.formatted_address }}</span>
                 </span>
               </div>
             </div>

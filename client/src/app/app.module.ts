@@ -30,9 +30,9 @@ import {faCalendarAlt} from '@fortawesome/free-solid-svg-icons/faCalendarAlt';
 import {faChartLine} from '@fortawesome/free-solid-svg-icons/faChartLine';
 import {faCheck} from '@fortawesome/free-solid-svg-icons/faCheck';
 import {faCheckDouble} from '@fortawesome/free-solid-svg-icons/faCheckDouble';
-import {faClock} from '@fortawesome/free-regular-svg-icons/faClock';
+import {faClock} from '@fortawesome/free-solid-svg-icons/faClock';
 import {faCog} from '@fortawesome/free-solid-svg-icons/faCog';
-import {faComment} from '@fortawesome/free-regular-svg-icons/faComment';
+import {faComment} from '@fortawesome/free-solid-svg-icons/faComment';
 import {faCreditCard} from '@fortawesome/free-solid-svg-icons/faCreditCard';
 import {faDollarSign} from '@fortawesome/free-solid-svg-icons/faDollarSign';
 import {faEllipsisV} from '@fortawesome/free-solid-svg-icons/faEllipsisV';
@@ -42,6 +42,7 @@ import {faGraduationCap} from '@fortawesome/free-solid-svg-icons/faGraduationCap
 import {faHashtag} from '@fortawesome/free-solid-svg-icons/faHashtag';
 import {faHome} from '@fortawesome/free-solid-svg-icons/faHome';
 import {faKey} from '@fortawesome/free-solid-svg-icons/faKey';
+import {faMapMarkerAlt} from '@fortawesome/free-solid-svg-icons/faMapMarkerAlt';
 import {faPaperclip} from '@fortawesome/free-solid-svg-icons/faPaperclip';
 import {faPen} from '@fortawesome/free-solid-svg-icons/faPen';
 import {faPhone} from '@fortawesome/free-solid-svg-icons/faPhone';
@@ -94,6 +95,7 @@ import {CreateTaskComponent} from 'app/components/company/client/create-task/cre
 import {TaskComponent} from 'app/components/company/task/task.component';
 import {ChangeTaskStatusComponent} from 'app/components/company/task/change-status/change-status.component';
 import {SetTaskScheduleDateComponent} from 'app/components/company/task/set-schedule-date/set-schedule-date.component';
+import {SetTaskLocationComponent} from 'app/components/company/task/set-location/set-location.component';
 import {DeleteTaskComponent} from 'app/components/company/task/delete/delete.component';
 import {SearchAddressComponent} from 'app/components/company/client/search-address/search-address.component';
 import {RemoveAccountComponent} from 'app/components/company/settings/remove-account/remove-account.component';
@@ -119,6 +121,9 @@ import {PaymentService} from 'app/services/payment.service';
 import {PlanService} from 'app/services/plan.service';
 import {TaskService} from 'app/services/task.service';
 import {TokenService} from 'app/services/token.service';
+
+// Directives
+import {GooglePlacesDirective} from 'app/directives/google-places/google-places.directive';
 
 // Utilities
 import {
@@ -153,6 +158,7 @@ library.add(faGraduationCap);
 library.add(faHashtag);
 library.add(faHome);
 library.add(faKey);
+library.add(faMapMarkerAlt);
 library.add(faPaperclip);
 library.add(faPen);
 library.add(faPhone);
@@ -193,6 +199,8 @@ library.add(faUsers);
     SizePipe,
     HyphensIfEmptyPipe,
     CurrencySymbolPipe,
+    // Directives
+    GooglePlacesDirective,
     // Components
     AppComponent,
     AlertsComponent,
@@ -221,6 +229,7 @@ library.add(faUsers);
     CreateTaskComponent,
     TaskComponent,
     ChangeTaskStatusComponent,
+    SetTaskLocationComponent,
     SetTaskScheduleDateComponent,
     DeleteTaskComponent,
     SearchAddressComponent,
@@ -242,6 +251,7 @@ library.add(faUsers);
     CreateTaskComponent,
     TaskComponent,
     ChangeTaskStatusComponent,
+    SetTaskLocationComponent,
     SetTaskScheduleDateComponent,
     DeleteTaskComponent,
     SearchAddressComponent,
