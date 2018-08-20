@@ -30,13 +30,13 @@
           </span>
           <span
             *ngIf="client.intended_course.name"
-            class="badge badge-secondary">
+            class="badge badge-info">
             <fa-icon [icon]="['fas', 'graduation-cap']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
             <span class="ml-2">{{ client.intended_course.name }}</span>
           </span>
           <span
             *ngIf="client.intended_course.institution"
-            class="badge badge-secondary">
+            class="badge badge-info">
             <fa-icon [icon]="['fas', 'school']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
             <span *ngIf="client.intended_course.institution.acronym" class="ml-2">{{ client.intended_course.institution.acronym }}</span>
             <span *ngIf="!client.intended_course.institution.acronym" class="ml-2">{{ client.intended_course.institution.name }}</span>
