@@ -66,6 +66,20 @@ export class ClientService {
     );
   }
 
+  public updateClientPhoto(client: Client, photo: File): Observable<Client> {
+    const httpUrl = RequestUtils.getApiUrl(`/clients/${client.id}/photo`);
+    const formData = new FormData();
+    formData.append('photo', photo);
+    return this.http.put<Client>(httpUrl, formData, RequestUtils.getOptions()).pipe(
+      map((clientData: Client) => new Client(clientData)),
+      catchError((err: HttpErrorResponse) => {
+        const apiError = ApiError.withResponse(err);
+        this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
+        return throwError(apiError);
+      })
+    );
+  }
+
   public deleteClient(client: Client): Observable<void> {
     const httpUrl = RequestUtils.getApiUrl(`/clients/${client.id}`);
     return this.http.delete<void>(httpUrl, RequestUtils.getJsonOptions()).pipe(

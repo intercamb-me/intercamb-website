@@ -16,62 +16,83 @@
             <div class="card-body">
               <form #form="ngForm" class="was-validated" novalidate>
                 <h2 class="mb-3">Informações básicas</h2>
-                <div class="row">
-                  <div class="col form-group">
-                    <label for="bi-forename">Nome</label>
-                    <input
-                      [(ngModel)]="formData.forename"
-                      id="bi-forename"
-                      name="bi-forename"
-                      type="text"
-                      class="form-control"
-                      minlength="4"
-                      required>
+                <div class="row align-items-center">
+                  <div class="col-auto">
+                    <div class="form-group mb-0 text-center">
+                      <img [src]="photoSrc || getDefaultPhotoUrl()" class="photo"/>
+                      <label class="btn btn-primary btn-file mt-3">
+                        Alterar foto
+                        <input
+                          [disabled]="updating"
+                          (change)="updateClientPhoto($event)"
+                          id="photo"
+                          name="photo"
+                          type="file"
+                          accept="image/*">
+                      </label>
+                    </div>
                   </div>
-                  <div class="col form-group">
-                    <label for="bi-surname">Sobrenome</label>
-                    <input
-                      [(ngModel)]="formData.surname"
-                      id="bi-surname"
-                      name="bi-surname"
-                      type="text"
-                      class="form-control"
-                      minlength="4"
-                      required>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col form-group">
-                    <label for="bi-email">E-mail</label>
-                    <input
-                      [(ngModel)]="formData.email"
-                      id="bi-email"
-                      name="bi-email"
-                      type="email"
-                      class="form-control"
-                      email
-                      required>
-                  </div>
-                  <div class="col form-group">
-                    <label for="bi-phone">Telefone</label>
-                    <input
-                      [(ngModel)]="formData.phone"
-                      [dropSpecialCharacters]="false"
-                      [mask]="phoneMask"
-                      [pattern]="phonePattern"
-                      id="bi-phone"
-                      name="bi-phone"
-                      type="text"
-                      class="form-control"
-                      placeholder="Exemplo: +55 71 99999999"
-                      maxlength="17"
-                      required>
+                  <div class="col">
+                    <div class="row">
+                      <div class="col form-group">
+                        <label for="bi-forename">Nome</label>
+                        <input
+                          [(ngModel)]="formData.forename"
+                          id="bi-forename"
+                          name="bi-forename"
+                          type="text"
+                          class="form-control"
+                          minlength="4"
+                          required>
+                      </div>
+                      <div class="col form-group">
+                        <label for="bi-surname">Sobrenome</label>
+                        <input
+                          [(ngModel)]="formData.surname"
+                          id="bi-surname"
+                          name="bi-surname"
+                          type="text"
+                          class="form-control"
+                          minlength="4"
+                          required>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col form-group">
+                        <label for="bi-email">E-mail</label>
+                        <input
+                          [(ngModel)]="formData.email"
+                          id="bi-email"
+                          name="bi-email"
+                          type="email"
+                          class="form-control"
+                          email
+                          required>
+                      </div>
+                      <div class="col form-group">
+                        <label for="bi-phone">Telefone</label>
+                        <input
+                          #phone="ngModel"
+                          [(ngModel)]="formData.phone"
+                          [ngClass]="{'is-invalid': phone.invalid}"
+                          [dropSpecialCharacters]="false"
+                          [mask]="phoneMask"
+                          [pattern]="phonePattern"
+                          id="bi-phone"
+                          name="bi-phone"
+                          type="text"
+                          class="form-control"
+                          placeholder="Exemplo: +55 71 99999999"
+                          maxlength="17"
+                          required>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col d-flex justify-content-end">
                     <button
-                      [disabled]="form.invalid"
+                      [disabled]="form.invalid || !photo"
                       (click)="nextInfoStep()"
                       type="button"
                       class="btn btn-primary">

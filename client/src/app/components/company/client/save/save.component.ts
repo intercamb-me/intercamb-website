@@ -28,6 +28,7 @@ export class SaveClientComponent implements OnInit {
   public saved = new EventEmitter<Client>();
 
   public company: Company;
+  public photo: File;
   public formData: any;
   public todayDateStruct: NgbDateStruct;
   public phonePattern = Constants.PHONE_PATTERN;
@@ -71,6 +72,10 @@ export class SaveClientComponent implements OnInit {
     return institution && otherInstitution && institution.id === otherInstitution.id;
   }
 
+  public getDefaultPhotoUrl(): string {
+    return 'https://cdn.intercamb.me/images/client_default_photo.png';
+  }
+
   public searchAddress(): void {
     const modalRef = this.ngbModal.open(SearchAddressComponent);
     modalRef.result.then((address: Address) => {
@@ -87,8 +92,12 @@ export class SaveClientComponent implements OnInit {
   public saveClient(): void {
     this.saving = true;
     const data = this.fixFormData();
-    const observable = !this.client.id ? this.clientService.createClient(data) : this.clientService.updateClient(this.client, data);
-    observable.subscribe((client) => {
+    const saveClient = !this.client.id ? this.clientService.createClient(data) : this.clientService.updateClient(this.client, data);
+    saveClient.pipe(
+      mergeMap((client) => {
+        return this.photo ? this.clientService.updateClientPhoto(client, this.photo) : of(client);
+      })
+    ).subscribe((client) => {
       if (!this.client.id) {
         this.alertService.success('Cliente cadastrado com sucesso!');
       } else {
@@ -105,6 +114,21 @@ export class SaveClientComponent implements OnInit {
         this.alertService.apiError(null, err, 'Não foi possível atualizar o cliente, por favor tente novamente em alguns instantes!');
       }
     });
+  }
+
+  public updateClientPhoto(event: any): void {
+    this.saving = true;
+    this.photo = event.target.files[0];
+    if (this.client.id) {
+      this.clientService.updateClientPhoto(this.client, this.photo).subscribe((client) => {
+        this.client.photo_url = client.photo_url;
+        this.saving = false;
+        this.alertService.success('Imagem atualizada com sucesso!');
+      }, (err) => {
+        this.saving = false;
+        this.alertService.apiError(null, err, 'Não foi possível atualizar a imagem, por favor tente novamente mais tarde!');
+      });
+    }
   }
 
   private getFormData(): any {

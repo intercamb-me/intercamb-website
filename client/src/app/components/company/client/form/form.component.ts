@@ -23,6 +23,8 @@ import {Token} from 'app/models/token.model';
 export class ClientFormComponent implements OnInit {
 
   public token: Token;
+  public photo: File;
+  public photoSrc: string;
   public formData: any;
   public infoStep = 0;
   public todayDateStruct: NgbDateStruct;
@@ -79,6 +81,10 @@ export class ClientFormComponent implements OnInit {
     this.infoStep = this.infoStep - 1;
   }
 
+  public getDefaultPhotoUrl(): string {
+    return 'https://cdn.intercamb.me/images/client_default_photo.png';
+  }
+
   public searchAddress(): void {
     const modalRef = this.ngbModal.open(SearchAddressComponent);
     modalRef.result.then((address: Address) => {
@@ -92,10 +98,26 @@ export class ClientFormComponent implements OnInit {
     });
   }
 
+  public updateClientPhoto(event: any): void {
+    this.photo = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = (readEvent: any) => {
+      this.photoSrc = readEvent.target.result;
+    };
+    reader.readAsDataURL(this.photo);
+  }
+
   public createClient(): void {
     const data = this.fixFormData();
-    this.clientService.createClient(data, this.token).subscribe(() => {
+    this.clientService.createClient(data, this.token).subscribe((client) => {
       this.clientCreated = true;
+      if (this.photo) {
+        this.clientService.updateClientPhoto(client, this.photo).subscribe(() => {
+          // Nothing to do...
+        }, () => {
+          // Nothing to do...
+        });
+      }
     }, (err) => {
       this.alertService.apiError(null, err);
     });
