@@ -19,6 +19,7 @@ import {Constants} from 'app/utils/constants';
 import {Helpers} from 'app/utils/helpers';
 import {Account} from 'app/models/account.model';
 import {Company} from 'app/models/company.model';
+import {DefaultTask} from 'app/models/default-task.model';
 import {Institution} from 'app/models/institution.model';
 import {Plan} from 'app/models/plan.model';
 
@@ -31,7 +32,7 @@ export class CompanySettingsComponent implements OnInit {
   public company: Company;
   public authenticatedAccount: Account;
   public accounts: Account[];
-  public defaultTasks: string[];
+  public defaultTasks: DefaultTask[];
   public institutions: Institution[];
   public plans: Plan[];
   public selectedPaletteVariant: PaletteVariant;

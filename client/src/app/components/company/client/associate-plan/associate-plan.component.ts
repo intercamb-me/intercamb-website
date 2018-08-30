@@ -1,5 +1,6 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {mergeMap} from 'rxjs/operators';
 import find from 'lodash-es/find';
 
 import {CompanyService} from 'app/services/company.service';
@@ -21,6 +22,9 @@ export class AssociatePlanComponent implements OnInit {
   public company: Company;
   public selectedPlan: Plan;
   public getColor = Helpers.getColor;
+  public choosing = true;
+  public disassociating = false;
+  public changing = false;
   public loading = true;
   public updating = false;
 
@@ -29,7 +33,12 @@ export class AssociatePlanComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.companyService.getCompany({select: 'currency', populate: 'plans'}).subscribe((company) => {
+    this.clientService.getClient(this.client.id, {select: 'plan'}).pipe(
+      mergeMap((client) => {
+        this.client = client;
+        return this.companyService.getCompany({select: 'currency', populate: 'plans'});
+      })
+    ).subscribe((company) => {
       this.company = company;
       if (this.client.plan_id) {
         this.selectedPlan = find(company.plans, (plan) => {
@@ -74,5 +83,23 @@ export class AssociatePlanComponent implements OnInit {
       this.updating = false;
       this.alertService.apiError(null, err, 'Não foi possível desassociar o plano, por favor tente novamente mais tarde!');
     });
+  }
+
+  public confirmDisassociation(): void {
+    this.choosing = false;
+    this.disassociating = true;
+    this.changing = false;
+  }
+
+  public confirmChange(): void {
+    this.choosing = false;
+    this.disassociating = false;
+    this.changing = true;
+  }
+
+  public backToPlans(): void {
+    this.choosing = true;
+    this.disassociating = false;
+    this.changing = false;
   }
 }

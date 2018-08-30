@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {NgbActiveModal, NgbPopover} from '@ng-bootstrap/ng-bootstrap';
 
 import {CompanyService} from 'app/services/company.service';
 import {AlertService} from 'app/services/alert.service';
+import {DefaultTask} from 'app/models/default-task.model';
 
 @Component({
   selector: 'app-save-default-tasks',
@@ -10,8 +11,12 @@ import {AlertService} from 'app/services/alert.service';
 })
 export class SaveDefaultTasksComponent implements OnInit {
 
-  public defaultTasks: string[];
-  public taskName: string;
+  @ViewChild(NgbPopover)
+  public popover: NgbPopover;
+
+  public defaultTasks: DefaultTask[];
+  public selectedDefaultTask: DefaultTask;
+  public newDefaultTask: DefaultTask;
   public loading = true;
   public saving = false;
 
@@ -20,6 +25,7 @@ export class SaveDefaultTasksComponent implements OnInit {
   }
 
   public ngOnInit(): void {
+    this.newDefaultTask = new DefaultTask();
     this.companyService.getCompany({select: 'default_tasks'}).subscribe((company) => {
       this.defaultTasks = company.default_tasks;
       this.loading = false;
@@ -32,21 +38,28 @@ export class SaveDefaultTasksComponent implements OnInit {
     this.ngbActiveModal.dismiss();
   }
 
-  public trackByDefaultTask(_index: number, defaultTask: string): string {
-    return defaultTask;
+  public trackByDefaultTask(_index: number, defaultTask: DefaultTask): string {
+    return defaultTask.name;
   }
 
   public addDefaultTask(): void {
-    if (this.taskName) {
-      const index = this.defaultTasks.indexOf(this.taskName);
+    if (this.newDefaultTask.name) {
+      const index = this.defaultTasks.findIndex((defaultTask) => {
+        return defaultTask.name === this.newDefaultTask.name;
+      });
       if (index < 0) {
-        this.defaultTasks.push(this.taskName);
+        this.defaultTasks.push(this.newDefaultTask);
+        this.selectedDefaultTask = this.newDefaultTask;
+        this.newDefaultTask = new DefaultTask();
       }
-      this.taskName = null;
     }
   }
 
-  public removeDefaultTask(defaultTask: string): void {
+  public editDefaultTask(defaultTask: DefaultTask): void {
+    this.selectedDefaultTask = defaultTask;
+  }
+
+  public removeDefaultTask(defaultTask: DefaultTask): void {
     const index = this.defaultTasks.indexOf(defaultTask);
     if (index >= 0) {
       this.defaultTasks.splice(index, 1);
@@ -62,5 +75,14 @@ export class SaveDefaultTasksComponent implements OnInit {
       this.saving = false;
       this.alertService.apiError(null, err, 'Não foi possível atualizar as atividades padrões, por favor tente novamente mais tarde!');
     });
+  }
+
+  public saveDefaultTask(defaultTask: DefaultTask): void {
+    this.selectedDefaultTask.checklists = defaultTask.checklists;
+    this.backToDefaultTasks();
+  }
+
+  public backToDefaultTasks(): void {
+    this.selectedDefaultTask = null;
   }
 }

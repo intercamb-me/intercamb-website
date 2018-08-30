@@ -81,8 +81,4 @@ export class HomeComponent implements OnInit {
     popover.popoverTitle = event.title;
     popover.open({event});
   }
-
-  public closeEventGroupPopover(popover: NgbPopover): void {
-    popover.close();
-  }
 }

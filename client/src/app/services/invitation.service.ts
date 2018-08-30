@@ -10,13 +10,13 @@ import {RequestUtils} from 'app/utils/request.utils';
 @Injectable()
 export class InvitationService {
 
-  constructor(private eventService: EventService, private http: HttpClient) {
+  constructor(private eventService: EventService, private httpClient: HttpClient) {
 
   }
 
   public createInvitation(email: string): Observable<Account> {
     const httpUrl = RequestUtils.getApiUrl('/invitations');
-    return this.http.post<void>(httpUrl, {email}, RequestUtils.getJsonOptions()).pipe(
+    return this.httpClient.post<void>(httpUrl, {email}, RequestUtils.getJsonOptions()).pipe(
       map(() => null),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);

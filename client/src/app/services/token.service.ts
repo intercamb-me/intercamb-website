@@ -11,13 +11,13 @@ import {Token} from 'app/models/token.model';
 @Injectable()
 export class TokenService {
 
-  constructor(private eventService: EventService, private http: HttpClient) {
+  constructor(private eventService: EventService, private httpClient: HttpClient) {
 
   }
 
   public createToken(identifier: string, type: string): Observable<Token> {
     const httpUrl = RequestUtils.getApiUrl('/tokens');
-    return this.http.post<Token>(httpUrl, {identifier, type}, RequestUtils.getJsonOptions()).pipe(
+    return this.httpClient.post<Token>(httpUrl, {identifier, type}, RequestUtils.getJsonOptions()).pipe(
       map((tokenData: Token) => new Token(tokenData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
@@ -29,7 +29,7 @@ export class TokenService {
 
   public getToken(id: string): Observable<Token> {
     const httpUrl = RequestUtils.getApiUrl(`/tokens/${id}`);
-    return this.http.get<Token>(httpUrl, RequestUtils.getJsonOptions()).pipe(
+    return this.httpClient.get<Token>(httpUrl, RequestUtils.getJsonOptions()).pipe(
       map((tokenData: Token) => new Token(tokenData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);

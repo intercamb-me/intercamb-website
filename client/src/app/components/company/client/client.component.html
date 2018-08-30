@@ -1,3 +1,36 @@
+<ng-template #taskTemplate let-tasks="tasks">
+  <ngx-masonry *ngIf="tasks.length > 0" [options]="masonryOptions" class="row">
+    <ngxMasonryItem *ngFor="let task of tasks; trackBy: trackByTask" class="col-6" style="margin-top: 0.5rem; margin-bottom: 0.5rem;">
+      <div (click)="openTask(task)" class="task">
+        <div class="card-body">
+          <h5 class="card-title">{{ task.name }}</h5>
+          <div class="badges">
+            <span class="badge badge-{{ taskStatus[task.status].colorSelector }}">
+              {{ taskStatus[task.status].name }}
+            </span>
+            <span *ngIf="task.counters.comments > 0" class="badge badge-secondary">
+              <fa-icon [icon]="['fas', 'comment']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
+              <span class="ml-1">{{ task.counters.comments }}</span>
+            </span>
+            <span *ngIf="task.counters.attachments > 0" class="badge badge-secondary">
+              <fa-icon [icon]="['fas', 'paperclip']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
+              <span class="ml-1">{{ task.counters.attachments }}</span>
+            </span>
+            <span *ngIf="task.schedule_date" class="badge badge-deep-orange">
+              <fa-icon [icon]="['fas', 'clock']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
+              <span class="ml-1">{{ task.schedule_date | date:"MMM d, y" | titlecase }}</span>
+            </span>
+            <span *ngIf="task.place" class="badge badge-info">
+              <fa-icon [icon]="['fas', 'map-marker-alt']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
+              <span class="ml-1">{{ task.place.formatted_address }}</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </ngxMasonryItem>
+  </ngx-masonry>
+</ng-template>
+
 <div *ngIf="!loading" id="client">
   <div class="basic-info">
     <img class="photo" [src]="client.photo_url">
@@ -407,11 +440,11 @@
           </button>
         </div>
       </div>
-      <div *ngIf="client.payment_orders.length === 0" class="jumbotron mt-3 mb-0">
+      <div *ngIf="paymentOrders.length === 0" class="jumbotron mt-3 mb-0">
         <h5 class="mb-0 text-center">Nenhuma ordem registrada</h5>
       </div>
-      <div *ngIf="client.payment_orders.length > 0" class="row">
-        <div *ngFor="let paymentOrder of client.payment_orders; let idx = index; trackBy: trackByPaymentOrder" class="col-6 my-2">
+      <div *ngIf="paymentOrders.length > 0" class="row">
+        <div *ngFor="let paymentOrder of paymentOrders; trackBy: trackByPaymentOrder" class="col-6 my-2">
           <div class="payment">
             <div class="content">
               <div class="type">
@@ -491,39 +524,23 @@
           </button>
         </div>
       </div>
-      <div *ngIf="client.tasks.length === 0" class="jumbotron mt-3 mb-0">
+      <div *ngIf="tasks.length + planTasks.length === 0" class="jumbotron mt-3 mb-0">
         <h5 class="mb-0 text-center">Nenhuma atividade criada</h5>
       </div>
-      <ngx-masonry *ngIf="client.tasks.length > 0" [options]="masonryOptions" class="row">
-        <ngxMasonryItem *ngFor="let task of client.tasks; trackBy: trackByTask" class="col-6" style="margin-top: 0.5rem; margin-bottom: 0.5rem;">
-          <div (click)="openTask(task)" class="task">
-            <div class="card-body">
-              <h5 class="card-title">{{ task.name }}</h5>
-              <div class="badges">
-                <span class="badge badge-{{ taskStatus[task.status].colorSelector }}">
-                  {{ taskStatus[task.status].name }}
-                </span>
-                <span *ngIf="task.counters.comments > 0" class="badge badge-secondary">
-                  <fa-icon [icon]="['fas', 'comment']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
-                  <span class="ml-1">{{ task.counters.comments }}</span>
-                </span>
-                <span *ngIf="task.counters.attachments > 0" class="badge badge-secondary">
-                  <fa-icon [icon]="['fas', 'paperclip']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
-                  <span class="ml-1">{{ task.counters.attachments }}</span>
-                </span>
-                <span *ngIf="task.schedule_date" class="badge badge-deep-orange">
-                  <fa-icon [icon]="['fas', 'clock']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
-                  <span class="ml-1">{{ task.schedule_date | date:"MMM d, y" | titlecase }}</span>
-                </span>
-                <span *ngIf="task.place" class="badge badge-info">
-                  <fa-icon [icon]="['fas', 'map-marker-alt']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
-                  <span class="ml-1">{{ task.place.formatted_address }}</span>
-                </span>
-              </div>
-            </div>
-          </div>
-        </ngxMasonryItem>
-      </ngx-masonry>
+      <ng-container *ngIf="tasks.length > 0">
+        <ng-container *ngTemplateOutlet="taskTemplate; context: {tasks: tasks}"></ng-container>
+      </ng-container>
+      <ng-container *ngIf="client.plan && planTasks.length > 0">
+        <div class="text-center py-3">
+          <span
+            [ngStyle]="{'backgroundColor': getColor(client.plan.name)}"
+            class="badge font-small">
+            <fa-icon [icon]="['fas', 'dollar-sign']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
+            <span class="ml-1">{{ client.plan.name }}</span>
+          </span>
+        </div>
+        <ng-container *ngTemplateOutlet="taskTemplate; context: {tasks: planTasks}"></ng-container>
+      </ng-container>
     </div>
   </div>
   <div class="row mt-4">

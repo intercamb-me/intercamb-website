@@ -13,7 +13,7 @@ import {TaskAttachment} from 'app/models/task-attachment.model';
 @Injectable()
 export class TaskService {
 
-  constructor(private eventService: EventService, private http: HttpClient) {
+  constructor(private eventService: EventService, private httpClient: HttpClient) {
 
   }
 
@@ -23,7 +23,7 @@ export class TaskService {
     let params = new HttpParams();
     params = RequestUtils.fillOptionsParams(params, options);
     httpOptions.params = params;
-    return this.http.get<Task>(httpUrl, httpOptions).pipe(
+    return this.httpClient.get<Task>(httpUrl, httpOptions).pipe(
       map((taskData: Task) => new Task(taskData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
@@ -35,7 +35,7 @@ export class TaskService {
 
   public updateTask(task: Task, data: any): Observable<Task> {
     const httpUrl = RequestUtils.getApiUrl(`/tasks/${task.id}`);
-    return this.http.put<Task>(httpUrl, data, RequestUtils.getJsonOptions()).pipe(
+    return this.httpClient.put<Task>(httpUrl, data, RequestUtils.getJsonOptions()).pipe(
       map((taskData: Task) => new Task(taskData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
@@ -47,7 +47,7 @@ export class TaskService {
 
   public deleteTask(task: Task): Observable<void> {
     const httpUrl = RequestUtils.getApiUrl(`/tasks/${task.id}`);
-    return this.http.delete<void>(httpUrl, RequestUtils.getJsonOptions()).pipe(
+    return this.httpClient.delete<void>(httpUrl, RequestUtils.getJsonOptions()).pipe(
       map(() => null),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
@@ -59,7 +59,7 @@ export class TaskService {
 
   public addTaskComment(task: Task, text: string): Observable<TaskComment> {
     const httpUrl = RequestUtils.getApiUrl(`/tasks/${task.id}/comments`);
-    return this.http.post<TaskComment>(httpUrl, {text}, RequestUtils.getJsonOptions()).pipe(
+    return this.httpClient.post<TaskComment>(httpUrl, {text}, RequestUtils.getJsonOptions()).pipe(
       map((commentData: TaskComment) => new TaskComment(commentData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
@@ -73,7 +73,7 @@ export class TaskService {
     const httpUrl = RequestUtils.getApiUrl(`/tasks/${task.id}/attachments`);
     const formData = new FormData();
     formData.append('file', file);
-    return this.http.post<TaskAttachment>(httpUrl, formData, RequestUtils.getOptions()).pipe(
+    return this.httpClient.post<TaskAttachment>(httpUrl, formData, RequestUtils.getOptions()).pipe(
       map((attachmentData: TaskAttachment) => new TaskAttachment(attachmentData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);

@@ -16,13 +16,13 @@ import {Task} from 'app/models/task.model';
 @Injectable()
 export class CompanyService {
 
-  constructor(private eventService: EventService, private http: HttpClient) {
+  constructor(private eventService: EventService, private httpClient: HttpClient) {
 
   }
 
   public listAllInstitutions(): Observable<Institution[]> {
     const httpUrl = RequestUtils.getApiUrl('/companies/institutions');
-    return this.http.get<Institution[]>(httpUrl, RequestUtils.getJsonOptions()).pipe(
+    return this.httpClient.get<Institution[]>(httpUrl, RequestUtils.getJsonOptions()).pipe(
       map((institutionsData: Institution[]) => {
         const institutions: Institution[] = [];
         institutionsData.forEach((institutionData) => {
@@ -40,7 +40,7 @@ export class CompanyService {
 
   public createCompany(data: any): Observable<Company> {
     const httpUrl = RequestUtils.getApiUrl('/companies');
-    return this.http.post<Company>(httpUrl, data, RequestUtils.getJsonOptions()).pipe(
+    return this.httpClient.post<Company>(httpUrl, data, RequestUtils.getJsonOptions()).pipe(
       map((companyData: Company) => new Company(companyData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
@@ -56,7 +56,7 @@ export class CompanyService {
     let params = new HttpParams();
     params = RequestUtils.fillOptionsParams(params, options);
     httpOptions.params = params;
-    return this.http.get<Company>(httpUrl, httpOptions).pipe(
+    return this.httpClient.get<Company>(httpUrl, httpOptions).pipe(
       map((companyData: Company) => companyData ? new Company(companyData) : null),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
@@ -68,7 +68,7 @@ export class CompanyService {
 
   public updateCompany(data: any): Observable<Company> {
     const httpUrl = RequestUtils.getApiUrl('/companies/current');
-    return this.http.put<Company>(httpUrl, data, RequestUtils.getJsonOptions()).pipe(
+    return this.httpClient.put<Company>(httpUrl, data, RequestUtils.getJsonOptions()).pipe(
       map((companyData: Company) => new Company(companyData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
@@ -82,7 +82,7 @@ export class CompanyService {
     const httpUrl = RequestUtils.getApiUrl('/companies/current/logo');
     const formData = new FormData();
     formData.append('logo', logo);
-    return this.http.put<Company>(httpUrl, formData, RequestUtils.getOptions()).pipe(
+    return this.httpClient.put<Company>(httpUrl, formData, RequestUtils.getOptions()).pipe(
       map((companyData: Company) => new Company(companyData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
@@ -94,7 +94,7 @@ export class CompanyService {
 
   public removeAccount(account: Account): Observable<void> {
     const httpUrl = RequestUtils.getApiUrl(`/companies/current/accounts/${account.id}`);
-    return this.http.delete<void>(httpUrl, RequestUtils.getJsonOptions()).pipe(
+    return this.httpClient.delete<void>(httpUrl, RequestUtils.getJsonOptions()).pipe(
       map(() => null),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
@@ -115,10 +115,10 @@ export class CompanyService {
     }
     params = RequestUtils.fillOptionsParams(params, options);
     httpOptions.params = params;
-    return this.http.get<Client[]>(httpUrl, httpOptions).pipe(
+    return this.httpClient.get<Client[]>(httpUrl, httpOptions).pipe(
       map((clientsData: Client[]) => {
         const clients: Client[] = [];
-        clientsData.forEach((clientData: any) => {
+        clientsData.forEach((clientData) => {
           clients.push(new Client(clientData));
         });
         return clients;
@@ -137,10 +137,10 @@ export class CompanyService {
     let params = new HttpParams();
     params = RequestUtils.fillOptionsParams(params, options);
     httpOptions.params = params;
-    return this.http.get<Client[]>(httpUrl, httpOptions).pipe(
+    return this.httpClient.get<Client[]>(httpUrl, httpOptions).pipe(
       map((clientsData: Client[]) => {
         const clients: Client[] = [];
-        clientsData.forEach((clientData: any) => {
+        clientsData.forEach((clientData) => {
           clients.push(new Client(clientData));
         });
         return clients;
@@ -155,7 +155,7 @@ export class CompanyService {
 
   public countClients(): Observable<number> {
     const httpUrl = RequestUtils.getApiUrl('/companies/current/clients/count');
-    return this.http.get<number>(httpUrl, RequestUtils.getJsonOptions()).pipe(
+    return this.httpClient.get<number>(httpUrl, RequestUtils.getJsonOptions()).pipe(
       map((countData: any) => {
         return countData.count;
       }),
@@ -174,10 +174,10 @@ export class CompanyService {
     params = params.set('search', search);
     params = RequestUtils.fillOptionsParams(params, options);
     httpOptions.params = params;
-    return this.http.get<Client[]>(httpUrl, httpOptions).pipe(
+    return this.httpClient.get<Client[]>(httpUrl, httpOptions).pipe(
       map((clientsData: Client[]) => {
         const clients: Client[] = [];
-        clientsData.forEach((clientData: any) => {
+        clientsData.forEach((clientData) => {
           clients.push(new Client(clientData));
         });
         return clients;
@@ -198,7 +198,7 @@ export class CompanyService {
     params = params.set('end_time', String(endDate.getTime()));
     params = RequestUtils.fillOptionsParams(params, options);
     httpOptions.params = params;
-    return this.http.get<Task[]>(httpUrl, httpOptions).pipe(
+    return this.httpClient.get<Task[]>(httpUrl, httpOptions).pipe(
       map((tasksData: Task[]) => {
         const tasks: Task[] = [];
         tasksData.forEach((taskData: any) => {
@@ -220,7 +220,7 @@ export class CompanyService {
     let params = new HttpParams();
     params = RequestUtils.fillOptionsParams(params, options);
     httpOptions.params = params;
-    return this.http.get<PaymentOrder[]>(httpUrl, httpOptions).pipe(
+    return this.httpClient.get<PaymentOrder[]>(httpUrl, httpOptions).pipe(
       map((paymentOrdersData: PaymentOrder[]) => {
         const paymentOrders: PaymentOrder[] = [];
         paymentOrdersData.forEach((paymentOrderData: any) => {
@@ -242,7 +242,7 @@ export class CompanyService {
     let params = new HttpParams();
     params = RequestUtils.fillOptionsParams(params, options);
     httpOptions.params = params;
-    return this.http.get<PaymentOrder[]>(httpUrl, httpOptions).pipe(
+    return this.httpClient.get<PaymentOrder[]>(httpUrl, httpOptions).pipe(
       map((paymentOrdersData: PaymentOrder[]) => {
         const paymentOrders: PaymentOrder[] = [];
         paymentOrdersData.forEach((paymentOrderData: any) => {
@@ -259,7 +259,7 @@ export class CompanyService {
   }
   public getClientsPerMonthReport(): Observable<any> {
     const httpUrl = RequestUtils.getApiUrl('/companies/current/reports/clients_per_month');
-    return this.http.get<any>(httpUrl, RequestUtils.getJsonOptions()).pipe(
+    return this.httpClient.get<any>(httpUrl, RequestUtils.getJsonOptions()).pipe(
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
         this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
@@ -270,7 +270,7 @@ export class CompanyService {
 
   public getClientsPerPlanReport(): Observable<any> {
     const httpUrl = RequestUtils.getApiUrl('/companies/current/reports/clients_per_plan');
-    return this.http.get<any>(httpUrl, RequestUtils.getJsonOptions()).pipe(
+    return this.httpClient.get<any>(httpUrl, RequestUtils.getJsonOptions()).pipe(
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
         this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
@@ -281,7 +281,7 @@ export class CompanyService {
 
   public getBillingPerMonthReport(): Observable<any> {
     const httpUrl = RequestUtils.getApiUrl('/companies/current/reports/billing_per_month');
-    return this.http.get<any>(httpUrl, RequestUtils.getJsonOptions()).pipe(
+    return this.httpClient.get<any>(httpUrl, RequestUtils.getJsonOptions()).pipe(
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
         this.eventService.publish(EventService.EVENT_API_ERROR, apiError);

@@ -187,7 +187,7 @@
         <div class="row">
           <div class="col">
             <span *ngFor="let defaultTask of defaultTasks; trackBy: trackByDefaultTask" class="badge badge-secondary font-small mb-2 mr-2">
-              {{ defaultTask }}
+              {{ defaultTask.name }}
             </span>
           </div>
         </div>
@@ -249,20 +249,34 @@
                   class="mb-0 px-3 py-4 text-center text-white">
                   {{ plan.price | currency:company.currency }}
                 </h4>
-                <div class="actions">
-                  <fa-icon
-                    [icon]="['fas', 'pen']"
-                    [fixedWidth]="true"
-                    (click)="openSavePlan(plan)"
-                    title="Editar">
-                  </fa-icon>
-                  <fa-icon
-                    [icon]="['fas', 'trash']"
-                    [fixedWidth]="true"
-                    (click)="openDeletePlan(plan)"
-                    title="Remover"
-                    class="ml-2">
-                  </fa-icon>
+                <div class="bottom">
+                  <div class="badges">
+                    <span
+                      *ngIf="plan.default_tasks.length === 1"
+                      class="badge badge-secondary">
+                      {{ plan.default_tasks.length }} atividade
+                    </span>
+                    <span
+                      *ngIf="plan.default_tasks.length > 1"
+                      class="badge badge-secondary">
+                      {{ plan.default_tasks.length }} atividades
+                    </span>
+                  </div>
+                  <div class="actions">
+                    <fa-icon
+                      [icon]="['fas', 'pen']"
+                      [fixedWidth]="true"
+                      (click)="openSavePlan(plan)"
+                      title="Editar">
+                    </fa-icon>
+                    <fa-icon
+                      [icon]="['fas', 'trash']"
+                      [fixedWidth]="true"
+                      (click)="openDeletePlan(plan)"
+                      title="Remover"
+                      class="ml-2">
+                    </fa-icon>
+                  </div>
                 </div>
               </div>
             </div>

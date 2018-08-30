@@ -11,13 +11,13 @@ import {PaymentOrder} from 'app/models/payment-order.model';
 @Injectable()
 export class PaymentService {
 
-  constructor(private eventService: EventService, private http: HttpClient) {
+  constructor(private eventService: EventService, private httpClient: HttpClient) {
 
   }
 
   public getPaymentOrder(id: string): Observable<PaymentOrder> {
     const httpUrl = RequestUtils.getApiUrl(`/payment_orders/${id}`);
-    return this.http.get<PaymentOrder>(httpUrl, RequestUtils.getJsonOptions()).pipe(
+    return this.httpClient.get<PaymentOrder>(httpUrl, RequestUtils.getJsonOptions()).pipe(
       map((paymentOrderData: PaymentOrder) => new PaymentOrder(paymentOrderData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
@@ -29,7 +29,7 @@ export class PaymentService {
 
   public updatePaymentOrder(paymentOrder: PaymentOrder, data: any): Observable<PaymentOrder> {
     const httpUrl = RequestUtils.getApiUrl(`/payment_orders/${paymentOrder.id}`);
-    return this.http.put<PaymentOrder>(httpUrl, data, RequestUtils.getJsonOptions()).pipe(
+    return this.httpClient.put<PaymentOrder>(httpUrl, data, RequestUtils.getJsonOptions()).pipe(
       map((paymentOrderData: PaymentOrder) => new PaymentOrder(paymentOrderData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
@@ -41,7 +41,7 @@ export class PaymentService {
 
   public deletePaymentOrder(paymentOrder: PaymentOrder): Observable<void> {
     const httpUrl = RequestUtils.getApiUrl(`/payment_orders/${paymentOrder.id}`);
-    return this.http.delete<void>(httpUrl, RequestUtils.getJsonOptions()).pipe(
+    return this.httpClient.delete<void>(httpUrl, RequestUtils.getJsonOptions()).pipe(
       map(() => null),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);

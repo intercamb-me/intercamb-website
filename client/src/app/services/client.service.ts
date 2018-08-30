@@ -16,7 +16,7 @@ import {Token} from 'app/models/token.model';
 @Injectable()
 export class ClientService {
 
-  constructor(private eventService: EventService, private http: HttpClient) {
+  constructor(private eventService: EventService, private httpClient: HttpClient) {
 
   }
 
@@ -28,7 +28,7 @@ export class ClientService {
       params = params.set('token', token.id);
     }
     httpOptions.params = params;
-    return this.http.post<Client>(httpUrl, data, httpOptions).pipe(
+    return this.httpClient.post<Client>(httpUrl, data, httpOptions).pipe(
       map((clientData: Client) => new Client(clientData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
@@ -44,7 +44,7 @@ export class ClientService {
     let params = new HttpParams();
     params = RequestUtils.fillOptionsParams(params, options);
     httpOptions.params = params;
-    return this.http.get<Client>(httpUrl, httpOptions).pipe(
+    return this.httpClient.get<Client>(httpUrl, httpOptions).pipe(
       map((clientData: Client) => new Client(clientData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
@@ -56,7 +56,7 @@ export class ClientService {
 
   public updateClient(client: Client, data: any): Observable<Client> {
     const httpUrl = RequestUtils.getApiUrl(`/clients/${client.id}`);
-    return this.http.put<Client>(httpUrl, data, RequestUtils.getJsonOptions()).pipe(
+    return this.httpClient.put<Client>(httpUrl, data, RequestUtils.getJsonOptions()).pipe(
       map((clientData: Client) => new Client(clientData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
@@ -70,7 +70,7 @@ export class ClientService {
     const httpUrl = RequestUtils.getApiUrl(`/clients/${client.id}/photo`);
     const formData = new FormData();
     formData.append('photo', photo);
-    return this.http.put<Client>(httpUrl, formData, RequestUtils.getOptions()).pipe(
+    return this.httpClient.put<Client>(httpUrl, formData, RequestUtils.getOptions()).pipe(
       map((clientData: Client) => new Client(clientData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
@@ -82,7 +82,7 @@ export class ClientService {
 
   public deleteClient(client: Client): Observable<void> {
     const httpUrl = RequestUtils.getApiUrl(`/clients/${client.id}`);
-    return this.http.delete<void>(httpUrl, RequestUtils.getJsonOptions()).pipe(
+    return this.httpClient.delete<void>(httpUrl, RequestUtils.getJsonOptions()).pipe(
       map(() => null),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
@@ -94,7 +94,7 @@ export class ClientService {
 
   public associatePlan(client: Client, plan: Plan): Observable<void> {
     const httpUrl = RequestUtils.getApiUrl(`/clients/${client.id}/plans/${plan.id}`);
-    return this.http.post<void>(httpUrl, {}, RequestUtils.getJsonOptions()).pipe(
+    return this.httpClient.post<void>(httpUrl, {}, RequestUtils.getJsonOptions()).pipe(
       map(() => null),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
@@ -106,7 +106,7 @@ export class ClientService {
 
   public dissociatePlan(client: Client): Observable<void> {
     const httpUrl = RequestUtils.getApiUrl(`/clients/${client.id}/plans`);
-    return this.http.delete<void>(httpUrl, RequestUtils.getJsonOptions()).pipe(
+    return this.httpClient.delete<void>(httpUrl, RequestUtils.getJsonOptions()).pipe(
       map(() => null),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
@@ -118,7 +118,7 @@ export class ClientService {
 
   public createPaymentOrders(client: Client, paymentOrders: PaymentOrder[]): Observable<PaymentOrder[]> {
     const httpUrl = RequestUtils.getApiUrl(`/clients/${client.id}/payment_orders`);
-    return this.http.post<PaymentOrder>(httpUrl, paymentOrders, RequestUtils.getJsonOptions()).pipe(
+    return this.httpClient.post<PaymentOrder>(httpUrl, paymentOrders, RequestUtils.getJsonOptions()).pipe(
       map((ordersData: PaymentOrder[]) => {
         const orders: PaymentOrder[] = [];
         ordersData.forEach((orderData) => {
@@ -136,8 +136,30 @@ export class ClientService {
 
   public createTask(client: Client, name: string): Observable<PaymentOrder[]> {
     const httpUrl = RequestUtils.getApiUrl(`/clients/${client.id}/tasks`);
-    return this.http.post<PaymentOrder>(httpUrl, {name}, RequestUtils.getJsonOptions()).pipe(
+    return this.httpClient.post<PaymentOrder>(httpUrl, {name}, RequestUtils.getJsonOptions()).pipe(
       map((taskData: Task) => new Task(taskData)),
+      catchError((err: HttpErrorResponse) => {
+        const apiError = ApiError.withResponse(err);
+        this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
+        return throwError(apiError);
+      })
+    );
+  }
+
+  public listTasks(client: Client, options?: any): Observable<Task[]> {
+    const httpUrl = RequestUtils.getApiUrl(`/clients/${client.id}/tasks`);
+    const httpOptions = RequestUtils.getJsonOptions();
+    let params = new HttpParams();
+    params = RequestUtils.fillOptionsParams(params, options);
+    httpOptions.params = params;
+    return this.httpClient.get<Task[]>(httpUrl, httpOptions).pipe(
+      map((tasksData: Task[]) => {
+        const tasks: Task[] = [];
+        tasksData.forEach((taskData) => {
+          tasks.push(new Task(taskData));
+        });
+        return tasks;
+      }),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
         this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
@@ -148,7 +170,7 @@ export class ClientService {
 
   public searchAddress(zipCode: string): Observable<Address> {
     const httpUrl = RequestUtils.getApiUrl(`/zip_codes/${zipCode}`);
-    return this.http.get<Address>(httpUrl, RequestUtils.getJsonOptions()).pipe(
+    return this.httpClient.get<Address>(httpUrl, RequestUtils.getJsonOptions()).pipe(
       map((zipCodeData: Address) => new Address(zipCodeData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);

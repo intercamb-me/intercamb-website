@@ -1,7 +1,9 @@
-<div *ngIf="!loading" id="save-tasks">
-  <form #form="ngForm" (ngSubmit)="addDefaultTask()" novalidate>
+<app-edit-default-task *ngIf="selectedDefaultTask" [defaultTask]="selectedDefaultTask" (save)="saveDefaultTask($event)" (back)="backToDefaultTasks()"></app-edit-default-task>
+
+<div *ngIf="!loading && !selectedDefaultTask" id="save-default-tasks">
+  <form #form="ngForm" (ngSubmit)="saveDefaultTasks()" novalidate>
     <div class="modal-header">
-      <h4 class="modal-title">Atualizar atividades padrões</h4>
+      <h4 class="modal-title">Atividades padrões</h4>
       <button (click)="close()" type="button" class="close" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -10,41 +12,49 @@
       <div class="form-row">
         <div class="col form-group">
           <input
-            [(ngModel)]="taskName"
-            id="name"
-            name="name"
+            [(ngModel)]="newDefaultTask.name"
+            (keydown.enter)="addDefaultTask(); false"
+            name="task-name"
             type="text"
             class="form-control"
-            minlength="3">
+            placeholder="Nome da atividade">
         </div>
         <div class="col-auto form-group">
           <button
+            [disabled]="!newDefaultTask.name"
+            (click)="addDefaultTask()"
             class="btn btn-primary"
-            type="submit">
+            type="button">
             Adicionar
           </button>
         </div>
       </div>
       <div>
         <span *ngFor="let defaultTask of defaultTasks" class="badge badge-secondary mb-2 mr-2">
-          {{ defaultTask }}
+          {{ defaultTask.name }}
+          <fa-icon
+            [icon]="['fas', 'pen']"
+            [fixedWidth]="true"
+            (click)="editDefaultTask(defaultTask)"
+            title="Editar"
+            class="cursor-pointer ml-1">
+          </fa-icon>
           <fa-icon
             [icon]="['fas', 'times']"
             [fixedWidth]="true"
             (click)="removeDefaultTask(defaultTask)"
             title="Remover"
-            class="cursor-pointer ml-2">
+            class="cursor-pointer ml-1">
           </fa-icon>
         </span>
       </div>
     </div>
     <div class="modal-footer">
       <button
-        [disabled]="form.invalid || saving"
-        (click)="saveDefaultTasks()"
+        [disabled]="saving"
         class="btn btn-primary"
-        type="button">
-        Confirmar
+        type="submit">
+        Atualizar
       </button>
     </div>
   </form>

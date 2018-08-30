@@ -160,13 +160,22 @@
       .card-body();
       .px-0();
       .py-0();
-      > .actions {
+      > .bottom {
         .d-flex();
-        .justify-content-end();
+        .align-items-center();
         .px-3();
         .py-3();
-        font-size: 20px;
-        cursor: pointer;
+        > .badges {
+          .flex-grow-1();
+          > .badge {
+            .mr-2();
+            font-size: 14px;
+          }
+        }
+        > .actions {
+          font-size: 18px;
+          cursor: pointer;
+        }
       }
     }
   }
@@ -192,6 +201,74 @@
     }
     > .actions {
 
+    }
+  }
+}
+
+#edit-default-task {
+  .checklist {
+    .d-flex();
+    .align-items-center();
+    .title {
+      .ml-2();
+      .font-weight-bold();
+      &:focus {
+        border-color: #ced4da;
+        box-shadow: unset;
+      }
+      &[readonly] {
+        border: 0px;
+        background-color: transparent;
+        &:hover {
+          cursor: pointer;
+          background-color: #e9ecef;
+        }
+      }
+    }
+  }
+  .checklist-item {
+    .d-flex();
+    .align-items-center();
+    &:hover {
+      .btn-danger {
+        visibility: visible;
+      }
+    }
+    .name {
+      .ml-2();
+      &:focus {
+        border-color: #ced4da;
+        box-shadow: unset;
+      }
+      &[readonly] {
+        border: 0px;
+        background-color: transparent;
+        &:hover {
+          cursor: pointer;
+          background-color: #e9ecef;
+        }
+      }
+    }
+    .btn-danger {
+      visibility: hidden;
+    }
+  }
+  .checklist-new-item {
+    margin-left: 1.75rem;
+    > .name {
+      .font-small();
+      &:focus {
+        border-color: #ced4da;
+        box-shadow: unset;
+      }
+      &[readonly] {
+        border: 0px;
+        background-color: transparent;
+        &:hover {
+          cursor: pointer;
+          background-color: #e9ecef;
+        }
+      }
     }
   }
 }
@@ -492,13 +569,4 @@
       font-size: 18px;
     }
   }
-}
-
-#loading-bar-spinner {
-  left: unset !important;
-  right: 10px !important;
-}
-
-.pac-container {
-  z-index: 9999;
 }

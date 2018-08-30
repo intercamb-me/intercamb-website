@@ -11,13 +11,13 @@ import {Plan} from 'app/models/plan.model';
 @Injectable()
 export class PlanService {
 
-  constructor(private eventService: EventService, private http: HttpClient) {
+  constructor(private eventService: EventService, private httpClient: HttpClient) {
 
   }
 
-  public createPlan(name: string, price: number): Observable<Plan> {
+  public createPlan(data: any): Observable<Plan> {
     const httpUrl = RequestUtils.getApiUrl('/plans');
-    return this.http.post<Plan>(httpUrl, {name, price}, RequestUtils.getJsonOptions()).pipe(
+    return this.httpClient.post<Plan>(httpUrl, data, RequestUtils.getJsonOptions()).pipe(
       map((planData: Plan) => new Plan(planData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
@@ -29,7 +29,7 @@ export class PlanService {
 
   public getPlan(id: string): Observable<Plan> {
     const httpUrl = RequestUtils.getApiUrl(`/plans/${id}`);
-    return this.http.get<Plan>(httpUrl, RequestUtils.getJsonOptions()).pipe(
+    return this.httpClient.get<Plan>(httpUrl, RequestUtils.getJsonOptions()).pipe(
       map((planData: Plan) => new Plan(planData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
@@ -41,7 +41,7 @@ export class PlanService {
 
   public updatePlan(plan: Plan, data: any): Observable<Plan> {
     const httpUrl = RequestUtils.getApiUrl(`/plans/${plan.id}`);
-    return this.http.put<Plan>(httpUrl, data, RequestUtils.getJsonOptions()).pipe(
+    return this.httpClient.put<Plan>(httpUrl, data, RequestUtils.getJsonOptions()).pipe(
       map((planData: Plan) => new Plan(planData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
@@ -53,7 +53,7 @@ export class PlanService {
 
   public deletePlan(plan: Plan): Observable<void> {
     const httpUrl = RequestUtils.getApiUrl(`/plans/${plan.id}`);
-    return this.http.delete<void>(httpUrl, RequestUtils.getJsonOptions()).pipe(
+    return this.httpClient.delete<void>(httpUrl, RequestUtils.getJsonOptions()).pipe(
       map(() => null),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);

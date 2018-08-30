@@ -17,7 +17,7 @@ interface LoginResult {
 @Injectable()
 export class AccountService {
 
-  constructor(private eventService: EventService, private http: HttpClient) {
+  constructor(private eventService: EventService, private httpClient: HttpClient) {
 
   }
 
@@ -29,7 +29,7 @@ export class AccountService {
       params = params.set('invitation', invitation);
     }
     httpOptions.params = params;
-    return this.http.post<Account>(httpUrl, {email, password, first_name: firstName, last_name: lastName}, httpOptions).pipe(
+    return this.httpClient.post<Account>(httpUrl, {email, password, first_name: firstName, last_name: lastName}, httpOptions).pipe(
       map((accountData: Account) => new Account(accountData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
@@ -41,7 +41,7 @@ export class AccountService {
 
   public getAccount(): Observable<Account> {
     const httpUrl = RequestUtils.getApiUrl('/accounts/current');
-    return this.http.get<Account>(httpUrl, RequestUtils.getJsonOptions()).pipe(
+    return this.httpClient.get<Account>(httpUrl, RequestUtils.getJsonOptions()).pipe(
       map((accountData: Account) => accountData ? new Account(accountData) : null),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
@@ -53,7 +53,7 @@ export class AccountService {
 
   public updateAccount(data: any): Observable<Account> {
     const httpUrl = RequestUtils.getApiUrl('/accounts/current');
-    return this.http.put<Account>(httpUrl, data, RequestUtils.getJsonOptions()).pipe(
+    return this.httpClient.put<Account>(httpUrl, data, RequestUtils.getJsonOptions()).pipe(
       map((accountData: Account) => new Account(accountData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
@@ -67,7 +67,7 @@ export class AccountService {
     const httpUrl = RequestUtils.getApiUrl('/accounts/current/image');
     const formData = new FormData();
     formData.append('image', image);
-    return this.http.put<Account>(httpUrl, formData, RequestUtils.getOptions()).pipe(
+    return this.httpClient.put<Account>(httpUrl, formData, RequestUtils.getOptions()).pipe(
       map((accountData: Account) => new Account(accountData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
@@ -79,7 +79,7 @@ export class AccountService {
 
   public login(email: string, password: string): Observable<Account> {
     const httpUrl = RequestUtils.getApiUrl('/accounts/login');
-    return this.http.post<LoginResult>(httpUrl, {email, password}, RequestUtils.getJsonOptions()).pipe(
+    return this.httpClient.post<LoginResult>(httpUrl, {email, password}, RequestUtils.getJsonOptions()).pipe(
       map((loginData: LoginResult) => {
         StorageUtils.setApiToken(loginData.token);
         return new Account(loginData.account);
@@ -94,7 +94,7 @@ export class AccountService {
 
   public logout(): Observable<void> {
     const httpUrl = RequestUtils.getApiUrl('/accounts/logout');
-    return this.http.post<void>(httpUrl, null, RequestUtils.getJsonOptions()).pipe(
+    return this.httpClient.post<void>(httpUrl, null, RequestUtils.getJsonOptions()).pipe(
       map(() => {
         StorageUtils.removeApiToken();
         return null;

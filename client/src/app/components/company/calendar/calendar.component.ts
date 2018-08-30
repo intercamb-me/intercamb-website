@@ -60,10 +60,6 @@ export class CalendarComponent implements OnInit {
     popover.open({event});
   }
 
-  public closeEventGroupPopover(popover: NgbPopover): void {
-    popover.close();
-  }
-
   public setCalendarView(view: string): void {
     this.calendarView = view;
     this.fetchEvents();

@@ -1,5 +1,7 @@
-<div id="save-plan">
-  <form #form="ngForm" novalidate>
+<app-edit-default-task *ngIf="selectedDefaultTask" [defaultTask]="selectedDefaultTask" (save)="saveDefaultTask($event)" (back)="backToDefaultTasks()"></app-edit-default-task>
+
+<div *ngIf="!loading && !selectedDefaultTask" id="save-plan">
+  <form #form="ngForm" (ngSubmit)="!plan.id ? createPlan() : updatePlan()" novalidate>
     <div class="modal-header">
       <h4 *ngIf="!plan.id" class="modal-title">Cadastrar plano</h4>
       <h4 *ngIf="plan.id" class="modal-title">Atualizar plano</h4>
@@ -35,22 +37,62 @@
             required>
         </div>
       </div>
+      <div class="form-group mb-0">
+        <label>Atividades padrões</label>
+        <div class="form-row">
+          <div class="col form-group">
+            <input
+              [(ngModel)]="newDefaultTask.name"
+              (keydown.enter)="addDefaultTask(); false"
+              name="task-name"
+              type="text"
+              class="form-control"
+              placeholder="Nome da atividade">
+          </div>
+          <div class="col-auto form-group">
+            <button
+              [disabled]="!newDefaultTask.name"
+              (click)="addDefaultTask()"
+              class="btn btn-primary"
+              type="button">
+              Adicionar
+            </button>
+          </div>
+        </div>
+        <div>
+          <span *ngFor="let defaultTask of defaultTasks" class="badge badge-secondary mb-2 mr-2">
+            {{ defaultTask.name }}
+            <fa-icon
+              [icon]="['fas', 'pen']"
+              [fixedWidth]="true"
+              (click)="editDefaultTask(defaultTask)"
+              title="Editar"
+              class="cursor-pointer ml-1">
+            </fa-icon>
+            <fa-icon
+              [icon]="['fas', 'times']"
+              [fixedWidth]="true"
+              (click)="removeDefaultTask(defaultTask)"
+              title="Remover"
+              class="cursor-pointer ml-1">
+            </fa-icon>
+          </span>
+        </div>
+      </div>
     </div>
     <div class="modal-footer">
       <button
         *ngIf="!plan.id"
         [disabled]="form.invalid || saving"
-        (click)="createPlan()"
         class="btn btn-primary"
-        type="button">
+        type="submit">
         Cadastrar
       </button>
       <button
         *ngIf="plan.id"
         [disabled]="form.invalid || saving"
-        (click)="updatePlan()"
         class="btn btn-primary"
-        type="button">
+        type="submit">
         Atualizar
       </button>
     </div>

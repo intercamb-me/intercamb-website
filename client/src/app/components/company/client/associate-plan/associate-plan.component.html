@@ -1,56 +1,103 @@
 <div *ngIf="!loading" id="associate-plan">
   <form novalidate>
     <div class="modal-header">
-      <h4 *ngIf="!client.plan" class="modal-title">Associar plano</h4>
-      <h4 *ngIf="client.plan" class="modal-title">Alterar plano</h4>
+      <ng-container *ngIf="choosing">
+        <h4>Associar plano</h4>
+      </ng-container>
+      <ng-container *ngIf="disassociating">
+        <h4 class="modal-title">Desassociar plano</h4>
+      </ng-container>
+      <ng-container *ngIf="changing">
+        <h4>Alterar plano</h4>
+      </ng-container>
       <button (click)="close()" type="button" class="close" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <div class="modal-body">
-      <div *ngIf="company.plans.length > 0" class="row">
-        <div *ngFor="let plan of company.plans; trackBy: trackByPlan" (click)="selectPlan(plan)" class="col-6 col-lg-4 mb-3 cursor-pointer">
-          <div [ngClass]="{'selected': selectedPlan && selectedPlan.id === plan.id}" class="plan">
-            <div class="content">
-              <h5 class="mb-0 px-3 py-2">{{ plan.name }}</h5>
-              <h4
-                [ngStyle]="{'backgroundColor': getColor(plan.name)}"
-                class="mb-0 px-3 py-4 text-center text-white">
-                {{ plan.price | currency:company.currency }}
-              </h4>
+      <ng-container *ngIf="choosing">
+        <div *ngIf="company.plans.length > 0" class="row">
+          <div *ngFor="let plan of company.plans; trackBy: trackByPlan" (click)="selectPlan(plan)" class="col-6 col-lg-4 my-2 cursor-pointer">
+            <div [ngClass]="{'selected': selectedPlan && selectedPlan.id === plan.id}" class="plan">
+              <div class="content">
+                <h5 class="mb-0 px-3 py-2">{{ plan.name }}</h5>
+                <h4
+                  [ngStyle]="{'backgroundColor': getColor(plan.name)}"
+                  class="mb-0 px-3 py-4 text-center text-white">
+                  {{ plan.price | currency:company.currency }}
+                </h4>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div *ngIf="company.plans.length === 0">
-        <p class="mb-0">Nenhum plano cadastrado. Clique <a [routerLink]="['/company', 'settings']" (click)="close()" class="text-primary">aqui</a> para cadastrar os planos oferecidos por sua empresa.</p>
-      </div>
+        <p *ngIf="company.plans.length === 0" class="mb-0">
+          Nenhum plano cadastrado. Clique <a [routerLink]="['/company', 'settings']" (click)="close()" class="text-primary">aqui</a> para cadastrar os planos oferecidos por sua empresa.
+        </p>
+      </ng-container>
+      <ng-container *ngIf="disassociating">
+        <p class="mb-0">Tem certeza que deseja desassociar o plano <b>"{{ selectedPlan.name }}"</b> deste cliente? Todas as atividades associadas a este plano serão removidas.</p>
+      </ng-container>
+      <ng-container *ngIf="changing">
+        <p class="mb-0">Tem certeza que deseja alterar o atual plano do cliente para <b>"{{ selectedPlan.name }}"</b>? Todas as atividades associadas ao plano atual serão removidas.</p>
+      </ng-container>
     </div>
     <div *ngIf="company.plans.length > 0" class="modal-footer">
-      <button
-        *ngIf="!client.plan"
-        [disabled]="!selectedPlan || updating"
-        (click)="associatePlan()"
-        type="button"
-        class="btn btn-primary">
-        Associar
-      </button>
-      <button
-        *ngIf="client.plan && client.plan === selectedPlan.id"
-        [disabled]="updating"
-        (click)="dissociatePlan()"
-        type="button"
-        class="btn btn-danger">
-        Desassociar
-      </button>
-      <button
-        *ngIf="client.plan && client.plan !== selectedPlan.id"
-        [disabled]="updating"
-        (click)="associatePlan()"
-        type="button"
-        class="btn btn-primary">
-        Alterar
-      </button>
+      <ng-container *ngIf="choosing">
+        <button
+          *ngIf="!client.plan_id"
+          [disabled]="!selectedPlan"
+          (click)="associatePlan()"
+          type="button"
+          class="btn btn-primary">
+          Associar
+        </button>
+        <button
+          *ngIf="client.plan_id && client.plan_id === selectedPlan.id"
+          (click)="confirmDisassociation()"
+          type="button"
+          class="btn btn-danger">
+          Desassociar
+        </button>
+        <button
+          *ngIf="client.plan_id && client.plan_id !== selectedPlan.id"
+          (click)="confirmChange()"
+          type="button"
+          class="btn btn-primary">
+          Alterar
+        </button>
+      </ng-container>
+      <ng-container *ngIf="disassociating">
+        <button
+          [disabled]="updating"
+          (click)="backToPlans()"
+          type="button"
+          class="btn btn-secondary">
+          Voltar
+        </button>
+        <button
+          [disabled]="updating"
+          (click)="dissociatePlan()"
+          type="button"
+          class="btn btn-primary">
+          Confirmar
+        </button>
+      </ng-container>
+      <ng-container *ngIf="changing">
+        <button
+          [disabled]="updating"
+          (click)="backToPlans()"
+          type="button"
+          class="btn btn-secondary">
+          Voltar
+        </button>
+        <button
+          [disabled]="updating"
+          (click)="associatePlan()"
+          type="button"
+          class="btn btn-primary">
+          Confirmar
+        </button>
+      </ng-container>
     </div>
   </form>
 </div>

@@ -14,8 +14,7 @@
       [ngbPopover]="monthEventPopoverTemplate"
       [style.background-color]="event.color.primary"
       (mouseenter)="openEventGroupPopover(eventGroupPopover, event)"
-      (mouseleave)="closeEventGroupPopover(eventGroupPopover)"
-      triggers="manual"
+      triggers="mouseenter:mouseleave"
       class="badge mx-1 my-1">
       {{ event.meta.tasks.length }}
     </span>

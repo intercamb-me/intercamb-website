@@ -32,6 +32,9 @@ export class ClientComponent implements OnInit {
 
   public company: Company;
   public client: Client;
+  public paymentOrders: PaymentOrder[];
+  public tasks: Task[];
+  public planTasks: Task[];
   public infoStep = 0;
   public loading = true;
   public paymentMethods = Constants.PAYMENT_METHODS;
@@ -57,6 +60,8 @@ export class ClientComponent implements OnInit {
       })
     ).subscribe((client) => {
       this.client = client;
+      this.paymentOrders = client.payment_orders;
+      this.setTasks(client.tasks);
       this.loading = false;
     }, (err) => {
       if (err.code === ErrorUtils.CLIENT_NOT_FOUND) {
@@ -77,10 +82,12 @@ export class ClientComponent implements OnInit {
     return task.id;
   }
 
-  public getAge(): number {
-    const ageDiff = Date.now() - this.client.personal_data.birthdate.getTime();
-    const ageDate = new Date(ageDiff);
-    return Math.abs(ageDate.getUTCFullYear() - 1970);
+  public nextInfoStep(): void {
+    this.infoStep += 1;
+  }
+
+  public previousInfoStep(): void {
+    this.infoStep = this.infoStep - 1;
   }
 
   public hasIdentityDocument(): boolean {
@@ -99,12 +106,10 @@ export class ClientComponent implements OnInit {
     return false;
   }
 
-  public nextInfoStep(): void {
-    this.infoStep += 1;
-  }
-
-  public previousInfoStep(): void {
-    this.infoStep = this.infoStep - 1;
+  public getAge(): number {
+    const ageDiff = Date.now() - this.client.personal_data.birthdate.getTime();
+    const ageDate = new Date(ageDiff);
+    return Math.abs(ageDate.getUTCFullYear() - 1970);
   }
 
   public isOverduePayment(paymentOrder: PaymentOrder): boolean {
@@ -124,6 +129,11 @@ export class ClientComponent implements OnInit {
         this.client.plan = null;
         this.client.plan_id = null;
       }
+      this.clientService.listTasks(this.client).subscribe((tasks) => {
+        this.setTasks(tasks);
+      }, (err) => {
+        this.alertService.apiError(null, err, 'Não foi possível atualizar as atividades, por favor recarregue a página!');
+      });
     }).catch(() => {
       // Nothing to do...
     });
@@ -217,6 +227,18 @@ export class ClientComponent implements OnInit {
       this.router.navigate(['/company', 'clients']);
     }).catch(() => {
       // Nothing to do...
+    });
+  }
+
+  private setTasks(tasks: Task[]): void {
+    this.tasks = [];
+    this.planTasks = [];
+    tasks.forEach((task) => {
+      if (task.plan_id) {
+        this.planTasks.push(task);
+      } else {
+        this.tasks.push(task);
+      }
     });
   }
 }

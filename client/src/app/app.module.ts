@@ -4,7 +4,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HttpClientModule} from '@angular/common/http';
 import {RouterModule} from '@angular/router';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {registerLocaleData} from '@angular/common';
 import pt from '@angular/common/locales/pt';
 
@@ -30,6 +30,7 @@ import {faCalendarAlt} from '@fortawesome/free-solid-svg-icons/faCalendarAlt';
 import {faChartLine} from '@fortawesome/free-solid-svg-icons/faChartLine';
 import {faCheck} from '@fortawesome/free-solid-svg-icons/faCheck';
 import {faCheckDouble} from '@fortawesome/free-solid-svg-icons/faCheckDouble';
+import {faCheckSquare} from '@fortawesome/free-regular-svg-icons/faCheckSquare';
 import {faClock} from '@fortawesome/free-solid-svg-icons/faClock';
 import {faCog} from '@fortawesome/free-solid-svg-icons/faCog';
 import {faComment} from '@fortawesome/free-solid-svg-icons/faComment';
@@ -42,10 +43,12 @@ import {faGraduationCap} from '@fortawesome/free-solid-svg-icons/faGraduationCap
 import {faHashtag} from '@fortawesome/free-solid-svg-icons/faHashtag';
 import {faHome} from '@fortawesome/free-solid-svg-icons/faHome';
 import {faKey} from '@fortawesome/free-solid-svg-icons/faKey';
+import {faList} from '@fortawesome/free-solid-svg-icons/faList';
 import {faMapMarkerAlt} from '@fortawesome/free-solid-svg-icons/faMapMarkerAlt';
 import {faPaperclip} from '@fortawesome/free-solid-svg-icons/faPaperclip';
 import {faPen} from '@fortawesome/free-solid-svg-icons/faPen';
 import {faPhone} from '@fortawesome/free-solid-svg-icons/faPhone';
+import {faPlus} from '@fortawesome/free-solid-svg-icons/faPlus';
 import {faSchool} from '@fortawesome/free-solid-svg-icons/faSchool';
 import {faTasks} from '@fortawesome/free-solid-svg-icons/faTasks';
 import {faTimes} from '@fortawesome/free-solid-svg-icons/faTimes';
@@ -58,6 +61,7 @@ import {NgxMaskModule} from 'ngx-mask';
 import {NgxMasonryModule} from 'ngx-masonry';
 import {ClipboardModule} from 'ngx-clipboard';
 import {CalendarModule} from 'angular-calendar';
+import {AutofocusModule} from 'angular-autofocus-fix';
 import {LoadingBarHttpClientModule} from '@ngx-loading-bar/http-client';
 import {LoadingBarRouterModule} from '@ngx-loading-bar/router';
 
@@ -87,6 +91,7 @@ import {NotFoundComponent} from 'app/components/not-found/not-found.component';
 
 // Shared Components
 import {MaterialPalettePickerComponent} from 'app/components/custom/material-palette-picker/material-palette-picker.component';
+import {EditDefaultTaskComponent} from 'app/components/custom/edit-default-task/edit-default-task.component';
 
 // Modals
 import {CreateClientFormComponent} from 'app/components/company/clients/create-form/create-form.component';
@@ -146,6 +151,7 @@ library.add(faCalendarAlt);
 library.add(faChartLine);
 library.add(faCheck);
 library.add(faCheckDouble);
+library.add(faCheckSquare);
 library.add(faClock);
 library.add(faCog);
 library.add(faComment);
@@ -158,10 +164,12 @@ library.add(faGraduationCap);
 library.add(faHashtag);
 library.add(faHome);
 library.add(faKey);
+library.add(faList);
 library.add(faMapMarkerAlt);
 library.add(faPaperclip);
 library.add(faPen);
 library.add(faPhone);
+library.add(faPlus);
 library.add(faSchool);
 library.add(faTasks);
 library.add(faTasks);
@@ -174,8 +182,9 @@ library.add(faUsers);
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
     RouterModule.forRoot(AppRoutes.listRoutes()),
     NgbAlertModule.forRoot(),
     NgbModalModule.forRoot(),
@@ -188,6 +197,7 @@ library.add(faUsers);
     NgxMasonryModule,
     ClipboardModule,
     CalendarModule.forRoot(),
+    AutofocusModule,
     LoadingBarHttpClientModule,
     LoadingBarRouterModule,
   ],
@@ -223,6 +233,7 @@ library.add(faUsers);
     NotFoundComponent,
     // Shared Components
     MaterialPalettePickerComponent,
+    EditDefaultTaskComponent,
     // Modals
     ClientFormComponent,
     DeleteClientComponent,

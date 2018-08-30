@@ -128,8 +128,8 @@
         <div *ngIf="splits.length === 0" class="jumbotron mb-0">
           <p class="mb-0 text-center">Preencha os campos acima para configurar as parcelas</p>
         </div>
-        <ng-container *ngFor="let split of splits; let idx = index; trackBy: trackByIndex">
-          <ng-container *ngTemplateOutlet="splitTemplate; context: {split: split, index: idx}"></ng-container>
+        <ng-container *ngFor="let split of splits; index as index; trackBy: trackByIndex">
+          <ng-container *ngTemplateOutlet="splitTemplate; context: {split: split, index: index}"></ng-container>
         </ng-container>
       </div>
     </div>
