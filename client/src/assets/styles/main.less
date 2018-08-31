@@ -206,50 +206,38 @@
 }
 
 #edit-default-task {
+  .name {
+    font-size: unset;
+  }
+  .remove-icon {
+    .text-secondary();
+    .font-large();
+    .cursor-pointer();
+    .ml-2();
+    &:hover {
+      .text-dark();
+    }
+  }
   .checklist {
     .d-flex();
     .align-items-center();
     .title {
       .ml-2();
       .font-weight-bold();
-      &:focus {
-        border-color: #ced4da;
-        box-shadow: unset;
-      }
-      &[readonly] {
-        border: 0px;
-        background-color: transparent;
-        &:hover {
-          cursor: pointer;
-          background-color: #e9ecef;
-        }
-      }
     }
   }
   .checklist-item {
     .d-flex();
     .align-items-center();
     &:hover {
-      .btn-danger {
+      .remove-icon {
         visibility: visible;
       }
     }
     .name {
       .ml-2();
-      &:focus {
-        border-color: #ced4da;
-        box-shadow: unset;
-      }
-      &[readonly] {
-        border: 0px;
-        background-color: transparent;
-        &:hover {
-          cursor: pointer;
-          background-color: #e9ecef;
-        }
-      }
     }
-    .btn-danger {
+    .remove-icon {
       visibility: hidden;
     }
   }
@@ -257,18 +245,6 @@
     margin-left: 1.75rem;
     > .name {
       .font-small();
-      &:focus {
-        border-color: #ced4da;
-        box-shadow: unset;
-      }
-      &[readonly] {
-        border: 0px;
-        background-color: transparent;
-        &:hover {
-          cursor: pointer;
-          background-color: #e9ecef;
-        }
-      }
     }
   }
 }

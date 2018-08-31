@@ -1,5 +1,4 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import find from 'lodash-es/find';
 import isNil from 'lodash-es/isNil';
 
 import palettesJson from 'app/components/custom/material-palette-picker/palettes.json';
@@ -85,21 +84,21 @@ export class MaterialPalettePickerComponent implements OnInit {
     this.palettes = palettesJson as Palette[];
     if (this.palette) {
       if (this.variant) {
-        this.selectedPalette = find(this.palettes, (palette: Palette) => {
+        this.selectedPalette = this.palettes.find((palette: Palette) => {
           return palette.name === this.palette;
         });
-        this.selectedPaletteVariant = find(this.selectedPalette.variants, (variant: PaletteVariant) => {
+        this.selectedPaletteVariant = this.selectedPalette.variants.find((variant: PaletteVariant) => {
           return variant.name === this.variant;
         });
         this.selectPalette(this.selectedPalette, this.selectedPaletteVariant);
       } else {
-        this.openedPalette = find(this.palettes, (palette: Palette) => {
+        this.openedPalette = this.palettes.find((palette: Palette) => {
           return palette.name === this.palette;
         });
       }
     } else if (this.color) {
-      this.selectedPalette = find(this.palettes, (palette) => {
-        this.selectedPaletteVariant = find(palette.variants, (variant) => {
+      this.selectedPalette = this.palettes.find((palette) => {
+        this.selectedPaletteVariant = palette.variants.find((variant) => {
           return variant.color === this.color;
         });
         return !isNil(this.selectedPaletteVariant);

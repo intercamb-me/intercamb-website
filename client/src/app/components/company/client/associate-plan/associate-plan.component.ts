@@ -1,7 +1,6 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {mergeMap} from 'rxjs/operators';
-import find from 'lodash-es/find';
 
 import {CompanyService} from 'app/services/company.service';
 import {ClientService} from 'app/services/client.service';
@@ -41,7 +40,7 @@ export class AssociatePlanComponent implements OnInit {
     ).subscribe((company) => {
       this.company = company;
       if (this.client.plan_id) {
-        this.selectedPlan = find(company.plans, (plan) => {
+        this.selectedPlan = company.plans.find((plan) => {
           return plan.id === this.client.plan_id;
         });
       }

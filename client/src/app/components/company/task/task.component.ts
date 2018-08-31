@@ -98,7 +98,11 @@ export class TaskComponent implements OnInit {
   }
 
   public openChangeStatus(): void {
-    const modalRef = this.ngbModal.open(ChangeTaskStatusComponent, {centered: true});
+    const modalRef = this.ngbModal.open(ChangeTaskStatusComponent, {
+      centered: true,
+      backdrop: 'static',
+      keyboard: false,
+    });
     modalRef.componentInstance.task = this.task;
     modalRef.result.then((updatedTask) => {
       this.task = updatedTask;
@@ -108,7 +112,11 @@ export class TaskComponent implements OnInit {
   }
 
   public openSetScheduleDate(): void {
-    const modalRef = this.ngbModal.open(SetTaskScheduleDateComponent, {centered: true});
+    const modalRef = this.ngbModal.open(SetTaskScheduleDateComponent, {
+      centered: true,
+      backdrop: 'static',
+      keyboard: false,
+    });
     modalRef.componentInstance.task = this.task;
     modalRef.result.then((updatedTask) => {
       this.task = updatedTask;
@@ -118,7 +126,11 @@ export class TaskComponent implements OnInit {
   }
 
   public openSetLocation(): void {
-    const modalRef = this.ngbModal.open(SetTaskLocationComponent, {centered: true});
+    const modalRef = this.ngbModal.open(SetTaskLocationComponent, {
+      centered: true,
+      backdrop: 'static',
+      keyboard: false,
+    });
     modalRef.componentInstance.task = this.task;
     modalRef.result.then((updatedTask) => {
       this.task = updatedTask;
@@ -128,7 +140,11 @@ export class TaskComponent implements OnInit {
   }
 
   public openDeleteTask(): void {
-    const modalRef = this.ngbModal.open(DeleteTaskComponent, {centered: true});
+    const modalRef = this.ngbModal.open(DeleteTaskComponent, {
+      centered: true,
+      backdrop: 'static',
+      keyboard: false,
+    });
     modalRef.componentInstance.task = this.task;
     modalRef.result.then(() => {
       this.ngbActiveModal.close();

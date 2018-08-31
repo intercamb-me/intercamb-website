@@ -86,7 +86,10 @@ export class ClientFormComponent implements OnInit {
   }
 
   public searchAddress(): void {
-    const modalRef = this.ngbModal.open(SearchAddressComponent);
+    const modalRef = this.ngbModal.open(SearchAddressComponent, {
+      backdrop: 'static',
+      keyboard: false,
+    });
     modalRef.result.then((address: Address) => {
       this.formData.address.zip_code = address.zip_code;
       this.formData.address.state = address.state;

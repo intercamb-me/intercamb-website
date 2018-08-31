@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {mergeMap} from 'rxjs/operators';
-import findIndex from 'lodash-es/findIndex';
 
 import {RemoveAccountComponent} from 'app/components/company/settings/remove-account/remove-account.component';
 import {SaveDefaultTasksComponent} from 'app/components/company/settings/save-default-tasks/save-default-tasks.component';
@@ -92,10 +91,13 @@ export class CompanySettingsComponent implements OnInit {
   }
 
   public openRemoveAccount(account: Account): void {
-    const modalRef = this.ngbModal.open(RemoveAccountComponent);
+    const modalRef = this.ngbModal.open(RemoveAccountComponent, {
+      backdrop: 'static',
+      keyboard: false,
+    });
     modalRef.componentInstance.account = account;
     modalRef.result.then(() => {
-      const index = findIndex(this.accounts, (currentAccount) => {
+      const index = this.accounts.findIndex((currentAccount) => {
         return currentAccount.id === account.id;
       });
       if (index >= 0) {
@@ -107,7 +109,10 @@ export class CompanySettingsComponent implements OnInit {
   }
 
   public openSaveInstitutions(): void {
-    const modalRef = this.ngbModal.open(SaveInstitutionsComponent);
+    const modalRef = this.ngbModal.open(SaveInstitutionsComponent, {
+      backdrop: 'static',
+      keyboard: false,
+    });
     modalRef.result.then((updatedInstitutions) => {
       this.institutions = updatedInstitutions;
     }).catch(() => {
@@ -116,7 +121,10 @@ export class CompanySettingsComponent implements OnInit {
   }
 
   public openSaveDefaultTasks(): void {
-    const modalRef = this.ngbModal.open(SaveDefaultTasksComponent);
+    const modalRef = this.ngbModal.open(SaveDefaultTasksComponent, {
+      backdrop: 'static',
+      keyboard: false,
+    });
     modalRef.result.then((defaultTasks) => {
       this.defaultTasks = defaultTasks;
     }).catch(() => {
@@ -125,10 +133,13 @@ export class CompanySettingsComponent implements OnInit {
   }
 
   public openSavePlan(plan: Plan): void {
-    const modalRef = this.ngbModal.open(SavePlanComponent);
+    const modalRef = this.ngbModal.open(SavePlanComponent, {
+      backdrop: 'static',
+      keyboard: false,
+    });
     modalRef.componentInstance.plan = plan;
     modalRef.result.then((updatedPlan) => {
-      const index = findIndex(this.plans, (currentPlan) => {
+      const index = this.plans.findIndex((currentPlan) => {
         return currentPlan.id === updatedPlan.id;
       });
       if (index < 0) {
@@ -142,10 +153,13 @@ export class CompanySettingsComponent implements OnInit {
   }
 
   public openDeletePlan(plan: Plan): void {
-    const modalRef = this.ngbModal.open(DeletePlanComponent);
+    const modalRef = this.ngbModal.open(DeletePlanComponent, {
+      backdrop: 'static',
+      keyboard: false,
+    });
     modalRef.componentInstance.plan = plan;
     modalRef.result.then(() => {
-      const index = findIndex(this.plans, (currentPlan) => {
+      const index = this.plans.findIndex((currentPlan) => {
         return currentPlan.id === plan.id;
       });
       if (index >= 0) {
@@ -157,7 +171,10 @@ export class CompanySettingsComponent implements OnInit {
   }
 
   public openInvitation(): void {
-    this.ngbModal.open(InvitationComponent);
+    this.ngbModal.open(InvitationComponent, {
+      backdrop: 'static',
+      keyboard: false,
+    });
   }
 
   public updateCompanyLogo(event: any): void {

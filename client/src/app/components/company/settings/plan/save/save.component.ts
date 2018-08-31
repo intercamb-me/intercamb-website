@@ -30,7 +30,7 @@ export class SavePlanComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.newDefaultTask = new DefaultTask();
+    this.newDefaultTask = new DefaultTask({});
     if (!this.plan) {
       this.plan = new Plan();
       this.defaultTasks = [];
@@ -64,13 +64,21 @@ export class SavePlanComponent implements OnInit {
       if (index < 0) {
         this.defaultTasks.push(this.newDefaultTask);
         this.selectedDefaultTask = this.newDefaultTask;
-        this.newDefaultTask = new DefaultTask();
+        this.newDefaultTask = new DefaultTask({});
       }
     }
   }
 
   public editDefaultTask(defaultTask: DefaultTask): void {
     this.selectedDefaultTask = defaultTask;
+  }
+
+  public saveDefaultTask(defaultTask: DefaultTask): void {
+    const index = this.defaultTasks.indexOf(this.selectedDefaultTask);
+    if (index >= 0) {
+      this.defaultTasks[index] = defaultTask;
+      this.backToPlan();
+    }
   }
 
   public removeDefaultTask(defaultTask: DefaultTask): void {
@@ -80,12 +88,7 @@ export class SavePlanComponent implements OnInit {
     }
   }
 
-  public saveDefaultTask(defaultTask: DefaultTask): void {
-    this.selectedDefaultTask.checklists = defaultTask.checklists;
-    this.backToDefaultTasks();
-  }
-
-  public backToDefaultTasks(): void {
+  public backToPlan(): void {
     this.selectedDefaultTask = null;
   }
 

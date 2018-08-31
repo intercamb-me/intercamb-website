@@ -25,7 +25,7 @@ export class SaveDefaultTasksComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.newDefaultTask = new DefaultTask();
+    this.newDefaultTask = new DefaultTask({});
     this.companyService.getCompany({select: 'default_tasks'}).subscribe((company) => {
       this.defaultTasks = company.default_tasks;
       this.loading = false;
@@ -50,13 +50,21 @@ export class SaveDefaultTasksComponent implements OnInit {
       if (index < 0) {
         this.defaultTasks.push(this.newDefaultTask);
         this.selectedDefaultTask = this.newDefaultTask;
-        this.newDefaultTask = new DefaultTask();
+        this.newDefaultTask = new DefaultTask({});
       }
     }
   }
 
   public editDefaultTask(defaultTask: DefaultTask): void {
     this.selectedDefaultTask = defaultTask;
+  }
+
+  public saveDefaultTask(defaultTask: DefaultTask): void {
+    const index = this.defaultTasks.indexOf(this.selectedDefaultTask);
+    if (index >= 0) {
+      this.defaultTasks[index] = defaultTask;
+      this.backToDefaultTasks();
+    }
   }
 
   public removeDefaultTask(defaultTask: DefaultTask): void {
@@ -75,11 +83,6 @@ export class SaveDefaultTasksComponent implements OnInit {
       this.saving = false;
       this.alertService.apiError(null, err, 'Não foi possível atualizar as atividades padrões, por favor tente novamente mais tarde!');
     });
-  }
-
-  public saveDefaultTask(defaultTask: DefaultTask): void {
-    this.selectedDefaultTask.checklists = defaultTask.checklists;
-    this.backToDefaultTasks();
   }
 
   public backToDefaultTasks(): void {

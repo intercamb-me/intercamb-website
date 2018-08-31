@@ -48,7 +48,10 @@ export class ClientsComponent implements OnInit {
   }
 
   public openSendForm(): void {
-    this.ngbModal.open(CreateClientFormComponent);
+    this.ngbModal.open(CreateClientFormComponent, {
+      backdrop: 'static',
+      keyboard: false,
+    });
   }
 
   public searchClients(): void {

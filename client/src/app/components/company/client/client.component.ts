@@ -119,7 +119,11 @@ export class ClientComponent implements OnInit {
   }
 
   public openAssociatePlan(): void {
-    const modalRef = this.ngbModal.open(AssociatePlanComponent, {size: 'lg'});
+    const modalRef = this.ngbModal.open(AssociatePlanComponent, {
+      size: 'lg',
+      backdrop: 'static',
+      keyboard: false,
+    });
     modalRef.componentInstance.client = this.client;
     modalRef.result.then((plan) => {
       if (plan) {
@@ -140,7 +144,11 @@ export class ClientComponent implements OnInit {
   }
 
   public openCreatePaymentOrder(): void {
-    const modalRef = this.ngbModal.open(CreatePaymentOrderComponent, {size: 'lg'});
+    const modalRef = this.ngbModal.open(CreatePaymentOrderComponent, {
+      size: 'lg',
+      backdrop: 'static',
+      keyboard: false,
+    });
     modalRef.componentInstance.client = this.client;
     modalRef.result.then((paymentOrders) => {
       this.client.payment_orders.push(...paymentOrders);
@@ -150,7 +158,11 @@ export class ClientComponent implements OnInit {
   }
 
   public openEditPaymentOrder(paymentOrder: PaymentOrder): void {
-    const modalRef = this.ngbModal.open(EditPaymentOrderComponent, {size: 'lg'});
+    const modalRef = this.ngbModal.open(EditPaymentOrderComponent, {
+      size: 'lg',
+      backdrop: 'static',
+      keyboard: false,
+    });
     modalRef.componentInstance.paymentOrder = paymentOrder;
     modalRef.result.then((updatedPaymentOrder) => {
       const index = this.client.payment_orders.indexOf(paymentOrder);
@@ -163,7 +175,10 @@ export class ClientComponent implements OnInit {
   }
 
   public openDeletePaymentOrder(paymentOrder: PaymentOrder): void {
-    const modalRef = this.ngbModal.open(DeletePaymentOrderComponent);
+    const modalRef = this.ngbModal.open(DeletePaymentOrderComponent, {
+      backdrop: 'static',
+      keyboard: false,
+    });
     modalRef.componentInstance.paymentOrder = paymentOrder;
     modalRef.result.then(() => {
       const index = this.client.payment_orders.indexOf(paymentOrder);
@@ -176,7 +191,10 @@ export class ClientComponent implements OnInit {
   }
 
   public openChangePaymentOrderStatus(paymentOrder: PaymentOrder): void {
-    const modalRef = this.ngbModal.open(ChangePaymentOrderStatusComponent);
+    const modalRef = this.ngbModal.open(ChangePaymentOrderStatusComponent, {
+      backdrop: 'static',
+      keyboard: false,
+    });
     modalRef.componentInstance.paymentOrder = paymentOrder;
     modalRef.result.then((updatedPaymentOrder) => {
       const index = this.client.payment_orders.indexOf(paymentOrder);
@@ -189,7 +207,10 @@ export class ClientComponent implements OnInit {
   }
 
   public openCreateTask(): void {
-    const modalRef = this.ngbModal.open(CreateTaskComponent);
+    const modalRef = this.ngbModal.open(CreateTaskComponent, {
+      backdrop: 'static',
+      keyboard: false,
+    });
     modalRef.componentInstance.client = this.client;
     modalRef.result.then((task) => {
       this.client.tasks.push(task);
@@ -221,7 +242,10 @@ export class ClientComponent implements OnInit {
   }
 
   public openDeleteClient(): void {
-    const modalRef = this.ngbModal.open(DeleteClientComponent);
+    const modalRef = this.ngbModal.open(DeleteClientComponent, {
+      backdrop: 'static',
+      keyboard: false,
+    });
     modalRef.componentInstance.client = this.client;
     modalRef.result.then(() => {
       this.router.navigate(['/company', 'clients']);

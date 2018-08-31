@@ -2,7 +2,6 @@ import {Component, OnInit, Inject, ViewChild, ElementRef, LOCALE_ID} from '@angu
 import {FormStyle, getLocaleMonthNames, TranslationWidth} from '@angular/common';
 import {forkJoin} from 'rxjs';
 import {mergeMap} from 'rxjs/operators';
-import find from 'lodash-es/find';
 import shuffle from 'lodash-es/shuffle';
 import random from 'lodash-es/random';
 import {Chart} from 'chart.js';
@@ -132,7 +131,7 @@ export class ReportsComponent implements OnInit {
     const labels: string[] = [];
     const data: any[] = [];
     this.clientsPerPlan.forEach((register: any) => {
-      const plan = find(this.company.plans, (currentPlan) => {
+      const plan = this.company.plans.find((currentPlan) => {
         return currentPlan.id === register._id;
       });
       labels.push(plan ? plan.name : 'Sem plano');
