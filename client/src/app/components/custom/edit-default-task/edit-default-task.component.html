@@ -1,0 +1,130 @@
+<ng-template #checklistPopoverTemplate>
+  <form #form="ngForm" (ngSubmit)="addChecklist()" novalidate>
+    <div class="form-row">
+      <div class="col form-group mb-0">
+        <input
+          [(ngModel)]="checklistTitle"
+          name="checklist-title"
+          type="text"
+          class="form-control"
+          placeholder="Título"
+          autofocus
+          required>
+      </div>
+      <div class="col-auto form-group mb-0">
+        <button
+          [disabled]="form.invalid"
+          class="btn btn-primary"
+          type="submit">
+          Adicionar
+        </button>
+      </div>
+    </div>
+  </form>
+</ng-template>
+
+<div id="edit-default-task">
+  <form #form="ngForm" [formGroup]="formGroup" novalidate>
+    <div class="modal-header">
+      <h4 class="modal-title">
+        <input
+          [readonly]="!formGroup.get('editing').value"
+          (focus)="editFormGroup(formGroup)"
+          (blur)="stopEditingFormGroup(formGroup)"
+          (keydown.enter)="stopEditingFormGroup(formGroup)"
+          formControlName="name"
+          class="name editable form-control"
+          type="text">
+      </h4>
+      <button (click)="close()" type="button" class="close" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <button
+        #checklistPopover
+        [ngbPopover]="checklistPopoverTemplate"
+        [autoClose]="'outside'"
+        placement="bottom"
+        class="btn btn-primary"
+        type="button">
+        <fa-icon [icon]="['fas', 'list']" [fixedWidth]="true"></fa-icon>
+        <span class="ml-2">Adicionar checklist</span>
+      </button>
+      <div *ngFor="let checklist of formGroup.get('checklists').controls" class="row mt-3">
+        <div class="col">
+          <div [formGroup]="checklist" class="checklist">
+            <fa-icon [icon]="['fas', 'list']" [fixedWidth]="true"></fa-icon>
+            <input
+              [readonly]="!checklist.get('editing').value"
+              (focus)="editFormGroup(checklist)"
+              (blur)="stopEditingFormGroup(checklist)"
+              (keydown.enter)="stopEditingFormGroup(checklist)"
+              formControlName="title"
+              class="title editable form-control"
+              type="text">
+            <fa-icon
+              *ngIf="!checklist.get('editing').value"
+              (click)="removeChecklist(checklist)"
+              [icon]="['fas', 'times']"
+              [fixedWidth]="true"
+              class="remove-icon"
+              title="Remover checklist">
+            </fa-icon>
+          </div>
+          <div
+            *ngFor="let item of checklist.get('items').controls"
+            [formGroup]="item"
+            class="checklist-item">
+            <fa-icon
+              [icon]="['far', 'check-square']"
+              [fixedWidth]="true">
+            </fa-icon>
+            <input
+              [readonly]="!item.get('editing').value"
+              (focus)="editFormGroup(item)"
+              (blur)="stopEditingFormGroup(item)"
+              (keydown.enter)="stopEditingFormGroup(item)"
+              formControlName="name"
+              class="name editable form-control"
+              type="text">
+            <fa-icon
+              *ngIf="!item.get('editing').value"
+              (click)="removeChecklistItem(checklist, item)"
+              [icon]="['fas', 'times']"
+              [fixedWidth]="true"
+              class="remove-icon"
+              title="Remover item">
+            </fa-icon>
+          </div>
+          <div [formGroup]="checklist.get('itemToAdd')" class="checklist-new-item">
+            <input
+              [readonly]="!checklist.get('itemToAdd.editing').value"
+              (focus)="editItemToAdd(checklist.get('itemToAdd'))"
+              (blur)="stopEditingItemToAdd(checklist.get('itemToAdd'))"
+              (keydown.enter)="addChecklistItem(checklist)"
+              formControlName="name"
+              class="name editable form-control"
+              placeholder="Adicionar item..."
+              type="text">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button
+        (click)="backToDefaultTasks()"
+        class="btn btn-secondary"
+        type="button">
+        Voltar
+      </button>
+      <button
+        [disabled]="form.invalid"
+        (click)="saveDefaultTask()"
+        class="btn btn-primary"
+        type="button">
+        Salvar
+      </button>
+    </div>
+  </form>
+</div>

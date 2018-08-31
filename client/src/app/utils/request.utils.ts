@@ -2,6 +2,12 @@ import {HttpHeaders, HttpParams} from '@angular/common/http';
 
 import {StorageUtils} from 'app/utils/storage.utils';
 
+interface HttpOptions {
+  headers?: HttpHeaders;
+  params?: HttpParams;
+  observe?: 'body';
+}
+
 export class RequestUtils {
 
   private static readonly HEADER_AUTHORIZATION = 'Authorization';
@@ -10,14 +16,14 @@ export class RequestUtils {
     return process.env.API_URL + url;
   }
 
-  public static getJsonOptions(customHeaders?: any): any {
+  public static getJsonOptions(customHeaders?: any): HttpOptions {
     return RequestUtils.getOptions({
       ...customHeaders,
       'Content-Type': 'application/json',
     });
   }
 
-  public static getOptions(customHeaders?: any): any {
+  public static getOptions(customHeaders?: any): HttpOptions {
     const headers: any = {...customHeaders};
     const apiToken = StorageUtils.getApiToken();
     if (apiToken) {

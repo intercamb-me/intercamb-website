@@ -118,7 +118,7 @@ export class ClientService {
 
   public createPaymentOrders(client: Client, paymentOrders: PaymentOrder[]): Observable<PaymentOrder[]> {
     const httpUrl = RequestUtils.getApiUrl(`/clients/${client.id}/payment_orders`);
-    return this.httpClient.post<PaymentOrder>(httpUrl, paymentOrders, RequestUtils.getJsonOptions()).pipe(
+    return this.httpClient.post<PaymentOrder[]>(httpUrl, paymentOrders, RequestUtils.getJsonOptions()).pipe(
       map((ordersData: PaymentOrder[]) => {
         const orders: PaymentOrder[] = [];
         ordersData.forEach((orderData) => {
@@ -134,9 +134,9 @@ export class ClientService {
     );
   }
 
-  public createTask(client: Client, name: string): Observable<PaymentOrder[]> {
+  public createTask(client: Client, name: string): Observable<Task> {
     const httpUrl = RequestUtils.getApiUrl(`/clients/${client.id}/tasks`);
-    return this.httpClient.post<PaymentOrder>(httpUrl, {name}, RequestUtils.getJsonOptions()).pipe(
+    return this.httpClient.post<Task>(httpUrl, {name}, RequestUtils.getJsonOptions()).pipe(
       map((taskData: Task) => new Task(taskData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
