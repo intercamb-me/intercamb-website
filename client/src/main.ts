@@ -1,4 +1,4 @@
-import 'assets/styles/main.less';
+import '@assets/styles/styles.less';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'angular-calendar/css/angular-calendar.css';
 
@@ -25,7 +25,7 @@ import 'zone.js/dist/zone';
 import {enableProdMode} from '@angular/core';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 
-import {AppModule} from './app/app.module';
+import {AppModule} from '@app/app.module';
 
 if (process.env.NODE_ENV === 'production') {
   enableProdMode();

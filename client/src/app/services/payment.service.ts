@@ -3,10 +3,10 @@ import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {map, catchError} from 'rxjs/operators';
 
-import {EventService} from 'app/services/event.service';
-import {ApiError} from 'app/services/commons/api.error';
-import {RequestUtils} from 'app/utils/request.utils';
-import {PaymentOrder} from 'app/models/payment-order.model';
+import {EventService} from '@services/event.service';
+import {ApiError} from '@services/commons/api.error';
+import {RequestUtils} from '@utils/request.utils';
+import {PaymentOrder} from '@models/payment-order.model';
 
 @Injectable()
 export class PaymentService {

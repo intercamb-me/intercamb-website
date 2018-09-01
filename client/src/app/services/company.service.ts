@@ -3,15 +3,15 @@ import {HttpClient, HttpParams, HttpErrorResponse} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {map, catchError} from 'rxjs/operators';
 
-import {EventService} from 'app/services/event.service';
-import {ApiError} from 'app/services/commons/api.error';
-import {RequestUtils} from 'app/utils/request.utils';
-import {Account} from 'app/models/account.model';
-import {Company} from 'app/models/company.model';
-import {Institution} from 'app/models/institution.model';
-import {Client} from 'app/models/client.model';
-import {PaymentOrder} from 'app/models/payment-order.model';
-import {Task} from 'app/models/task.model';
+import {EventService} from '@services/event.service';
+import {ApiError} from '@services/commons/api.error';
+import {RequestUtils} from '@utils/request.utils';
+import {Account} from '@models/account.model';
+import {Company} from '@models/company.model';
+import {Institution} from '@models/institution.model';
+import {Client} from '@models/client.model';
+import {PaymentOrder} from '@models/payment-order.model';
+import {Task} from '@models/task.model';
 
 @Injectable()
 export class CompanyService {

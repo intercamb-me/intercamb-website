@@ -1,9 +1,9 @@
 import {Component, Input} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
-import {TaskService} from 'app/services/task.service';
-import {AlertService} from 'app/services/alert.service';
-import {Task} from 'app/models/task.model';
+import {TaskService} from '@services/task.service';
+import {AlertService} from '@services/alert.service';
+import {Task} from '@models/task.model';
 
 @Component({
   selector: 'app-delete-task',

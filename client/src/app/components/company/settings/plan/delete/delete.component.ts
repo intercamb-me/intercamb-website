@@ -1,9 +1,9 @@
 import {Component, Input} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
-import {PlanService} from 'app/services/plan.service';
-import {AlertService} from 'app/services/alert.service';
-import {Plan} from 'app/models/plan.model';
+import {PlanService} from '@services/plan.service';
+import {AlertService} from '@services/alert.service';
+import {Plan} from '@models/plan.model';
 
 @Component({
   selector: 'app-delete-plan',

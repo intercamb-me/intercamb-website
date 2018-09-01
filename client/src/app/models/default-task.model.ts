@@ -1,15 +1,23 @@
 /* tslint:disable:variable-name */
 
-import {TaskChecklist} from 'app/models/task-checklist.model';
+import {TaskChecklist} from '@models/task-checklist.model';
+import {TaskField} from '@models/task-field.model';
 
 export class DefaultTask {
 
   public name: string;
+  public fields: TaskField[];
   public checklists: TaskChecklist[];
 
   constructor(data?: any) {
     if (data) {
       this.name = data.name;
+      this.fields = [];
+      if (data.fields) {
+        (data.fields as any[]).forEach((field) => {
+          this.fields.push(new TaskField(field));
+        });
+      }
       this.checklists = [];
       if (data.checklists) {
         (data.checklists as any[]).forEach((checklist) => {

@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 
-import {AccountService} from 'app/services/account.service';
-import {AlertService} from 'app/services/alert.service';
+import {AccountService} from '@services/account.service';
+import {AlertService} from '@services/alert.service';
 
 @Component({
   selector: 'app-landing-page',

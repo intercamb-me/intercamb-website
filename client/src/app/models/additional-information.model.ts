@@ -1,6 +1,6 @@
 /* tslint:disable:variable-name */
 
-import {CalendarUtils} from 'app/utils/calendar.utils';
+import {CalendarUtils} from '@utils/calendar.utils';
 import cloneDeep from 'lodash-es/cloneDeep';
 
 export class AdditionalInformation {

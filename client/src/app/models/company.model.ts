@@ -1,9 +1,9 @@
 /* tslint:disable:variable-name */
 
-import {Account} from 'app/models/account.model';
-import {DefaultTask} from 'app/models/default-task.model';
-import {Institution} from 'app/models/institution.model';
-import {Plan} from 'app/models/plan.model';
+import {Account} from '@models/account.model';
+import {DefaultTask} from '@models/default-task.model';
+import {Institution} from '@models/institution.model';
+import {Plan} from '@models/plan.model';
 
 export class Company {
 

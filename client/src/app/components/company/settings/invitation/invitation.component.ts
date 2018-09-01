@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
-import {InvitationService} from 'app/services/invitation.service';
-import {AlertService} from 'app/services/alert.service';
+import {InvitationService} from '@services/invitation.service';
+import {AlertService} from '@services/alert.service';
 
 @Component({
   selector: 'app-invitation',

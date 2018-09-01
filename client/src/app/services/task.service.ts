@@ -3,12 +3,12 @@ import {HttpClient, HttpParams, HttpErrorResponse} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {map, catchError} from 'rxjs/operators';
 
-import {EventService} from 'app/services/event.service';
-import {ApiError} from 'app/services/commons/api.error';
-import {RequestUtils} from 'app/utils/request.utils';
-import {Task} from 'app/models/task.model';
-import {TaskComment} from 'app/models/task-comment.model';
-import {TaskAttachment} from 'app/models/task-attachment.model';
+import {EventService} from '@services/event.service';
+import {ApiError} from '@services/commons/api.error';
+import {RequestUtils} from '@utils/request.utils';
+import {Task} from '@models/task.model';
+import {TaskComment} from '@models/task-comment.model';
+import {TaskAttachment} from '@models/task-attachment.model';
 
 @Injectable()
 export class TaskService {

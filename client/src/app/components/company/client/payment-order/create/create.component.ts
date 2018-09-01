@@ -4,16 +4,16 @@ import {mergeMap} from 'rxjs/operators';
 import {of} from 'rxjs';
 import * as addMonths from 'date-fns/add_months';
 
-import {CompanyService} from 'app/services/company.service';
-import {PlanService} from 'app/services/plan.service';
-import {ClientService} from 'app/services/client.service';
-import {AlertService} from 'app/services/alert.service';
-import {Constants} from 'app/utils/constants';
-import {CalendarUtils} from 'app/utils/calendar.utils';
-import {Helpers} from 'app/utils/helpers';
-import {Client} from 'app/models/client.model';
-import {Company} from 'app/models/company.model';
-import {Plan} from 'app/models/plan.model';
+import {CompanyService} from '@services/company.service';
+import {PlanService} from '@services/plan.service';
+import {ClientService} from '@services/client.service';
+import {AlertService} from '@services/alert.service';
+import {Constants} from '@utils/constants';
+import {CalendarUtils} from '@utils/calendar.utils';
+import {Helpers} from '@utils/helpers';
+import {Client} from '@models/client.model';
+import {Company} from '@models/company.model';
+import {Plan} from '@models/plan.model';
 
 interface Split {
   amount: string;

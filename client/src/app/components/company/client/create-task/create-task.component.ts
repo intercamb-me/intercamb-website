@@ -1,9 +1,9 @@
 import {Component, Input} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
-import {ClientService} from 'app/services/client.service';
-import {AlertService} from 'app/services/alert.service';
-import {Client} from 'app/models/client.model';
+import {ClientService} from '@services/client.service';
+import {AlertService} from '@services/alert.service';
+import {Client} from '@models/client.model';
 
 @Component({
   selector: 'app-create-task',

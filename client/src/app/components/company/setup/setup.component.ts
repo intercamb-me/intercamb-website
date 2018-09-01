@@ -1,14 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 
-import {ColorSelected, PaletteVariant} from 'app/components/custom/material-palette-picker/material-palette-picker.component';
+import {ColorSelected, PaletteVariant} from '@components/custom/material-palette-picker/material-palette-picker.component';
 
-import {AccountService} from 'app/services/account.service';
-import {CompanyService} from 'app/services/company.service';
-import {AlertService} from 'app/services/alert.service';
-import {Constants} from 'app/utils/constants';
-import {Company} from 'app/models/company.model';
-import {Institution} from 'app/models/institution.model';
+import {AccountService} from '@services/account.service';
+import {CompanyService} from '@services/company.service';
+import {AlertService} from '@services/alert.service';
+import {Constants} from '@utils/constants';
+import {Company} from '@models/company.model';
+import {Institution} from '@models/institution.model';
 
 @Component({
   selector: 'app-setup-company',

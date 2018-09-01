@@ -3,22 +3,22 @@ import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {mergeMap} from 'rxjs/operators';
 import * as distanceInWordsStrict from 'date-fns/distance_in_words_strict';
 
-import {ChangeTaskStatusComponent} from 'app/components/company/task/change-status/change-status.component';
-import {SetTaskScheduleDateComponent} from 'app/components/company/task/set-schedule-date/set-schedule-date.component';
-import {SetTaskLocationComponent} from 'app/components/company/task/set-location/set-location.component';
-import {DeleteTaskComponent} from 'app/components/company/task/delete/delete.component';
+import {ChangeTaskStatusComponent} from '@components/company/task/change-status/change-status.component';
+import {SetTaskScheduleDateComponent} from '@components/company/task/set-schedule-date/set-schedule-date.component';
+import {SetTaskLocationComponent} from '@components/company/task/set-location/set-location.component';
+import {DeleteTaskComponent} from '@components/company/task/delete/delete.component';
 
-import {AccountService} from 'app/services/account.service';
-import {TaskService} from 'app/services/task.service';
-import {AlertService} from 'app/services/alert.service';
-import {Constants} from 'app/utils/constants';
-import {StorageUtils} from 'app/utils/storage.utils';
-import {Account} from 'app/models/account.model';
-import {Client} from 'app/models/client.model';
-import {Task} from 'app/models/task.model';
-import {TaskAttachment} from 'app/models/task-attachment.model';
-import {TaskComment} from 'app/models/task-comment.model';
-import {TaskCounters} from 'app/models/task-counters.model';
+import {AccountService} from '@services/account.service';
+import {TaskService} from '@services/task.service';
+import {AlertService} from '@services/alert.service';
+import {Constants} from '@utils/constants';
+import {StorageUtils} from '@utils/storage.utils';
+import {Account} from '@models/account.model';
+import {Client} from '@models/client.model';
+import {Task} from '@models/task.model';
+import {TaskAttachment} from '@models/task-attachment.model';
+import {TaskComment} from '@models/task-comment.model';
+import {TaskCounters} from '@models/task-counters.model';
 
 @Component({
   selector: 'app-task',

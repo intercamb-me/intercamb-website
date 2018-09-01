@@ -1,11 +1,11 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
-import {PlanService} from 'app/services/plan.service';
-import {AlertService} from 'app/services/alert.service';
-import {Constants} from 'app/utils/constants';
-import {DefaultTask} from 'app/models/default-task.model';
-import {Plan} from 'app/models/plan.model';
+import {PlanService} from '@services/plan.service';
+import {AlertService} from '@services/alert.service';
+import {Constants} from '@utils/constants';
+import {DefaultTask} from '@models/default-task.model';
+import {Plan} from '@models/plan.model';
 
 @Component({
   selector: 'app-save-plan',

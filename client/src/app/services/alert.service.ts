@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Subscription, Subject} from 'rxjs';
 
-import {ApiError} from 'app/services/commons/api.error';
-import {ErrorUtils} from 'app/utils/error.utils';
+import {ApiError} from '@services/commons/api.error';
+import {ErrorUtils} from '@utils/error.utils';
 
 export interface Alert {
   type: string;

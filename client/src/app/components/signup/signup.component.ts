@@ -2,10 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {mergeMap} from 'rxjs/operators';
 
-import {AccountService} from 'app/services/account.service';
-import {AlertService} from 'app/services/alert.service';
-import {EventService} from 'app/services/event.service';
-import {ErrorUtils} from 'app/utils/error.utils';
+import {AccountService} from '@services/account.service';
+import {AlertService} from '@services/alert.service';
+import {EventService} from '@services/event.service';
+import {ErrorUtils} from '@utils/error.utils';
 
 @Component({
   selector: 'app-signup',

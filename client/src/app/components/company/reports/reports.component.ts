@@ -7,11 +7,11 @@ import random from 'lodash-es/random';
 import {Chart} from 'chart.js';
 import * as addMonths from 'date-fns/add_months';
 
-import {CompanyService} from 'app/services/company.service';
-import {AlertService} from 'app/services/alert.service';
-import {CalendarUtils} from 'app/utils/calendar.utils';
-import {Helpers} from 'app/utils/helpers';
-import {Company} from 'app/models/company.model';
+import {CompanyService} from '@services/company.service';
+import {AlertService} from '@services/alert.service';
+import {CalendarUtils} from '@utils/calendar.utils';
+import {Helpers} from '@utils/helpers';
+import {Company} from '@models/company.model';
 
 @Component({
   selector: 'app-reports',

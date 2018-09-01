@@ -1,6 +1,6 @@
 /* tslint:disable:variable-name */
 
-import {Institution} from 'app/models/institution.model';
+import {Institution} from '@models/institution.model';
 import isObject from 'lodash-es/isObject';
 import cloneDeep from 'lodash-es/cloneDeep';
 

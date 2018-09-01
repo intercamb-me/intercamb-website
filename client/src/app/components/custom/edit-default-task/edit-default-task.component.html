@@ -1,3 +1,40 @@
+<ng-template #fieldPopoverTemplate>
+  <form #form="ngForm" (ngSubmit)="addField()" novalidate>
+    <div class="form-row">
+      <div class="col form-group mb-0">
+        <label for="field-name">Nome</label>
+        <input
+          [(ngModel)]="fieldName"
+          id="field-name"
+          name="field-name"
+          type="text"
+          class="form-control"
+          autofocus
+          required>
+      </div>
+      <div class="col form-group mb-0">
+        <label for="field-type">Tipo</label>
+        <select
+          [(ngModel)]="fieldType"
+          id="field-type"
+          name="field-type"
+          class="form-control"
+          placeholder="Tipo"
+          required>
+          <option *ngFor="let type of fieldTypes" [ngValue]="type.id">{{ type.name }}</option>
+        </select>
+      </div>
+      <div class="col-auto form-group d-flex flex-column justify-content-end mb-0">
+        <button
+          [disabled]="form.invalid"
+          class="btn btn-primary"
+          type="submit">
+          Adicionar
+        </button>
+      </div>
+    </div>
+  </form>
+</ng-template>
 <ng-template #checklistPopoverTemplate>
   <form #form="ngForm" (ngSubmit)="addChecklist()" novalidate>
     <div class="form-row">
@@ -33,7 +70,7 @@
           (blur)="stopEditingFormGroup(formGroup)"
           (keydown.enter)="stopEditingFormGroup(formGroup)"
           formControlName="name"
-          class="name editable form-control"
+          class="task-name editable form-control"
           type="text">
       </h4>
       <button (click)="close()" type="button" class="close" aria-label="Close">
@@ -41,6 +78,63 @@
       </button>
     </div>
     <div class="modal-body">
+      <h5 class="mb-3">Campos</h5>
+      <div class="mb-3">
+        <button
+          #fieldPopover
+          [ngbPopover]="fieldPopoverTemplate"
+          [autoClose]="'outside'"
+          placement="bottom"
+          class="btn btn-primary"
+          type="button">
+          <fa-icon [icon]="['fas', 'list']" [fixedWidth]="true"></fa-icon>
+          <span class="ml-2">Adicionar campo</span>
+        </button>
+        <div *ngIf="formGroup.get('fields').length > 0" class="mt-3">
+          <div *ngFor="let field of formGroup.get('fields').controls" class="my-1">
+            <div [formGroup]="field" class="field form-row">
+              <div class="col-auto">
+                <fa-icon [icon]="['fas', 'font']" [fixedWidth]="true"></fa-icon>
+              </div>
+              <div class="col">
+                <input
+                  [readonly]="!field.get('editing').value"
+                  (focus)="editFormGroup(field)"
+                  (blur)="stopEditingFormGroup(field)"
+                  (keydown.enter)="stopEditingFormGroup(field)"
+                  formControlName="name"
+                  class="name editable form-control"
+                  placeholder="Nome"
+                  type="text">
+              </div>
+              <div class="col">
+                <select
+                  [ngClass]="{
+                    'form-control': field.get('editing').value,
+                    'form-control-plaintext': !field.get('editing').value
+                  }"
+                  (focus)="editFormGroup(field)"
+                  (blur)="stopEditingFormGroup(field)"
+                  formControlName="type"
+                  class="type editable"
+                  placeholder="Tipo">
+                  <option *ngFor="let type of fieldTypes" [ngValue]="type.id">{{ type.name }}</option>
+                </select>
+              </div>
+              <div class="col-auto">
+                <fa-icon
+                  (click)="removeField(field)"
+                  [icon]="['fas', 'times']"
+                  [fixedWidth]="true"
+                  class="remove-icon"
+                  title="Remover campo">
+                </fa-icon>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h5 class="mb-3">Checklists</h5>
       <button
         #checklistPopover
         [ngbPopover]="checklistPopoverTemplate"
@@ -51,51 +145,60 @@
         <fa-icon [icon]="['fas', 'list']" [fixedWidth]="true"></fa-icon>
         <span class="ml-2">Adicionar checklist</span>
       </button>
-      <div *ngFor="let checklist of formGroup.get('checklists').controls" class="row mt-3">
-        <div class="col">
-          <div [formGroup]="checklist" class="checklist">
-            <fa-icon [icon]="['fas', 'list']" [fixedWidth]="true"></fa-icon>
-            <input
-              [readonly]="!checklist.get('editing').value"
-              (focus)="editFormGroup(checklist)"
-              (blur)="stopEditingFormGroup(checklist)"
-              (keydown.enter)="stopEditingFormGroup(checklist)"
-              formControlName="title"
-              class="title editable form-control"
-              type="text">
-            <fa-icon
-              *ngIf="!checklist.get('editing').value"
-              (click)="removeChecklist(checklist)"
-              [icon]="['fas', 'times']"
-              [fixedWidth]="true"
-              class="remove-icon"
-              title="Remover checklist">
-            </fa-icon>
+      <ng-container *ngIf="formGroup.get('checklists').length > 0">
+        <div *ngFor="let checklist of formGroup.get('checklists').controls" class="mt-3">
+          <div [formGroup]="checklist" class="checklist form-row">
+            <div class="col-auto">
+              <fa-icon [icon]="['fas', 'list']" [fixedWidth]="true"></fa-icon>
+            </div>
+            <div class="col">
+              <input
+                [readonly]="!checklist.get('editing').value"
+                (focus)="editFormGroup(checklist)"
+                (blur)="stopEditingFormGroup(checklist)"
+                (keydown.enter)="stopEditingFormGroup(checklist)"
+                formControlName="title"
+                class="title editable form-control"
+                placeholder="Título"
+                type="text">
+            </div>
+            <div class="col-auto">
+              <fa-icon
+                (click)="removeChecklist(checklist)"
+                [icon]="['fas', 'times']"
+                [fixedWidth]="true"
+                class="remove-icon"
+                title="Remover checklist">
+              </fa-icon>
+            </div>
           </div>
           <div
             *ngFor="let item of checklist.get('items').controls"
             [formGroup]="item"
-            class="checklist-item">
-            <fa-icon
-              [icon]="['far', 'check-square']"
-              [fixedWidth]="true">
-            </fa-icon>
-            <input
-              [readonly]="!item.get('editing').value"
-              (focus)="editFormGroup(item)"
-              (blur)="stopEditingFormGroup(item)"
-              (keydown.enter)="stopEditingFormGroup(item)"
-              formControlName="name"
-              class="name editable form-control"
-              type="text">
-            <fa-icon
-              *ngIf="!item.get('editing').value"
-              (click)="removeChecklistItem(checklist, item)"
-              [icon]="['fas', 'times']"
-              [fixedWidth]="true"
-              class="remove-icon"
-              title="Remover item">
-            </fa-icon>
+            class="checklist-item form-row">
+            <div class="col-auto">
+              <fa-icon [icon]="['far', 'check-square']" [fixedWidth]="true"></fa-icon>
+            </div>
+            <div class="col">
+              <input
+                [readonly]="!item.get('editing').value"
+                (focus)="editFormGroup(item)"
+                (blur)="stopEditingFormGroup(item)"
+                (keydown.enter)="stopEditingFormGroup(item)"
+                formControlName="name"
+                class="editable form-control"
+                placeholder="Nome"
+                type="text">
+            </div>
+            <div class="col-auto">
+              <fa-icon
+                (click)="removeChecklistItem(checklist, item)"
+                [icon]="['fas', 'times']"
+                [fixedWidth]="true"
+                class="remove-icon"
+                title="Remover item">
+              </fa-icon>
+            </div>
           </div>
           <div [formGroup]="checklist.get('itemToAdd')" class="checklist-new-item">
             <input
@@ -109,7 +212,7 @@
               type="text">
           </div>
         </div>
-      </div>
+      </ng-container>
     </div>
     <div class="modal-footer">
       <button

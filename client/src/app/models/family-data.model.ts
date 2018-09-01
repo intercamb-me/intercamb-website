@@ -1,6 +1,6 @@
 /* tslint:disable:variable-name */
 
-import {FamilyMemberData} from 'app/models/family-member-data.model';
+import {FamilyMemberData} from '@models/family-member-data.model';
 
 export class FamilyData {
 

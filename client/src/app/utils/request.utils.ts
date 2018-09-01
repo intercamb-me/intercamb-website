@@ -1,6 +1,6 @@
 import {HttpHeaders, HttpParams} from '@angular/common/http';
 
-import {StorageUtils} from 'app/utils/storage.utils';
+import {StorageUtils} from '@utils/storage.utils';
 
 interface HttpOptions {
   headers?: HttpHeaders;

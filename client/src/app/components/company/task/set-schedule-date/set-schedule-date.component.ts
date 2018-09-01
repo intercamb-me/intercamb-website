@@ -13,10 +13,10 @@ import * as setMinutes from 'date-fns/set_minutes';
 import * as setSeconds from 'date-fns/set_seconds';
 import * as setMilliseconds from 'date-fns/set_milliseconds';
 
-import {TaskService} from 'app/services/task.service';
-import {AlertService} from 'app/services/alert.service';
-import {Helpers} from 'app/utils/helpers';
-import {Task} from 'app/models/task.model';
+import {TaskService} from '@services/task.service';
+import {AlertService} from '@services/alert.service';
+import {Helpers} from '@utils/helpers';
+import {Task} from '@models/task.model';
 
 @Component({
   selector: 'app-set-schedule-date',

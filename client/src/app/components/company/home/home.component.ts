@@ -8,12 +8,12 @@ import * as startOfWeek from 'date-fns/start_of_week';
 import * as addWeeks from 'date-fns/add_weeks';
 import * as endOfWeek from 'date-fns/end_of_week';
 
-import {CompanyService} from 'app/services/company.service';
-import {AlertService} from 'app/services/alert.service';
-import {CalendarUtils} from 'app/utils/calendar.utils';
-import {Constants} from 'app/utils/constants';
-import {Client} from 'app/models/client.model';
-import {PaymentOrder} from 'app/models/payment-order.model';
+import {CompanyService} from '@services/company.service';
+import {AlertService} from '@services/alert.service';
+import {CalendarUtils} from '@utils/calendar.utils';
+import {Constants} from '@utils/constants';
+import {Client} from '@models/client.model';
+import {PaymentOrder} from '@models/payment-order.model';
 
 export class CustomCalendarUtils extends LibCalendarUtils {
 

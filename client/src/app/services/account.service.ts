@@ -3,11 +3,11 @@ import {HttpClient, HttpParams, HttpErrorResponse} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {map, catchError} from 'rxjs/operators';
 
-import {EventService} from 'app/services/event.service';
-import {ApiError} from 'app/services/commons/api.error';
-import {RequestUtils} from 'app/utils/request.utils';
-import {StorageUtils} from 'app/utils/storage.utils';
-import {Account} from 'app/models/account.model';
+import {EventService} from '@services/event.service';
+import {ApiError} from '@services/commons/api.error';
+import {RequestUtils} from '@utils/request.utils';
+import {StorageUtils} from '@utils/storage.utils';
+import {Account} from '@models/account.model';
 
 interface LoginResult {
   token: string;

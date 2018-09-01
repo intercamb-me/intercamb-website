@@ -9,11 +9,11 @@ import * as startOfDay from 'date-fns/start_of_day';
 import * as endOfDay from 'date-fns/end_of_day';
 import * as formatDate from 'date-fns/format';
 
-import {CompanyService} from 'app/services/company.service';
-import {AlertService} from 'app/services/alert.service';
-import {Constants} from 'app/utils/constants';
-import {CalendarUtils} from 'app/utils/calendar.utils';
-import {Task} from 'app/models/task.model';
+import {CompanyService} from '@services/company.service';
+import {AlertService} from '@services/alert.service';
+import {Constants} from '@utils/constants';
+import {CalendarUtils} from '@utils/calendar.utils';
+import {Task} from '@models/task.model';
 
 @Component({
   selector: 'app-calendar',

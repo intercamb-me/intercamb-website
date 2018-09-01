@@ -1,9 +1,9 @@
 import {Component, Input} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
-import {CompanyService} from 'app/services/company.service';
-import {AlertService} from 'app/services/alert.service';
-import {Account} from 'app/models/account.model';
+import {CompanyService} from '@services/company.service';
+import {AlertService} from '@services/alert.service';
+import {Account} from '@models/account.model';
 
 @Component({
   selector: 'app-remove-account',

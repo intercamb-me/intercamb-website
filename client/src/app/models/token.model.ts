@@ -1,7 +1,7 @@
 /* tslint:disable:variable-name */
 
-import {Account} from 'app/models/account.model';
-import {Company} from 'app/models/company.model';
+import {Account} from '@models/account.model';
+import {Company} from '@models/company.model';
 import isObject from 'lodash-es/isObject';
 import cloneDeep from 'lodash-es/cloneDeep';
 

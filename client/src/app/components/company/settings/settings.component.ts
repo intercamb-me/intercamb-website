@@ -2,25 +2,25 @@ import {Component, OnInit} from '@angular/core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {mergeMap} from 'rxjs/operators';
 
-import {RemoveAccountComponent} from 'app/components/company/settings/remove-account/remove-account.component';
-import {SaveDefaultTasksComponent} from 'app/components/company/settings/save-default-tasks/save-default-tasks.component';
-import {SaveInstitutionsComponent} from 'app/components/company/settings/save-institutions/save-institutions.component';
-import {SavePlanComponent} from 'app/components/company/settings/plan/save/save.component';
-import {DeletePlanComponent} from 'app/components/company/settings/plan/delete/delete.component';
-import {InvitationComponent} from 'app/components/company/settings/invitation/invitation.component';
-import {ColorSelected, PaletteVariant} from 'app/components/custom/material-palette-picker/material-palette-picker.component';
+import {RemoveAccountComponent} from '@components/company/settings/remove-account/remove-account.component';
+import {SaveDefaultTasksComponent} from '@components/company/settings/save-default-tasks/save-default-tasks.component';
+import {SaveInstitutionsComponent} from '@components/company/settings/save-institutions/save-institutions.component';
+import {SavePlanComponent} from '@components/company/settings/plan/save/save.component';
+import {DeletePlanComponent} from '@components/company/settings/plan/delete/delete.component';
+import {InvitationComponent} from '@components/company/settings/invitation/invitation.component';
+import {ColorSelected, PaletteVariant} from '@components/custom/material-palette-picker/material-palette-picker.component';
 
-import {AccountService} from 'app/services/account.service';
-import {CompanyService} from 'app/services/company.service';
-import {AlertService} from 'app/services/alert.service';
-import {EventService} from 'app/services/event.service';
-import {Constants} from 'app/utils/constants';
-import {Helpers} from 'app/utils/helpers';
-import {Account} from 'app/models/account.model';
-import {Company} from 'app/models/company.model';
-import {DefaultTask} from 'app/models/default-task.model';
-import {Institution} from 'app/models/institution.model';
-import {Plan} from 'app/models/plan.model';
+import {AccountService} from '@services/account.service';
+import {CompanyService} from '@services/company.service';
+import {AlertService} from '@services/alert.service';
+import {EventService} from '@services/event.service';
+import {Constants} from '@utils/constants';
+import {Helpers} from '@utils/helpers';
+import {Account} from '@models/account.model';
+import {Company} from '@models/company.model';
+import {DefaultTask} from '@models/default-task.model';
+import {Institution} from '@models/institution.model';
+import {Plan} from '@models/plan.model';
 
 @Component({
   selector: 'app-company-settings',

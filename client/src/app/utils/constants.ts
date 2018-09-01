@@ -31,6 +31,29 @@ export class Constants {
     },
   };
 
+  public static readonly TASK_FIELD_TYPES = {
+    text: {
+      id: 'text',
+      name: 'Texto',
+    },
+    textarea: {
+      id: 'textarea',
+      name: 'Texto longo',
+    },
+    number: {
+      id: 'number',
+      name: 'Número',
+    },
+    date: {
+      id: 'date',
+      name: 'Data',
+    },
+    place: {
+      id: 'place',
+      name: 'Localização',
+    },
+  };
+
   public static readonly PAYMENT_METHODS = {
     credit_card: {
       id: 'credit_card',

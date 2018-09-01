@@ -2,9 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {mergeMap} from 'rxjs/operators';
 
-import {CompanyService} from 'app/services/company.service';
-import {AlertService} from 'app/services/alert.service';
-import {Institution} from 'app/models/institution.model';
+import {CompanyService} from '@services/company.service';
+import {AlertService} from '@services/alert.service';
+import {Institution} from '@models/institution.model';
 
 @Component({
   selector: 'app-save-institutions',

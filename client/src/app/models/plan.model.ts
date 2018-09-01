@@ -1,6 +1,6 @@
 /* tslint:disable:variable-name */
 
-import {DefaultTask} from 'app/models/default-task.model';
+import {DefaultTask} from '@models/default-task.model';
 
 export class Plan {
 

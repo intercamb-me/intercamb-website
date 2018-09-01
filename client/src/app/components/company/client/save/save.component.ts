@@ -4,17 +4,17 @@ import {of} from 'rxjs';
 import {mergeMap} from 'rxjs/operators';
 import cloneDeep from 'lodash-es/cloneDeep';
 
-import {SearchAddressComponent} from 'app/components/company/client/search-address/search-address.component';
+import {SearchAddressComponent} from '@components/company/client/search-address/search-address.component';
 
-import {CompanyService} from 'app/services/company.service';
-import {ClientService} from 'app/services/client.service';
-import {AlertService} from 'app/services/alert.service';
-import {Constants} from 'app/utils/constants';
-import {Helpers} from 'app/utils/helpers';
-import {Address} from 'app/models/address.model';
-import {Client} from 'app/models/client.model';
-import {Company} from 'app/models/company.model';
-import {Institution} from 'app/models/institution.model';
+import {CompanyService} from '@services/company.service';
+import {ClientService} from '@services/client.service';
+import {AlertService} from '@services/alert.service';
+import {Constants} from '@utils/constants';
+import {Helpers} from '@utils/helpers';
+import {Address} from '@models/address.model';
+import {Client} from '@models/client.model';
+import {Company} from '@models/company.model';
+import {Institution} from '@models/institution.model';
 
 @Component({
   selector: 'app-save-client',

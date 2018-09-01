@@ -1,7 +1,7 @@
 /* tslint:disable:variable-name */
 
-import {HighSchoolData} from 'app/models/high-school-data.model';
-import {HigherEducationData} from 'app/models/higher-education-data.model';
+import {HighSchoolData} from '@models/high-school-data.model';
+import {HigherEducationData} from '@models/higher-education-data.model';
 
 export class AcademicData {
 

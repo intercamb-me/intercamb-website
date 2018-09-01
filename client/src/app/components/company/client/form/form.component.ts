@@ -3,18 +3,18 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {NgbModal, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 import cloneDeep from 'lodash-es/cloneDeep';
 
-import {SearchAddressComponent} from 'app/components/company/client/search-address/search-address.component';
+import {SearchAddressComponent} from '@components/company/client/search-address/search-address.component';
 
-import {ClientService} from 'app/services/client.service';
-import {TokenService} from 'app/services/token.service';
-import {AlertService} from 'app/services/alert.service';
-import {ErrorUtils} from 'app/utils/error.utils';
-import {Constants} from 'app/utils/constants';
-import {Helpers} from 'app/utils/helpers';
-import {Address} from 'app/models/address.model';
-import {Client} from 'app/models/client.model';
-import {Institution} from 'app/models/institution.model';
-import {Token} from 'app/models/token.model';
+import {ClientService} from '@services/client.service';
+import {TokenService} from '@services/token.service';
+import {AlertService} from '@services/alert.service';
+import {ErrorUtils} from '@utils/error.utils';
+import {Constants} from '@utils/constants';
+import {Helpers} from '@utils/helpers';
+import {Address} from '@models/address.model';
+import {Client} from '@models/client.model';
+import {Institution} from '@models/institution.model';
+import {Token} from '@models/token.model';
 
 @Component({
   selector: 'app-client-form',

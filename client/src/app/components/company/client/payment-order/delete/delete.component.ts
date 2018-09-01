@@ -1,9 +1,9 @@
 import {Component, Input} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
-import {PaymentService} from 'app/services/payment.service';
-import {AlertService} from 'app/services/alert.service';
-import {PaymentOrder} from 'app/models/payment-order.model';
+import {PaymentService} from '@services/payment.service';
+import {AlertService} from '@services/alert.service';
+import {PaymentOrder} from '@models/payment-order.model';
 
 @Component({
   selector: 'app-delete-payment-order',

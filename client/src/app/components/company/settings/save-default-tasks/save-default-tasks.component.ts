@@ -1,9 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgbActiveModal, NgbPopover} from '@ng-bootstrap/ng-bootstrap';
 
-import {CompanyService} from 'app/services/company.service';
-import {AlertService} from 'app/services/alert.service';
-import {DefaultTask} from 'app/models/default-task.model';
+import {CompanyService} from '@services/company.service';
+import {AlertService} from '@services/alert.service';
+import {DefaultTask} from '@models/default-task.model';
 
 @Component({
   selector: 'app-save-default-tasks',

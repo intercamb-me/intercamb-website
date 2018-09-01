@@ -1,7 +1,7 @@
 /* tslint:disable:variable-name */
 
-import {PlaceComponent} from 'app/models/place-component.model';
-import {PlaceLocation} from 'app/models/place-location.model';
+import {PlaceComponent} from '@models/place-component.model';
+import {PlaceLocation} from '@models/place-location.model';
 
 export class TaskPlace {
 

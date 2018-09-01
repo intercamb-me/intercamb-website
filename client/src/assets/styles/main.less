@@ -1,8 +1,3 @@
-@import "variables";
-@import "general";
-@import "header";
-@import "footer";
-
 @import (less, reference) "~bootstrap/dist/css/bootstrap.css";
 
 #signup, #signin, #setup-company, #not-found {
@@ -199,53 +194,41 @@
         font-size: 12px;
       }
     }
-    > .actions {
-
-    }
   }
 }
 
 #edit-default-task {
-  .name {
+  .task-name {
     font-size: unset;
+  }
+  .field {
+    .align-items-center();
+    .name {
+      .font-weight-bold();
+    }
+  }
+  .checklist {
+    .align-items-center();
+    .title {
+      .font-weight-bold();
+    }
+  }
+  .checklist-item {
+    .align-items-center();
+    .mt-1();
+  }
+  .checklist-new-item {
+    .mt-1();
+    margin-left: 1.9rem;
+    .name {
+      .font-small();
+    }
   }
   .remove-icon {
     .text-secondary();
     .font-large();
     .cursor-pointer();
     .ml-2();
-    &:hover {
-      .text-dark();
-    }
-  }
-  .checklist {
-    .d-flex();
-    .align-items-center();
-    .title {
-      .ml-2();
-      .font-weight-bold();
-    }
-  }
-  .checklist-item {
-    .d-flex();
-    .align-items-center();
-    &:hover {
-      .remove-icon {
-        visibility: visible;
-      }
-    }
-    .name {
-      .ml-2();
-    }
-    .remove-icon {
-      visibility: hidden;
-    }
-  }
-  .checklist-new-item {
-    margin-left: 1.75rem;
-    > .name {
-      .font-small();
-    }
   }
 }
 

@@ -1,14 +1,14 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {NgbActiveModal, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 
-import {CompanyService} from 'app/services/company.service';
-import {PaymentService} from 'app/services/payment.service';
-import {AlertService} from 'app/services/alert.service';
-import {Constants} from 'app/utils/constants';
-import {CalendarUtils} from 'app/utils/calendar.utils';
-import {Helpers} from 'app/utils/helpers';
-import {Company} from 'app/models/company.model';
-import {PaymentOrder} from 'app/models/payment-order.model';
+import {CompanyService} from '@services/company.service';
+import {PaymentService} from '@services/payment.service';
+import {AlertService} from '@services/alert.service';
+import {Constants} from '@utils/constants';
+import {CalendarUtils} from '@utils/calendar.utils';
+import {Helpers} from '@utils/helpers';
+import {Company} from '@models/company.model';
+import {PaymentOrder} from '@models/payment-order.model';
 
 @Component({
   selector: 'app-edit-payment-order',

@@ -4,25 +4,25 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {mergeMap} from 'rxjs/operators';
 import {NgxMasonryOptions} from 'ngx-masonry';
 
-import {AssociatePlanComponent} from 'app/components/company/client/associate-plan/associate-plan.component';
-import {CreatePaymentOrderComponent} from 'app/components/company/client/payment-order/create/create.component';
-import {EditPaymentOrderComponent} from 'app/components/company/client/payment-order/edit/edit.component';
-import {DeletePaymentOrderComponent} from 'app/components/company/client/payment-order/delete/delete.component';
-import {ChangePaymentOrderStatusComponent} from 'app/components/company/client/payment-order/change-status/change-status.component';
-import {CreateTaskComponent} from 'app/components/company/client/create-task/create-task.component';
-import {TaskComponent} from 'app/components/company/task/task.component';
-import {DeleteClientComponent} from 'app/components/company/client/delete/delete.component';
+import {AssociatePlanComponent} from '@components/company/client/associate-plan/associate-plan.component';
+import {CreatePaymentOrderComponent} from '@components/company/client/payment-order/create/create.component';
+import {EditPaymentOrderComponent} from '@components/company/client/payment-order/edit/edit.component';
+import {DeletePaymentOrderComponent} from '@components/company/client/payment-order/delete/delete.component';
+import {ChangePaymentOrderStatusComponent} from '@components/company/client/payment-order/change-status/change-status.component';
+import {CreateTaskComponent} from '@components/company/client/create-task/create-task.component';
+import {TaskComponent} from '@components/company/task/task.component';
+import {DeleteClientComponent} from '@components/company/client/delete/delete.component';
 
-import {CompanyService} from 'app/services/company.service';
-import {ClientService} from 'app/services/client.service';
-import {AlertService} from 'app/services/alert.service';
-import {ErrorUtils} from 'app/utils/error.utils';
-import {Helpers} from 'app/utils/helpers';
-import {Constants} from 'app/utils/constants';
-import {Client} from 'app/models/client.model';
-import {Company} from 'app/models/company.model';
-import {PaymentOrder} from 'app/models/payment-order.model';
-import {Task} from 'app/models/task.model';
+import {CompanyService} from '@services/company.service';
+import {ClientService} from '@services/client.service';
+import {AlertService} from '@services/alert.service';
+import {ErrorUtils} from '@utils/error.utils';
+import {Helpers} from '@utils/helpers';
+import {Constants} from '@utils/constants';
+import {Client} from '@models/client.model';
+import {Company} from '@models/company.model';
+import {PaymentOrder} from '@models/payment-order.model';
+import {Task} from '@models/task.model';
 
 @Component({
   selector: 'app-client',

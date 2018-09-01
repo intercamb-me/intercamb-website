@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
-import {TokenService} from 'app/services/token.service';
-import {AlertService} from 'app/services/alert.service';
-import {Token} from 'app/models/token.model';
+import {TokenService} from '@services/token.service';
+import {AlertService} from '@services/alert.service';
+import {Token} from '@models/token.model';
 
 @Component({
   selector: 'app-create-client-form',

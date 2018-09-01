@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "baseUrl": "./client/src",
+    "baseUrl": ".",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "lib": ["es7", "dom"],
+    "lib": ["es2017", "dom"],
     "module": "es6",
     "moduleResolution": "node",
     "noFallthroughCasesInSwitch": true,
@@ -11,6 +11,15 @@
     "noImplicitReturns": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+    "paths": {
+      "@assets/*": ["client/src/assets/*"],
+      "@app/*": ["client/src/app/*"],
+      "@components/*": ["client/src/app/components/*"],
+      "@directives/*": ["client/src/app/directives/*"],
+      "@services/*": ["client/src/app/services/*"],
+      "@models/*": ["client/src/app/models/*"],
+      "@utils/*": ["client/src/app/utils/*"]
+    },
     "removeComments": false,
     "sourceMap": true,
     "strict": true,
@@ -18,6 +27,6 @@
     "skipLibCheck": true,
     "suppressImplicitAnyIndexErrors": true,
     "target": "es5",
-    "typeRoots": ["./node_modules/@types", "./client/src/types"]
+    "typeRoots": ["node_modules/@types", "client/src/types"]
   }
 }

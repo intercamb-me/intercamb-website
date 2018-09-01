@@ -4,8 +4,8 @@ import padStart from 'lodash-es/padStart';
 import isNull from 'lodash-es/isNull';
 import isUndefined from 'lodash-es/isUndefined';
 
-import {Helpers} from 'app/utils/helpers';
-import {Task} from 'app/models/task.model';
+import {Helpers} from '@utils/helpers';
+import {Task} from '@models/task.model';
 
 interface CalendarEventMeta {
   tasks: Task[];

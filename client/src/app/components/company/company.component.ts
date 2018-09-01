@@ -2,12 +2,12 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {finalize} from 'rxjs/operators';
 
-import {AccountService} from 'app/services/account.service';
-import {CompanyService} from 'app/services/company.service';
-import {AlertService} from 'app/services/alert.service';
-import {EventService} from 'app/services/event.service';
-import {Account} from 'app/models/account.model';
-import {Company} from 'app/models/company.model';
+import {AccountService} from '@services/account.service';
+import {CompanyService} from '@services/company.service';
+import {AlertService} from '@services/alert.service';
+import {EventService} from '@services/event.service';
+import {Account} from '@models/account.model';
+import {Company} from '@models/company.model';
 
 @Component({
   selector: 'app-company',

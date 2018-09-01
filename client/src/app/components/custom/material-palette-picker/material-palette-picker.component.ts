@@ -1,7 +1,7 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import isNil from 'lodash-es/isNil';
 
-import palettesJson from 'app/components/custom/material-palette-picker/palettes.json';
+import palettesJson from './palettes.json';
 
 export interface Palette {
   name: string;
@@ -22,42 +22,7 @@ export interface ColorSelected {
 
 @Component({
   selector: 'app-material-palette-picker',
-  template: `
-    <div class="palette">
-      <ng-container *ngFor="let palette of palettes; trackBy: trackByIndex">
-        <span
-          *ngIf="!openedPalette"
-          [ngStyle]="{
-            'background-color': palette.variants[palette.main].color,
-            'color': palette.variants[palette.main].textColor
-          }"
-          (click)="displayVariants(palette)"
-          class="color">
-          <fa-icon *ngIf="palette === selectedPalette" [icon]="['fas', 'check']" [fixedWidth]="true"></fa-icon>
-        </span>
-      </ng-container>
-      <ng-container *ngIf="openedPalette">
-        <span
-          (click)="backToPaletteSelection()"
-          class="color">
-          <fa-icon [icon]="['fas', 'arrow-left']" [fixedWidth]="true"></fa-icon>
-        </span>
-        <span
-          *ngFor="let variant of openedPalette.variants; trackBy: trackByIndex"
-          [ngStyle]="{
-            'background-color': variant.color,
-            'color': variant.textColor
-          }"
-          (click)="selectPalette(openedPalette, variant)"
-          class="color">
-          <fa-icon *ngIf="variant === selectedPaletteVariant" [icon]="['fas', 'check']" [fixedWidth]="true"></fa-icon>
-        </span>
-      </ng-container>
-    </div>
-  `,
-  styles: [
-
-  ],
+  templateUrl: './material-palette-picker.component.html',
 })
 export class MaterialPalettePickerComponent implements OnInit {
 

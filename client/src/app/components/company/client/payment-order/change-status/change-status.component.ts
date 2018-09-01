@@ -1,11 +1,11 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {NgbActiveModal, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 
-import {PaymentService} from 'app/services/payment.service';
-import {AlertService} from 'app/services/alert.service';
-import {CalendarUtils} from 'app/utils/calendar.utils';
-import {Helpers} from 'app/utils/helpers';
-import {PaymentOrder} from 'app/models/payment-order.model';
+import {PaymentService} from '@services/payment.service';
+import {AlertService} from '@services/alert.service';
+import {CalendarUtils} from '@utils/calendar.utils';
+import {Helpers} from '@utils/helpers';
+import {PaymentOrder} from '@models/payment-order.model';
 
 @Component({
   selector: 'app-change-payment-order-status',

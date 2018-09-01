@@ -9,6 +9,7 @@ const CssExtractPlugin = require('mini-css-extract-plugin');
 const CssOptimizePlugin = require('optimize-css-assets-webpack-plugin');
 const CssPurgePlugin = require('purgecss-webpack-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const path = require('path');
 const glob = require('glob');
 
@@ -54,6 +55,7 @@ module.exports = (settings) => {
         path.resolve('client', 'src'),
         path.resolve('node_modules'),
       ],
+      plugins: [new TsconfigPathsPlugin()],
     },
     module: {
       rules: [

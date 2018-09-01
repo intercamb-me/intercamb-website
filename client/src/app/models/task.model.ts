@@ -1,13 +1,13 @@
 /* tslint:disable:variable-name */
 
-import {Client} from 'app/models/client.model';
-import {Company} from 'app/models/company.model';
-import {Plan} from 'app/models/plan.model';
-import {TaskAttachment} from 'app/models/task-attachment.model';
-import {TaskChecklist} from 'app/models/task-checklist.model';
-import {TaskComment} from 'app/models/task-comment.model';
-import {TaskCounters} from 'app/models/task-counters.model';
-import {TaskPlace} from 'app/models/task-place.model';
+import {Client} from '@models/client.model';
+import {Company} from '@models/company.model';
+import {Plan} from '@models/plan.model';
+import {TaskAttachment} from '@models/task-attachment.model';
+import {TaskChecklist} from '@models/task-checklist.model';
+import {TaskComment} from '@models/task-comment.model';
+import {TaskCounters} from '@models/task-counters.model';
+import {TaskPlace} from '@models/task-place.model';
 import isObject from 'lodash-es/isObject';
 import cloneDeep from 'lodash-es/cloneDeep';
 

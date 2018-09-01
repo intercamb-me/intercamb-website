@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 
-import {Client} from 'app/models/client.model';
+import {Client} from '@models/client.model';
 
 @Component({
   selector: 'app-create-client',

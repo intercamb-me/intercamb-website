@@ -1,6 +1,6 @@
 /* tslint:disable:variable-name */
 
-import {ChecklistItem} from 'app/models/checklist-item.model';
+import {ChecklistItem} from '@models/checklist-item.model';
 
 export class TaskChecklist {
 

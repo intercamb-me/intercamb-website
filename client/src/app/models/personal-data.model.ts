@@ -1,8 +1,8 @@
 /* tslint:disable:variable-name */
 
-import {CalendarUtils} from 'app/utils/calendar.utils';
-import {IdentityDocument} from 'app/models/identity-document.model';
-import {PlaceOfBirth} from 'app/models/place-of-birth.model';
+import {CalendarUtils} from '@utils/calendar.utils';
+import {IdentityDocument} from '@models/identity-document.model';
+import {PlaceOfBirth} from '@models/place-of-birth.model';
 import cloneDeep from 'lodash-es/cloneDeep';
 
 export class PersonalData {

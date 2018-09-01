@@ -40,6 +40,7 @@ import {faEllipsisV} from '@fortawesome/free-solid-svg-icons/faEllipsisV';
 import {faEnvelope} from '@fortawesome/free-solid-svg-icons/faEnvelope';
 import {faEnvelopeOpen} from '@fortawesome/free-solid-svg-icons/faEnvelopeOpen';
 import {faGraduationCap} from '@fortawesome/free-solid-svg-icons/faGraduationCap';
+import {faFont} from '@fortawesome/free-solid-svg-icons/faFont';
 import {faHashtag} from '@fortawesome/free-solid-svg-icons/faHashtag';
 import {faHome} from '@fortawesome/free-solid-svg-icons/faHome';
 import {faKey} from '@fortawesome/free-solid-svg-icons/faKey';
@@ -66,69 +67,69 @@ import {LoadingBarHttpClientModule} from '@ngx-loading-bar/http-client';
 import {LoadingBarRouterModule} from '@ngx-loading-bar/router';
 
 // Routes
-import {AppRoutes} from 'app/app.routes';
+import {AppRoutes} from '@app/app.routes';
 
 // Components
-import {AppComponent} from 'app/app.component';
-import {AlertsComponent} from 'app/components/alerts/alerts.component';
-import {LandingPageComponent} from 'app/components/landing-page/landing-page.component';
-import {SignUpComponent} from 'app/components/signup/signup.component';
-import {SignInComponent} from 'app/components/signin/signin.component';
-import {SetupCompanyComponent} from 'app/components/company/setup/setup.component';
-import {CompanyComponent} from 'app/components/company/company.component';
-import {HomeComponent} from 'app/components/company/home/home.component';
-import {ClientsComponent} from 'app/components/company/clients/clients.component';
-import {ClientComponent} from 'app/components/company/client/client.component';
-import {ClientFormComponent} from 'app/components/company/client/form/form.component';
-import {SaveClientComponent} from 'app/components/company/client/save/save.component';
-import {CreateClientComponent} from 'app/components/company/client/create/create.component';
-import {EditClientComponent} from 'app/components/company/client/edit/edit.component';
-import {CalendarComponent} from 'app/components/company/calendar/calendar.component';
-import {ReportsComponent} from 'app/components/company/reports/reports.component';
-import {CompanySettingsComponent} from 'app/components/company/settings/settings.component';
-import {AccountSettingsComponent} from 'app/components/account/settings/settings.component';
-import {NotFoundComponent} from 'app/components/not-found/not-found.component';
+import {AppComponent} from '@app/app.component';
+import {AlertsComponent} from '@components/alerts/alerts.component';
+import {LandingPageComponent} from '@components/landing-page/landing-page.component';
+import {SignUpComponent} from '@components/signup/signup.component';
+import {SignInComponent} from '@components/signin/signin.component';
+import {SetupCompanyComponent} from '@components/company/setup/setup.component';
+import {CompanyComponent} from '@components/company/company.component';
+import {HomeComponent} from '@components/company/home/home.component';
+import {ClientsComponent} from '@components/company/clients/clients.component';
+import {ClientComponent} from '@components/company/client/client.component';
+import {ClientFormComponent} from '@components/company/client/form/form.component';
+import {SaveClientComponent} from '@components/company/client/save/save.component';
+import {CreateClientComponent} from '@components/company/client/create/create.component';
+import {EditClientComponent} from '@components/company/client/edit/edit.component';
+import {CalendarComponent} from '@components/company/calendar/calendar.component';
+import {ReportsComponent} from '@components/company/reports/reports.component';
+import {CompanySettingsComponent} from '@components/company/settings/settings.component';
+import {AccountSettingsComponent} from '@components/account/settings/settings.component';
+import {NotFoundComponent} from '@components/not-found/not-found.component';
 
 // Shared Components
-import {MaterialPalettePickerComponent} from 'app/components/custom/material-palette-picker/material-palette-picker.component';
-import {EditDefaultTaskComponent} from 'app/components/custom/edit-default-task/edit-default-task.component';
+import {MaterialPalettePickerComponent} from '@components/custom/material-palette-picker/material-palette-picker.component';
+import {EditDefaultTaskComponent} from '@components/custom/edit-default-task/edit-default-task.component';
 
 // Modals
-import {CreateClientFormComponent} from 'app/components/company/clients/create-form/create-form.component';
-import {DeleteClientComponent} from 'app/components/company/client/delete/delete.component';
-import {CreateTaskComponent} from 'app/components/company/client/create-task/create-task.component';
-import {TaskComponent} from 'app/components/company/task/task.component';
-import {ChangeTaskStatusComponent} from 'app/components/company/task/change-status/change-status.component';
-import {SetTaskScheduleDateComponent} from 'app/components/company/task/set-schedule-date/set-schedule-date.component';
-import {SetTaskLocationComponent} from 'app/components/company/task/set-location/set-location.component';
-import {DeleteTaskComponent} from 'app/components/company/task/delete/delete.component';
-import {SearchAddressComponent} from 'app/components/company/client/search-address/search-address.component';
-import {RemoveAccountComponent} from 'app/components/company/settings/remove-account/remove-account.component';
-import {SaveDefaultTasksComponent} from 'app/components/company/settings/save-default-tasks/save-default-tasks.component';
-import {SaveInstitutionsComponent} from 'app/components/company/settings/save-institutions/save-institutions.component';
-import {SavePlanComponent} from 'app/components/company/settings/plan/save/save.component';
-import {DeletePlanComponent} from 'app/components/company/settings/plan/delete/delete.component';
-import {AssociatePlanComponent} from 'app/components/company/client/associate-plan/associate-plan.component';
-import {CreatePaymentOrderComponent} from 'app/components/company/client/payment-order/create/create.component';
-import {EditPaymentOrderComponent} from 'app/components/company/client/payment-order/edit/edit.component';
-import {DeletePaymentOrderComponent} from 'app/components/company/client/payment-order/delete/delete.component';
-import {ChangePaymentOrderStatusComponent} from 'app/components/company/client/payment-order/change-status/change-status.component';
-import {InvitationComponent} from 'app/components/company/settings/invitation/invitation.component';
+import {CreateClientFormComponent} from '@components/company/clients/create-form/create-form.component';
+import {DeleteClientComponent} from '@components/company/client/delete/delete.component';
+import {CreateTaskComponent} from '@components/company/client/create-task/create-task.component';
+import {TaskComponent} from '@components/company/task/task.component';
+import {ChangeTaskStatusComponent} from '@components/company/task/change-status/change-status.component';
+import {SetTaskScheduleDateComponent} from '@components/company/task/set-schedule-date/set-schedule-date.component';
+import {SetTaskLocationComponent} from '@components/company/task/set-location/set-location.component';
+import {DeleteTaskComponent} from '@components/company/task/delete/delete.component';
+import {SearchAddressComponent} from '@components/company/client/search-address/search-address.component';
+import {RemoveAccountComponent} from '@components/company/settings/remove-account/remove-account.component';
+import {SaveDefaultTasksComponent} from '@components/company/settings/save-default-tasks/save-default-tasks.component';
+import {SaveInstitutionsComponent} from '@components/company/settings/save-institutions/save-institutions.component';
+import {SavePlanComponent} from '@components/company/settings/plan/save/save.component';
+import {DeletePlanComponent} from '@components/company/settings/plan/delete/delete.component';
+import {AssociatePlanComponent} from '@components/company/client/associate-plan/associate-plan.component';
+import {CreatePaymentOrderComponent} from '@components/company/client/payment-order/create/create.component';
+import {EditPaymentOrderComponent} from '@components/company/client/payment-order/edit/edit.component';
+import {DeletePaymentOrderComponent} from '@components/company/client/payment-order/delete/delete.component';
+import {ChangePaymentOrderStatusComponent} from '@components/company/client/payment-order/change-status/change-status.component';
+import {InvitationComponent} from '@components/company/settings/invitation/invitation.component';
 
 // Services
-import {AccountService} from 'app/services/account.service';
-import {AlertService} from 'app/services/alert.service';
-import {ClientService} from 'app/services/client.service';
-import {CompanyService} from 'app/services/company.service';
-import {EventService} from 'app/services/event.service';
-import {InvitationService} from 'app/services/invitation.service';
-import {PaymentService} from 'app/services/payment.service';
-import {PlanService} from 'app/services/plan.service';
-import {TaskService} from 'app/services/task.service';
-import {TokenService} from 'app/services/token.service';
+import {AccountService} from '@services/account.service';
+import {AlertService} from '@services/alert.service';
+import {ClientService} from '@services/client.service';
+import {CompanyService} from '@services/company.service';
+import {EventService} from '@services/event.service';
+import {InvitationService} from '@services/invitation.service';
+import {PaymentService} from '@services/payment.service';
+import {PlanService} from '@services/plan.service';
+import {TaskService} from '@services/task.service';
+import {TokenService} from '@services/token.service';
 
 // Directives
-import {GooglePlacesDirective} from 'app/directives/google-places/google-places.directive';
+import {GooglePlacesDirective} from '@directives/google-places/google-places.directive';
 
 // Utilities
 import {
@@ -139,7 +140,7 @@ import {
   HyphensIfEmptyPipe,
   CurrencySymbolPipe,
   BrazilianNgbDateParserFormatter,
-} from 'app/utils/angular.utils';
+} from '@utils/angular.utils';
 
 registerLocaleData(pt);
 
@@ -161,6 +162,7 @@ library.add(faEllipsisV);
 library.add(faEnvelope);
 library.add(faEnvelopeOpen);
 library.add(faGraduationCap);
+library.add(faFont);
 library.add(faHashtag);
 library.add(faHome);
 library.add(faKey);

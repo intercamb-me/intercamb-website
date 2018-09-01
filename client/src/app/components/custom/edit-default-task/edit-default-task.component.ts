@@ -3,7 +3,8 @@ import {FormBuilder, FormGroup, FormArray, Validators} from '@angular/forms';
 import {NgbActiveModal, NgbPopover} from '@ng-bootstrap/ng-bootstrap';
 import cloneDeep from 'lodash-es/cloneDeep';
 
-import {DefaultTask} from 'app/models/default-task.model';
+import {Constants} from '@utils/constants';
+import {DefaultTask} from '@models/default-task.model';
 
 @Component({
   selector: 'app-edit-default-task',
@@ -11,8 +12,10 @@ import {DefaultTask} from 'app/models/default-task.model';
 })
 export class EditDefaultTaskComponent implements OnInit {
 
-  @ViewChild(NgbPopover)
-  public popover: NgbPopover;
+  @ViewChild('fieldPopover', {read: NgbPopover})
+  public fieldPopover: NgbPopover;
+  @ViewChild('checklistPopover', {read: NgbPopover})
+  public checklistPopover: NgbPopover;
   @Input()
   public defaultTask: DefaultTask;
   @Output()
@@ -20,14 +23,23 @@ export class EditDefaultTaskComponent implements OnInit {
   @Output()
   public back = new EventEmitter<any>();
 
-  public checklistTitle: string;
   public formGroup: FormGroup;
+  public fieldTypes = Object.values(Constants.TASK_FIELD_TYPES);
+
+  public checklistTitle: string;
+  public fieldName: string;
+  public fieldType = Constants.TASK_FIELD_TYPES.text.id;
 
   constructor(private formBuilder: FormBuilder, private ngbActiveModal: NgbActiveModal) {
 
   }
 
   public ngOnInit(): void {
+    const fieldsFormGroup = this.formBuilder.array([]);
+    this.defaultTask.fields.forEach((field) => {
+      const fieldFormGroup = this.createFieldFormGroup(field.name, field.type);
+      fieldsFormGroup.push(fieldFormGroup);
+    });
     const checklistsFormGroup = this.formBuilder.array([]);
     this.defaultTask.checklists.forEach((checklist) => {
       const checklistFormGroup = this.createChecklistFormGroup(checklist.title);
@@ -42,8 +54,8 @@ export class EditDefaultTaskComponent implements OnInit {
       name: [this.defaultTask.name, Validators.required],
       editing: [false],
       checklists: checklistsFormGroup,
+      fields: fieldsFormGroup,
     });
-
   }
 
   public close(): void {
@@ -60,18 +72,29 @@ export class EditDefaultTaskComponent implements OnInit {
 
   public editItemToAdd(formGroup: FormGroup): void {
     formGroup.get('editing').setValue(true);
-    const itemName = formGroup.get('name');
-    itemName.setValue('');
-    itemName.setValidators(Validators.required);
-    itemName.updateValueAndValidity();
+    formGroup.get('name').setValue('');
   }
 
   public stopEditingItemToAdd(formGroup: FormGroup): void {
     formGroup.get('editing').setValue(false);
-    const itemName = formGroup.get('name');
-    itemName.setValue('');
-    itemName.clearValidators();
-    itemName.updateValueAndValidity();
+    formGroup.get('name').setValue('');
+  }
+
+  public addField(): void {
+    const field = this.createFieldFormGroup(this.fieldName, this.fieldType);
+    const fields = this.formGroup.get('fields') as FormArray;
+    fields.push(field);
+    this.fieldName = null;
+    this.fieldType = Constants.TASK_FIELD_TYPES.text.id;
+    this.fieldPopover.close();
+  }
+
+  public removeField(field: FormGroup): void {
+    const fields = this.formGroup.get('fields') as FormArray;
+    const index = fields.controls.indexOf(field);
+    if (index >= 0) {
+      fields.removeAt(index);
+    }
   }
 
   public addChecklist(): void {
@@ -80,7 +103,7 @@ export class EditDefaultTaskComponent implements OnInit {
       const checklists = this.formGroup.get('checklists') as FormArray;
       checklists.push(checklist);
       this.checklistTitle = null;
-      this.popover.close();
+      this.checklistPopover.close();
     }
   }
 
@@ -118,6 +141,14 @@ export class EditDefaultTaskComponent implements OnInit {
 
   public backToDefaultTasks(): void {
     this.back.emit();
+  }
+
+  private createFieldFormGroup(name: string, type: string): FormGroup {
+    return this.formBuilder.group({
+      name: [name, Validators.required],
+      type: [type, Validators.required],
+      editing: [false],
+    });
   }
 
   private createChecklistFormGroup(title: string): FormGroup {

@@ -3,15 +3,15 @@ import {HttpClient, HttpParams, HttpErrorResponse} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {map, catchError} from 'rxjs/operators';
 
-import {EventService} from 'app/services/event.service';
-import {ApiError} from 'app/services/commons/api.error';
-import {RequestUtils} from 'app/utils/request.utils';
-import {Address} from 'app/models/address.model';
-import {Client} from 'app/models/client.model';
-import {PaymentOrder} from 'app/models/payment-order.model';
-import {Plan} from 'app/models/plan.model';
-import {Task} from 'app/models/task.model';
-import {Token} from 'app/models/token.model';
+import {EventService} from '@services/event.service';
+import {ApiError} from '@services/commons/api.error';
+import {RequestUtils} from '@utils/request.utils';
+import {Address} from '@models/address.model';
+import {Client} from '@models/client.model';
+import {PaymentOrder} from '@models/payment-order.model';
+import {Plan} from '@models/plan.model';
+import {Task} from '@models/task.model';
+import {Token} from '@models/token.model';
 
 @Injectable()
 export class ClientService {
