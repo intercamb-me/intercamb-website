@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 
-import {ColorSelected, PaletteVariant} from '@components/custom/material-palette-picker/material-palette-picker.component';
+import {ColorSelected, PaletteVariant} from '@components/shared/material-palette-picker/material-palette-picker.component';
 
 import {AccountService} from '@services/account.service';
 import {CompanyService} from '@services/company.service';

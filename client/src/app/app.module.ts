@@ -91,8 +91,10 @@ import {AccountSettingsComponent} from '@components/account/settings/settings.co
 import {NotFoundComponent} from '@components/not-found/not-found.component';
 
 // Shared Components
-import {MaterialPalettePickerComponent} from '@components/custom/material-palette-picker/material-palette-picker.component';
-import {EditDefaultTaskComponent} from '@components/custom/edit-default-task/edit-default-task.component';
+import {MaterialPalettePickerComponent} from '@components/shared/material-palette-picker/material-palette-picker.component';
+import {EditDefaultTaskComponent} from '@components/shared/edit-default-task/edit-default-task.component';
+import {TaskFieldsComponent} from '@components/shared/task/fields/fields.component';
+import {TaskChecklistsComponent} from '@components/shared/task/checklists/checklists.component';
 
 // Modals
 import {CreateClientFormComponent} from '@components/company/clients/create-form/create-form.component';
@@ -236,6 +238,8 @@ library.add(faUsers);
     // Shared Components
     MaterialPalettePickerComponent,
     EditDefaultTaskComponent,
+    TaskFieldsComponent,
+    TaskChecklistsComponent,
     // Modals
     ClientFormComponent,
     DeleteClientComponent,

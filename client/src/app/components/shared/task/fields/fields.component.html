@@ -1,0 +1,45 @@
+<div *ngIf="formArray.length > 0" class="fields">
+  <div
+    *ngFor="let field of formArray.controls; index as index"
+    [ngClass]="{'mb-1': index < formArray.length - 1}"
+    [formGroup]="field"
+    class="field form-row">
+    <div class="col-auto">
+      <fa-icon [icon]="['fas', 'font']" [fixedWidth]="true"></fa-icon>
+    </div>
+    <div class="col">
+      <input
+        [readonly]="!field.get('editing').value"
+        (focus)="editFormGroup(field)"
+        (blur)="stopEditingFormGroup(field)"
+        (keydown.enter)="stopEditingFormGroup(field)"
+        formControlName="name"
+        class="name editable form-control"
+        placeholder="Nome"
+        type="text">
+    </div>
+    <div class="col">
+      <select
+        [ngClass]="{
+          'form-control': field.get('editing').value,
+          'form-control-plaintext': !field.get('editing').value
+        }"
+        (focus)="editFormGroup(field)"
+        (blur)="stopEditingFormGroup(field)"
+        formControlName="type"
+        class="type editable"
+        placeholder="Tipo">
+        <option *ngFor="let type of fieldTypes" [ngValue]="type.id">{{ type.name }}</option>
+      </select>
+    </div>
+    <div class="col-auto">
+      <fa-icon
+        (click)="removeField(field)"
+        [icon]="['fas', 'times']"
+        [fixedWidth]="true"
+        class="remove-icon"
+        title="Remover campo">
+      </fa-icon>
+    </div>
+  </div>
+</div>

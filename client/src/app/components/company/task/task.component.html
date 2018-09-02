@@ -1,3 +1,16 @@
+<ng-template #changeStatusPopoverTemplate>
+  <app-change-task-status [task]="task" (update)="onStatusChanged($event)"></app-change-task-status>
+</ng-template>
+<ng-template #setScheduleDatePopoverTemplate>
+  <app-set-task-schedule-date [task]="task" (update)="onScheduleDateUpdated($event)"></app-set-task-schedule-date>
+</ng-template>
+<ng-template #setLocationPopoverTemplate>
+  <app-set-task-location [task]="task" (update)="onLocationUpdated($event)"></app-set-task-location>
+</ng-template>
+<ng-template #remoteTaskPopoverTemplate>
+  <app-delete-task [task]="task" (delete)="onTaskRemoved()"></app-delete-task>
+</ng-template>
+
 <div *ngIf="!loading" id="task">
   <div class="modal-header px-4">
     <div class="row">
@@ -35,12 +48,9 @@
   <div class="modal-body px-4 py-4">
     <div class="row">
       <div class="col">
-        <div class="attachments">
+        <div *ngIf="attachments.length > 0" class="attachments">
           <h5>Arquivos</h5>
-          <div *ngIf="attachments.length === 0" class="jumbotron py-5 mb-0 text-center">
-            <p class="mb-0">Nenhum arquivo</p>
-          </div>
-          <div *ngIf="attachments.length > 0" class="row">
+          <div class="row">
             <div *ngFor="let attachment of attachments; trackBy: trackByAttachment" class="col col-md-6 mb-3">
               <div (click)="openTaskAttachment(attachment)" class="attachment">
                 <div class="account">
@@ -81,7 +91,13 @@
         </div>
       </div>
       <div class="col-auto d-flex flex-column justify-content-start">
-        <button (click)="openChangeStatus()" type="button" class="btn btn-primary d-flex align-items-center">
+        <button
+          #changeStatusPopover
+          [ngbPopover]="changeStatusPopoverTemplate"
+          [autoClose]="'outside'"
+          placement="left"
+          type="button"
+          class="btn btn-primary d-flex align-items-center">
           <fa-icon [icon]="['fas', 'tasks']" [fixedWidth]="true" class="flex-shrink-0"></fa-icon>
           <span class="ml-2">Alterar status</span>
         </button>
@@ -90,16 +106,34 @@
           <span class="ml-2">Anexar arquivo</span>
           <input (change)="addTaskAttachment($event)" type="file" name="file" accept="*/*">
         </label>
-        <button (click)="openSetScheduleDate()" type="button" class="btn btn-primary d-flex align-items-center mt-2">
+        <button
+          #setScheduleDatePopover
+          [ngbPopover]="setScheduleDatePopoverTemplate"
+          [autoClose]="'outside'"
+          placement="left"
+          type="button"
+          class="btn btn-primary d-flex align-items-center mt-2">
           <fa-icon [icon]="['fas', 'clock']" [fixedWidth]="true" class="flex-shrink-0"></fa-icon>
           <span *ngIf="!task.schedule_date" class="ml-2">Marcar data</span>
           <span *ngIf="task.schedule_date" class="ml-2">Alterar data</span>
         </button>
-        <button (click)="openSetLocation()" type="button" class="btn btn-primary d-flex align-items-center mt-2">
+        <button
+          #setLocationPopover
+          [ngbPopover]="setLocationPopoverTemplate"
+          [autoClose]="'outside'"
+          placement="left"
+          type="button"
+          class="btn btn-primary d-flex align-items-center mt-2">
           <fa-icon [icon]="['fas', 'map-marker-alt']" [fixedWidth]="true" class="flex-shrink-0"></fa-icon>
           <span class="ml-2">Localização</span>
         </button>
-        <button (click)="openDeleteTask()" type="button" class="btn btn-danger d-flex align-items-center mt-2">
+        <button
+          #removeTaskPopover
+          [ngbPopover]="remoteTaskPopoverTemplate"
+          [autoClose]="'outside'"
+          placement="left"
+          type="button"
+          class="btn btn-danger d-flex align-items-center mt-2">
           <fa-icon [icon]="['fas', 'trash']" [fixedWidth]="true" class="flex-shrink-0"></fa-icon>
           <span class="ml-2">Remover</span>
         </button>

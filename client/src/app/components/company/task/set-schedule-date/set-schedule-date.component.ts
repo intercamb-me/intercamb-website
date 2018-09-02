@@ -1,5 +1,5 @@
-import {Component, OnInit, Input} from '@angular/core';
-import {NgbActiveModal, NgbDateStruct, NgbTimeStruct} from '@ng-bootstrap/ng-bootstrap';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {NgbDateStruct, NgbTimeStruct} from '@ng-bootstrap/ng-bootstrap';
 import * as getYear from 'date-fns/get_year';
 import * as setYear from 'date-fns/set_year';
 import * as getMonth from 'date-fns/get_month';
@@ -19,20 +19,22 @@ import {Helpers} from '@utils/helpers';
 import {Task} from '@models/task.model';
 
 @Component({
-  selector: 'app-set-schedule-date',
+  selector: 'app-set-task-schedule-date',
   templateUrl: './set-schedule-date.component.html',
 })
 export class SetTaskScheduleDateComponent implements OnInit {
 
   @Input()
   public task: Task;
+  @Output()
+  public update = new EventEmitter<Task>();
 
   public selectedDateStruct: NgbDateStruct;
   public selectedTimeStruct: NgbTimeStruct;
   public onlyDateChars = Helpers.onlyDateChars;
   public updating = false;
 
-  constructor(private taskService: TaskService, private alertService: AlertService, private ngbActiveModal: NgbActiveModal) {
+  constructor(private taskService: TaskService, private alertService: AlertService) {
 
   }
 
@@ -51,10 +53,6 @@ export class SetTaskScheduleDateComponent implements OnInit {
     }
   }
 
-  public close(): void {
-    this.ngbActiveModal.dismiss();
-  }
-
   public confirmScheduleDate(): void {
     this.updating = true;
     let scheduleDate = new Date();
@@ -66,7 +64,7 @@ export class SetTaskScheduleDateComponent implements OnInit {
     scheduleDate = setSeconds(scheduleDate, 0);
     scheduleDate = setMilliseconds(scheduleDate, 0);
     this.taskService.updateTask(this.task, {schedule_date: scheduleDate}).subscribe((task) => {
-      this.ngbActiveModal.close(task);
+      this.update.emit(task);
       this.alertService.success('Data da atividade marcada com sucesso!');
     }, (err) => {
       this.updating = false;
@@ -77,7 +75,7 @@ export class SetTaskScheduleDateComponent implements OnInit {
   public removeScheduleDate(): void {
     this.updating = true;
     this.taskService.updateTask(this.task, {schedule_date: null}).subscribe((task) => {
-      this.ngbActiveModal.close(task);
+      this.update.emit(task);
       this.alertService.success('Data da atividade removida com sucesso!');
     }, (err) => {
       this.updating = false;

@@ -1,12 +1,7 @@
-import {Component, OnInit, Input} from '@angular/core';
-import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {Component, OnInit, Input, ViewChild} from '@angular/core';
+import {NgbPopover, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {mergeMap} from 'rxjs/operators';
 import * as distanceInWordsStrict from 'date-fns/distance_in_words_strict';
-
-import {ChangeTaskStatusComponent} from '@components/company/task/change-status/change-status.component';
-import {SetTaskScheduleDateComponent} from '@components/company/task/set-schedule-date/set-schedule-date.component';
-import {SetTaskLocationComponent} from '@components/company/task/set-location/set-location.component';
-import {DeleteTaskComponent} from '@components/company/task/delete/delete.component';
 
 import {AccountService} from '@services/account.service';
 import {TaskService} from '@services/task.service';
@@ -16,6 +11,8 @@ import {StorageUtils} from '@utils/storage.utils';
 import {Account} from '@models/account.model';
 import {Client} from '@models/client.model';
 import {Task} from '@models/task.model';
+import {TaskField} from '@models/task-field.model';
+import {TaskChecklist} from '@models/task-checklist.model';
 import {TaskAttachment} from '@models/task-attachment.model';
 import {TaskComment} from '@models/task-comment.model';
 import {TaskCounters} from '@models/task-counters.model';
@@ -26,12 +23,22 @@ import {TaskCounters} from '@models/task-counters.model';
 })
 export class TaskComponent implements OnInit {
 
+  @ViewChild('changeStatusPopover', {read: NgbPopover})
+  public changeStatusPopover: NgbPopover;
+  @ViewChild('setScheduleDatePopover', {read: NgbPopover})
+  public setScheduleDatePopover: NgbPopover;
+  @ViewChild('setLocationPopover', {read: NgbPopover})
+  public setLocationPopover: NgbPopover;
+  @ViewChild('removeTaskPopover', {read: NgbPopover})
+  public removeTaskPopover: NgbPopover;
   @Input()
   public client: Client;
   @Input()
   public task: Task;
 
   public account: Account;
+  public fields: TaskField[];
+  public checklists: TaskChecklist[];
   public attachments: TaskAttachment[];
   public comments: TaskComment[];
   public counters: TaskCounters;
@@ -40,7 +47,9 @@ export class TaskComponent implements OnInit {
   public commentRows = 1;
   public loading = true;
 
-  constructor(private accountService: AccountService, private taskService: TaskService, private alertService: AlertService, private ngbModal: NgbModal, private ngbActiveModal: NgbActiveModal) {
+  private editingObject: any;
+
+  constructor(private accountService: AccountService, private taskService: TaskService, private alertService: AlertService, private ngbActiveModal: NgbActiveModal) {
 
   }
 
@@ -48,6 +57,8 @@ export class TaskComponent implements OnInit {
     this.taskService.getTask(this.task.id, {populate: 'attachments.account comments.account'}).pipe(
       mergeMap((task) => {
         this.task = task;
+        this.fields = task.fields;
+        this.checklists = task.checklists;
         this.attachments = task.attachments;
         this.comments = task.comments;
         this.counters = task.counters;
@@ -59,6 +70,10 @@ export class TaskComponent implements OnInit {
     }, (err) => {
       this.alertService.apiError(null, err);
     });
+  }
+
+  public trackByIndex(index: number): number {
+    return index;
   }
 
   public trackByComment(_index: number, comment: TaskComment): string {
@@ -76,6 +91,58 @@ export class TaskComponent implements OnInit {
     this.ngbActiveModal.close(this.task);
   }
 
+  public formatDate(date: Date): string {
+    return distanceInWordsStrict(date, new Date());
+  }
+
+  public onStatusChanged(task: Task): void {
+    this.task = task;
+    this.changeStatusPopover.close();
+  }
+
+  public onScheduleDateUpdated(task: Task): void {
+    this.task = task;
+    this.setScheduleDatePopover.close();
+  }
+
+  public onLocationUpdated(task: Task): void {
+    this.task = task;
+    this.setLocationPopover.close();
+  }
+
+  public onTaskRemoved(): void {
+    this.removeTaskPopover.close();
+    this.ngbActiveModal.close();
+  }
+
+  public isEditing(obj: any): boolean {
+    return this.editingObject === obj;
+  }
+
+  public edit(obj: any): void {
+    this.editingObject = obj;
+  }
+
+  public stopEditing(): void {
+    this.editingObject = null;
+  }
+
+  public addTaskAttachment(event: any): void {
+    const file = event.target.files[0];
+    this.taskService.addTaskAttachment(this.task, file).subscribe((attachment) => {
+      attachment.account = this.account;
+      this.counters.attachments += 1;
+      this.attachments.push(attachment);
+    }, (err) => {
+      this.alertService.apiError(null, err, 'Não foi possível enviar o arquivo, por favor tente novamente mais tarde!');
+    });
+  }
+
+  public openTaskAttachment(attachment: TaskAttachment): void {
+    const win = window.open();
+    win.location.href = `${process.env.API_URL}/attachments/${attachment.id}/file?access_token=${StorageUtils.getApiToken()}`;
+  }
+
   public isImageAttachment(attachment: TaskAttachment): boolean {
     return attachment.type.startsWith('image');
   }
@@ -91,66 +158,6 @@ export class TaskComponent implements OnInit {
   public getAttachmentSize(attachment: TaskAttachment): string {
     const sizeInMB = attachment.size / 1000000;
     return `${Math.round(sizeInMB * 100) / 100} MB`;
-  }
-
-  public formatDate(date: Date): string {
-    return distanceInWordsStrict(date, new Date());
-  }
-
-  public openChangeStatus(): void {
-    const modalRef = this.ngbModal.open(ChangeTaskStatusComponent, {
-      centered: true,
-      backdrop: 'static',
-      keyboard: false,
-    });
-    modalRef.componentInstance.task = this.task;
-    modalRef.result.then((updatedTask) => {
-      this.task = updatedTask;
-    }).catch(() => {
-      // Nothing to do...
-    });
-  }
-
-  public openSetScheduleDate(): void {
-    const modalRef = this.ngbModal.open(SetTaskScheduleDateComponent, {
-      centered: true,
-      backdrop: 'static',
-      keyboard: false,
-    });
-    modalRef.componentInstance.task = this.task;
-    modalRef.result.then((updatedTask) => {
-      this.task = updatedTask;
-    }).catch(() => {
-      // Nothing to do...
-    });
-  }
-
-  public openSetLocation(): void {
-    const modalRef = this.ngbModal.open(SetTaskLocationComponent, {
-      centered: true,
-      backdrop: 'static',
-      keyboard: false,
-    });
-    modalRef.componentInstance.task = this.task;
-    modalRef.result.then((updatedTask) => {
-      this.task = updatedTask;
-    }).catch(() => {
-      // Nothing to do...
-    });
-  }
-
-  public openDeleteTask(): void {
-    const modalRef = this.ngbModal.open(DeleteTaskComponent, {
-      centered: true,
-      backdrop: 'static',
-      keyboard: false,
-    });
-    modalRef.componentInstance.task = this.task;
-    modalRef.result.then(() => {
-      this.ngbActiveModal.close();
-    }).catch(() => {
-      // Nothing to do...
-    });
   }
 
   public onCommentKeyPress(event: KeyboardEvent): void {
@@ -176,21 +183,5 @@ export class TaskComponent implements OnInit {
   public onCommentKeyUp(): void {
     const breakLinesCount = (this.comment.match(/\n/g) || []).length + 1;
     this.commentRows = breakLinesCount;
-  }
-
-  public addTaskAttachment(event: any): void {
-    const file = event.target.files[0];
-    this.taskService.addTaskAttachment(this.task, file).subscribe((attachment) => {
-      attachment.account = this.account;
-      this.counters.attachments += 1;
-      this.attachments.push(attachment);
-    }, (err) => {
-      this.alertService.apiError(null, err, 'Não foi possível enviar o arquivo, por favor tente novamente mais tarde!');
-    });
-  }
-
-  public openTaskAttachment(attachment: TaskAttachment): void {
-    const win = window.open();
-    win.location.href = `${process.env.API_URL}/attachments/${attachment.id}/file?access_token=${StorageUtils.getApiToken()}`;
   }
 }

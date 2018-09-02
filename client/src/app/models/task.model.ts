@@ -7,6 +7,7 @@ import {TaskAttachment} from '@models/task-attachment.model';
 import {TaskChecklist} from '@models/task-checklist.model';
 import {TaskComment} from '@models/task-comment.model';
 import {TaskCounters} from '@models/task-counters.model';
+import {TaskField} from '@models/task-field.model';
 import {TaskPlace} from '@models/task-place.model';
 import isObject from 'lodash-es/isObject';
 import cloneDeep from 'lodash-es/cloneDeep';
@@ -23,9 +24,10 @@ export class Task {
   public name: string;
   public status: string;
   public schedule_date: Date;
+  public fields: TaskField[];
+  public checklists: TaskChecklist[];
   public attachments: TaskAttachment[];
   public comments: TaskComment[];
-  public checklists: TaskChecklist[];
   public counters: TaskCounters;
   public place: TaskPlace;
   public registration_date: Date;
@@ -57,16 +59,22 @@ export class Task {
       } else {
         this.plan_id = data.plan;
       }
-      this.attachments = [];
-      if (data.attachments) {
-        (data.attachments as any[]).forEach((attachment) => {
-          this.attachments.push(new TaskAttachment(attachment));
+      this.fields = [];
+      if (data.fields) {
+        (data.fields as any[]).forEach((field) => {
+          this.fields.push(new TaskField(field));
         });
       }
       this.checklists = [];
       if (data.checklists) {
         (data.checklists as any[]).forEach((checklist) => {
           this.checklists.push(new TaskChecklist(checklist));
+        });
+      }
+      this.attachments = [];
+      if (data.attachments) {
+        (data.attachments as any[]).forEach((attachment) => {
+          this.attachments.push(new TaskAttachment(attachment));
         });
       }
       this.comments = [];

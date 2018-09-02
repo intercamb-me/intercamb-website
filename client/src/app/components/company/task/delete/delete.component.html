@@ -1,15 +1,7 @@
 <div id="delete-plan">
   <form #form="ngForm" (ngSubmit)="deleteTask()" novalidate>
-    <div class="modal-header">
-      <h4 class="modal-title">Remover atividade</h4>
-      <button (click)="close()" type="button" class="close" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <p>Tem certeza que deseja remover esta atividade? Todos os dados associados a esta atividade, inclusive os comentários e documentos,  serão removidos.</p>
-    </div>
-    <div class="modal-footer">
+    <p class="font-normal">Tem certeza que deseja remover esta atividade? Todos os dados associados a esta atividade, inclusive os comentários e documentos,  serão removidos.</p>
+    <div class="d-flex justify-content-end">
       <button
         [disabled]="form.invalid || deleting"
         class="btn btn-danger"

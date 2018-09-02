@@ -1,41 +1,28 @@
 <div id="set-schedule-date">
   <form #form="ngForm" novalidate>
-    <div class="modal-header">
-      <h4 *ngIf="!task.schedule_date" class="modal-title">Marcar data</h4>
-      <h4 *ngIf="task.schedule_date" class="modal-title">Alterar data</h4>
-      <button (click)="close()" type="button" class="close" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <div class="row">
-        <div class="col">
-          <h5 class="mb-3">Esta atividade está marcada para que data?</h5>
-          <div class="form-row align-items-center justify-content-center">
-            <div class="col-5">
-              <div class="input-group">
-                <input #selectedDate="ngModel" #selectedDatePicker="ngbDatepicker" ngbDatepicker [(ngModel)]="selectedDateStruct" [ngClass]="{'is-invalid': selectedDate.invalid && (selectedDate.dirty || selectedDate.touched)}" (keypress)="onlyDateChars($event)" name="selected-date" class="form-control" placeholder="dd/mm/yyyy" required>
-                <div class="input-group-append">
-                  <button (click)="selectedDatePicker.toggle()" type="button" class="btn btn-info">
-                    <fa-icon [icon]="['fas', 'calendar-alt']" [fixedWidth]="true"></fa-icon>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="col-auto">
-              <ngb-timepicker [(ngModel)]="selectedTimeStruct" [spinners]="false" name="selected-time" required></ngb-timepicker>
-            </div>
+    <p class="font-normal">Esta atividade está marcada para que data?</p>
+    <div class="form-row align-items-center justify-content-center mb-3">
+      <div class="col-6">
+        <div class="input-group">
+          <input #selectedDate="ngModel" #selectedDatePicker="ngbDatepicker" ngbDatepicker [(ngModel)]="selectedDateStruct" [ngClass]="{'is-invalid': selectedDate.invalid && (selectedDate.dirty || selectedDate.touched)}" (keypress)="onlyDateChars($event)" name="selected-date" class="form-control" placeholder="dd/mm/yyyy" required>
+          <div class="input-group-append">
+            <button (click)="selectedDatePicker.toggle()" type="button" class="btn btn-info">
+              <fa-icon [icon]="['fas', 'calendar-alt']" [fixedWidth]="true"></fa-icon>
+            </button>
           </div>
         </div>
       </div>
+      <div class="col-auto">
+        <ngb-timepicker [(ngModel)]="selectedTimeStruct" [spinners]="false" name="selected-time" required></ngb-timepicker>
+      </div>
     </div>
-    <div class="modal-footer">
+    <div class="d-flex justify-content-end">
       <button
         *ngIf="task.schedule_date"
         [disabled]="updating"
         (click)="removeScheduleDate()"
         type="button"
-        class="btn btn-danger">
+        class="btn btn-danger mr-2">
         Remover
       </button>
       <button

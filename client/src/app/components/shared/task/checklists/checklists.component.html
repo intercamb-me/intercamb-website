@@ -1,0 +1,70 @@
+<div *ngIf="formArray.length > 0" class="checklists">
+  <div
+    *ngFor="let checklist of formArray.controls; index as index"
+    [ngClass]="{'mb-3': index < formArray.length - 1}">
+    <div [formGroup]="checklist" class="checklist form-row">
+      <div class="col-auto">
+        <fa-icon [icon]="['fas', 'list']" [fixedWidth]="true"></fa-icon>
+      </div>
+      <div class="col">
+        <input
+          [readonly]="!checklist.get('editing').value"
+          (focus)="editFormGroup(checklist)"
+          (blur)="stopEditingFormGroup(checklist)"
+          (keydown.enter)="stopEditingFormGroup(checklist)"
+          formControlName="title"
+          class="title editable form-control"
+          placeholder="Título"
+          type="text">
+      </div>
+      <div class="col-auto">
+        <fa-icon
+          (click)="removeChecklist(checklist)"
+          [icon]="['fas', 'times']"
+          [fixedWidth]="true"
+          class="remove-icon"
+          title="Remover checklist">
+        </fa-icon>
+      </div>
+    </div>
+    <div
+      *ngFor="let item of checklist.get('items').controls"
+      [formGroup]="item"
+      class="checklist-item form-row">
+      <div class="col-auto">
+        <fa-icon [icon]="['far', 'check-square']" [fixedWidth]="true"></fa-icon>
+      </div>
+      <div class="col">
+        <input
+          [readonly]="!item.get('editing').value"
+          (focus)="editFormGroup(item)"
+          (blur)="stopEditingFormGroup(item)"
+          (keydown.enter)="stopEditingFormGroup(item)"
+          formControlName="name"
+          class="editable form-control"
+          placeholder="Nome"
+          type="text">
+      </div>
+      <div class="col-auto">
+        <fa-icon
+          (click)="removeChecklistItem(checklist, item)"
+          [icon]="['fas', 'times']"
+          [fixedWidth]="true"
+          class="remove-icon"
+          title="Remover item">
+        </fa-icon>
+      </div>
+    </div>
+    <div [formGroup]="checklist.get('itemToAdd')" class="checklist-item-new">
+      <input
+        [readonly]="!checklist.get('itemToAdd.editing').value"
+        (focus)="editItemToAdd(checklist.get('itemToAdd'))"
+        (blur)="stopEditingItemToAdd(checklist.get('itemToAdd'))"
+        (keydown.enter)="addChecklistItem(checklist)"
+        formControlName="name"
+        class="name editable form-control"
+        placeholder="Adicionar item..."
+        type="text">
+    </div>
+  </div>
+</div>

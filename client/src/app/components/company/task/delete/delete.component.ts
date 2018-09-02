@@ -1,5 +1,4 @@
-import {Component, Input} from '@angular/core';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {Component, Input, Output, EventEmitter} from '@angular/core';
 
 import {TaskService} from '@services/task.service';
 import {AlertService} from '@services/alert.service';
@@ -13,21 +12,19 @@ export class DeleteTaskComponent {
 
   @Input()
   public task: Task;
+  @Output()
+  public delete = new EventEmitter<void>();
 
   public deleting = false;
 
-  constructor(private taskService: TaskService, private alertService: AlertService, private ngbActiveModal: NgbActiveModal) {
+  constructor(private taskService: TaskService, private alertService: AlertService) {
 
-  }
-
-  public close(): void {
-    this.ngbActiveModal.dismiss();
   }
 
   public deleteTask(): void {
     this.deleting = true;
     this.taskService.deleteTask(this.task).subscribe(() => {
-      this.ngbActiveModal.close();
+      this.delete.emit();
       this.alertService.success('Atividade removida com sucesso!');
     }, (err) => {
       this.deleting = false;

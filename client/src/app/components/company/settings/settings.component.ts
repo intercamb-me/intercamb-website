@@ -8,7 +8,7 @@ import {SaveInstitutionsComponent} from '@components/company/settings/save-insti
 import {SavePlanComponent} from '@components/company/settings/plan/save/save.component';
 import {DeletePlanComponent} from '@components/company/settings/plan/delete/delete.component';
 import {InvitationComponent} from '@components/company/settings/invitation/invitation.component';
-import {ColorSelected, PaletteVariant} from '@components/custom/material-palette-picker/material-palette-picker.component';
+import {ColorSelected, PaletteVariant} from '@components/shared/material-palette-picker/material-palette-picker.component';
 
 import {AccountService} from '@services/account.service';
 import {CompanyService} from '@services/company.service';

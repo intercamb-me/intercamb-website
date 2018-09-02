@@ -1,27 +1,25 @@
-import {Component, Input, NgZone} from '@angular/core';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {Component, Input, Output, EventEmitter, NgZone} from '@angular/core';
 
 import {TaskService} from '@services/task.service';
 import {AlertService} from '@services/alert.service';
 import {Task} from '@models/task.model';
 
 @Component({
-  selector: 'app-set-location',
+  selector: 'app-set-task-location',
   templateUrl: './set-location.component.html',
 })
 export class SetTaskLocationComponent {
 
   @Input()
   public task: Task;
+  @Output()
+  public update = new EventEmitter<Task>();
 
   public place: any;
+  public updating = false;
 
-  constructor(private taskService: TaskService, private alertService: AlertService, private ngZone: NgZone, private ngbActiveModal: NgbActiveModal) {
+  constructor(private taskService: TaskService, private alertService: AlertService, private ngZone: NgZone) {
 
-  }
-
-  public close(): void {
-    this.ngbActiveModal.dismiss();
   }
 
   public selectPlace(place: any): void {
@@ -31,21 +29,23 @@ export class SetTaskLocationComponent {
   }
 
   public saveLocation(): void {
+    this.updating = true;
     this.taskService.updateTask(this.task, {place: this.place}).subscribe((task) => {
-      this.ngbActiveModal.close(task);
+      this.update.emit(task);
       this.alertService.success('Localização salva com sucesso!');
     }, (err) => {
-      this.close();
+      this.updating = false;
       this.alertService.apiError(null, err, 'Não foi possível salvar a localização, por favor tente novamente mais tarde!');
     });
   }
 
   public removeLocation(): void {
+    this.updating = true;
     this.taskService.updateTask(this.task, {place: null}).subscribe((task) => {
-      this.ngbActiveModal.close(task);
+      this.update.emit(task);
       this.alertService.success('Localização removida com sucesso!');
     }, (err) => {
-      this.close();
+      this.updating = false;
       this.alertService.apiError(null, err, 'Não foi possível remover a localização, por favor tente novamente mais tarde!');
     });
   }
