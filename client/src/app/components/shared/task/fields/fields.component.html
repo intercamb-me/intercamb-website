@@ -3,22 +3,41 @@
     *ngFor="let field of formArray.controls; index as index"
     [ngClass]="{'mb-1': index < formArray.length - 1}"
     [formGroup]="field"
-    class="field form-row">
+    class="task-field form-row">
     <div class="col-auto">
-      <fa-icon [icon]="['fas', 'font']" [fixedWidth]="true"></fa-icon>
+      <fa-icon [icon]="['fas', 'edit']" [fixedWidth]="true"></fa-icon>
     </div>
-    <div class="col">
+    <div *ngIf="mode === 'config'" class="col">
       <input
         [readonly]="!field.get('editing').value"
         (focus)="editFormGroup(field)"
         (blur)="stopEditingFormGroup(field)"
         (keydown.enter)="stopEditingFormGroup(field)"
         formControlName="name"
-        class="name editable form-control"
+        class="editable form-control font-weigth-bold"
         placeholder="Nome"
         type="text">
     </div>
-    <div class="col">
+    <div *ngIf="mode !== 'config' && !field.get('editing').value" class="col-auto">
+      <span
+        (click)="editFormGroup(field)"
+        class="name editable"
+        type="text">
+        {{ field.get('name').value }}
+      </span>
+    </div>
+    <div *ngIf="mode !== 'config' && field.get('editing').value" class="col">
+      <input
+        (focus)="editFormGroup(field)"
+        (blur)="stopEditingFormGroup(field)"
+        (keydown.enter)="stopEditingFormGroup(field)"
+        formControlName="name"
+        class="editable form-control"
+        placeholder="Nome"
+        type="text"
+        autofocus>
+    </div>
+    <div *ngIf="mode === 'config'" class="col">
       <select
         [ngClass]="{
           'form-control': field.get('editing').value,
@@ -26,11 +45,21 @@
         }"
         (focus)="editFormGroup(field)"
         (blur)="stopEditingFormGroup(field)"
+        (keydown.enter)="stopEditingFormGroup(field)"
         formControlName="type"
         class="type editable"
         placeholder="Tipo">
         <option *ngFor="let type of fieldTypes" [ngValue]="type.id">{{ type.name }}</option>
       </select>
+    </div>
+    <div *ngIf="mode !== 'config'" class="col">
+      <input
+        (blur)="stopEditingFormGroup(field)"
+        (keydown.enter)="stopEditingFormGroup(field)"
+        formControlName="value"
+        class="value form-control"
+        placeholder="Valor"
+        type="text">
     </div>
     <div class="col-auto">
       <fa-icon

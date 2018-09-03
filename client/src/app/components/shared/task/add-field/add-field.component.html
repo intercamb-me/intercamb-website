@@ -1,0 +1,32 @@
+<form #form="ngForm" (ngSubmit)="addField()" novalidate>
+  <div class="form-row">
+    <div class="col">
+      <input
+        [(ngModel)]="field.name"
+        name="field-name"
+        type="text"
+        class="form-control"
+        placeholder="Nome"
+        autofocus
+        required>
+    </div>
+    <div class="col">
+      <select
+        [(ngModel)]="field.type"
+        name="field-type"
+        class="form-control"
+        placeholder="Tipo"
+        required>
+        <option *ngFor="let type of fieldTypes" [ngValue]="type.id">{{ type.name }}</option>
+      </select>
+    </div>
+    <div class="col-auto d-flex flex-column justify-content-end">
+      <button
+        [disabled]="form.invalid"
+        class="btn btn-primary"
+        type="submit">
+        Adicionar
+      </button>
+    </div>
+  </div>
+</form>

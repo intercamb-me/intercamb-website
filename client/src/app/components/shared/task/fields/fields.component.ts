@@ -14,18 +14,20 @@ export class TaskFieldsComponent {
   set fields(fields: TaskField[]) {
     this.formArray = this.formBuilder.array([]);
     fields.forEach((field) => {
-      const fieldFormGroup = this.createFieldFormGroup(field.name, field.type);
+      const fieldFormGroup = this.createFieldFormGroup(field);
       this.formArray.push(fieldFormGroup);
     });
     this.formArray.statusChanges.subscribe((status) => {
       if (this.formStatus !== status) {
         this.formStatus = status;
-        this.statusChanges.emit(status === 'VALID');
+        this.statusChanges.emit(this.isFormValid());
       }
     });
     this.formArray.updateValueAndValidity();
   }
 
+  @Input()
+  public mode: string;
   @Output()
   public fieldsChanges = new EventEmitter<TaskField[]>();
   @Output()
@@ -56,19 +58,26 @@ export class TaskFieldsComponent {
     }
   }
 
-  private createFieldFormGroup(name: string, type: string): FormGroup {
+  private createFieldFormGroup(field: TaskField): FormGroup {
     return this.formBuilder.group({
-      name: [name, Validators.required],
-      type: [type, Validators.required],
+      name: [field.name, Validators.required],
+      type: [field.type, Validators.required],
+      value: [field.value],
       editing: [false],
     });
   }
 
   private emitFieldsChanges(): void {
-    const fields: TaskField[] = [];
-    (this.formArray.value as any[]).forEach((field) => {
-      fields.push(new TaskField(field));
-    });
-    this.fieldsChanges.emit(fields);
+    if (this.isFormValid()) {
+      const fields: TaskField[] = [];
+      (this.formArray.value as any[]).forEach((field) => {
+        fields.push(new TaskField(field));
+      });
+      this.fieldsChanges.emit(fields);
+    }
+  }
+
+  private isFormValid(): boolean {
+    return this.formStatus === 'VALID';
   }
 }

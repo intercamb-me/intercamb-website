@@ -22,6 +22,19 @@ b, strong {
   font-weight: bold;
 }
 
+span {
+  &.editable {
+    height: calc(2.25rem + 2px);
+    padding: 0.55rem 0.75rem;
+    border-radius: 0.25rem;
+    color: #495057;
+    &:hover {
+      cursor: pointer;
+      background-color: #e9ecef;
+    }
+  }
+}
+
 input {
   &.editable {
     &[readonly] {

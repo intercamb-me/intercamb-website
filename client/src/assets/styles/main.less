@@ -201,35 +201,6 @@
   .task-name {
     font-size: unset;
   }
-  .field {
-    .align-items-center();
-    .name {
-      .font-weight-bold();
-    }
-  }
-  .checklist {
-    .align-items-center();
-    .title {
-      .font-weight-bold();
-    }
-  }
-  .checklist-item {
-    .align-items-center();
-    .mt-1();
-  }
-  .checklist-item-new {
-    .mt-1();
-    margin-left: 1.9rem;
-    .name {
-      .font-small();
-    }
-  }
-  .remove-icon {
-    .text-secondary();
-    .font-large();
-    .cursor-pointer();
-    .ml-2();
-  }
 }
 
 #account-settings {
@@ -530,6 +501,48 @@
     }
     .fa-check {
       font-size: 18px;
+    }
+  }
+}
+
+.task-field {
+  .align-items-center();
+}
+
+.task-checklist {
+  .align-items-center();
+  .title {
+    .font-weight-bold();
+  }
+}
+
+.task-checklist-item {
+  .align-items-center();
+  .mt-1();
+}
+
+.task-checklist-item-new {
+  .mt-1();
+  margin-left: 1.9rem;
+  .name {
+    .font-small();
+  }
+}
+
+.task-field, .task-checklist-item, .task-checklist {
+  &:hover {
+    .remove-icon {
+      visibility: visible;
+    }
+  }
+  .remove-icon {
+    .text-secondary();
+    .font-large();
+    .cursor-pointer();
+    .ml-2();
+    visibility: hidden;
+    &:hover {
+      .text-dark();
     }
   }
 }

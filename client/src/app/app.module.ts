@@ -36,11 +36,11 @@ import {faCog} from '@fortawesome/free-solid-svg-icons/faCog';
 import {faComment} from '@fortawesome/free-solid-svg-icons/faComment';
 import {faCreditCard} from '@fortawesome/free-solid-svg-icons/faCreditCard';
 import {faDollarSign} from '@fortawesome/free-solid-svg-icons/faDollarSign';
+import {faEdit} from '@fortawesome/free-solid-svg-icons/faEdit';
 import {faEllipsisV} from '@fortawesome/free-solid-svg-icons/faEllipsisV';
 import {faEnvelope} from '@fortawesome/free-solid-svg-icons/faEnvelope';
 import {faEnvelopeOpen} from '@fortawesome/free-solid-svg-icons/faEnvelopeOpen';
 import {faGraduationCap} from '@fortawesome/free-solid-svg-icons/faGraduationCap';
-import {faFont} from '@fortawesome/free-solid-svg-icons/faFont';
 import {faHashtag} from '@fortawesome/free-solid-svg-icons/faHashtag';
 import {faHome} from '@fortawesome/free-solid-svg-icons/faHome';
 import {faKey} from '@fortawesome/free-solid-svg-icons/faKey';
@@ -95,7 +95,8 @@ import {MaterialPalettePickerComponent} from '@components/shared/material-palett
 import {EditDefaultTaskComponent} from '@components/shared/edit-default-task/edit-default-task.component';
 import {TaskFieldsComponent} from '@components/shared/task/fields/fields.component';
 import {TaskChecklistsComponent} from '@components/shared/task/checklists/checklists.component';
-
+import {AddTaskFieldComponent} from '@components/shared/task/add-field/add-field.component';
+import {AddTaskChecklistComponent} from '@components/shared/task/add-checklist/add-checklist.component';
 // Modals
 import {CreateClientFormComponent} from '@components/company/clients/create-form/create-form.component';
 import {DeleteClientComponent} from '@components/company/client/delete/delete.component';
@@ -160,11 +161,11 @@ library.add(faCog);
 library.add(faComment);
 library.add(faCreditCard);
 library.add(faDollarSign);
+library.add(faEdit);
 library.add(faEllipsisV);
 library.add(faEnvelope);
 library.add(faEnvelopeOpen);
 library.add(faGraduationCap);
-library.add(faFont);
 library.add(faHashtag);
 library.add(faHome);
 library.add(faKey);
@@ -240,6 +241,8 @@ library.add(faUsers);
     EditDefaultTaskComponent,
     TaskFieldsComponent,
     TaskChecklistsComponent,
+    AddTaskFieldComponent,
+    AddTaskChecklistComponent,
     // Modals
     ClientFormComponent,
     DeleteClientComponent,

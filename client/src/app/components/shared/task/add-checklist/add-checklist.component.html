@@ -1,0 +1,22 @@
+<form #form="ngForm" (ngSubmit)="addChecklist()" novalidate>
+  <div class="form-row">
+    <div class="col form-group mb-0">
+      <input
+        [(ngModel)]="checklist.title"
+        name="checklist-title"
+        type="text"
+        class="form-control"
+        placeholder="Título"
+        autofocus
+        required>
+    </div>
+    <div class="col-auto form-group mb-0">
+      <button
+        [disabled]="form.invalid"
+        class="btn btn-primary"
+        type="submit">
+        Adicionar
+      </button>
+    </div>
+  </div>
+</form>

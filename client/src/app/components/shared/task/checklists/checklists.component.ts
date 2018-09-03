@@ -24,12 +24,14 @@ export class TaskChecklistsComponent {
     this.formArray.statusChanges.subscribe((status) => {
       if (this.formStatus !== status) {
         this.formStatus = status;
-        this.statusChanges.emit(status === 'VALID');
+        this.statusChanges.emit(this.isFormValid());
       }
     });
     this.formArray.updateValueAndValidity();
   }
 
+  @Input()
+  public mode: string;
   @Output()
   public checklistsChanges = new EventEmitter<TaskChecklist[]>();
   @Output()
@@ -89,11 +91,21 @@ export class TaskChecklistsComponent {
     }
   }
 
+  public emitChecklistsChanges(): void {
+    if (this.isFormValid()) {
+      const checklists: TaskChecklist[] = [];
+      (this.formArray.value as any[]).forEach((checklist) => {
+        checklists.push(new TaskChecklist(checklist));
+      });
+      this.checklistsChanges.emit(checklists);
+    }
+  }
+
   private createChecklistFormGroup(title: string): FormGroup {
     return this.formBuilder.group({
       title: [title, Validators.required],
       editing: [false],
-      itemToAdd: this.createChecklistItemFormGroup('', true),
+      itemToAdd: this.createChecklistItemFormGroup(null, true),
       items: this.formBuilder.array([]),
     });
   }
@@ -101,15 +113,12 @@ export class TaskChecklistsComponent {
   private createChecklistItemFormGroup(name?: string, itemToAdd?: boolean): FormGroup {
     return this.formBuilder.group({
       name: [name, !itemToAdd ? Validators.required : null],
+      done: [false],
       editing: [false],
     });
   }
 
-  private emitChecklistsChanges(): void {
-    const checklists: TaskChecklist[] = [];
-    (this.formArray.value as any[]).forEach((checklist) => {
-      checklists.push(new TaskChecklist(checklist));
-    });
-    this.checklistsChanges.emit(checklists);
+  private isFormValid(): boolean {
+    return this.formStatus === 'VALID';
   }
 }

@@ -29,6 +29,10 @@ export class TaskComponent implements OnInit {
   public setScheduleDatePopover: NgbPopover;
   @ViewChild('setLocationPopover', {read: NgbPopover})
   public setLocationPopover: NgbPopover;
+  @ViewChild('addFieldPopover', {read: NgbPopover})
+  public addFieldPopover: NgbPopover;
+  @ViewChild('addChecklistPopover', {read: NgbPopover})
+  public addChecklistPopover: NgbPopover;
   @ViewChild('removeTaskPopover', {read: NgbPopover})
   public removeTaskPopover: NgbPopover;
   @Input()
@@ -46,8 +50,6 @@ export class TaskComponent implements OnInit {
   public comment = '';
   public commentRows = 1;
   public loading = true;
-
-  private editingObject: any;
 
   constructor(private accountService: AccountService, private taskService: TaskService, private alertService: AlertService, private ngbActiveModal: NgbActiveModal) {
 
@@ -110,21 +112,35 @@ export class TaskComponent implements OnInit {
     this.setLocationPopover.close();
   }
 
+  public onFieldAdded(field: TaskField): void {
+    this.fields.push(field);
+    this.onFieldsChanged(this.fields);
+    this.addFieldPopover.close();
+  }
+
+  public onChecklistAdded(checklist: TaskChecklist): void {
+    this.checklists.push(checklist);
+    this.onChecklistsChanged(this.checklists);
+    this.addChecklistPopover.close();
+  }
+
   public onTaskRemoved(): void {
     this.removeTaskPopover.close();
     this.ngbActiveModal.close();
   }
 
-  public isEditing(obj: any): boolean {
-    return this.editingObject === obj;
+  public onFieldsChanged(fields: TaskField[]): void {
+    this.fields = [...fields];
+    this.taskService.updateTask(this.task, {fields: this.fields}).subscribe((task) => {
+      this.task = task;
+    });
   }
 
-  public edit(obj: any): void {
-    this.editingObject = obj;
-  }
-
-  public stopEditing(): void {
-    this.editingObject = null;
+  public onChecklistsChanged(checklists: TaskChecklist[]): void {
+    this.checklists = [...checklists];
+    this.taskService.updateTask(this.task, {checklists: this.checklists}).subscribe((task) => {
+      this.task = task;
+    });
   }
 
   public addTaskAttachment(event: any): void {

@@ -2,7 +2,7 @@
   <div
     *ngFor="let checklist of formArray.controls; index as index"
     [ngClass]="{'mb-3': index < formArray.length - 1}">
-    <div [formGroup]="checklist" class="checklist form-row">
+    <div [formGroup]="checklist" class="task-checklist form-row">
       <div class="col-auto">
         <fa-icon [icon]="['fas', 'list']" [fixedWidth]="true"></fa-icon>
       </div>
@@ -30,9 +30,18 @@
     <div
       *ngFor="let item of checklist.get('items').controls"
       [formGroup]="item"
-      class="checklist-item form-row">
+      class="task-checklist-item form-row">
       <div class="col-auto">
-        <fa-icon [icon]="['far', 'check-square']" [fixedWidth]="true"></fa-icon>
+        <fa-icon
+          *ngIf="mode === 'config'"
+          [icon]="['far', 'check-square']"
+          [fixedWidth]="true"></fa-icon>
+        <input
+          *ngIf="mode !== 'config'"
+          (change)="emitChecklistsChanges()"
+          formControlName="done"
+          class="form-check-input"
+          type="checkbox">
       </div>
       <div class="col">
         <input
@@ -55,7 +64,7 @@
         </fa-icon>
       </div>
     </div>
-    <div [formGroup]="checklist.get('itemToAdd')" class="checklist-item-new">
+    <div [formGroup]="checklist.get('itemToAdd')" class="task-checklist-item-new">
       <input
         [readonly]="!checklist.get('itemToAdd.editing').value"
         (focus)="editItemToAdd(checklist.get('itemToAdd'))"
