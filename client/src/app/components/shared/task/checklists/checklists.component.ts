@@ -16,7 +16,7 @@ export class TaskChecklistsComponent {
       const checklistFormGroup = this.createChecklistFormGroup(checklist.title);
       const checklistItemsFormGroup = checklistFormGroup.get('items') as FormArray;
       checklist.items.forEach((item) => {
-        const checklistItemFormGroup = this.createChecklistItemFormGroup(item.name);
+        const checklistItemFormGroup = this.createChecklistItemFormGroup(item.name, item.done);
         checklistItemsFormGroup.push(checklistItemFormGroup);
       });
       this.formArray.push(checklistFormGroup);
@@ -105,15 +105,15 @@ export class TaskChecklistsComponent {
     return this.formBuilder.group({
       title: [title, Validators.required],
       editing: [false],
-      itemToAdd: this.createChecklistItemFormGroup(null, true),
+      itemToAdd: this.createChecklistItemFormGroup(null, null, true),
       items: this.formBuilder.array([]),
     });
   }
 
-  private createChecklistItemFormGroup(name?: string, itemToAdd?: boolean): FormGroup {
+  private createChecklistItemFormGroup(name?: string, done?: boolean, itemToAdd?: boolean): FormGroup {
     return this.formBuilder.group({
       name: [name, !itemToAdd ? Validators.required : null],
-      done: [false],
+      done: [done],
       editing: [false],
     });
   }

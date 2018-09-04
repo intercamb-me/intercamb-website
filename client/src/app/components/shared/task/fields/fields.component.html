@@ -1,7 +1,10 @@
 <div *ngIf="formArray.length > 0" class="fields">
   <div
     *ngFor="let field of formArray.controls; index as index"
-    [ngClass]="{'mb-1': index < formArray.length - 1}"
+    [ngClass]="{
+      'mb-1': mode === 'config' && index < formArray.length - 1,
+      'mb-2': mode !== 'config' && index < formArray.length - 1
+    }"
     [formGroup]="field"
     class="task-field form-row">
     <div class="col-auto">
@@ -14,7 +17,7 @@
         (blur)="stopEditingFormGroup(field)"
         (keydown.enter)="stopEditingFormGroup(field)"
         formControlName="name"
-        class="editable form-control font-weigth-bold"
+        class="editable form-control"
         placeholder="Nome"
         type="text">
     </div>
@@ -58,7 +61,6 @@
         (keydown.enter)="stopEditingFormGroup(field)"
         formControlName="value"
         class="value form-control"
-        placeholder="Valor"
         type="text">
     </div>
     <div class="col-auto">

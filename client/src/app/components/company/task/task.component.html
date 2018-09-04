@@ -61,6 +61,7 @@
           </app-task-fields>
         </div>
         <div *ngIf="checklists.length > 0" class="mb-3">
+          <h5>Checklists</h5>
           <app-task-checklists
             [checklists]="checklists"
             (checklistsChanges)="onChecklistsChanged($event)">
@@ -69,7 +70,7 @@
         <div *ngIf="attachments.length > 0" class="attachments">
           <h5>Arquivos</h5>
           <div class="row">
-            <div *ngFor="let attachment of attachments; trackBy: trackByAttachment" class="col col-md-6 mb-3">
+            <div *ngFor="let attachment of attachments; trackBy: trackByAttachment" class="col col-md-6 my-2">
               <div (click)="openTaskAttachment(attachment)" class="attachment">
                 <div class="account">
                   {{ attachment.account.getFullName() }}

@@ -2,6 +2,8 @@
 @orange: #fd7e14;
 @primary: #1976d2;
 @primary-dark: #0055ac;
+@grey: #e9ecef;
+@grey-border: #ced4da;
 
 .column-count(@count) {
   -webkit-column-count: @count;
@@ -13,4 +15,17 @@
   -webkit-appearance: @value;
      -moz-appearance: @value;
           appearance: @value;
+}
+
+.user-select(@value) {
+  -webkit-user-select: @value;
+     -moz-user-select: @value;
+      -ms-user-select: @value;
+          user-select: @value;
+}
+
+.transform(@value) {
+  -webkit-transform: @value;
+      -ms-transform: @value;
+          transform: @value;
 }
