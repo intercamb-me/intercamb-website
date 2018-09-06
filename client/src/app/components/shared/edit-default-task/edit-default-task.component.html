@@ -7,19 +7,20 @@
 
 <div id="edit-default-task">
   <form #form="ngForm" novalidate>
-    <div class="modal-header">
-      <h4 class="modal-title">
-        <input
-          [(ngModel)]="defaultTask.name"
-          [readonly]="!editingTaskName"
-          (focus)="editTaskName()"
-          (blur)="stopEditingTaskName()"
-          (keydown.enter)="stopEditingTaskName()"
-          name="task-name"
-          class="task-name editable form-control"
-          type="text"
-          required>
-      </h4>
+    <div class="modal-header align-items-center">
+      <h5 *ngIf="!editingTaskName" (click)="editTaskName()" class="modal-title cursor-pointer">
+        {{ defaultTask.name }}
+      </h5>
+      <input
+        *ngIf="editingTaskName"
+        [(ngModel)]="defaultTask.name"
+        (blur)="stopEditingTaskName()"
+        (keydown.enter)="stopEditingTaskName()"
+        name="task-name"
+        class="modal-title form-control"
+        type="text"
+        autofocus
+        required>
       <button (click)="close()" type="button" class="close" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>

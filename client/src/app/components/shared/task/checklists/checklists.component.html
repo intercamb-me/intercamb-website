@@ -36,9 +36,8 @@
           *ngIf="mode === 'config'"
           [icon]="['far', 'check-square']"
           [fixedWidth]="true"></fa-icon>
-        <label class="checkbox-container">
+        <label *ngIf="mode !== 'config'" class="checkbox-container">
           <input
-            *ngIf="mode !== 'config'"
             (change)="emitChecklistsChanges()"
             formControlName="done"
             type="checkbox">

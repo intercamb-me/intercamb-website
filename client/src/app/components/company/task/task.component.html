@@ -19,9 +19,22 @@
 
 <div *ngIf="!loading" id="task">
   <div class="modal-header px-4">
-    <div class="row">
+    <div class="row align-items-center">
       <div class="col">
-        <h4 class="modal-title">{{ task.name }}</h4>
+        <h4 *ngIf="!editingTaskName" (click)="editTaskName()" class="modal-title cursor-pointer">
+          {{ task.name }}
+        </h4>
+        <h4 *ngIf="editingTaskName" class="modal-title">
+          <input
+            [(ngModel)]="task.name"
+            (blur)="stopEditingTaskName()"
+            (keydown.enter)="stopEditingTaskName()"
+            name="task-name"
+            class="form-control form-control-lg"
+            type="text"
+            autofocus
+            required>
+        </h4>
       </div>
       <div class="col-auto">
         <button (click)="close()" type="button" class="close" aria-label="Close">

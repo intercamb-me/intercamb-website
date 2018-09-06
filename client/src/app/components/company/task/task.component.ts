@@ -49,6 +49,7 @@ export class TaskComponent implements OnInit {
   public taskStatus = Constants.TASK_STATUS;
   public comment = '';
   public commentRows = 1;
+  public editingTaskName = false;
   public loading = true;
 
   constructor(private accountService: AccountService, private taskService: TaskService, private alertService: AlertService, private ngbActiveModal: NgbActiveModal) {
@@ -93,6 +94,21 @@ export class TaskComponent implements OnInit {
     this.ngbActiveModal.close(this.task);
   }
 
+  public editTaskName(): void {
+    this.editingTaskName = true;
+  }
+
+  public stopEditingTaskName(): void {
+    this.editingTaskName = false;
+    if (this.task.name) {
+      this.taskService.updateTask(this.task, {name: this.task.name}).subscribe((task) => {
+        this.task = task;
+      }, (err) => {
+        this.alertService.apiError(null, err, 'Não foi possível atualizar o nome da atividade, por favor tente novamente mais tarde!');
+      });
+    }
+  }
+
   public formatDate(date: Date): string {
     return distanceInWordsStrict(date, new Date());
   }
@@ -133,6 +149,8 @@ export class TaskComponent implements OnInit {
     this.fields = [...fields];
     this.taskService.updateTask(this.task, {fields: this.fields}).subscribe((task) => {
       this.task = task;
+    }, (err) => {
+      this.alertService.apiError(null, err, 'Não foi possível atualizar o campo, por favor tente novamente mais tarde!');
     });
   }
 
@@ -140,6 +158,8 @@ export class TaskComponent implements OnInit {
     this.checklists = [...checklists];
     this.taskService.updateTask(this.task, {checklists: this.checklists}).subscribe((task) => {
       this.task = task;
+    }, (err) => {
+      this.alertService.apiError(null, err, 'Não foi possível atualizar o checklist, por favor tente novamente mais tarde!');
     });
   }
 
