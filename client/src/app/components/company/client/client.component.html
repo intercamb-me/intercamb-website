@@ -16,6 +16,16 @@
               <fa-icon [icon]="['fas', 'paperclip']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
               <span class="ml-1">{{ task.counters.attachments }}</span>
             </span>
+            <span *ngIf="task.fields.length > 0" class="badge badge-secondary">
+              <fa-icon [icon]="['fas', 'edit']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
+              <span class="ml-1">{{ countFieldsFilled(task.fields) }}/{{ task.fields.length }}</span>
+            </span>
+            <ng-container *ngFor="let checklist of task.checklists">
+              <span class="badge badge-secondary">
+                <fa-icon [icon]="['fas', 'list']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
+                <span class="ml-1">{{ countChecklistItemsDone(checklist) }}/{{ checklist.items.length }}</span>
+              </span>
+            </ng-container>
             <span *ngIf="task.schedule_date" class="badge badge-deep-orange">
               <fa-icon [icon]="['fas', 'clock']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
               <span class="ml-1">{{ task.schedule_date | date:"MMM d, y" | titlecase }}</span>

@@ -7,6 +7,7 @@ import {AccountService} from '@services/account.service';
 import {TaskService} from '@services/task.service';
 import {AlertService} from '@services/alert.service';
 import {Constants} from '@utils/constants';
+import {Helpers} from '@utils/helpers';
 import {StorageUtils} from '@utils/storage.utils';
 import {Account} from '@models/account.model';
 import {Client} from '@models/client.model';
@@ -51,6 +52,8 @@ export class TaskComponent implements OnInit {
   public commentRows = 1;
   public editingTaskName = false;
   public loading = true;
+  public countFieldsFilled = Helpers.countFieldsFilled;
+  public countChecklistItemsDone = Helpers.countChecklistItemsDone;
 
   constructor(private accountService: AccountService, private taskService: TaskService, private alertService: AlertService, private ngbActiveModal: NgbActiveModal) {
 

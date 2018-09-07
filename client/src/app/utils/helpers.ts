@@ -1,4 +1,9 @@
 import * as hash from 'hash-code';
+import isNil from 'lodash-es/isNil';
+import isString from 'lodash-es/isString';
+
+import {TaskChecklist} from '@models/task-checklist.model';
+import {TaskField} from '@models/task-field.model';
 
 export class Helpers {
 
@@ -33,6 +38,26 @@ export class Helpers {
     }
     const index = hashCode % colors.length;
     return colors[index];
+  }
+
+  public static countFieldsFilled(fields: TaskField[]): number {
+    let count = 0;
+    fields.forEach((field) => {
+      if ((isString(field.value) && field.value.length > 0) || !isNil(field.value)) {
+        count += 1;
+      }
+    });
+    return count;
+  }
+
+  public static countChecklistItemsDone(checklist: TaskChecklist): number {
+    let count = 0;
+    checklist.items.forEach((item) => {
+      if (item.done) {
+        count += 1;
+      }
+    });
+    return count;
   }
 
   private constructor() {

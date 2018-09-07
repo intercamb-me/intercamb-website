@@ -40,6 +40,8 @@ export class ClientComponent implements OnInit {
   public paymentMethods = Constants.PAYMENT_METHODS;
   public taskStatus = Constants.TASK_STATUS;
   public getColor = Helpers.getColor;
+  public countFieldsFilled = Helpers.countFieldsFilled;
+  public countChecklistItemsDone = Helpers.countChecklistItemsDone;
 
   public masonryOptions: NgxMasonryOptions = {
     itemSelector: '.col-6',
@@ -228,12 +230,12 @@ export class ClientComponent implements OnInit {
     modalRef.componentInstance.client = this.client;
     modalRef.componentInstance.task = task;
     modalRef.result.then((updatedTask) => {
-      const index = this.client.tasks.indexOf(task);
+      const index = this.tasks.indexOf(task);
       if (index >= 0) {
         if (updatedTask) {
-          this.client.tasks[index] = updatedTask;
+          this.tasks[index] = updatedTask;
         } else {
-          this.client.tasks.splice(index, 1);
+          this.tasks.splice(index, 1);
         }
       }
     }).catch(() => {
