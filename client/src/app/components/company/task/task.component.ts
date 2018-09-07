@@ -42,8 +42,6 @@ export class TaskComponent implements OnInit {
   public task: Task;
 
   public account: Account;
-  public fields: TaskField[];
-  public checklists: TaskChecklist[];
   public attachments: TaskAttachment[];
   public comments: TaskComment[];
   public counters: TaskCounters;
@@ -63,8 +61,6 @@ export class TaskComponent implements OnInit {
     this.taskService.getTask(this.task.id, {populate: 'attachments.account comments.account'}).pipe(
       mergeMap((task) => {
         this.task = task;
-        this.fields = task.fields;
-        this.checklists = task.checklists;
         this.attachments = task.attachments;
         this.comments = task.comments;
         this.counters = task.counters;
@@ -132,14 +128,14 @@ export class TaskComponent implements OnInit {
   }
 
   public onFieldAdded(field: TaskField): void {
-    this.fields.push(field);
-    this.onFieldsChanged(this.fields);
+    this.task.fields.push(field);
+    this.onFieldsChanged(this.task.fields);
     this.addFieldPopover.close();
   }
 
   public onChecklistAdded(checklist: TaskChecklist): void {
-    this.checklists.push(checklist);
-    this.onChecklistsChanged(this.checklists);
+    this.task.checklists.push(checklist);
+    this.onChecklistsChanged(this.task.checklists);
     this.addChecklistPopover.close();
   }
 
@@ -149,8 +145,8 @@ export class TaskComponent implements OnInit {
   }
 
   public onFieldsChanged(fields: TaskField[]): void {
-    this.fields = [...fields];
-    this.taskService.updateTask(this.task, {fields: this.fields}).subscribe((task) => {
+    this.task.fields = [...fields];
+    this.taskService.updateTask(this.task, {fields: this.task.fields}).subscribe((task) => {
       this.task = task;
     }, (err) => {
       this.alertService.apiError(null, err, 'Não foi possível atualizar o campo, por favor tente novamente mais tarde!');
@@ -158,8 +154,8 @@ export class TaskComponent implements OnInit {
   }
 
   public onChecklistsChanged(checklists: TaskChecklist[]): void {
-    this.checklists = [...checklists];
-    this.taskService.updateTask(this.task, {checklists: this.checklists}).subscribe((task) => {
+    this.task.checklists = [...checklists];
+    this.taskService.updateTask(this.task, {checklists: this.task.checklists}).subscribe((task) => {
       this.task = task;
     }, (err) => {
       this.alertService.apiError(null, err, 'Não foi possível atualizar o checklist, por favor tente novamente mais tarde!');

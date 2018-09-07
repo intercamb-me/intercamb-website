@@ -43,7 +43,7 @@ export class Helpers {
   public static countFieldsFilled(fields: TaskField[]): number {
     let count = 0;
     fields.forEach((field) => {
-      if ((isString(field.value) && field.value.length > 0) || !isNil(field.value)) {
+      if (!isNil(field.value) && (!isString(field.value) || field.value.length > 0)) {
         count += 1;
       }
     });

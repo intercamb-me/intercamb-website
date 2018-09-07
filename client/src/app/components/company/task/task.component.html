@@ -54,11 +54,11 @@
         <fa-icon [icon]="['fas', 'paperclip']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
         <span class="ml-1">{{ counters.attachments }}</span>
       </span>
-      <span *ngIf="fields.length > 0" class="badge badge-secondary">
+      <span *ngIf="task.fields.length > 0" class="badge badge-secondary">
         <fa-icon [icon]="['fas', 'edit']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
-        <span class="ml-1">{{ countFieldsFilled(fields) }}/{{ fields.length }}</span>
+        <span class="ml-1">{{ countFieldsFilled(task.fields) }}/{{ task.fields.length }}</span>
       </span>
-      <ng-container *ngFor="let checklist of checklists">
+      <ng-container *ngFor="let checklist of task.checklists">
         <span class="badge badge-secondary">
           <fa-icon [icon]="['fas', 'list']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
           <span class="ml-1">{{ countChecklistItemsDone(checklist) }}/{{ checklist.items.length }}</span>
@@ -77,16 +77,16 @@
   <div class="modal-body px-4 py-4">
     <div class="row">
       <div class="col">
-        <div *ngIf="fields.length > 0" class="mb-3">
+        <div *ngIf="task.fields.length > 0" class="mb-3">
           <app-task-fields
-            [fields]="fields"
+            [fields]="task.fields"
             (fieldsChanges)="onFieldsChanged($event)">
           </app-task-fields>
         </div>
-        <div *ngIf="checklists.length > 0" class="mb-3">
+        <div *ngIf="task.checklists.length > 0" class="mb-3">
           <h5>Checklists</h5>
           <app-task-checklists
-            [checklists]="checklists"
+            [checklists]="task.checklists"
             (checklistsChanges)="onChecklistsChanged($event)">
           </app-task-checklists>
         </div>
