@@ -1,0 +1,21 @@
+<div id="delete-default-task">
+  <form #form="ngForm" (ngSubmit)="deleteDefaultTask()" novalidate>
+    <div class="modal-header">
+      <h4 class="modal-title">Remover atividade padrão</h4>
+      <button (click)="close()" type="button" class="close" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>Tem certeza que deseja remover a atividade padrão <b>"{{ defaultTask.name }}"</b>?</p>
+    </div>
+    <div class="modal-footer">
+      <button
+        [disabled]="form.invalid || deleting"
+        class="btn btn-danger"
+        type="submit">
+        Remover
+      </button>
+    </div>
+  </form>
+</div>

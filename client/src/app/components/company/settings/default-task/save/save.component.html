@@ -1,0 +1,29 @@
+<div *ngIf="!loading" id="save-default-task">
+  <app-edit-default-task *ngIf="defaultTask.id" [defaultTask]="defaultTask" (save)="saveDefaultTask($event)" (back)="backToDefaultTasks()"></app-edit-default-task>
+  <div *ngIf="!defaultTask.id">
+    <form #form="ngForm" (ngSubmit)="createDefaultTask()" novalidate>
+      <div class="modal-header">
+        <h4 class="modal-title">Cadastrar atividade padrão</h4>
+        <button (click)="close()" type="button" class="close" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input
+          [(ngModel)]="defaultTask.name"
+          name="name"
+          type="text"
+          class="form-control"
+          placeholder="Nome da atividade">
+      </div>
+      <div class="modal-footer">
+        <button
+          [disabled]="form.invalid || saving"
+          class="btn btn-primary"
+          type="submit">
+          Cadastrar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
