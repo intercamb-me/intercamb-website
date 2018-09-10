@@ -1,6 +1,6 @@
 <div id="delete-plan">
   <form #form="ngForm" (ngSubmit)="deleteTask()" novalidate>
-    <p class="font-normal">Tem certeza que deseja remover esta atividade? Todos os dados associados a esta atividade, inclusive os comentários e documentos,  serão removidos.</p>
+    <p class="font-normal">Tem certeza que deseja remover a atividade <b>"{{ task.name }}"</b>? Todos os dados associados a esta atividade, inclusive os comentários e documentos, serão removidos.</p>
     <div class="d-flex justify-content-end">
       <button
         [disabled]="form.invalid || deleting"

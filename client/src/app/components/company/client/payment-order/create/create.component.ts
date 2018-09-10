@@ -39,7 +39,7 @@ export class CreatePaymentOrderComponent implements OnInit {
   public currencyMask = Constants.CURRENCY_MASK;
   public onlyDateChars = Helpers.onlyDateChars;
   public loading = true;
-  public creating = false;
+  public saving = false;
 
   constructor(private companyService: CompanyService, private planService: PlanService, private clientService: ClientService, private alertService: AlertService, private ngbActiveModal: NgbActiveModal) {
 
@@ -89,7 +89,7 @@ export class CreatePaymentOrderComponent implements OnInit {
   }
 
   public createPaymentOrder(): void {
-    this.creating = true;
+    this.saving = true;
     const data: any[] = [];
     this.splits.forEach((split) => {
       data.push({
@@ -102,7 +102,7 @@ export class CreatePaymentOrderComponent implements OnInit {
       this.ngbActiveModal.close(paymentOrders);
       this.alertService.success('Ordens de pagamento adicionadas com sucesso!');
     }, (err) => {
-      this.creating = false;
+      this.saving = false;
       this.alertService.apiError(null, err, 'Não foi possível adicionar as ordens de pagamento, por favor tente novamente mais tarde!');
     });
   }

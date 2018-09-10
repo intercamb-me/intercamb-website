@@ -68,14 +68,14 @@
       </ng-container>
       <ng-container *ngIf="disassociating">
         <button
-          [disabled]="updating"
+          [disabled]="saving"
           (click)="backToPlans()"
           type="button"
           class="btn btn-secondary">
           Voltar
         </button>
         <button
-          [disabled]="updating"
+          [disabled]="saving"
           (click)="dissociatePlan()"
           type="button"
           class="btn btn-primary">
@@ -84,14 +84,14 @@
       </ng-container>
       <ng-container *ngIf="changing">
         <button
-          [disabled]="updating"
+          [disabled]="saving"
           (click)="backToPlans()"
           type="button"
           class="btn btn-secondary">
           Voltar
         </button>
         <button
-          [disabled]="updating"
+          [disabled]="saving"
           (click)="associatePlan()"
           type="button"
           class="btn btn-primary">

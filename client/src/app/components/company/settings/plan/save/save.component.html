@@ -1,5 +1,6 @@
-<div *ngIf="!loading && !selectedDefaultTask" id="save-plan">
-  <form #form="ngForm" (ngSubmit)="!plan.id ? createPlan() : updatePlan()" novalidate>
+<div *ngIf="!loading" id="save-plan">
+  <app-edit-default-task *ngIf="selectedDefaultTask" [defaultTask]="selectedDefaultTask" [showBackButton]="true" (save)="saveDefaultTask($event)" (back)="backToPlan()"></app-edit-default-task>
+  <form *ngIf="!selectedDefaultTask" #form="ngForm" (ngSubmit)="!plan.id ? createPlan() : updatePlan()" novalidate>
     <div class="modal-header">
       <h4 *ngIf="!plan.id" class="modal-title">Cadastrar plano</h4>
       <h4 *ngIf="plan.id" class="modal-title">Atualizar plano</h4>
@@ -96,4 +97,3 @@
     </div>
   </form>
 </div>
-<app-edit-default-task *ngIf="selectedDefaultTask" [defaultTask]="selectedDefaultTask" (save)="saveDefaultTask($event)" (back)="backToPlan()"></app-edit-default-task>

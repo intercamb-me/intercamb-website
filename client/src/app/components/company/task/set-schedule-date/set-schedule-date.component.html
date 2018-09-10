@@ -19,14 +19,14 @@
     <div class="d-flex justify-content-end">
       <button
         *ngIf="task.schedule_date"
-        [disabled]="updating"
+        [disabled]="saving"
         (click)="removeScheduleDate()"
         type="button"
         class="btn btn-danger mr-2">
         Remover
       </button>
       <button
-        [disabled]="form.invalid || updating"
+        [disabled]="form.invalid || saving"
         (click)="confirmScheduleDate()"
         type="button"
         class="btn btn-primary">

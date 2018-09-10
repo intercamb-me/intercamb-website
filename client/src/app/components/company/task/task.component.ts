@@ -175,7 +175,7 @@ export class TaskComponent implements OnInit {
 
   public openTaskAttachment(attachment: TaskAttachment): void {
     const win = window.open();
-    win.location.href = `${process.env.API_URL}/attachments/${attachment.id}/file?access_token=${StorageUtils.getApiToken()}`;
+    win.location.href = `${process.env.API_URL}/tasks/attachments/${attachment.id}/file?access_token=${StorageUtils.getApiToken()}`;
   }
 
   public isImageAttachment(attachment: TaskAttachment): boolean {

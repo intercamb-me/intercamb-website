@@ -17,7 +17,7 @@ export class TaskService {
 
   }
 
-  public getTask(id: string, options: any): Observable<Task> {
+  public getTask(id: string, options?: any): Observable<Task> {
     const httpUrl = RequestUtils.getApiUrl(`/tasks/${id}`);
     const httpOptions = RequestUtils.getJsonOptions();
     let params = new HttpParams();

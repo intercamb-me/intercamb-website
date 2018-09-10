@@ -97,6 +97,7 @@ import {TaskFieldsComponent} from '@components/shared/task/fields/fields.compone
 import {TaskChecklistsComponent} from '@components/shared/task/checklists/checklists.component';
 import {AddTaskFieldComponent} from '@components/shared/task/add-field/add-field.component';
 import {AddTaskChecklistComponent} from '@components/shared/task/add-checklist/add-checklist.component';
+
 // Modals
 import {CreateClientFormComponent} from '@components/company/clients/create-form/create-form.component';
 import {DeleteClientComponent} from '@components/company/client/delete/delete.component';
@@ -108,7 +109,8 @@ import {SetTaskLocationComponent} from '@components/company/task/set-location/se
 import {DeleteTaskComponent} from '@components/company/task/delete/delete.component';
 import {SearchAddressComponent} from '@components/company/client/search-address/search-address.component';
 import {RemoveAccountComponent} from '@components/company/settings/remove-account/remove-account.component';
-import {SaveDefaultTasksComponent} from '@components/company/settings/save-default-tasks/save-default-tasks.component';
+import {SaveDefaultTaskComponent} from '@components/company/settings/default-task/save/save.component';
+import {DeleteDefaultTaskComponent} from '@components/company/settings/default-task/delete/delete.component';
 import {SaveInstitutionsComponent} from '@components/company/settings/save-institutions/save-institutions.component';
 import {SavePlanComponent} from '@components/company/settings/plan/save/save.component';
 import {DeletePlanComponent} from '@components/company/settings/plan/delete/delete.component';
@@ -124,6 +126,7 @@ import {AccountService} from '@services/account.service';
 import {AlertService} from '@services/alert.service';
 import {ClientService} from '@services/client.service';
 import {CompanyService} from '@services/company.service';
+import {DefaultTaskService} from '@services/default-task.service';
 import {EventService} from '@services/event.service';
 import {InvitationService} from '@services/invitation.service';
 import {PaymentService} from '@services/payment.service';
@@ -254,7 +257,8 @@ library.add(faUsers);
     DeleteTaskComponent,
     SearchAddressComponent,
     RemoveAccountComponent,
-    SaveDefaultTasksComponent,
+    SaveDefaultTaskComponent,
+    DeleteDefaultTaskComponent,
     SaveInstitutionsComponent,
     SavePlanComponent,
     DeletePlanComponent,
@@ -276,7 +280,8 @@ library.add(faUsers);
     DeleteTaskComponent,
     SearchAddressComponent,
     RemoveAccountComponent,
-    SaveDefaultTasksComponent,
+    SaveDefaultTaskComponent,
+    DeleteDefaultTaskComponent,
     SaveInstitutionsComponent,
     SavePlanComponent,
     DeletePlanComponent,
@@ -292,6 +297,7 @@ library.add(faUsers);
     AlertService,
     ClientService,
     CompanyService,
+    DefaultTaskService,
     EventService,
     InvitationService,
     PaymentService,

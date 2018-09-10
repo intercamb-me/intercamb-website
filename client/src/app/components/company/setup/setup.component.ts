@@ -30,8 +30,7 @@ export class SetupCompanyComponent implements OnInit {
   public phonePattern = Constants.PHONE_PATTERN;
   public phoneMask = Constants.PHONE_MASK;
   public loading = true;
-  public creating = false;
-  public updating = false;
+  public saving = false;
 
   constructor(private accountService: AccountService, private companyService: CompanyService, private alertService: AlertService, private router: Router) {
 
@@ -77,7 +76,7 @@ export class SetupCompanyComponent implements OnInit {
   }
 
   public createCompany(): void {
-    this.creating = true;
+    this.saving = true;
     const data = {
       name: this.name,
       contact_email: this.contactEmail,
@@ -88,7 +87,7 @@ export class SetupCompanyComponent implements OnInit {
       this.company = company;
       this.step = this.step + 1;
     }, (err) => {
-      this.creating = false;
+      this.saving = false;
       this.alertService.apiError(null, err, 'Não foi possível cadastrar a empresa, por favor tente novamente em alguns instantes!');
     });
   }
@@ -115,36 +114,36 @@ export class SetupCompanyComponent implements OnInit {
   }
 
   public updateCompanyLogo(event: any): void {
-    this.updating = true;
+    this.saving = true;
     const file = event.target.files[0];
     this.companyService.updateCompanyLogo(file).subscribe((company) => {
       this.company = company;
-      this.updating = false;
+      this.saving = false;
       this.alertService.success('Logo atualizado com sucesso!');
     }, (err) => {
-      this.updating = false;
+      this.saving = false;
       this.alertService.apiError(null, err, 'Não foi possível atualizar o logo, por favor tente novamente em alguns instantes!');
     });
   }
 
   public updateCompanyColors(): void {
-    this.updating = true;
+    this.saving = true;
     const data = {
       primary_color: this.selectedPaletteVariant.color,
       text_color: this.selectedTextColor,
     };
     this.companyService.updateCompany(data).subscribe((company) => {
       this.company = company;
-      this.updating = false;
+      this.saving = false;
       this.step = this.step + 1;
     }, (err) => {
-      this.updating = false;
+      this.saving = false;
       this.alertService.apiError(null, err, 'Não foi possível atualizar as configurações, por favor tente novamente em alguns instantes!');
     });
   }
 
   public updateCompanyInfo(): void {
-    this.updating = true;
+    this.saving = true;
     const data = {
       institutions: this.selectedInstitutions.map((institution) => {
         return institution.id;
@@ -152,10 +151,10 @@ export class SetupCompanyComponent implements OnInit {
     };
     this.companyService.updateCompany(data).subscribe((company) => {
       this.company = company;
-      this.updating = false;
+      this.saving = false;
       this.router.navigate(['/company']);
     }, (err) => {
-      this.updating = false;
+      this.saving = false;
       this.alertService.apiError(null, err, 'Não foi possível atualizar as configurações, por favor tente novamente em alguns instantes!');
     });
   }

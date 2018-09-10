@@ -5,12 +5,14 @@ import {TaskField} from '@models/task-field.model';
 
 export class DefaultTask {
 
+  public id: string;
   public name: string;
   public fields: TaskField[];
   public checklists: TaskChecklist[];
 
   constructor(data?: any) {
     if (data) {
+      this.id = data.id;
       this.name = data.name;
       this.fields = [];
       if (data.fields) {

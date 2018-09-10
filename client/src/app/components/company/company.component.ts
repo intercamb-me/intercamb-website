@@ -34,7 +34,7 @@ export class CompanyComponent implements OnInit {
         return;
       }
       this.account = account;
-      this.companyService.getCompany().subscribe((company) => {
+      this.companyService.getCompany({select: 'name logo_url primary_color text_color'}).subscribe((company) => {
         this.company = company;
         this.subscribeEvents();
         this.loading = false;

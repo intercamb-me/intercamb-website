@@ -18,20 +18,26 @@ export class EditDefaultTaskComponent {
   public addChecklistPopover: NgbPopover;
   @Input()
   public defaultTask: DefaultTask;
+  @Input()
+  public showBackButton: boolean;
   @Output()
   public back = new EventEmitter<any>();
+  @Output()
+  public update = new EventEmitter<any>();
 
   public editingTaskName: boolean;
   public fieldTypes = Object.values(Constants.TASK_FIELD_TYPES);
   public fieldsValid: boolean;
   public checklistsValid: boolean;
+  public updated = false;
+  public saving = false;
 
   constructor(private ngbActiveModal: NgbActiveModal) {
 
   }
 
   public close(): void {
-    this.ngbActiveModal.dismiss();
+    this.ngbActiveModal.close(this.defaultTask);
   }
 
   public editTaskName(): void {
@@ -68,7 +74,11 @@ export class EditDefaultTaskComponent {
     this.checklistsValid = valid;
   }
 
-  public backToDefaultTasks(): void {
+  public onUpdate(): void {
+    this.update.emit();
+  }
+
+  public onBack(): void {
     this.back.emit();
   }
 }

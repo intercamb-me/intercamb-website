@@ -7,11 +7,11 @@
       </button>
     </div>
     <div class="modal-body">
-      <p>Tem certeza que deseja remover esta conta da empresa?</p>
+      <p>Tem certeza que deseja remover <b>"{{ account.name }}"</b> da empresa?</p>
     </div>
     <div class="modal-footer">
       <button
-        [disabled]="form.invalid || removing"
+        [disabled]="form.invalid || saving"
         class="btn btn-danger"
         type="submit">
         Remover

@@ -60,14 +60,14 @@
     </div>
     <div *ngIf="selectingPaymentDate" class="modal-footer">
       <button
-        [disabled]="form.invalid || updating"
+        [disabled]="form.invalid || saving"
         (click)="backToStatusOptions()"
         type="button"
         class="btn btn-secondary">
         Voltar
       </button>
       <button
-        [disabled]="form.invalid || updating"
+        [disabled]="form.invalid || saving"
         type="submit"
         class="btn btn-primary">
         Atualizar

@@ -10,14 +10,14 @@
     <div class="d-flex justify-content-end mt-3">
       <button
         *ngIf="task.place"
-        [disabled]="updating"
+        [disabled]="saving"
         (click)="removeLocation()"
         type="button"
         class="btn btn-danger mr-2">
         Remover
       </button>
       <button
-        [disabled]="!place || updating"
+        [disabled]="!place || saving"
         type="submit"
         class="btn btn-primary">
         Salvar

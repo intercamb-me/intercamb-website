@@ -11,7 +11,7 @@
         <label class="btn btn-primary btn-block btn-file mt-3">
           Alterar imagem
           <input
-            [disabled]="updating"
+            [disabled]="saving"
             (change)="updateAccountImage($event)"
             id="image"
             name="image"
@@ -66,7 +66,7 @@
           </div>
         </div>
         <button
-          [disabled]="form.invalid || updating"
+          [disabled]="form.invalid || saving"
           type="submit"
           class="btn btn-primary">
           Atualizar

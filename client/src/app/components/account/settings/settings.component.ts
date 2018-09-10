@@ -13,7 +13,7 @@ export class AccountSettingsComponent implements OnInit {
 
   public account: Account;
   public loading = true;
-  public updating = false;
+  public saving = false;
 
   constructor(private accountService: AccountService, private alertService: AlertService, private eventService: EventService) {
 
@@ -29,7 +29,7 @@ export class AccountSettingsComponent implements OnInit {
   }
 
   public updateAccount(): void {
-    this.updating = true;
+    this.saving = true;
     const data = {
       first_name: this.account.first_name,
       last_name: this.account.last_name,
@@ -37,25 +37,25 @@ export class AccountSettingsComponent implements OnInit {
     };
     this.accountService.updateAccount(data).subscribe((account) => {
       this.account = account;
-      this.updating = false;
+      this.saving = false;
       this.eventService.publish(EventService.EVENT_ACCOUNT_CHANGED, account);
       this.alertService.success('Configurações atualizadas com sucesso!');
     }, (err) => {
-      this.updating = false;
+      this.saving = false;
       this.alertService.apiError(null, err, 'Não foi possível atualizar as configurações, por favor tente novamente mais tarde!');
     });
   }
 
   public updateAccountImage(event: any): void {
-    this.updating = true;
+    this.saving = true;
     const file = event.target.files[0];
     this.accountService.updateAccountImage(file).subscribe((account) => {
       this.account = account;
-      this.updating = false;
+      this.saving = false;
       this.eventService.publish(EventService.EVENT_ACCOUNT_CHANGED, account);
       this.alertService.success('Imagem atualizada com sucesso!');
     }, (err) => {
-      this.updating = false;
+      this.saving = false;
       this.alertService.apiError(null, err, 'Não foi possível atualizar a imagem, por favor tente novamente mais tarde!');
     });
   }

@@ -15,7 +15,7 @@ export class CreateTaskComponent {
   public client: Client;
 
   public name: string;
-  public creating = false;
+  public saving = false;
 
   constructor(private clientService: ClientService, private alertService: AlertService, private ngbActiveModal: NgbActiveModal) {
 
@@ -26,12 +26,12 @@ export class CreateTaskComponent {
   }
 
   public createTask(): void {
-    this.creating = true;
+    this.saving = true;
     this.clientService.createTask(this.client, this.name).subscribe((task) => {
       this.ngbActiveModal.close(task);
       this.alertService.success('Atividade criada com sucesso!');
     }, (err) => {
-      this.creating = false;
+      this.saving = false;
       this.alertService.apiError(null, err, 'Não foi possível criar a atividade, por favor tente novamente mais tarde!');
     });
   }

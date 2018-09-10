@@ -16,7 +16,7 @@ export class SetTaskLocationComponent {
   public update = new EventEmitter<Task>();
 
   public place: any;
-  public updating = false;
+  public saving = false;
 
   constructor(private taskService: TaskService, private alertService: AlertService, private ngZone: NgZone) {
 
@@ -29,23 +29,23 @@ export class SetTaskLocationComponent {
   }
 
   public saveLocation(): void {
-    this.updating = true;
+    this.saving = true;
     this.taskService.updateTask(this.task, {place: this.place}).subscribe((task) => {
       this.update.emit(task);
       this.alertService.success('Localização salva com sucesso!');
     }, (err) => {
-      this.updating = false;
+      this.saving = false;
       this.alertService.apiError(null, err, 'Não foi possível salvar a localização, por favor tente novamente mais tarde!');
     });
   }
 
   public removeLocation(): void {
-    this.updating = true;
+    this.saving = true;
     this.taskService.updateTask(this.task, {place: null}).subscribe((task) => {
       this.update.emit(task);
       this.alertService.success('Localização removida com sucesso!');
     }, (err) => {
-      this.updating = false;
+      this.saving = false;
       this.alertService.apiError(null, err, 'Não foi possível remover a localização, por favor tente novamente mais tarde!');
     });
   }

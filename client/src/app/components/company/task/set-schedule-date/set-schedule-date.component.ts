@@ -32,7 +32,7 @@ export class SetTaskScheduleDateComponent implements OnInit {
   public selectedDateStruct: NgbDateStruct;
   public selectedTimeStruct: NgbTimeStruct;
   public onlyDateChars = Helpers.onlyDateChars;
-  public updating = false;
+  public saving = false;
 
   constructor(private taskService: TaskService, private alertService: AlertService) {
 
@@ -54,7 +54,7 @@ export class SetTaskScheduleDateComponent implements OnInit {
   }
 
   public confirmScheduleDate(): void {
-    this.updating = true;
+    this.saving = true;
     let scheduleDate = new Date();
     scheduleDate = setYear(scheduleDate, this.selectedDateStruct.year);
     scheduleDate = setMonth(scheduleDate, this.selectedDateStruct.month - 1);
@@ -67,18 +67,18 @@ export class SetTaskScheduleDateComponent implements OnInit {
       this.update.emit(task);
       this.alertService.success('Data da atividade marcada com sucesso!');
     }, (err) => {
-      this.updating = false;
+      this.saving = false;
       this.alertService.apiError(null, err, 'Não foi possível marcar a data da atividade, por favor tente novamente mais tarde!');
     });
   }
 
   public removeScheduleDate(): void {
-    this.updating = true;
+    this.saving = true;
     this.taskService.updateTask(this.task, {schedule_date: null}).subscribe((task) => {
       this.update.emit(task);
       this.alertService.success('Data da atividade removida com sucesso!');
     }, (err) => {
-      this.updating = false;
+      this.saving = false;
       this.alertService.apiError(null, err, 'Não foi possível remover a data da atividade, por favor tente novamente mais tarde!');
     });
   }

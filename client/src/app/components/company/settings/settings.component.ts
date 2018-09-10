@@ -3,7 +3,8 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {mergeMap} from 'rxjs/operators';
 
 import {RemoveAccountComponent} from '@components/company/settings/remove-account/remove-account.component';
-import {SaveDefaultTasksComponent} from '@components/company/settings/save-default-tasks/save-default-tasks.component';
+import {SaveDefaultTaskComponent} from '@components/company/settings/default-task/save/save.component';
+import {DeleteDefaultTaskComponent} from '@components/company/settings/default-task/delete/delete.component';
 import {SaveInstitutionsComponent} from '@components/company/settings/save-institutions/save-institutions.component';
 import {SavePlanComponent} from '@components/company/settings/plan/save/save.component';
 import {DeletePlanComponent} from '@components/company/settings/plan/delete/delete.component';
@@ -40,14 +41,14 @@ export class CompanySettingsComponent implements OnInit {
   public phonePattern = Constants.PHONE_PATTERN;
   public phoneMask = Constants.PHONE_MASK;
   public loading = true;
-  public updating = false;
+  public saving = false;
 
   constructor(private accountService: AccountService, private companyService: CompanyService, private alertService: AlertService, private eventService: EventService, private ngbModal: NgbModal) {
 
   }
 
   public ngOnInit(): void {
-    this.companyService.getCompany({populate: 'institutions plans accounts'}).pipe(
+    this.companyService.getCompany({populate: 'accounts default_tasks institutions plans'}).pipe(
       mergeMap((company) => {
         this.company = company;
         this.accounts = company.accounts;
@@ -108,6 +109,44 @@ export class CompanySettingsComponent implements OnInit {
     });
   }
 
+  public openSaveDefaultTask(defaultTask: DefaultTask): void {
+    const modalRef = this.ngbModal.open(SaveDefaultTaskComponent, {
+      backdrop: 'static',
+      keyboard: false,
+    });
+    modalRef.componentInstance.defaultTask = defaultTask;
+    modalRef.result.then((updatedDefaultTask) => {
+      const index = this.defaultTasks.findIndex((currentDefaultTask) => {
+        return currentDefaultTask.id === updatedDefaultTask.id;
+      });
+      if (index < 0) {
+        this.defaultTasks.push(updatedDefaultTask);
+      } else {
+        this.defaultTasks[index] = updatedDefaultTask;
+      }
+    }).catch(() => {
+      // Nothing to do...
+    });
+  }
+
+  public openDeleteDefaultTask(defaultTask: DefaultTask): void {
+    const modalRef = this.ngbModal.open(DeleteDefaultTaskComponent, {
+      backdrop: 'static',
+      keyboard: false,
+    });
+    modalRef.componentInstance.defaultTask = defaultTask;
+    modalRef.result.then(() => {
+      const index = this.defaultTasks.findIndex((currentDefaultTask) => {
+        return currentDefaultTask.id === defaultTask.id;
+      });
+      if (index >= 0) {
+        this.defaultTasks.splice(index, 1);
+      }
+    }).catch(() => {
+      // Nothing to do...
+    });
+  }
+
   public openSaveInstitutions(): void {
     const modalRef = this.ngbModal.open(SaveInstitutionsComponent, {
       backdrop: 'static',
@@ -115,18 +154,6 @@ export class CompanySettingsComponent implements OnInit {
     });
     modalRef.result.then((updatedInstitutions) => {
       this.institutions = updatedInstitutions;
-    }).catch(() => {
-      // Nothing to do...
-    });
-  }
-
-  public openSaveDefaultTasks(): void {
-    const modalRef = this.ngbModal.open(SaveDefaultTasksComponent, {
-      backdrop: 'static',
-      keyboard: false,
-    });
-    modalRef.result.then((defaultTasks) => {
-      this.defaultTasks = defaultTasks;
     }).catch(() => {
       // Nothing to do...
     });
@@ -178,21 +205,21 @@ export class CompanySettingsComponent implements OnInit {
   }
 
   public updateCompanyLogo(event: any): void {
-    this.updating = true;
+    this.saving = true;
     const file = event.target.files[0];
     this.companyService.updateCompanyLogo(file).subscribe((company) => {
       this.company = company;
-      this.updating = false;
+      this.saving = false;
       this.eventService.publish(EventService.EVENT_COMPANY_CHANGED, company);
       this.alertService.success('Logo atualizado com sucesso!');
     }, (err) => {
-      this.updating = false;
+      this.saving = false;
       this.alertService.apiError(null, err, 'Não foi possível atualizar o logo, por favor tente novamente mais tarde!');
     });
   }
 
   public updateCompanyInfo(): void {
-    this.updating = true;
+    this.saving = true;
     const data = {
       name: this.company.name,
       contact_email: this.company.contact_email,
@@ -201,28 +228,28 @@ export class CompanySettingsComponent implements OnInit {
     };
     this.companyService.updateCompany(data).subscribe((company) => {
       this.company = company;
-      this.updating = false;
+      this.saving = false;
       this.eventService.publish(EventService.EVENT_COMPANY_CHANGED, company);
       this.alertService.success('Configurações atualizadas com sucesso!');
     }, (err) => {
-      this.updating = false;
+      this.saving = false;
       this.alertService.apiError(null, err, 'Não foi possível atualizar as configurações, por favor tente novamente mais tarde!');
     });
   }
 
   public updateCompanyColors(): void {
-    this.updating = true;
+    this.saving = true;
     const data = {
       primary_color: this.selectedPaletteVariant.color,
       text_color: this.selectedTextColor,
     };
     this.companyService.updateCompany(data).subscribe((company) => {
       this.company = company;
-      this.updating = false;
+      this.saving = false;
       this.eventService.publish(EventService.EVENT_COMPANY_CHANGED, company);
       this.alertService.success('Configurações atualizadas com sucesso!');
     }, (err) => {
-      this.updating = false;
+      this.saving = false;
       this.alertService.apiError(null, err, 'Não foi possível atualizar as configurações, por favor tente novamente mais tarde!');
     });
   }
