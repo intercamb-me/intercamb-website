@@ -11,6 +11,7 @@ import {Company} from '@models/company.model';
 import {Institution} from '@models/institution.model';
 import {Client} from '@models/client.model';
 import {PaymentOrder} from '@models/payment-order.model';
+import {Plan} from '@models/plan.model';
 import {Task} from '@models/task.model';
 
 @Injectable()
@@ -96,6 +97,28 @@ export class CompanyService {
     const httpUrl = RequestUtils.getApiUrl(`/companies/current/accounts/${account.id}`);
     return this.httpClient.delete<void>(httpUrl, RequestUtils.getJsonOptions()).pipe(
       map(() => null),
+      catchError((err: HttpErrorResponse) => {
+        const apiError = ApiError.withResponse(err);
+        this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
+        return throwError(apiError);
+      })
+    );
+  }
+
+  public listPlans(options?: any): Observable<Plan[]> {
+    const httpUrl = RequestUtils.getApiUrl('/companies/current/plans');
+    const httpOptions = RequestUtils.getJsonOptions();
+    let params = new HttpParams();
+    params = RequestUtils.fillOptionsParams(params, options);
+    httpOptions.params = params;
+    return this.httpClient.get<Plan[]>(httpUrl, httpOptions).pipe(
+      map((plansData: Plan[]) => {
+        const plans: Plan[] = [];
+        plansData.forEach((planData: any) => {
+          plans.push(new Plan(planData));
+        });
+        return plans;
+      }),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
         this.eventService.publish(EventService.EVENT_API_ERROR, apiError);

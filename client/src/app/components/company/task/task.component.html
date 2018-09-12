@@ -46,13 +46,13 @@
       <span class="badge badge-{{ taskStatus[task.status].colorSelector }}">
         {{ taskStatus[task.status].name }}
       </span>
-      <span *ngIf="counters.comments > 0" class="badge badge-secondary">
+      <span *ngIf="task.counters.comments > 0" class="badge badge-secondary">
         <fa-icon [icon]="['fas', 'comment']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
-        <span class="ml-1">{{ counters.comments }}</span>
+        <span class="ml-1">{{ task.counters.comments }}</span>
       </span>
-      <span *ngIf="counters.attachments > 0" class="badge badge-secondary">
+      <span *ngIf="task.counters.attachments > 0" class="badge badge-secondary">
         <fa-icon [icon]="['fas', 'paperclip']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>
-        <span class="ml-1">{{ counters.attachments }}</span>
+        <span class="ml-1">{{ task.counters.attachments }}</span>
       </span>
       <span *ngIf="task.fields.length > 0" class="badge badge-secondary">
         <fa-icon [icon]="['fas', 'edit']" [fixedWidth]="true" class="inherit-line-height"></fa-icon>

@@ -16,7 +16,6 @@ import {TaskField} from '@models/task-field.model';
 import {TaskChecklist} from '@models/task-checklist.model';
 import {TaskAttachment} from '@models/task-attachment.model';
 import {TaskComment} from '@models/task-comment.model';
-import {TaskCounters} from '@models/task-counters.model';
 
 @Component({
   selector: 'app-task',
@@ -44,7 +43,6 @@ export class TaskComponent implements OnInit {
   public account: Account;
   public attachments: TaskAttachment[];
   public comments: TaskComment[];
-  public counters: TaskCounters;
   public taskStatus = Constants.TASK_STATUS;
   public comment = '';
   public commentRows = 1;
@@ -63,7 +61,6 @@ export class TaskComponent implements OnInit {
         this.task = task;
         this.attachments = task.attachments;
         this.comments = task.comments;
-        this.counters = task.counters;
         return this.accountService.getAccount();
       })
     ).subscribe((account) => {
@@ -87,9 +84,6 @@ export class TaskComponent implements OnInit {
   }
 
   public close(): void {
-    this.task.attachments = this.attachments;
-    this.task.comments = this.comments;
-    this.task.counters = this.counters;
     this.ngbActiveModal.close(this.task);
   }
 
@@ -166,7 +160,7 @@ export class TaskComponent implements OnInit {
     const file = event.target.files[0];
     this.taskService.addTaskAttachment(this.task, file).subscribe((attachment) => {
       attachment.account = this.account;
-      this.counters.attachments += 1;
+      this.task.counters.attachments += 1;
       this.attachments.push(attachment);
     }, (err) => {
       this.alertService.apiError(null, err, 'Não foi possível enviar o arquivo, por favor tente novamente mais tarde!');
@@ -200,7 +194,7 @@ export class TaskComponent implements OnInit {
     if (!event.shiftKey && keyCode === 13) {
       this.taskService.addTaskComment(this.task, this.comment).subscribe((comment) => {
         comment.account = this.account;
-        this.counters.comments += 1;
+        this.task.counters.comments += 1;
         this.comments.push(comment);
       }, (err) => {
         this.alertService.apiError(null, err);

@@ -15,10 +15,10 @@ export class DefaultTaskService {
 
   }
 
-  public createDefaultTask(name: string): Observable<DefaultTask> {
+  public createDefaultTask(data: any): Observable<DefaultTask> {
     const httpUrl = RequestUtils.getApiUrl('/default_tasks');
     const httpOptions = RequestUtils.getJsonOptions();
-    return this.httpClient.post<DefaultTask>(httpUrl, {name}, httpOptions).pipe(
+    return this.httpClient.post<DefaultTask>(httpUrl, data, httpOptions).pipe(
       map((defaultTaskData: DefaultTask) => new DefaultTask(defaultTaskData)),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);

@@ -19,7 +19,7 @@
           class="form-control"
           required>
       </div>
-      <div class="form-group">
+      <div class="form-group mb-0">
         <label for="name">Preço</label>
         <div class="input-group">
           <div class="input-group-prepend">
@@ -34,48 +34,6 @@
             type="text"
             class="form-control"
             required>
-        </div>
-      </div>
-      <div class="form-group mb-0">
-        <label>Atividades padrões</label>
-        <div class="form-row">
-          <div class="col form-group">
-            <input
-              [(ngModel)]="newDefaultTask.name"
-              (keydown.enter)="addDefaultTask(); false"
-              name="task-name"
-              type="text"
-              class="form-control"
-              placeholder="Nome da atividade">
-          </div>
-          <div class="col-auto form-group">
-            <button
-              [disabled]="!newDefaultTask.name"
-              (click)="addDefaultTask()"
-              class="btn btn-primary"
-              type="button">
-              Adicionar
-            </button>
-          </div>
-        </div>
-        <div>
-          <span *ngFor="let defaultTask of defaultTasks" class="badge badge-secondary mb-2 mr-2">
-            {{ defaultTask.name }}
-            <fa-icon
-              [icon]="['fas', 'pen']"
-              [fixedWidth]="true"
-              (click)="editDefaultTask(defaultTask)"
-              title="Editar"
-              class="cursor-pointer ml-1">
-            </fa-icon>
-            <fa-icon
-              [icon]="['fas', 'times']"
-              [fixedWidth]="true"
-              (click)="removeDefaultTask(defaultTask)"
-              title="Remover"
-              class="cursor-pointer ml-1">
-            </fa-icon>
-          </span>
         </div>
       </div>
     </div>

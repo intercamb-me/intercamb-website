@@ -61,7 +61,8 @@ import {faUsers} from '@fortawesome/free-solid-svg-icons/faUsers';
 import {NgxMaskModule} from 'ngx-mask';
 import {NgxMasonryModule} from 'ngx-masonry';
 import {ClipboardModule} from 'ngx-clipboard';
-import {CalendarModule} from 'angular-calendar';
+import {CalendarModule, DateAdapter} from 'angular-calendar';
+import {adapterFactory} from 'angular-calendar/date-adapters/date-fns';
 import {AutofocusModule} from 'angular-autofocus-fix';
 import {LoadingBarHttpClientModule} from '@ngx-loading-bar/http-client';
 import {LoadingBarRouterModule} from '@ngx-loading-bar/router';
@@ -204,7 +205,10 @@ library.add(faUsers);
     NgxMaskModule.forRoot(),
     NgxMasonryModule,
     ClipboardModule,
-    CalendarModule.forRoot(),
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
     AutofocusModule,
     LoadingBarHttpClientModule,
     LoadingBarRouterModule,

@@ -7,6 +7,7 @@ export class DefaultTask {
 
   public id: string;
   public name: string;
+  public plan: string;
   public fields: TaskField[];
   public checklists: TaskChecklist[];
 
@@ -14,6 +15,7 @@ export class DefaultTask {
     if (data) {
       this.id = data.id;
       this.name = data.name;
+      this.plan = data.plan;
       this.fields = [];
       if (data.fields) {
         (data.fields as any[]).forEach((field) => {

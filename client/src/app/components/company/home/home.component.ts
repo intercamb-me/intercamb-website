@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {NgbPopover} from '@ng-bootstrap/ng-bootstrap';
 import {CalendarEvent, CalendarUtils as LibCalendarUtils} from 'angular-calendar';
-import {GetMonthViewArgs, MonthView, getMonthView} from 'calendar-utils';
+import {GetMonthViewArgs, MonthView} from 'calendar-utils';
 import {NgxMasonryOptions} from 'ngx-masonry';
 import {forkJoin} from 'rxjs';
 import * as startOfWeek from 'date-fns/start_of_week';
@@ -20,7 +20,7 @@ export class CustomCalendarUtils extends LibCalendarUtils {
   public getMonthView(args: GetMonthViewArgs): MonthView {
     args.viewStart = startOfWeek(args.viewDate);
     args.viewEnd = endOfWeek(addWeeks(args.viewDate, 1));
-    return getMonthView(args);
+    return super.getMonthView(args);
   }
 }
 

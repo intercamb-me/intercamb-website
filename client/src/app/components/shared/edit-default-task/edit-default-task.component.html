@@ -76,7 +76,7 @@
       </button>
       <button
         [disabled]="form.invalid || !fieldsValid || !checklistsValid || saving"
-        (click)="onUpdate()"
+        (click)="updateDefaultTask()"
         class="btn btn-primary"
         type="button">
         Atualizar

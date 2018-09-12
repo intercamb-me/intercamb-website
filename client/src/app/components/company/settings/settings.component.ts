@@ -1,6 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, EventEmitter} from '@angular/core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {mergeMap} from 'rxjs/operators';
+import groupBy from 'lodash-es/groupBy';
+import keyBy from 'lodash-es/keyBy';
 
 import {RemoveAccountComponent} from '@components/company/settings/remove-account/remove-account.component';
 import {SaveDefaultTaskComponent} from '@components/company/settings/default-task/save/save.component';
@@ -17,6 +19,7 @@ import {AlertService} from '@services/alert.service';
 import {EventService} from '@services/event.service';
 import {Constants} from '@utils/constants';
 import {Helpers} from '@utils/helpers';
+import {Dictionary} from '@utils/dictionary';
 import {Account} from '@models/account.model';
 import {Company} from '@models/company.model';
 import {DefaultTask} from '@models/default-task.model';
@@ -33,8 +36,10 @@ export class CompanySettingsComponent implements OnInit {
   public authenticatedAccount: Account;
   public accounts: Account[];
   public defaultTasks: DefaultTask[];
+  public defaultTasksByPlan: Dictionary<DefaultTask[]>;
   public institutions: Institution[];
   public plans: Plan[];
+  public planById: Dictionary<Plan>;
   public selectedPaletteVariant: PaletteVariant;
   public selectedTextColor: string;
   public getColor = Helpers.getColor;
@@ -52,9 +57,9 @@ export class CompanySettingsComponent implements OnInit {
       mergeMap((company) => {
         this.company = company;
         this.accounts = company.accounts;
-        this.defaultTasks = company.default_tasks;
         this.institutions = company.institutions;
-        this.plans = company.plans;
+        this.setPlans(company.plans);
+        this.setDefaultTasks(company.default_tasks);
         return this.accountService.getAccount();
       })
     ).subscribe((account) => {
@@ -91,6 +96,10 @@ export class CompanySettingsComponent implements OnInit {
     this.selectedTextColor = color;
   }
 
+  public hasDefaultTasks(): boolean {
+    return this.defaultTasks.length + Object.keys(this.defaultTasksByPlan).length > 0;
+  }
+
   public openRemoveAccount(account: Account): void {
     const modalRef = this.ngbModal.open(RemoveAccountComponent, {
       backdrop: 'static',
@@ -109,13 +118,25 @@ export class CompanySettingsComponent implements OnInit {
     });
   }
 
+  public openSaveInstitutions(): void {
+    const modalRef = this.ngbModal.open(SaveInstitutionsComponent, {
+      backdrop: 'static',
+      keyboard: false,
+    });
+    modalRef.result.then((updatedInstitutions) => {
+      this.institutions = updatedInstitutions;
+    }).catch(() => {
+      // Nothing to do...
+    });
+  }
+
   public openSaveDefaultTask(defaultTask: DefaultTask): void {
     const modalRef = this.ngbModal.open(SaveDefaultTaskComponent, {
       backdrop: 'static',
       keyboard: false,
     });
     modalRef.componentInstance.defaultTask = defaultTask;
-    modalRef.result.then((updatedDefaultTask) => {
+    (modalRef.componentInstance.changeEmitter as EventEmitter<DefaultTask>).subscribe((updatedDefaultTask: DefaultTask) => {
       const index = this.defaultTasks.findIndex((currentDefaultTask) => {
         return currentDefaultTask.id === updatedDefaultTask.id;
       });
@@ -124,8 +145,7 @@ export class CompanySettingsComponent implements OnInit {
       } else {
         this.defaultTasks[index] = updatedDefaultTask;
       }
-    }).catch(() => {
-      // Nothing to do...
+      this.setDefaultTasks(this.defaultTasks);
     });
   }
 
@@ -142,18 +162,7 @@ export class CompanySettingsComponent implements OnInit {
       if (index >= 0) {
         this.defaultTasks.splice(index, 1);
       }
-    }).catch(() => {
-      // Nothing to do...
-    });
-  }
-
-  public openSaveInstitutions(): void {
-    const modalRef = this.ngbModal.open(SaveInstitutionsComponent, {
-      backdrop: 'static',
-      keyboard: false,
-    });
-    modalRef.result.then((updatedInstitutions) => {
-      this.institutions = updatedInstitutions;
+      this.setDefaultTasks(this.defaultTasks);
     }).catch(() => {
       // Nothing to do...
     });
@@ -174,6 +183,7 @@ export class CompanySettingsComponent implements OnInit {
       } else {
         this.plans[index] = updatedPlan;
       }
+      this.setPlans(this.plans);
     }).catch(() => {
       // Nothing to do...
     });
@@ -190,7 +200,13 @@ export class CompanySettingsComponent implements OnInit {
         return currentPlan.id === plan.id;
       });
       if (index >= 0) {
+        delete this.defaultTasksByPlan[plan.id];
+        console.log(this.defaultTasksByPlan);
         this.plans.splice(index, 1);
+        console.log(this.plans);
+        this.setPlans(this.plans);
+        console.log(this.plans);
+        console.log(this.planById);
       }
     }).catch(() => {
       // Nothing to do...
@@ -252,5 +268,20 @@ export class CompanySettingsComponent implements OnInit {
       this.saving = false;
       this.alertService.apiError(null, err, 'Não foi possível atualizar as configurações, por favor tente novamente mais tarde!');
     });
+  }
+
+  private setPlans(plans: Plan[]): void {
+    this.plans = plans;
+    this.planById = keyBy(plans, (plan) => {
+      return plan.id;
+    });
+  }
+
+  private setDefaultTasks(defaultTasks: DefaultTask[]): void {
+    this.defaultTasksByPlan = groupBy(defaultTasks, (defaultTask) => {
+      return defaultTask.plan;
+    });
+    this.defaultTasks = this.defaultTasksByPlan['undefined'];
+    delete this.defaultTasksByPlan['undefined'];
   }
 }

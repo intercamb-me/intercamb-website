@@ -15,7 +15,6 @@
         [(ngModel)]="field.type"
         name="field-type"
         class="form-control"
-        placeholder="Tipo"
         required>
         <option *ngFor="let type of fieldTypes" [ngValue]="type.id">{{ type.name }}</option>
       </select>

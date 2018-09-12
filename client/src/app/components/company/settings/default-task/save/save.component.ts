@@ -1,9 +1,14 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, EventEmitter} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {of} from 'rxjs';
+import {mergeMap} from 'rxjs/operators';
 
+import {CompanyService} from '@services/company.service';
 import {DefaultTaskService} from '@services/default-task.service';
 import {AlertService} from '@services/alert.service';
+import {Helpers} from '@utils/helpers';
 import {DefaultTask} from '@models/default-task.model';
+import {Plan} from '@models/plan.model';
 
 @Component({
   selector: 'app-save-default-task',
@@ -13,20 +18,25 @@ export class SaveDefaultTaskComponent implements OnInit {
 
   @Input()
   public defaultTask: DefaultTask;
+  public changeEmitter = new EventEmitter<DefaultTask>();
+
+  public plans: Plan[];
+  public selectedPlan: Plan;
+  public getColor = Helpers.getColor;
   public loading = true;
   public saving = false;
 
-  constructor(private defaultTaskService: DefaultTaskService, private alertService: AlertService, private ngbActiveModal: NgbActiveModal) {
+  constructor(private companyService: CompanyService, private defaultTaskService: DefaultTaskService, private alertService: AlertService, private ngbActiveModal: NgbActiveModal) {
 
   }
 
   public ngOnInit(): void {
-    if (!this.defaultTask) {
-      this.defaultTask = new DefaultTask({});
-      this.loading = false;
-      return;
-    }
-    this.defaultTaskService.getDefaultTask(this.defaultTask.id).subscribe((defaultTask) => {
+    this.companyService.listPlans({select: 'name'}).pipe(
+      mergeMap((plans) => {
+        this.plans = plans;
+        return this.defaultTask ? this.defaultTaskService.getDefaultTask(this.defaultTask.id) : of(new DefaultTask({}));
+      })
+    ).subscribe((defaultTask) => {
       this.defaultTask = defaultTask;
       this.loading = false;
     }, (err) => {
@@ -34,15 +44,32 @@ export class SaveDefaultTaskComponent implements OnInit {
     });
   }
 
+  public trackByPlan(_index: number, plan: Plan): string {
+    return plan.id;
+  }
+
   public close(): void {
     this.ngbActiveModal.dismiss();
   }
 
+  public selectPlan(plan: Plan): void {
+    if (this.selectedPlan && this.selectedPlan === plan) {
+      this.selectedPlan = null;
+    } else {
+      this.selectedPlan = plan;
+    }
+  }
+
   public createDefaultTask(): void {
     if (this.defaultTask.name) {
+      const data = {
+        name: this.defaultTask.name,
+        plan: this.selectedPlan ? this.selectedPlan.id : undefined,
+      };
       this.saving = true;
-      this.defaultTaskService.createDefaultTask(this.defaultTask.name).subscribe((defaultTask) => {
+      this.defaultTaskService.createDefaultTask(data).subscribe((defaultTask) => {
         this.defaultTask = defaultTask;
+        this.changeEmitter.emit(this.defaultTask);
         this.saving = false;
         this.alertService.success('Atividade padrão criada com sucesso!');
       }, (err) => {
@@ -52,19 +79,8 @@ export class SaveDefaultTaskComponent implements OnInit {
     }
   }
 
-  public updateDefaultTask(): void {
-    const data = {
-      name: this.defaultTask.name,
-      fields: this.defaultTask.fields,
-      checklists: this.defaultTask.checklists,
-    };
-    this.saving = true;
-    this.defaultTaskService.updateDefaultTask(this.defaultTask, data).subscribe(() => {
-      this.saving = false;
-      this.alertService.success('Atividade padrão atualizada com sucesso!');
-    }, (err) => {
-      this.saving = false;
-      this.alertService.apiError(null, err, 'Não foi possível remover a atividade padrão, por favor tente novamente mais tarde!');
-    });
+  public onDefaultTaskUpdate(defaultTask: DefaultTask): void {
+    this.defaultTask = defaultTask;
+    this.changeEmitter.emit(this.defaultTask);
   }
 }

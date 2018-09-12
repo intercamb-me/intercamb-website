@@ -4,7 +4,6 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {PlanService} from '@services/plan.service';
 import {AlertService} from '@services/alert.service';
 import {Constants} from '@utils/constants';
-import {DefaultTask} from '@models/default-task.model';
 import {Plan} from '@models/plan.model';
 
 @Component({
@@ -18,9 +17,6 @@ export class SavePlanComponent implements OnInit {
 
   public name: string;
   public price: string;
-  public defaultTasks: DefaultTask[];
-  public selectedDefaultTask: DefaultTask;
-  public newDefaultTask: DefaultTask;
   public currencyMask = Constants.CURRENCY_MASK;
   public loading = true;
   public saving = false;
@@ -30,10 +26,8 @@ export class SavePlanComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.newDefaultTask = new DefaultTask({});
     if (!this.plan) {
       this.plan = new Plan();
-      this.defaultTasks = [];
       this.loading = false;
       return;
     }
@@ -41,7 +35,6 @@ export class SavePlanComponent implements OnInit {
       this.plan = plan;
       this.name = this.plan.name;
       this.price = String(this.plan.price);
-      this.defaultTasks = this.plan.default_tasks;
       this.loading = false;
     }, (err) => {
       this.alertService.apiError(null, err);
@@ -56,48 +49,11 @@ export class SavePlanComponent implements OnInit {
     return defaultTask;
   }
 
-  public addDefaultTask(): void {
-    if (this.newDefaultTask.name) {
-      const index = this.defaultTasks.findIndex((defaultTask) => {
-        return defaultTask.name === this.newDefaultTask.name;
-      });
-      if (index < 0) {
-        this.defaultTasks.push(this.newDefaultTask);
-        this.selectedDefaultTask = this.newDefaultTask;
-        this.newDefaultTask = new DefaultTask({});
-      }
-    }
-  }
-
-  public editDefaultTask(defaultTask: DefaultTask): void {
-    this.selectedDefaultTask = defaultTask;
-  }
-
-  public saveDefaultTask(defaultTask: DefaultTask): void {
-    const index = this.defaultTasks.indexOf(this.selectedDefaultTask);
-    if (index >= 0) {
-      this.defaultTasks[index] = defaultTask;
-      this.backToPlan();
-    }
-  }
-
-  public removeDefaultTask(defaultTask: DefaultTask): void {
-    const index = this.defaultTasks.indexOf(defaultTask);
-    if (index >= 0) {
-      this.defaultTasks.splice(index, 1);
-    }
-  }
-
-  public backToPlan(): void {
-    this.selectedDefaultTask = null;
-  }
-
   public createPlan(): void {
     this.saving = true;
     const data = {
       name: this.name,
       price: Number(this.price),
-      default_tasks: this.defaultTasks,
     };
     this.planService.createPlan(data).subscribe((plan) => {
       this.ngbActiveModal.close(plan);
@@ -113,7 +69,6 @@ export class SavePlanComponent implements OnInit {
     const data = {
       name: this.name,
       price: Number(this.price),
-      default_tasks: this.defaultTasks,
     };
     this.planService.updatePlan(this.plan, data).subscribe((plan) => {
       this.ngbActiveModal.close(plan);
