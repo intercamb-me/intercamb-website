@@ -201,12 +201,8 @@ export class CompanySettingsComponent implements OnInit {
       });
       if (index >= 0) {
         delete this.defaultTasksByPlan[plan.id];
-        console.log(this.defaultTasksByPlan);
         this.plans.splice(index, 1);
-        console.log(this.plans);
         this.setPlans(this.plans);
-        console.log(this.plans);
-        console.log(this.planById);
       }
     }).catch(() => {
       // Nothing to do...
@@ -281,7 +277,7 @@ export class CompanySettingsComponent implements OnInit {
     this.defaultTasksByPlan = groupBy(defaultTasks, (defaultTask) => {
       return defaultTask.plan;
     });
-    this.defaultTasks = this.defaultTasksByPlan['undefined'];
+    this.defaultTasks = this.defaultTasksByPlan['undefined'] || [];
     delete this.defaultTasksByPlan['undefined'];
   }
 }
