@@ -22,7 +22,8 @@ export class ClientsComponent implements OnInit {
 
   public clients: Client[];
   public lastClient: Client;
-  public search: string = null;
+  public search: string;
+  public currentSearch: string;
   public searching = false;
   public displayShowMoreButton = true;
   public loadingMore = false;
@@ -64,8 +65,10 @@ export class ClientsComponent implements OnInit {
 
   public searchClients(): void {
     this.searching = true;
-    this.companyService.searchClients(this.search, ClientsComponent.CLIENT_OPTIONS).subscribe((clients) => {
+    this.currentSearch = this.search;
+    this.companyService.searchClients(this.currentSearch, ClientsComponent.CLIENT_OPTIONS).subscribe((clients) => {
       this.clients = clients;
+      this.displayShowMoreButton = true;
       this.searching = false;
     }, (err) => {
       this.searching = false;
@@ -75,7 +78,13 @@ export class ClientsComponent implements OnInit {
 
   public loadMoreClients(): void {
     this.loadingMore = true;
-    this.companyService.listClients(null, {...ClientsComponent.CLIENT_OPTIONS, last: this.lastClient.id}).subscribe((clients) => {
+    let observable;
+    if (this.currentSearch) {
+      observable = this.companyService.searchClients(this.currentSearch, {...ClientsComponent.CLIENT_OPTIONS, last: this.lastClient.id});
+    } else {
+      observable = this.companyService.listClients(null, {...ClientsComponent.CLIENT_OPTIONS, last: this.lastClient.id});
+    }
+    observable.subscribe((clients) => {
       if (clients.length > 0) {
         this.clients.push(...clients);
         this.lastClient = this.clients[this.clients.length - 1];
