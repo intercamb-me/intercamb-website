@@ -47,6 +47,9 @@ export class ClientsComponent implements OnInit {
         this.search = '';
         this.lastClient = this.clients[this.clients.length - 1];
       }
+      if (this.clients.length < ClientsComponent.CLIENT_OPTIONS.limit) {
+        this.displayShowMoreButton = false;
+      }
     }, (err) => {
       this.alertService.apiError(null, err, 'Não foi possível carregar a lista de clientes, por favor tente novamente mais tarde!');
     });
