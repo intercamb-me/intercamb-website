@@ -41,6 +41,15 @@ export class RequestUtils {
       if (options.select) {
         filledParams = filledParams.set('select', options.select);
       }
+      if (options.sort) {
+        filledParams = filledParams.set('sort', options.sort);
+      }
+      if (options.last) {
+        filledParams = filledParams.set('last', options.last);
+      }
+      if (options.limit) {
+        filledParams = filledParams.set('limit', options.limit);
+      }
     }
     return filledParams;
   }

@@ -52,5 +52,15 @@
         </a>
       </ngxMasonryItem>
     </ngx-masonry>
+    <div class="mt-3 text-center">
+      <button
+        *ngIf="displayShowMoreButton"
+        [disabled]="loadingMore"
+        (click)="loadMoreClients()"
+        type="button"
+        class="btn btn-info">
+        Carregar mais
+      </button>
+    </div>
   </ng-container>
 </div>

@@ -14,12 +14,19 @@ import {Client} from '@models/client.model';
 })
 export class ClientsComponent implements OnInit {
 
-  private static readonly CLIENT_FIELDS = 'forename surname email phone photo_url';
+  private static readonly CLIENT_OPTIONS = {
+    select: 'forename surname email phone photo_url',
+    sort: 'registration_date:desc',
+    limit: 20,
+  };
 
   public clients: Client[];
+  public lastClient: Client;
   public search: string = null;
-  public loading = true;
   public searching = false;
+  public displayShowMoreButton = true;
+  public loadingMore = false;
+  public loading = true;
 
   public masonryOptions: NgxMasonryOptions = {
     itemSelector: '.col-6',
@@ -32,14 +39,15 @@ export class ClientsComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.companyService.listClients(null, {select: ClientsComponent.CLIENT_FIELDS}).subscribe((clients) => {
+    this.companyService.listClients(null, ClientsComponent.CLIENT_OPTIONS).subscribe((clients) => {
       this.clients = clients;
       this.loading = false;
       if (this.clients.length > 0) {
         this.search = '';
+        this.lastClient = this.clients[this.clients.length - 1];
       }
     }, (err) => {
-      this.alertService.apiError(null, err);
+      this.alertService.apiError(null, err, 'Não foi possível carregar a lista de clientes, por favor tente novamente mais tarde!');
     });
   }
 
@@ -56,12 +64,28 @@ export class ClientsComponent implements OnInit {
 
   public searchClients(): void {
     this.searching = true;
-    this.companyService.searchClients(this.search, {select: ClientsComponent.CLIENT_FIELDS}).subscribe((clients) => {
+    this.companyService.searchClients(this.search, ClientsComponent.CLIENT_OPTIONS).subscribe((clients) => {
       this.clients = clients;
       this.searching = false;
     }, (err) => {
       this.searching = false;
       this.alertService.apiError(null, err);
+    });
+  }
+
+  public loadMoreClients(): void {
+    this.loadingMore = true;
+    this.companyService.listClients(null, {...ClientsComponent.CLIENT_OPTIONS, last: this.lastClient.id}).subscribe((clients) => {
+      if (clients.length > 0) {
+        this.clients.push(...clients);
+        this.lastClient = this.clients[this.clients.length - 1];
+      } else {
+        this.displayShowMoreButton = false;
+      }
+      this.loadingMore = false;
+    }, (err) => {
+      this.loadingMore = false;
+      this.alertService.apiError(null, err, 'Não foi possível carregar mais clientes, por favor tente novamente mais tarde!');
     });
   }
 }

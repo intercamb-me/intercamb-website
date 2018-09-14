@@ -176,20 +176,6 @@ export class CompanyService {
     );
   }
 
-  public countClients(): Observable<number> {
-    const httpUrl = RequestUtils.getApiUrl('/companies/current/clients/count');
-    return this.httpClient.get<number>(httpUrl, RequestUtils.getJsonOptions()).pipe(
-      map((countData: any) => {
-        return countData.count;
-      }),
-      catchError((err: HttpErrorResponse) => {
-        const apiError = ApiError.withResponse(err);
-        this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
-        return throwError(apiError);
-      })
-    );
-  }
-
   public searchClients(search: string, options?: any): Observable<Client[]> {
     const httpUrl = RequestUtils.getApiUrl('/companies/current/clients');
     const httpOptions = RequestUtils.getJsonOptions();
@@ -204,6 +190,20 @@ export class CompanyService {
           clients.push(new Client(clientData));
         });
         return clients;
+      }),
+      catchError((err: HttpErrorResponse) => {
+        const apiError = ApiError.withResponse(err);
+        this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
+        return throwError(apiError);
+      })
+    );
+  }
+
+  public countClients(): Observable<number> {
+    const httpUrl = RequestUtils.getApiUrl('/companies/current/clients/count');
+    return this.httpClient.get<number>(httpUrl, RequestUtils.getJsonOptions()).pipe(
+      map((countData: any) => {
+        return countData.count;
       }),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);
