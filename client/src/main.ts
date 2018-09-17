@@ -1,3 +1,10 @@
+import '@assets/img/landing-background.jpg';
+import '@assets/img/calendar.png';
+import '@assets/img/clients.png';
+import '@assets/img/documents.png';
+import '@assets/img/reports.png';
+import '@assets/img/tasks.png';
+
 import '@assets/styles/styles.less';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'angular-calendar/css/angular-calendar.css';

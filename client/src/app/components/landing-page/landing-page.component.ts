@@ -16,15 +16,13 @@ export class LandingPageComponent implements OnInit {
 
   public ngOnInit(): void {
     this.accountService.getAccount().subscribe((account) => {
-      if (!account) {
-        this.router.navigate(['/signin']);
-        return;
+      if (account) {
+        if (account.company) {
+          this.router.navigate(['/company']);
+        } else {
+          this.router.navigate(['/company/setup']);
+        }
       }
-      if (account.company) {
-        this.router.navigate(['/company']);
-        return;
-      }
-      this.router.navigate(['/company/setup']);
     }, (err) => {
       this.alertService.apiError(null, err);
     });

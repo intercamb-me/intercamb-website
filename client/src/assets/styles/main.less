@@ -1,5 +1,35 @@
 @import (less, reference) "~bootstrap/dist/css/bootstrap.css";
 
+#landing-page {
+  section {
+    padding: 3rem 0rem;
+  }
+  .primary {
+    background-color: #343a40;
+    color: @white;
+    &.landing {
+      .d-flex();
+      .align-items-center();
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('/assets/img/landing-background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      height: 500px;
+      text-shadow: 1px 1px 4px #000000;
+      h1 {
+        font-size: 50px;
+      }
+    }
+  }
+  .secondary {
+    background-color: @white;
+  }
+  .secondary-alt {
+    background-color: #f6f7fc;
+  }
+  .btn-lg {
+    padding: 1rem 2rem;
+  }
+}
+
 #signup, #signin, #setup-company, #not-found {
   min-height: 100%;
   background-color: @primary;
@@ -61,7 +91,7 @@
         border-radius: 4px;
         text-decoration: none;
         &:hover {
-          background-color: rgba(0,0,0, 0.2);
+          background-color: rgba(0,0,0,0.2);
         }
         > .icon {
           .mr-3();
