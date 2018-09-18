@@ -2,6 +2,7 @@ import '@assets/img/landing-background.jpg';
 import '@assets/img/calendar.png';
 import '@assets/img/clients.png';
 import '@assets/img/documents.png';
+import '@assets/img/payments.png';
 import '@assets/img/reports.png';
 import '@assets/img/tasks.png';
 

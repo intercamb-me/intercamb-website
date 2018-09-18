@@ -11,6 +11,7 @@ import pt from '@angular/common/locales/pt';
 // Bootstrap
 import {
   NgbAlertModule,
+  NgbCollapseModule,
   NgbDatepickerModule,
   NgbDateParserFormatter,
   NgbDropdownModule,
@@ -73,6 +74,7 @@ import {AppRoutes} from '@app/app.routes';
 // Components
 import {AppComponent} from '@app/app.component';
 import {AlertsComponent} from '@components/alerts/alerts.component';
+import {HeaderComponent} from '@components/header/header.component';
 import {LandingPageComponent} from '@components/landing-page/landing-page.component';
 import {SignUpComponent} from '@components/signup/signup.component';
 import {SignInComponent} from '@components/signin/signin.component';
@@ -196,6 +198,7 @@ library.add(faUsers);
     HttpClientModule,
     RouterModule.forRoot(AppRoutes.listRoutes()),
     NgbAlertModule.forRoot(),
+    NgbCollapseModule.forRoot(),
     NgbModalModule.forRoot(),
     NgbDropdownModule.forRoot(),
     NgbPopoverModule.forRoot(),
@@ -226,6 +229,7 @@ library.add(faUsers);
     // Components
     AppComponent,
     AlertsComponent,
+    HeaderComponent,
     LandingPageComponent,
     SignUpComponent,
     SignInComponent,
