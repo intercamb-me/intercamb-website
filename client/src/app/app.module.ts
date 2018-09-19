@@ -76,6 +76,7 @@ import {AppComponent} from '@app/app.component';
 import {AlertsComponent} from '@components/alerts/alerts.component';
 import {HeaderComponent} from '@components/header/header.component';
 import {LandingPageComponent} from '@components/landing-page/landing-page.component';
+import {PlansComponent} from '@components/plans/plans.component';
 import {SignUpComponent} from '@components/signup/signup.component';
 import {SignInComponent} from '@components/signin/signin.component';
 import {SetupCompanyComponent} from '@components/company/setup/setup.component';
@@ -231,6 +232,7 @@ library.add(faUsers);
     AlertsComponent,
     HeaderComponent,
     LandingPageComponent,
+    PlansComponent,
     SignUpComponent,
     SignInComponent,
     SetupCompanyComponent,
