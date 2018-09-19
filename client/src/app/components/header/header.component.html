@@ -22,6 +22,7 @@
             <img [src]="account.image_url" class="account-image">
           </button>
           <div ngbDropdownMenu aria-labelledby="account-menu">
+            <a [routerLink]="['/company']" class="dropdown-item">Acessar sistema</a>
             <a [routerLink]="['/account', 'settings']" class="dropdown-item">Configurações</a>
             <a (click)="logout()" class="dropdown-item cursor-pointer">Sair</a>
           </div>
