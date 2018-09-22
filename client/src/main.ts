@@ -1,3 +1,4 @@
+import '@assets/img/og-image.jpg';
 import '@assets/img/landing-background.jpg';
 import '@assets/img/calendar.png';
 import '@assets/img/clients.png';
