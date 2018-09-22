@@ -41,9 +41,11 @@ import {faEdit} from '@fortawesome/free-solid-svg-icons/faEdit';
 import {faEllipsisV} from '@fortawesome/free-solid-svg-icons/faEllipsisV';
 import {faEnvelope} from '@fortawesome/free-solid-svg-icons/faEnvelope';
 import {faEnvelopeOpen} from '@fortawesome/free-solid-svg-icons/faEnvelopeOpen';
+import {faFacebook} from '@fortawesome/free-brands-svg-icons/faFacebook';
 import {faGraduationCap} from '@fortawesome/free-solid-svg-icons/faGraduationCap';
 import {faHashtag} from '@fortawesome/free-solid-svg-icons/faHashtag';
 import {faHome} from '@fortawesome/free-solid-svg-icons/faHome';
+import {faInstagram} from '@fortawesome/free-brands-svg-icons/faInstagram';
 import {faKey} from '@fortawesome/free-solid-svg-icons/faKey';
 import {faList} from '@fortawesome/free-solid-svg-icons/faList';
 import {faMapMarkerAlt} from '@fortawesome/free-solid-svg-icons/faMapMarkerAlt';
@@ -55,6 +57,7 @@ import {faSchool} from '@fortawesome/free-solid-svg-icons/faSchool';
 import {faTasks} from '@fortawesome/free-solid-svg-icons/faTasks';
 import {faTimes} from '@fortawesome/free-solid-svg-icons/faTimes';
 import {faTrash} from '@fortawesome/free-solid-svg-icons/faTrash';
+import {faTwitter} from '@fortawesome/free-brands-svg-icons/faTwitter';
 import {faUser} from '@fortawesome/free-solid-svg-icons/faUser';
 import {faUsers} from '@fortawesome/free-solid-svg-icons/faUsers';
 
@@ -75,6 +78,7 @@ import {AppRoutes} from '@app/app.routes';
 import {AppComponent} from '@app/app.component';
 import {AlertsComponent} from '@components/alerts/alerts.component';
 import {HeaderComponent} from '@components/header/header.component';
+import {FooterComponent} from '@components/footer/footer.component';
 import {LandingPageComponent} from '@components/landing-page/landing-page.component';
 import {PlansComponent} from '@components/plans/plans.component';
 import {SignUpComponent} from '@components/signup/signup.component';
@@ -173,8 +177,10 @@ library.add(faEllipsisV);
 library.add(faEnvelope);
 library.add(faEnvelopeOpen);
 library.add(faGraduationCap);
+library.add(faFacebook);
 library.add(faHashtag);
 library.add(faHome);
+library.add(faInstagram);
 library.add(faKey);
 library.add(faList);
 library.add(faMapMarkerAlt);
@@ -187,6 +193,7 @@ library.add(faTasks);
 library.add(faTasks);
 library.add(faTimes);
 library.add(faTrash);
+library.add(faTwitter);
 library.add(faUser);
 library.add(faUsers);
 
@@ -231,6 +238,7 @@ library.add(faUsers);
     AppComponent,
     AlertsComponent,
     HeaderComponent,
+    FooterComponent,
     LandingPageComponent,
     PlansComponent,
     SignUpComponent,

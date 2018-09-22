@@ -9,6 +9,30 @@ body {
   line-height: 1.5;
 }
 
+header {
+  .navbar-brand {
+    > img {
+      width: 40px;
+      height: 40px;
+    }
+  }
+  .account-image {
+    .rounded-circle();
+    .d-inline-block();
+    width: 40px;
+    height: 40px;
+  }
+}
+
+footer {
+  padding: 4rem 0rem;
+  background-color: @dark;
+  color: @white;
+  .ng-fa-icon {
+    font-size: 2.5rem;
+  }
+}
+
 h1, h2, h3, h4, h5, p, small {
   .font-weight-light();
   line-height: 1.5;
@@ -65,36 +89,6 @@ select {
   }
 }
 
-.font-small {
-  font-size: 14px !important;
-}
-
-.font-normal {
-  font-size: 16px !important;
-}
-
-.font-large {
-  font-size: 18px !important;
-}
-
-.cursor-pointer {
-  cursor: pointer;
-}
-
-.bg-black {
-  background-color: #212529 !important;
-}
-
-.text-black {
-  color: #212529;
-}
-
-.vr {
-  .ml-3();
-  .mr-3();
-  border-left: 1px solid rgba(0, 0, 0, 0.125);
-}
-
 .ng-fa-icon {
   line-height: normal;
   &.inherit-line-height {
@@ -128,14 +122,6 @@ select {
   .px-2();
   .py-2();
   .font-weight-normal();
-}
-
-.badge-orange {
-  background-color: @orange;
-}
-
-.badge-deep-orange {
-  background-color: #eb5a46;
 }
 
 .dropdown-toggle::after {
@@ -240,57 +226,4 @@ select {
 #loading-bar-spinner {
   left: unset !important;
   right: 10px !important;
-}
-
-.checkbox-container {
-  .user-select(none);
-  display: block;
-  position: relative;
-  width: 20px;
-  height: 20px;
-  margin: 0px;
-  cursor: pointer;
-  input {
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    width: 20px;
-    height: 20px;
-    opacity: 0;
-    cursor: pointer;
-    &:checked {
-      &~.checkmark {
-        border: unset;
-        background-color: @primary;
-        &:after {
-          display: block;
-        }
-      }
-    }
-  }
-  .checkmark {
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    width: 20px;
-    height: 20px;
-    border-radius: 4px;
-    border: 1px solid @grey-border;
-    background-color: @white;
-    &:hover {
-      background-color: @grey;
-    }
-    &:after {
-      .transform(rotate(45deg));
-      display: none;
-      position: absolute;
-      left: 7px;
-      top: 3px;
-      width: 6px;
-      height: 11px;
-      border: solid @white;
-      border-width: 0px 3px 3px 0px;
-      content: "";
-    }
-  }
 }

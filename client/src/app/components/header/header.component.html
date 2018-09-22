@@ -1,33 +1,35 @@
-<nav id="header" class="navbar navbar-light navbar-expand-sm">
-  <div class="container-fluid">
-    <a class="navbar-brand" [routerLink]="['/']">
-      <img src="https://cdn.intercamb.me/images/company_default_logo.png">
-      <span class="ml-3">Intercamb.me</span>
-    </a>
-    <button (click)="navbarCollapsed = !navbarCollapsed" [attr.aria-expanded]="!navbarCollapsed" type="button" class="navbar-toggler navbar-toggler-right" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div *ngIf="!loading" [ngbCollapse]="navbarCollapsed" id="navbar-content" class="navbar-collapse">
-      <ul *ngIf="!account" class="navbar-nav ml-auto">
-        <li class="nav-item nav-item mr-sm-2 mb-1 mb-sm-0">
-          <a [routerLink]="['/signin']" class="btn btn-outline-dark">Entrar</a>
-        </li>
-        <li class="nav-item">
-          <a [routerLink]="['/signup']" class="btn btn-outline-dark">Cadastrar</a>
-        </li>
-      </ul>
-      <ul *ngIf="account" class="navbar-nav align-items-center ml-auto">
-        <li ngbDropdown placement="bottom-right" class="nav-item float-right mt-1 mt-sm-0">
-          <button ngbDropdownToggle id="account-menu" class="btn btn-link p-0">
-            <img [src]="account.image_url" class="account-image">
-          </button>
-          <div ngbDropdownMenu aria-labelledby="account-menu">
-            <a [routerLink]="['/company']" class="dropdown-item">Acessar sistema</a>
-            <a [routerLink]="['/account', 'settings']" class="dropdown-item">Configurações</a>
-            <a (click)="logout()" class="dropdown-item cursor-pointer">Sair</a>
-          </div>
-        </li>
-      </ul>
+<header>
+  <nav class="navbar navbar-light navbar-expand-sm">
+    <div class="container-fluid">
+      <a class="navbar-brand" [routerLink]="['/']">
+        <img src="https://cdn.intercamb.me/images/company_default_logo.png">
+        <span class="ml-3">Intercamb.me</span>
+      </a>
+      <button (click)="navbarCollapsed = !navbarCollapsed" [attr.aria-expanded]="!navbarCollapsed" type="button" class="navbar-toggler navbar-toggler-right" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div *ngIf="!loading" [ngbCollapse]="navbarCollapsed" id="navbar-content" class="navbar-collapse">
+        <ul *ngIf="!account" class="navbar-nav ml-auto">
+          <li class="nav-item nav-item mr-sm-2 mb-1 mb-sm-0">
+            <a [routerLink]="['/signin']" class="btn btn-outline-dark">Entrar</a>
+          </li>
+          <li class="nav-item">
+            <a [routerLink]="['/signup']" class="btn btn-dark">Cadastrar</a>
+          </li>
+        </ul>
+        <ul *ngIf="account" class="navbar-nav align-items-center ml-auto">
+          <li ngbDropdown placement="bottom-right" class="nav-item float-right mt-1 mt-sm-0">
+            <button ngbDropdownToggle id="account-menu" class="btn btn-link p-0">
+              <img [src]="account.image_url" class="account-image">
+            </button>
+            <div ngbDropdownMenu aria-labelledby="account-menu">
+              <a [routerLink]="['/company']" class="dropdown-item">Acessar sistema</a>
+              <a [routerLink]="['/account', 'settings']" class="dropdown-item">Configurações</a>
+              <a (click)="logout()" class="dropdown-item cursor-pointer">Sair</a>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
+</header>
