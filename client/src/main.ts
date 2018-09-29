@@ -1,3 +1,4 @@
+import '@assets/img/favicon.ico';
 import '@assets/img/og-image.jpg';
 import '@assets/img/landing-background.jpg';
 import '@assets/img/calendar.png';

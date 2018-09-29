@@ -2,6 +2,7 @@ import {Routes} from '@angular/router';
 
 import {LandingPageComponent} from '@components/landing-page/landing-page.component';
 import {PlansComponent} from '@components/plans/plans.component';
+import {TermsComponent} from '@components/terms/terms.component';
 import {SignUpComponent} from '@components/signup/signup.component';
 import {SignInComponent} from '@components/signin/signin.component';
 import {SetupCompanyComponent} from '@components/company/setup/setup.component';
@@ -24,6 +25,7 @@ export class AppRoutes {
     return [
       {path: '', component: LandingPageComponent},
       {path: 'plans', component: PlansComponent},
+      {path: 'terms', component: TermsComponent},
       {path: 'signup', component: SignUpComponent},
       {path: 'signin', component: SignInComponent},
       {path: 'company/setup', component: SetupCompanyComponent},
