@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, NavigationEnd} from '@angular/router';
-import * as Chart from 'chart.js';
+import {Chart} from 'chart.js';
 import * as Smooch from 'smooch';
 
 @Component({

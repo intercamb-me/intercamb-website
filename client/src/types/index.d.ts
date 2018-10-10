@@ -3,5 +3,4 @@ declare module '*.json' {
   export default value;
 }
 declare module 'hash-code';
-declare module 'chart.js';
 declare module 'smooch';
