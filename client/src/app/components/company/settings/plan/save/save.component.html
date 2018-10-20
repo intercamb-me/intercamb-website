@@ -2,7 +2,7 @@
   <app-edit-default-task *ngIf="selectedDefaultTask" [defaultTask]="selectedDefaultTask" [showBackButton]="true" (save)="saveDefaultTask($event)" (back)="backToPlan()"></app-edit-default-task>
   <form *ngIf="!selectedDefaultTask" #form="ngForm" (ngSubmit)="!plan.id ? createPlan() : updatePlan()" novalidate>
     <div class="modal-header">
-      <h4 *ngIf="!plan.id" class="modal-title">Cadastrar plano</h4>
+      <h4 *ngIf="!plan.id" class="modal-title">Novo plano</h4>
       <h4 *ngIf="plan.id" class="modal-title">Atualizar plano</h4>
       <button (click)="close()" type="button" class="close" aria-label="Close">
         <span aria-hidden="true">&times;</span>

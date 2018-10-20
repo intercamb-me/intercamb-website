@@ -5,9 +5,11 @@ import groupBy from 'lodash-es/groupBy';
 import keyBy from 'lodash-es/keyBy';
 
 import {RemoveAccountComponent} from '@components/company/settings/remove-account/remove-account.component';
+import {SaveInstitutionsComponent} from '@components/company/settings/save-institutions/save-institutions.component';
+import {SaveMessageTemplateComponent} from '@components/company/settings/message-template/save/save.component';
+import {DeleteMessageTemplateComponent} from '@components/company/settings/message-template/delete/delete.component';
 import {SaveDefaultTaskComponent} from '@components/company/settings/default-task/save/save.component';
 import {DeleteDefaultTaskComponent} from '@components/company/settings/default-task/delete/delete.component';
-import {SaveInstitutionsComponent} from '@components/company/settings/save-institutions/save-institutions.component';
 import {SavePlanComponent} from '@components/company/settings/plan/save/save.component';
 import {DeletePlanComponent} from '@components/company/settings/plan/delete/delete.component';
 import {InvitationComponent} from '@components/company/settings/invitation/invitation.component';
@@ -22,6 +24,7 @@ import {Helpers} from '@utils/helpers';
 import {Dictionary} from '@utils/dictionary';
 import {Account} from '@models/account.model';
 import {Company} from '@models/company.model';
+import {MessageTemplate} from '@models/message-template.model';
 import {DefaultTask} from '@models/default-task.model';
 import {Institution} from '@models/institution.model';
 import {Plan} from '@models/plan.model';
@@ -35,6 +38,7 @@ export class CompanySettingsComponent implements OnInit {
   public company: Company;
   public authenticatedAccount: Account;
   public accounts: Account[];
+  public messageTemplates: MessageTemplate[];
   public defaultTasks: DefaultTask[];
   public defaultTasksByPlan: Dictionary<DefaultTask[]>;
   public institutions: Institution[];
@@ -53,11 +57,12 @@ export class CompanySettingsComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.companyService.getCompany({populate: 'accounts default_tasks institutions plans'}).pipe(
+    this.companyService.getCompany({populate: 'accounts default_tasks message_templates institutions plans'}).pipe(
       mergeMap((company) => {
         this.company = company;
         this.accounts = company.accounts;
         this.institutions = company.institutions;
+        this.messageTemplates = company.message_templates;
         this.setPlans(company.plans);
         this.setDefaultTasks(company.default_tasks);
         return this.accountService.getAccount();
@@ -74,12 +79,16 @@ export class CompanySettingsComponent implements OnInit {
     return account.id;
   }
 
-  public trackByDefaultTask(_index: number, defaultTask: string): string {
-    return defaultTask;
-  }
-
   public trackByInstitution(_index: number, institution: Institution): string {
     return institution.id;
+  }
+
+  public trackByMessageTemplate(_index: number, messageTemplate: string): string {
+    return messageTemplate;
+  }
+
+  public trackByDefaultTask(_index: number, defaultTask: string): string {
+    return defaultTask;
   }
 
   public trackByPlan(_index: number, plan: Plan): string {
@@ -98,122 +107,6 @@ export class CompanySettingsComponent implements OnInit {
 
   public hasDefaultTasks(): boolean {
     return this.defaultTasks.length + Object.keys(this.defaultTasksByPlan).length > 0;
-  }
-
-  public openRemoveAccount(account: Account): void {
-    const modalRef = this.ngbModal.open(RemoveAccountComponent, {
-      backdrop: 'static',
-      keyboard: false,
-    });
-    modalRef.componentInstance.account = account;
-    modalRef.result.then(() => {
-      const index = this.accounts.findIndex((currentAccount) => {
-        return currentAccount.id === account.id;
-      });
-      if (index >= 0) {
-        this.accounts.splice(index, 1);
-      }
-    }).catch(() => {
-      // Nothing to do...
-    });
-  }
-
-  public openSaveInstitutions(): void {
-    const modalRef = this.ngbModal.open(SaveInstitutionsComponent, {
-      backdrop: 'static',
-      keyboard: false,
-    });
-    modalRef.result.then((updatedInstitutions) => {
-      this.institutions = updatedInstitutions;
-    }).catch(() => {
-      // Nothing to do...
-    });
-  }
-
-  public openSaveDefaultTask(defaultTask: DefaultTask): void {
-    const modalRef = this.ngbModal.open(SaveDefaultTaskComponent, {
-      backdrop: 'static',
-      keyboard: false,
-    });
-    modalRef.componentInstance.defaultTask = defaultTask;
-    (modalRef.componentInstance.changeEmitter as EventEmitter<DefaultTask>).subscribe((updatedDefaultTask: DefaultTask) => {
-      const index = this.defaultTasks.findIndex((currentDefaultTask) => {
-        return currentDefaultTask.id === updatedDefaultTask.id;
-      });
-      if (index < 0) {
-        this.defaultTasks.push(updatedDefaultTask);
-      } else {
-        this.defaultTasks[index] = updatedDefaultTask;
-      }
-      this.setDefaultTasks(this.defaultTasks);
-    });
-  }
-
-  public openDeleteDefaultTask(defaultTask: DefaultTask): void {
-    const modalRef = this.ngbModal.open(DeleteDefaultTaskComponent, {
-      backdrop: 'static',
-      keyboard: false,
-    });
-    modalRef.componentInstance.defaultTask = defaultTask;
-    modalRef.result.then(() => {
-      const index = this.defaultTasks.findIndex((currentDefaultTask) => {
-        return currentDefaultTask.id === defaultTask.id;
-      });
-      if (index >= 0) {
-        this.defaultTasks.splice(index, 1);
-      }
-      this.setDefaultTasks(this.defaultTasks);
-    }).catch(() => {
-      // Nothing to do...
-    });
-  }
-
-  public openSavePlan(plan: Plan): void {
-    const modalRef = this.ngbModal.open(SavePlanComponent, {
-      backdrop: 'static',
-      keyboard: false,
-    });
-    modalRef.componentInstance.plan = plan;
-    modalRef.result.then((updatedPlan) => {
-      const index = this.plans.findIndex((currentPlan) => {
-        return currentPlan.id === updatedPlan.id;
-      });
-      if (index < 0) {
-        this.plans.push(updatedPlan);
-      } else {
-        this.plans[index] = updatedPlan;
-      }
-      this.setPlans(this.plans);
-    }).catch(() => {
-      // Nothing to do...
-    });
-  }
-
-  public openDeletePlan(plan: Plan): void {
-    const modalRef = this.ngbModal.open(DeletePlanComponent, {
-      backdrop: 'static',
-      keyboard: false,
-    });
-    modalRef.componentInstance.plan = plan;
-    modalRef.result.then(() => {
-      const index = this.plans.findIndex((currentPlan) => {
-        return currentPlan.id === plan.id;
-      });
-      if (index >= 0) {
-        delete this.defaultTasksByPlan[plan.id];
-        this.plans.splice(index, 1);
-        this.setPlans(this.plans);
-      }
-    }).catch(() => {
-      // Nothing to do...
-    });
-  }
-
-  public openInvitation(): void {
-    this.ngbModal.open(InvitationComponent, {
-      backdrop: 'static',
-      keyboard: false,
-    });
   }
 
   public updateCompanyLogo(event: any): void {
@@ -263,6 +156,160 @@ export class CompanySettingsComponent implements OnInit {
     }, (err) => {
       this.saving = false;
       this.alertService.apiError(null, err, 'Não foi possível atualizar as configurações, por favor tente novamente mais tarde!');
+    });
+  }
+
+  public openRemoveAccount(account: Account): void {
+    const modalRef = this.ngbModal.open(RemoveAccountComponent, {
+      backdrop: 'static',
+      keyboard: false,
+    });
+    modalRef.componentInstance.account = account;
+    modalRef.result.then(() => {
+      const index = this.accounts.findIndex((currentAccount) => {
+        return currentAccount.id === account.id;
+      });
+      if (index >= 0) {
+        this.accounts.splice(index, 1);
+      }
+    }).catch(() => {
+      // Nothing to do...
+    });
+  }
+
+  public openSaveInstitutions(): void {
+    const modalRef = this.ngbModal.open(SaveInstitutionsComponent, {
+      backdrop: 'static',
+      keyboard: false,
+    });
+    modalRef.result.then((updatedInstitutions) => {
+      this.institutions = updatedInstitutions;
+    }).catch(() => {
+      // Nothing to do...
+    });
+  }
+
+  public openSaveMessageTemplate(messageTemplate?: MessageTemplate): void {
+    const modalRef = this.ngbModal.open(SaveMessageTemplateComponent, {
+      backdrop: 'static',
+      keyboard: false,
+    });
+    modalRef.componentInstance.messageTemplate = messageTemplate;
+    modalRef.result.then((updatedMessageTemplate) => {
+      const index = this.messageTemplates.findIndex((currentMessageTemplate) => {
+        return currentMessageTemplate.id === updatedMessageTemplate.id;
+      });
+      if (index < 0) {
+        this.messageTemplates.push(updatedMessageTemplate);
+      } else {
+        this.messageTemplates[index] = updatedMessageTemplate;
+      }
+    }).catch(() => {
+      // Nothing to do...
+    });
+  }
+
+  public openDeleteMessageTemplate(messageTemplate: MessageTemplate): void {
+    const modalRef = this.ngbModal.open(DeleteMessageTemplateComponent, {
+      backdrop: 'static',
+      keyboard: false,
+    });
+    modalRef.componentInstance.messageTemplate = messageTemplate;
+    modalRef.result.then(() => {
+      const index = this.messageTemplates.findIndex((currentMessageTemplate) => {
+        return currentMessageTemplate.id === messageTemplate.id;
+      });
+      if (index >= 0) {
+        this.messageTemplates.splice(index, 1);
+      }
+    }).catch(() => {
+      // Nothing to do...
+    });
+  }
+
+  public openSaveDefaultTask(defaultTask?: DefaultTask): void {
+    const modalRef = this.ngbModal.open(SaveDefaultTaskComponent, {
+      backdrop: 'static',
+      keyboard: false,
+    });
+    modalRef.componentInstance.defaultTask = defaultTask;
+    (modalRef.componentInstance.changeEmitter as EventEmitter<DefaultTask>).subscribe((updatedDefaultTask: DefaultTask) => {
+      const index = this.defaultTasks.findIndex((currentDefaultTask) => {
+        return currentDefaultTask.id === updatedDefaultTask.id;
+      });
+      if (index < 0) {
+        this.defaultTasks.push(updatedDefaultTask);
+      } else {
+        this.defaultTasks[index] = updatedDefaultTask;
+      }
+      this.setDefaultTasks(this.defaultTasks);
+    });
+  }
+
+  public openDeleteDefaultTask(defaultTask: DefaultTask): void {
+    const modalRef = this.ngbModal.open(DeleteDefaultTaskComponent, {
+      backdrop: 'static',
+      keyboard: false,
+    });
+    modalRef.componentInstance.defaultTask = defaultTask;
+    modalRef.result.then(() => {
+      const index = this.defaultTasks.findIndex((currentDefaultTask) => {
+        return currentDefaultTask.id === defaultTask.id;
+      });
+      if (index >= 0) {
+        this.defaultTasks.splice(index, 1);
+      }
+      this.setDefaultTasks(this.defaultTasks);
+    }).catch(() => {
+      // Nothing to do...
+    });
+  }
+
+  public openSavePlan(plan?: Plan): void {
+    const modalRef = this.ngbModal.open(SavePlanComponent, {
+      backdrop: 'static',
+      keyboard: false,
+    });
+    modalRef.componentInstance.plan = plan;
+    modalRef.result.then((updatedPlan) => {
+      const index = this.plans.findIndex((currentPlan) => {
+        return currentPlan.id === updatedPlan.id;
+      });
+      if (index < 0) {
+        this.plans.push(updatedPlan);
+      } else {
+        this.plans[index] = updatedPlan;
+      }
+      this.setPlans(this.plans);
+    }).catch(() => {
+      // Nothing to do...
+    });
+  }
+
+  public openDeletePlan(plan: Plan): void {
+    const modalRef = this.ngbModal.open(DeletePlanComponent, {
+      backdrop: 'static',
+      keyboard: false,
+    });
+    modalRef.componentInstance.plan = plan;
+    modalRef.result.then(() => {
+      const index = this.plans.findIndex((currentPlan) => {
+        return currentPlan.id === plan.id;
+      });
+      if (index >= 0) {
+        delete this.defaultTasksByPlan[plan.id];
+        this.plans.splice(index, 1);
+        this.setPlans(this.plans);
+      }
+    }).catch(() => {
+      // Nothing to do...
+    });
+  }
+
+  public openInvitation(): void {
+    this.ngbModal.open(InvitationComponent, {
+      backdrop: 'static',
+      keyboard: false,
     });
   }
 

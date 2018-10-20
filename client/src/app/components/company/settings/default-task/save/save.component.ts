@@ -18,8 +18,8 @@ export class SaveDefaultTaskComponent implements OnInit {
 
   @Input()
   public defaultTask: DefaultTask;
-  public changeEmitter = new EventEmitter<DefaultTask>();
 
+  public changeEmitter = new EventEmitter<DefaultTask>();
   public plans: Plan[];
   public selectedPlan: Plan;
   public getColor = Helpers.getColor;

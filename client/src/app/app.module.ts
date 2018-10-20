@@ -118,9 +118,11 @@ import {SetTaskLocationComponent} from '@components/company/task/set-location/se
 import {DeleteTaskComponent} from '@components/company/task/delete/delete.component';
 import {SearchAddressComponent} from '@components/company/client/search-address/search-address.component';
 import {RemoveAccountComponent} from '@components/company/settings/remove-account/remove-account.component';
+import {SaveInstitutionsComponent} from '@components/company/settings/save-institutions/save-institutions.component';
+import {SaveMessageTemplateComponent} from '@components/company/settings/message-template/save/save.component';
+import {DeleteMessageTemplateComponent} from '@components/company/settings/message-template/delete/delete.component';
 import {SaveDefaultTaskComponent} from '@components/company/settings/default-task/save/save.component';
 import {DeleteDefaultTaskComponent} from '@components/company/settings/default-task/delete/delete.component';
-import {SaveInstitutionsComponent} from '@components/company/settings/save-institutions/save-institutions.component';
 import {SavePlanComponent} from '@components/company/settings/plan/save/save.component';
 import {DeletePlanComponent} from '@components/company/settings/plan/delete/delete.component';
 import {AssociatePlanComponent} from '@components/company/client/associate-plan/associate-plan.component';
@@ -138,6 +140,7 @@ import {CompanyService} from '@services/company.service';
 import {DefaultTaskService} from '@services/default-task.service';
 import {EventService} from '@services/event.service';
 import {InvitationService} from '@services/invitation.service';
+import {MessageTemplateService} from '@services/message-template.service';
 import {PaymentService} from '@services/payment.service';
 import {PlanService} from '@services/plan.service';
 import {TaskService} from '@services/task.service';
@@ -277,9 +280,11 @@ library.add(faUsers);
     DeleteTaskComponent,
     SearchAddressComponent,
     RemoveAccountComponent,
+    SaveInstitutionsComponent,
+    SaveMessageTemplateComponent,
+    DeleteMessageTemplateComponent,
     SaveDefaultTaskComponent,
     DeleteDefaultTaskComponent,
-    SaveInstitutionsComponent,
     SavePlanComponent,
     DeletePlanComponent,
     AssociatePlanComponent,
@@ -300,9 +305,11 @@ library.add(faUsers);
     DeleteTaskComponent,
     SearchAddressComponent,
     RemoveAccountComponent,
+    SaveInstitutionsComponent,
+    SaveMessageTemplateComponent,
+    DeleteMessageTemplateComponent,
     SaveDefaultTaskComponent,
     DeleteDefaultTaskComponent,
-    SaveInstitutionsComponent,
     SavePlanComponent,
     DeletePlanComponent,
     AssociatePlanComponent,
@@ -320,6 +327,7 @@ library.add(faUsers);
     DefaultTaskService,
     EventService,
     InvitationService,
+    MessageTemplateService,
     PaymentService,
     PlanService,
     TaskService,

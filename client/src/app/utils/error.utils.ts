@@ -42,9 +42,9 @@ export class ErrorUtils {
         return contextMessages[err.code];
       }
     }
-    const defaultMessages = ErrorUtils.MESSAGES[ErrorUtils.CONTEXT_DEFAULT];
-    if (defaultMessages && defaultMessages[err.code]) {
-      return defaultMessages[err.code];
+    const messageTemplates = ErrorUtils.MESSAGES[ErrorUtils.CONTEXT_DEFAULT];
+    if (messageTemplates && messageTemplates[err.code]) {
+      return messageTemplates[err.code];
     }
     return message;
   }

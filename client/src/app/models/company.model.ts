@@ -1,6 +1,7 @@
 /* tslint:disable:variable-name */
 
 import {Account} from '@models/account.model';
+import {MessageTemplate} from '@models/message-template.model';
 import {DefaultTask} from '@models/default-task.model';
 import {Institution} from '@models/institution.model';
 import {Plan} from '@models/plan.model';
@@ -17,6 +18,7 @@ export class Company {
   public primary_color: string;
   public text_color: string;
   public owner: string;
+  public message_templates: MessageTemplate[];
   public default_tasks: DefaultTask[];
   public registration_date: Date;
 
@@ -43,10 +45,16 @@ export class Company {
           this.accounts.push(new Account(account));
         });
       }
+      this.message_templates = [];
+      if (data.message_templates) {
+        (data.message_templates as any[]).forEach((messageTemplate) => {
+          this.message_templates.push(new MessageTemplate(messageTemplate));
+        });
+      }
       this.default_tasks = [];
       if (data.default_tasks) {
-        (data.default_tasks as any[]).forEach((default_task) => {
-          this.default_tasks.push(new DefaultTask(default_task));
+        (data.default_tasks as any[]).forEach((defaultTask) => {
+          this.default_tasks.push(new DefaultTask(defaultTask));
         });
       }
       this.institutions = [];

@@ -112,7 +112,15 @@
         </div>
         <div class="comments">
           <h5>Comentários</h5>
-          <textarea [(ngModel)]="comment" (keypress)="onCommentKeyPress($event)" (keyup)="onCommentKeyUp($event)" class="form-control mb-3" name="comment" [rows]="commentRows" placeholder="Deixe um comentário..."></textarea>
+          <textarea
+            [(ngModel)]="comment"
+            (keypress)="onCommentKeyPress($event)"
+            (keyup)="onCommentKeyUp($event)"
+            [rows]="commentRows"
+            name="comment"
+            class="form-control mb-3"
+            placeholder="Deixe um comentário...">
+          </textarea>
           <div *ngIf="comments.length === 0" class="jumbotron py-5 mb-0 text-center">
             <p class="mb-0">Nenhum comentário</p>
           </div>
