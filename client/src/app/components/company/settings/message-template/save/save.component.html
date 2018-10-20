@@ -1,0 +1,57 @@
+<div *ngIf="!loading" id="save-message-template">
+  <form #form="ngForm" (ngSubmit)="!messageTemplate.id ? createMessageTemplate() : updateMessageTemplate()" novalidate>
+    <div class="modal-header">
+      <h4 *ngIf="!messageTemplate.id" class="modal-title">Novo template de e-mail</h4>
+      <h4 *ngIf="messageTemplate.id" class="modal-title">Atualizar template de e-mail</h4>
+      <button (click)="close()" type="button" class="close" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="title">Identificador</label>
+        <input
+          [(ngModel)]="messageTemplate.identifier"
+          name="identifier"
+          type="text"
+          class="form-control"
+          required>
+      </div>
+      <div class="form-group">
+        <label for="title">Título</label>
+        <input
+          [(ngModel)]="messageTemplate.title"
+          name="title"
+          type="text"
+          class="form-control"
+          required>
+      </div>
+      <div class="form-group mb-0">
+        <label for="name">Mensagem</label>
+        <textarea
+          [(ngModel)]="messageTemplate.template"
+          rows="5"
+          name="template"
+          class="form-control"
+          required>
+        </textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button
+        *ngIf="!messageTemplate.id"
+        [disabled]="form.invalid || saving"
+        class="btn btn-primary"
+        type="submit">
+        Cadastrar
+      </button>
+      <button
+        *ngIf="messageTemplate.id"
+        [disabled]="form.invalid || saving"
+        class="btn btn-primary"
+        type="submit">
+        Atualizar
+      </button>
+    </div>
+  </form>
+</div>
