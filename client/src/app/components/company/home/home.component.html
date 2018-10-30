@@ -53,7 +53,7 @@
   <div class="row mt-4">
     <div class="col">
       <h3 class="mb-0">Clientes para revisão</h3>
-      <div *ngIf="clientsToReview.length === 0" class="jumbotron mt-3 mb-0">
+      <div *ngIf="clientsToReview.length === 0" class="jumbotron mt-3">
         <h5 class="mb-0 text-center">Nenhum cliente para revisão</h5>
       </div>
       <div *ngIf="clientsToReview.length > 0" class="row">
@@ -79,7 +79,7 @@
   <div class="row mt-4">
     <div class="col">
       <h3 class="mb-0">Próximas ordens de pagamento</h3>
-      <div *ngIf="pendingPaymentOrders.length === 0" class="jumbotron mt-3 mb-0">
+      <div *ngIf="pendingPaymentOrders.length === 0" class="jumbotron mt-3">
         <h5 class="mb-0 text-center">Nenhuma ordem de pagamento</h5>
       </div>
       <div *ngIf="pendingPaymentOrders.length > 0" class="row">
@@ -109,7 +109,7 @@
   <div class="row mt-4">
     <div class="col">
       <h3 class="mb-0">Ordens de pagamento vencidas</h3>
-      <div *ngIf="overduePaymentOrders.length === 0" class="jumbotron mt-3 mb-0">
+      <div *ngIf="overduePaymentOrders.length === 0" class="jumbotron mt-3">
         <h5 class="mb-0 text-center">Nenhuma ordem de pagamento</h5>
       </div>
       <div *ngIf="overduePaymentOrders.length > 0" class="row">

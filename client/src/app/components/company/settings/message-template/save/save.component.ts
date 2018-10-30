@@ -1,5 +1,6 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 import {MessageTemplateService} from '@services/message-template.service';
 import {AlertService} from '@services/alert.service';
@@ -14,6 +15,8 @@ export class SaveMessageTemplateComponent implements OnInit {
   @Input()
   public messageTemplate: MessageTemplate;
 
+  public editor: any = ClassicEditor;
+  public editorConfig: any;
   public loading = true;
   public saving = false;
 
@@ -22,8 +25,13 @@ export class SaveMessageTemplateComponent implements OnInit {
   }
 
   public ngOnInit(): void {
+    this.editorConfig = {
+      toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'insertTable', 'undo', 'redo'],
+    };
     if (!this.messageTemplate) {
-      this.messageTemplate = new MessageTemplate({});
+      this.messageTemplate = new MessageTemplate({
+        body: '',
+      });
       this.loading = false;
       return;
     }
@@ -41,9 +49,9 @@ export class SaveMessageTemplateComponent implements OnInit {
 
   public createMessageTemplate(): void {
     const data = {
-      identifier: this.messageTemplate.title,
+      identifier: this.messageTemplate.identifier,
       title: this.messageTemplate.title,
-      template: this.messageTemplate.template,
+      body: this.messageTemplate.body,
     };
     this.saving = true;
     this.messageTemplateService.createMessageTemplate(data).subscribe((messageTemplate) => {
@@ -59,7 +67,7 @@ export class SaveMessageTemplateComponent implements OnInit {
     const data = {
       identifier: this.messageTemplate.identifier,
       title: this.messageTemplate.title,
-      template: this.messageTemplate.template,
+      body: this.messageTemplate.body,
     };
     this.saving = true;
     this.messageTemplateService.updateMessageTemplate(this.messageTemplate, data).subscribe((messageTemplate) => {

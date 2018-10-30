@@ -191,6 +191,7 @@ export class CompanySettingsComponent implements OnInit {
 
   public openSaveMessageTemplate(messageTemplate?: MessageTemplate): void {
     const modalRef = this.ngbModal.open(SaveMessageTemplateComponent, {
+      size: 'lg',
       backdrop: 'static',
       keyboard: false,
     });

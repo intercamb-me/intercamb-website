@@ -121,8 +121,8 @@
             class="form-control mb-3"
             placeholder="Deixe um comentário...">
           </textarea>
-          <div *ngIf="comments.length === 0" class="jumbotron py-5 mb-0 text-center">
-            <p class="mb-0">Nenhum comentário</p>
+          <div *ngIf="comments.length === 0" class="jumbotron py-5">
+            <p class="mb-0 text-center">Nenhum comentário</p>
           </div>
           <div *ngFor="let comment of comments.slice().reverse(); trackBy: trackByComment" class="comment">
             <div class="icon">

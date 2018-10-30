@@ -7,6 +7,7 @@ import {Company} from '@models/company.model';
 import {FamilyData} from '@models/family-data.model';
 import {InCaseOfEmergency} from '@models/in-case-of-emergency.model';
 import {IntendedCourse} from '@models/intended-course.model';
+import {Metadata} from '@models/metadata.model';
 import {PaymentOrder} from '@models/payment-order.model';
 import {PersonalData} from '@models/personal-data.model';
 import {Plan} from '@models/plan.model';
@@ -37,6 +38,7 @@ export class Client {
   public additional_information: AdditionalInformation;
   public payment_orders: PaymentOrder[];
   public tasks: Task[];
+  public metadata: Metadata;
 
   constructor(data?: any) {
     if (data) {
@@ -55,6 +57,7 @@ export class Client {
       this.academic_data = new AcademicData(data.academic_data || {});
       this.intended_course = new IntendedCourse(data.intended_course || {});
       this.additional_information = new AdditionalInformation(data.additional_information || {});
+      this.metadata = new Metadata(data.metadata);
       if (isObject(data.company)) {
         this.company = new Company(data.company);
         this.company_id = this.company.id;

@@ -1,13 +1,13 @@
 <div id="delete-message-template">
   <form #form="ngForm" (ngSubmit)="deleteMessageTemplate()" novalidate>
     <div class="modal-header">
-      <h4 class="modal-title">Remover template de mensagem</h4>
+      <h4 class="modal-title">Remover template de e-email</h4>
       <button (click)="close()" type="button" class="close" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <div class="modal-body">
-      <p class="mb-0">Tem certeza que deseja remover o template de mensagem <b>"{{ messageTemplate.title }}"</b>?</p>
+      <p class="mb-0">Tem certeza que deseja remover o template de e-email <b>"{{ messageTemplate.identifier }}"</b>?</p>
     </div>
     <div class="modal-footer">
       <button

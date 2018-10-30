@@ -6,6 +6,7 @@ import {map, catchError} from 'rxjs/operators';
 import {EventService} from '@services/event.service';
 import {ApiError} from '@services/commons/api.error';
 import {RequestUtils} from '@utils/request.utils';
+import {Client} from '@models/client.model';
 import {MessageTemplate} from '@models/message-template.model';
 
 @Injectable()
@@ -59,6 +60,19 @@ export class MessageTemplateService {
   public deleteMessageTemplate(messageTemplate: MessageTemplate): Observable<void> {
     const httpUrl = RequestUtils.getApiUrl(`/message_templates/${messageTemplate.id}`);
     return this.httpClient.delete<void>(httpUrl, RequestUtils.getJsonOptions()).pipe(
+      map(() => null),
+      catchError((err: HttpErrorResponse) => {
+        const apiError = ApiError.withResponse(err);
+        this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
+        return throwError(apiError);
+      })
+    );
+  }
+
+  public sendMessageTemplate(messageTemplate: MessageTemplate, client: Client): Observable<void> {
+    const httpUrl = RequestUtils.getApiUrl(`/message_templates/${messageTemplate.id}/send`);
+    const httpOptions = RequestUtils.getJsonOptions();
+    return this.httpClient.post<void>(httpUrl, {client: client.id}, httpOptions).pipe(
       map(() => null),
       catchError((err: HttpErrorResponse) => {
         const apiError = ApiError.withResponse(err);

@@ -7,6 +7,8 @@ html, body {
 body {
   font-family: "Montserrat", sans-serif;
   line-height: 1.5;
+  --ck-z-default: 100;
+  --ck-z-modal: calc( var(--ck-z-default) + 999 );
 }
 
 header {
@@ -99,6 +101,10 @@ select {
 .svg-inline--fa {
   overflow: visible !important;
   vertical-align: -.125em !important;
+}
+
+.jumbotron {
+  .mb-0();
 }
 
 .btn-warning {
@@ -221,6 +227,12 @@ select {
 
 .pac-container {
   z-index: 9999;
+}
+
+.ck-editor {
+  a, a:hover {
+    color: #007bff !important;
+  }
 }
 
 #loading-bar-spinner {

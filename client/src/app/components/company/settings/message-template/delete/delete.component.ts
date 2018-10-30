@@ -28,7 +28,7 @@ export class DeleteMessageTemplateComponent {
     this.deleting = true;
     this.messageTemplateService.deleteMessageTemplate(this.messageTemplate).subscribe(() => {
       this.ngbActiveModal.close();
-      this.alertService.success('Template de e-mail removida com sucesso!');
+      this.alertService.success('Template de e-mail removido com sucesso!');
     }, (err) => {
       this.deleting = false;
       this.alertService.apiError(null, err, 'Não foi possível remover o template de e-mail, por favor tente novamente mais tarde!');

@@ -32,6 +32,8 @@ import {faChartLine} from '@fortawesome/free-solid-svg-icons/faChartLine';
 import {faCheck} from '@fortawesome/free-solid-svg-icons/faCheck';
 import {faCheckDouble} from '@fortawesome/free-solid-svg-icons/faCheckDouble';
 import {faCheckSquare} from '@fortawesome/free-regular-svg-icons/faCheckSquare';
+import {faChevronLeft} from '@fortawesome/free-solid-svg-icons/faChevronLeft';
+import {faChevronRight} from '@fortawesome/free-solid-svg-icons/faChevronRight';
 import {faClock} from '@fortawesome/free-solid-svg-icons/faClock';
 import {faCog} from '@fortawesome/free-solid-svg-icons/faCog';
 import {faComment} from '@fortawesome/free-solid-svg-icons/faComment';
@@ -70,6 +72,8 @@ import {adapterFactory} from 'angular-calendar/date-adapters/date-fns';
 import {AutofocusModule} from 'angular-autofocus-fix';
 import {LoadingBarHttpClientModule} from '@ngx-loading-bar/http-client';
 import {LoadingBarRouterModule} from '@ngx-loading-bar/router';
+import {FroalaEditorModule, FroalaViewModule} from 'angular-froala-wysiwyg';
+import {CKEditorModule} from '@ckeditor/ckeditor5-angular';
 
 // Routes
 import {AppRoutes} from '@app/app.routes';
@@ -121,6 +125,7 @@ import {RemoveAccountComponent} from '@components/company/settings/remove-accoun
 import {SaveInstitutionsComponent} from '@components/company/settings/save-institutions/save-institutions.component';
 import {SaveMessageTemplateComponent} from '@components/company/settings/message-template/save/save.component';
 import {DeleteMessageTemplateComponent} from '@components/company/settings/message-template/delete/delete.component';
+import {SendMessagesComponent} from '@components/company/client/send-messages/send-messages.component';
 import {SaveDefaultTaskComponent} from '@components/company/settings/default-task/save/save.component';
 import {DeleteDefaultTaskComponent} from '@components/company/settings/default-task/delete/delete.component';
 import {SavePlanComponent} from '@components/company/settings/plan/save/save.component';
@@ -171,6 +176,8 @@ library.add(faChartLine);
 library.add(faCheck);
 library.add(faCheckDouble);
 library.add(faCheckSquare);
+library.add(faChevronLeft);
+library.add(faChevronRight);
 library.add(faClock);
 library.add(faCog);
 library.add(faComment);
@@ -203,30 +210,33 @@ library.add(faUsers);
 
 @NgModule({
   imports: [
-    BrowserModule,
+    AutofocusModule,
     BrowserAnimationsModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    RouterModule.forRoot(AppRoutes.listRoutes()),
-    NgbAlertModule.forRoot(),
-    NgbCollapseModule.forRoot(),
-    NgbModalModule.forRoot(),
-    NgbDropdownModule.forRoot(),
-    NgbPopoverModule.forRoot(),
-    NgbDatepickerModule.forRoot(),
-    NgbTimepickerModule.forRoot(),
-    FontAwesomeModule,
-    NgxMaskModule.forRoot(),
-    NgxMasonryModule,
-    ClipboardModule,
+    BrowserModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory,
     }),
-    AutofocusModule,
+    CKEditorModule,
+    ClipboardModule,
+    FontAwesomeModule,
+    FormsModule,
+    FroalaEditorModule.forRoot(),
+    FroalaViewModule.forRoot(),
+    HttpClientModule,
     LoadingBarHttpClientModule,
     LoadingBarRouterModule,
+    NgbAlertModule.forRoot(),
+    NgbCollapseModule.forRoot(),
+    NgbDatepickerModule.forRoot(),
+    NgbDropdownModule.forRoot(),
+    NgbModalModule.forRoot(),
+    NgbPopoverModule.forRoot(),
+    NgbTimepickerModule.forRoot(),
+    NgxMaskModule.forRoot(),
+    NgxMasonryModule,
+    ReactiveFormsModule,
+    RouterModule.forRoot(AppRoutes.listRoutes()),
   ],
   declarations: [
     // Pipes
@@ -283,6 +293,7 @@ library.add(faUsers);
     SaveInstitutionsComponent,
     SaveMessageTemplateComponent,
     DeleteMessageTemplateComponent,
+    SendMessagesComponent,
     SaveDefaultTaskComponent,
     DeleteDefaultTaskComponent,
     SavePlanComponent,
@@ -308,6 +319,7 @@ library.add(faUsers);
     SaveInstitutionsComponent,
     SaveMessageTemplateComponent,
     DeleteMessageTemplateComponent,
+    SendMessagesComponent,
     SaveDefaultTaskComponent,
     DeleteDefaultTaskComponent,
     SavePlanComponent,

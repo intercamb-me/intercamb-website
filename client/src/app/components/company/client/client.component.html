@@ -85,12 +85,19 @@
             <span *ngIf="!client.intended_course.institution.acronym" class="ml-2">{{ client.intended_course.institution.name }}</span>
           </span>
         </div>
-        <div class="col-auto text-right">
-          <button (click)="openAssociatePlan()" type="button" class="btn btn-primary">
+      </div>
+      <div class="row">
+        <div class="col text-right">
+          <button (click)="openSendMessages()" type="button" class="btn btn-primary mr-2">
+            E-mails
+          </button>
+          <button (click)="openAssociatePlan()" type="button" class="btn btn-primary mr-2">
             <span *ngIf="!client.plan">Associar plano</span>
             <span *ngIf="client.plan">Alterar plano</span>
           </button>
-          <a [routerLink]="['edit']" class="btn btn-primary ml-2">Editar dados</a>
+          <a [routerLink]="['edit']" class="btn btn-primary">
+            Editar dados
+          </a>
         </div>
       </div>
     </div>
@@ -167,7 +174,7 @@
       <ng-container *ngIf="infoStep === 1">
         <div class="row">
           <div class="col">
-            <h2>Endereço</h2>
+            <h3>Endereço</h3>
           </div>
           <div class="col-auto">
             <button (click)="previousInfoStep()" type="button" class="btn btn-primary mr-2">Anterior</button>
@@ -216,7 +223,7 @@
       <ng-container *ngIf="infoStep === 2">
         <div class="row">
           <div class="col">
-            <h2>Dados familiares</h2>
+            <h3>Dados familiares</h3>
           </div>
           <div class="col-auto">
             <button (click)="previousInfoStep()" type="button" class="btn btn-primary mr-2">Anterior</button>
@@ -264,7 +271,7 @@
       <ng-container *ngIf="infoStep === 3">
         <div class="row">
           <div class="col">
-            <h2>Em caso de emergência</h2>
+            <h3>Em caso de emergência</h3>
           </div>
           <div class="col-auto">
             <button (click)="previousInfoStep()" type="button" class="btn btn-primary mr-2">Anterior</button>
@@ -303,7 +310,7 @@
       <ng-container *ngIf="infoStep === 4">
         <div class="row">
           <div class="col">
-            <h2>Dados acadêmicos</h2>
+            <h3>Dados acadêmicos</h3>
           </div>
           <div class="col-auto">
             <button (click)="previousInfoStep()" type="button" class="btn btn-primary mr-2">Anterior</button>
@@ -367,7 +374,7 @@
       <ng-container *ngIf="infoStep === 5">
         <div class="row">
           <div class="col">
-            <h2>Curso pretendido</h2>
+            <h3>Curso pretendido</h3>
           </div>
           <div class="col-auto">
             <button (click)="previousInfoStep()" type="button" class="btn btn-primary mr-2">Anterior</button>
@@ -412,7 +419,7 @@
       <ng-container *ngIf="infoStep === 6">
         <div class="row">
           <div class="col">
-            <h2>Informações adicionais</h2>
+            <h3>Informações adicionais</h3>
           </div>
           <div class="col-auto">
             <button (click)="previousInfoStep()" type="button" class="btn btn-primary mr-2">Anterior</button>
@@ -450,7 +457,7 @@
           </button>
         </div>
       </div>
-      <div *ngIf="paymentOrders.length === 0" class="jumbotron mt-3 mb-0">
+      <div *ngIf="paymentOrders.length === 0" class="jumbotron mt-3">
         <h5 class="mb-0 text-center">Nenhuma ordem registrada</h5>
       </div>
       <div *ngIf="paymentOrders.length > 0" class="row">
@@ -534,7 +541,7 @@
           </button>
         </div>
       </div>
-      <div *ngIf="tasks.length + planTasks.length === 0" class="jumbotron mt-3 mb-0">
+      <div *ngIf="tasks.length + planTasks.length === 0" class="jumbotron mt-3">
         <h5 class="mb-0 text-center">Nenhuma atividade criada</h5>
       </div>
       <ng-container *ngIf="tasks.length > 0">

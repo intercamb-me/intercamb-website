@@ -5,7 +5,7 @@ export class MessageTemplate {
   public id: string;
   public identifier: string;
   public title: string;
-  public template: string;
+  public body: string;
   public company: string;
 
   constructor(data?: any) {
@@ -13,7 +13,7 @@ export class MessageTemplate {
       this.id = data.id;
       this.identifier = data.identifier;
       this.title = data.title;
-      this.template = data.template;
+      this.body = data.body;
       this.company = data.company;
     }
   }

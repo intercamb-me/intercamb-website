@@ -4,6 +4,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {mergeMap} from 'rxjs/operators';
 import {NgxMasonryOptions} from 'ngx-masonry';
 
+import {SendMessagesComponent} from '@components/company/client/send-messages/send-messages.component';
 import {AssociatePlanComponent} from '@components/company/client/associate-plan/associate-plan.component';
 import {CreatePaymentOrderComponent} from '@components/company/client/payment-order/create/create.component';
 import {EditPaymentOrderComponent} from '@components/company/client/payment-order/edit/edit.component';
@@ -118,6 +119,15 @@ export class ClientComponent implements OnInit {
     const now = new Date();
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     return paymentOrder.due_date && today > paymentOrder.due_date;
+  }
+
+  public openSendMessages(): void {
+    const modalRef = this.ngbModal.open(SendMessagesComponent, {
+      size: 'lg',
+      backdrop: 'static',
+      keyboard: false,
+    });
+    modalRef.componentInstance.client = this.client;
   }
 
   public openAssociatePlan(): void {

@@ -592,7 +592,7 @@
       <div class="row mt-4">
         <div class="col">
           <h2 class="mb-3">Curso pretendido</h2>
-          <div *ngIf="company.institutions.length === 0" class="jumbotron mb-0">
+          <div *ngIf="company.institutions.length === 0" class="jumbotron">
             <h5>Sua empresa ainda não está associada a nenhuma instituição de ensino. Vá até as <a [routerLink]="['/company', 'settings']" class="text-primary">configurações da empresa</a> e associe as instituições que sua empresa oferece.</h5>
           </div>
           <div *ngIf="company.institutions.length > 0">
