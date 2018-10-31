@@ -123,7 +123,6 @@ export class ClientComponent implements OnInit {
 
   public openSendMessages(): void {
     const modalRef = this.ngbModal.open(SendMessagesComponent, {
-      size: 'lg',
       backdrop: 'static',
       keyboard: false,
     });
