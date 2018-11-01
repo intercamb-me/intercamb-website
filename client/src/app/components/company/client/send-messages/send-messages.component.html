@@ -1,0 +1,41 @@
+<div *ngIf="!loading" id="send-messages">
+  <form #form="ngForm" novalidate>
+    <div class="modal-header">
+      <h4 class="modal-title">E-mails</h4>
+      <button (click)="close()" type="button" class="close" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div *ngIf="company.message_templates.length === 0" class="jumbotron">
+        <p class="mb-0">Nenhum template de e-mail cadastrado. Acesse a página de <a [routerLink]="['/company', 'settings']" (click)="close()" class="btn-link">configurações da empresa</a> para cadastrar novos templates.</p>
+      </div>
+      <ng-container *ngIf="company.message_templates.length > 0">
+        <ng-container *ngFor="let messageTemplate of company.message_templates; let idx = index; trackBy: trackByMessageTemplate">
+          <div class="row align-items-center">
+            <div class="col">
+              <h5 class="mb-0">{{ messageTemplate.identifier }}</h5>
+            </div>
+            <div class="col-auto">
+              <button
+                *ngIf="!messageTemplateWasSent(messageTemplate)"
+                (click)="sendMessageTemplate(messageTemplate)"
+                type="button"
+                class="btn btn-primary">
+                Enviar
+              </button>
+              <button
+                *ngIf="messageTemplateWasSent(messageTemplate)"
+                type="button"
+                class="btn btn-dark"
+                disabled>
+                Enviado
+              </button>
+            </div>
+          </div>
+          <hr *ngIf="idx < company.message_templates.length - 1"/>
+        </ng-container>
+      </ng-container>
+    </div>
+  </form>
+</div>
