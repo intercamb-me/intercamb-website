@@ -1,3 +1,29 @@
+<ng-template #confirmTestPopoverTemplate>
+  <form #form="ngForm" (ngSubmit)="testMessageTemplate()" class="test-message-template" novalidate>
+    <p class="mb-2">Será enviado um e-mail de teste para o seguinte e-mail:</p>
+    <div class="form-row">
+      <div class="col form-group mb-0">
+        <input
+          [(ngModel)]="testEmail"
+          name="test-email"
+          type="text"
+          class="form-control"
+          placeholder="E-mail"
+          autofocus
+          required>
+      </div>
+      <div class="col-auto form-group mb-0">
+        <button
+          [disabled]="form.invalid"
+          class="btn btn-primary"
+          type="submit">
+          Enviar
+        </button>
+      </div>
+    </div>
+  </form>
+</ng-template>
+
 <div *ngIf="!loading" id="save-message-template">
   <form #form="ngForm" (ngSubmit)="!messageTemplate.id ? createMessageTemplate() : updateMessageTemplate()" novalidate>
     <div class="modal-header">
@@ -74,6 +100,16 @@
       </div>
     </div>
     <div class="modal-footer">
+      <button
+        #confirmTestPopover
+        [disabled]="form.invalid || saving"
+        [ngbPopover]="confirmTestPopoverTemplate"
+        [autoClose]="'outside'"
+        placement="top"
+        class="btn btn-dark"
+        type="button">
+        Testar
+      </button>
       <button
         *ngIf="!messageTemplate.id"
         [disabled]="form.invalid || saving"

@@ -81,4 +81,17 @@ export class MessageTemplateService {
       })
     );
   }
+
+  public testMessageTemplate(email: string, data: any): Observable<void> {
+    const httpUrl = RequestUtils.getApiUrl('/message_templates/test');
+    const httpOptions = RequestUtils.getJsonOptions();
+    return this.httpClient.post<void>(httpUrl, {email, template: data}, httpOptions).pipe(
+      map(() => null),
+      catchError((err: HttpErrorResponse) => {
+        const apiError = ApiError.withResponse(err);
+        this.eventService.publish(EventService.EVENT_API_ERROR, apiError);
+        return throwError(apiError);
+      })
+    );
+  }
 }
