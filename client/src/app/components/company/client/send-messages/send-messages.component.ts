@@ -1,7 +1,6 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {mergeMap} from 'rxjs/operators';
-import snakeCase from 'lodash-es/snakeCase';
 
 import {CompanyService} from '@services/company.service';
 import {ClientService} from '@services/client.service';
