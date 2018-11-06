@@ -19,6 +19,7 @@
             <div class="col-auto">
               <button
                 *ngIf="!messageTemplateWasSent(messageTemplate)"
+                [disabled]="sending"
                 (click)="sendMessageTemplate(messageTemplate)"
                 type="button"
                 class="btn btn-primary">

@@ -51,16 +51,13 @@ export class SendMessagesComponent implements OnInit {
   }
 
   public messageTemplateWasSent(messageTemplate: MessageTemplate): boolean {
-    return this.client.metadata.messages_sent && this.client.metadata.messages_sent.has(messageTemplate.id);
+    return this.client.metadata.messages_sent.has(messageTemplate.id);
   }
 
   public sendMessageTemplate(messageTemplate: MessageTemplate): void {
     this.sending = true;
     this.messageTemplateService.sendMessageTemplate(messageTemplate, this.client).subscribe(() => {
-      if (!this.client.metadata.messages_sent) {
-        this.client.metadata.messages_sent = new Set();
-      }
-      this.client.metadata.messages_sent.add(snakeCase(messageTemplate.identifier));
+      this.client.metadata.messages_sent.add(messageTemplate.id);
       this.alertService.success('E-mail enviado com sucesso!');
     }, (err) => {
       this.sending = false;
